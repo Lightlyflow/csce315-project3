@@ -4,5 +4,5 @@
 P_KEY="LightsailDefaultKey-us-east-2.pem"
 
 chmod 600 "$P_KEY"
-ssh -i LightsailDefaultKey-us-east-2.pem ubuntu@3.138.69.24
+ssh -i "$P_KEY" ubuntu@3.138.69.24
 
