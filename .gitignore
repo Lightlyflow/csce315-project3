@@ -1,0 +1,14 @@
+# PyCharm
+.idea/
+
+
+# Python
+__pycache__/
+.venv/
+
+# Our key
+**/LightsailDefaultKey-us-east-2.pem
+
+# Vercel
+.vercel/
+.vercel
