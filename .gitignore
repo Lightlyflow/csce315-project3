@@ -7,4 +7,4 @@ __pycache__/
 .venv/
 
 # Our key
-LightsailDefaultKey-us-east-2.pem
+**/LightsailDefaultKey-us-east-2.pem
