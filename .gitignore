@@ -8,3 +8,7 @@ __pycache__/
 
 # Our key
 **/LightsailDefaultKey-us-east-2.pem
+
+# Vercel
+.vercel/
+.vercel
