@@ -11,3 +11,6 @@ Follow [this link](https://aws.amazon.com/tutorials/serve-a-flask-app/).
 ```aws lightsail get-container-services```
 4. Push to lightsail container (make sure you are project root) \
 ```aws lightsail push-container-image --service-name flask-service --label flask-container --image flask-container```
+5. Update `containers.json` to new image version.
+6. Clean up local docker images
+7. Reconfigure deployment to use latest image
