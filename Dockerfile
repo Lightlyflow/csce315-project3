@@ -1,6 +1,9 @@
 # Set base image (host OS)
 FROM python:3.11-alpine
 
+# Add variables
+ENV FLASK_APP=api/app.py
+
 # By default, listen on port 5000
 EXPOSE 5000/tcp
 
@@ -17,4 +20,4 @@ RUN pip install -r requirements.txt
 COPY api/. /app/api/.
 
 # Specify the command to run on container start
-CMD [ "python", "api/app.py" ]
+CMD [ "flask", "run", "--host", "0.0.0.0" ]
