@@ -4,7 +4,7 @@
 
 # Python
 __pycache__/
-.venv/
+venv/
 
 # Important Stuff
 **/LightsailDefaultKey-us-east-2.pem
