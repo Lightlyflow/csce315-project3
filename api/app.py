@@ -2,7 +2,7 @@ from flask import Flask, render_template
 
 from api import manager, customer, auth, menuboard, employee
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder=None)
 app.register_blueprint(manager.blueprint, url_prefix='/manager')
 app.register_blueprint(customer.blueprint, url_prefix='/')
 app.register_blueprint(auth.blueprint, url_prefix='/auth')
