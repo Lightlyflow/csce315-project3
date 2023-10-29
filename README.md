@@ -16,5 +16,5 @@
    2. If you're on Windows
       1. Go download 3.11 from the python website
       2. WIP
-2. Run `pip install -r requirements.txt` to install libraries
+2. Run `./requirements.sh` to install libraries
 3. Run `flask --app api/app.py run` to run server
