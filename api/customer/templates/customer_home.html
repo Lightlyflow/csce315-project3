@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
 
 {% block title %}Welcome{% endblock %}
-{% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/customer.css') }}">
-{% endblock %}
 
 {% block body %}
     <h1>Welcome customer!</h1>
+    <p class="icon">Hello</p>
     <button>
         <img height="100px" src="{{ url_for('customer.static', filename='shopping-cart.png') }}" alt="Shopping Cart">
     </button>
