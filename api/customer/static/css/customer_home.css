@@ -96,13 +96,8 @@ a:hover {color:#262f48}
     padding:  22px 0 22px 0;
     cursor: pointer;
     width: fit-content;
-    /*Prevent user from copying the data. Easy to accidentally select text*/
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Edge */
-    user-select: none; 
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .menuDropdown.active {
@@ -152,15 +147,44 @@ a:hover {color:#262f48}
     padding: 100px;
 }
 
-.menuText {
+.menuItemName {
     height: 4rem;
     text-align: center;
     text-overflow: ellipsis;
     overflow: hidden;
+    font-size: 1.1rem;
+    
+}
+
+.menuItemcalories {
+    font-size: 1rem;
 }
 
 .modal-backdrop {
     background-color: transparent;
     z-index: 100;
 }
-  
+
+.btnMenu {
+  align-items: center;
+  background-color: #fff;
+  border-radius: 13px;
+  box-shadow: transparent 0 0 0 3px,rgba(18, 18, 18, 0.176) 0 6px 20px;
+  box-sizing: border-box;
+  color: #121212;
+  cursor: pointer;
+  font-size: .8 rem;
+  font-weight: 200;
+  line-height: 1;
+  padding: .7rem 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s,-webkit-box-shadow .2s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.btnMenu:hover {
+  box-shadow: #121212 0 0 0 3px, transparent 0 0 0 0;
+}

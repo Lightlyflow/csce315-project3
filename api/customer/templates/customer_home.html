@@ -45,9 +45,12 @@
             <div class = "menuItems">
                 {% for item in menuItems[category] %}
                 <div class = "menuItemBox">
-                    <p class = "menuText">
+                    <p class = "menuItemName">
                         {{item}}
-                    </p> 1,400 Kcal </p>
+                    </p>
+                    <p class = "menuItemcalories"> 
+                        1,400 Kcal 
+                    </p>
                     <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this)">
                         Customize
                     </button>
