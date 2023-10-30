@@ -1,11 +1,29 @@
-{% extends 'base.html' %}
-
-{% block title %}Welcome{% endblock %}
-
-{% block body %}
-    <h1>Welcome customer!</h1>
-    <p class="icon">Hello</p>
-    <button>
-        <img height="100px" src="{{ url_for('customer.static', filename='shopping-cart.png') }}" alt="Shopping Cart">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project 3 - Customer</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('customer.static', filename='css/customer.css') }}">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</head>
+<body>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal" data-backdrop="false">
+        <img height="80px" src="{{ url_for('customer.static', filename='shopping-cart.png') }}" alt="Shopping Cart">
     </button>
-{% endblock %}
+    <div class="modal modal-md" id="modal">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header justify-content-center">
+                    <h2>Shopping Cart</h1>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, repellat provident? Veritatis impedit facere reprehenderit laborum officiis fugiat explicabo dolor vel eveniet ratione mollitia harum, aliquid dolore aspernatur reiciendis dolorem nam aut inventore sint repellat eum perferendis iste nisi tempora. Amet eos, maiores quia libero aut maxime suscipit numquam corporis, porro quae mollitia. Dicta corporis distinctio non consequuntur ipsa voluptate dolorem neque quasi provident qui et totam odio facilis quisquam repudiandae amet temporibus sint veniam ipsum ad similique, odit fugiat, cum iure! Aspernatur similique ab voluptatibus sapiente dolor? Dolorem, cupiditate. Facere excepturi ut eum dolorum quasi nostrum eos molestias laboriosam aspernatur, non ipsam est deserunt itaque. Corrupti quae aperiam accusamus, consectetur quos earum nam dolorum molestias, fugiat eveniet voluptatem optio. Odio, cumque dolor aperiam, obcaecati et praesentium velit minus reiciendis ab iure doloribus magni perferendis recusandae natus eius quae porro hic vitae. Repudiandae, sequi odit? A voluptas, vitae voluptatem asperiores nihil quos nesciunt fuga aspernatur reiciendis provident nostrum eos inventore aperiam quis atque. Magni voluptas cupiditate, rerum saepe ullam aperiam dignissimos sunt dolor. Delectus repellat doloribus aliquam molestias dolor! Officia architecto esse aliquam assumenda itaque molestiae, quibusdam rerum, eos quis quas recusandae quisquam fugiat reiciendis fugit illo iusto commodi pariatur.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary">Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

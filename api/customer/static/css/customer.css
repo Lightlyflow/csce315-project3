@@ -1,4 +1,3 @@
-.icon {
-    margin-top: 100px;
-    color: red;
+.modal-backdrop {
+  background-color: transparent;
 }
