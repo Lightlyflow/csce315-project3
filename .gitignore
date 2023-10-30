@@ -10,7 +10,7 @@ env/
 
 # Important Stuff
 **/LightsailDefaultKey-us-east-2.pem
-**/.env
+**/*.env
 
 # Vercel
 .vercel/
