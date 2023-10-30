@@ -13,7 +13,7 @@ def getUserByEmail(email: str) -> User | None:
     # If it does exist
     result = result[0]
     # TODO :: Check if manager
-    return User(result[0], result[1], result[2], bool(result[3]))
+    return User(result[0], result[1], result[2], _employeeID=result[3])
 
 
 def getUserById(user_id: str):
@@ -27,7 +27,7 @@ def getUserById(user_id: str):
     # If it does exist
     result = result[0]
     # TODO :: Check if manager
-    return User(result[0], result[1], result[2], bool(result[3]))
+    return User(result[0], result[1], result[2], _employeeID=result[3])
 
 
 def createUser(email: str) -> User:

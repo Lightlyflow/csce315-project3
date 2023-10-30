@@ -5,14 +5,18 @@ def getUserByEmail(email: str):
     return execute(f"SELECT user_id, username, email, employee_id FROM user_table WHERE email='{email}';")
 
 
-def getUserById(user_id: int):
-    return execute(f"SELECT user_id, username, email, employee_id FROM user_table WHERE user_id={user_id};")
+def getUserById(userId: int):
+    return execute(f"SELECT user_id, username, email, employee_id FROM user_table WHERE user_id={userId};")
 
 
 def addUser(email: str):
     username = email.split("@")[0]
     execute(f"INSERT INTO user_table(username, email) VALUES ('{username}', '{email}');",
             getRet=False)
+
+
+def getEmployeeById(employeeId: int):
+    return execute(f"SELECT name, employeeId, isManager FROM employee_table WHERE employeeid={employeeId};")
 
 
 def _createUserTable():
