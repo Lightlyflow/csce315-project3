@@ -153,6 +153,8 @@ a:hover {color:#262f48}
     text-overflow: ellipsis;
     overflow: hidden;
     font-size: 1.1rem;
+    font-weight: bold;
+
 
     @supports (-webkit-line-clamp: 2) {
         overflow: hidden;
@@ -165,8 +167,12 @@ a:hover {color:#262f48}
 }
 
 
-.menuItemcalories {
-    font-size: 1rem;
+.menuItemCalories {
+    font-size: .95rem;
+}
+
+.menuItemPrice {
+    font-size: 1.1rem;
 }
 
 .modal-backdrop {
