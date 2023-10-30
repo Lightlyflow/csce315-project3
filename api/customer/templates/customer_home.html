@@ -44,17 +44,19 @@
             </div>
             <div class = "menuItems">
                 {% for item in menuItems[category] %}
-                <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this)">
-                    <p class = "menuItem">
+                <div class = "menuItemBox">
+                    <p class = "menuText">
                         {{item}}
-                    </p>
-                </button>
+                    </p> 1,400 Kcal </p>
+                    <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this)">
+                        Customize
+                    </button>
+                </div>
                 {% endfor %}
             </div>
 
         </div>
         {% endfor %}
-        <script src="{{ url_for('customer.static', filename='js/customer_home.js') }}"></script> 
 
 
         <div class="container">

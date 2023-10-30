@@ -96,6 +96,13 @@ a:hover {color:#262f48}
     padding:  22px 0 22px 0;
     cursor: pointer;
     width: fit-content;
+    /*Prevent user from copying the data. Easy to accidentally select text*/
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Edge */
+    user-select: none; 
 }
 
 .menuDropdown.active {
@@ -119,7 +126,6 @@ a:hover {color:#262f48}
     cursor: pointer;
 }
 
-
 .menuCategory {
     width: 100%;
     cursor: pointer;
@@ -129,13 +135,28 @@ a:hover {color:#262f48}
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
+.menuItemBox {
+    margin: 20px;
+    width: 15%;
+    text-align: center;
+    /*background-color: #ff9999;*/
+}
+
 .menuItem {
-    width: 30%;
+    width: 20%;
     height: 100px;
+    padding: 100px;
+}
+
+.menuText {
+    height: 4rem;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .modal-backdrop {
