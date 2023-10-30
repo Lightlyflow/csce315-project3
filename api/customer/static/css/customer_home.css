@@ -17,20 +17,27 @@ a {
 }
 a:hover {color:#262f48}
 
-.navBar {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
+.navStatic {
     position: fixed;
+    height: 100px;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 9999;
 }
 
+.navBar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 10px; 
+    box-sizing: border-box;
+}
+
 .content {
     width: 100vw;
-    top: 40px;
+    top: 1000px;
+    margin-top: 50px; 
     min-height: calc(100vh - 95px);
     background: linear-gradient( to bottom, rgb(255, 255, 255), rgb(176, 176, 176));
     display: flex;
