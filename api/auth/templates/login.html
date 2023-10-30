@@ -5,7 +5,14 @@
 {% block body %}
     <h1>Login</h1>
     <p>
+    {% if current_user.is_authenticated %}
+        <p>Hello {{ current_user.username }}</p>
+        <p>Email: {{ current_user.email }}</p>
+        <p>isEmployee: {{ current_user.isEmployee }}</p>
+        <p>isManager: {{ current_user.isManager }}</p>
+        <a class="btn btn-primary" href="{{ url_for('auth.logout') }}">Logout</a>
+    {% else %}
         <a class="btn btn-primary" href="{{ url_for('auth.oauth2_authorize', provider='google') }}">Login with Google</a>
-{#        <a class="btn btn-primary" href="{{ url_for('auth.oauth2_authorize', provider='github') }}">Login with GitHub</a>#}
+    {% endif %}
     </p>
 {% endblock %}

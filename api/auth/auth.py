@@ -3,33 +3,42 @@ from urllib.parse import urlencode
 
 import requests as requests
 from flask import Blueprint, render_template, redirect, url_for, current_app, abort, session, request, flash
-from flask_login import LoginManager, current_user, login_user
+from flask_login import LoginManager, current_user, login_user, logout_user
 
 from .user import User
+from .auth_helper import getUserByEmail, createUser, getUserById
 
 """
 CREDIT: https://blog.miguelgrinberg.com/post/oauth-authentication-with-flask-in-2023
 """
 
-
 authBlueprint = Blueprint("auth", __name__, template_folder="templates")
-login = LoginManager()
+loginManager = LoginManager()
 
 
-@login.user_loader
-def load_user(user_id):
-    pass
+@loginManager.user_loader
+def load_user(user_id) -> User | None:
+    print(f"{user_id = }")
+    return getUserById(user_id)
 
 
 @authBlueprint.route("/")
 def home():
+    print(f"{current_user = }")
     return render_template("login.html")
+
+
+@authBlueprint.route("/logout")
+def logout():
+    logout_user()
+    flash("You have been logged out.")
+    return redirect(url_for("auth.home"))
 
 
 @authBlueprint.route("/<provider>")
 def oauth2_authorize(provider: str):
     if not current_user.is_anonymous:
-        return redirect(url_for('index'))
+        return redirect(url_for('customer.home'))
 
     provider_data = current_app.config['OAUTH2_PROVIDERS'].get(provider)
     if provider_data is None:
@@ -44,7 +53,7 @@ def oauth2_authorize(provider: str):
     # create a query string with all the OAuth2 parameters
     qs = urlencode({
         'client_id': provider_data['client_id'],
-        'redirect_uri': url_for('oauth2_callback', provider=provider,
+        'redirect_uri': url_for('auth.oauth2_callback', provider=provider,
                                 _external=True),
         'response_type': 'code',
         'scope': ' '.join(provider_data['scopes']),
@@ -58,7 +67,7 @@ def oauth2_authorize(provider: str):
 @authBlueprint.route('/callback/<provider>')
 def oauth2_callback(provider):
     if not current_user.is_anonymous:
-        return redirect(url_for('index'))
+        return redirect(url_for('customer.home'))
 
     provider_data = current_app.config['OAUTH2_PROVIDERS'].get(provider)
     if provider_data is None:
@@ -69,7 +78,7 @@ def oauth2_callback(provider):
         for k, v in request.args.items():
             if k.startswith('error'):
                 flash(f'{k}: {v}')
-        return redirect(url_for('index'))
+        return redirect(url_for('customer.home'))
 
     # make sure that the state parameter matches the one we created in the
     # authorization request
@@ -86,7 +95,7 @@ def oauth2_callback(provider):
         'client_secret': provider_data['client_secret'],
         'code': request.args['code'],
         'grant_type': 'authorization_code',
-        'redirect_uri': url_for('oauth2_callback', provider=provider,
+        'redirect_uri': url_for('auth.oauth2_callback', provider=provider,
                                 _external=True),
     }, headers={'Accept': 'application/json'})
     if response.status_code != 200:
@@ -105,12 +114,13 @@ def oauth2_callback(provider):
     email = provider_data['userinfo']['email'](response.json())
 
     # find or create the user in the database
-    user = db.session.scalar(db.select(User).where(User.email == email))
+    user = getUserByEmail(email)
     if user is None:
-        user = User(email=email, username=email.split('@')[0])
-        db.session.add(user)
-        db.session.commit()
+        user = createUser(email)
 
     # log the user in
-    login_user(user)
-    return redirect(url_for('index'))
+    print(f"{user = }")
+    login_status = login_user(user)
+    print(f"{login_status = }")
+    # TODO :: Add options for employee or manager to go to their pages
+    return redirect(url_for('customer.home'))

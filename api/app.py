@@ -3,13 +3,16 @@ import os
 from dotenv import load_dotenv
 from flask import Flask
 
+# This must happen before the other modules are loaded!
+load_dotenv()
+
 from api import manager, customer, auth, menuboard, employee
 
-load_dotenv()
 
 app = Flask(__name__, static_folder=None)
 
 # OAuth2 stuff
+app.config['SECRET_KEY'] = os.environ["SECRET_KEY"]
 app.config['OAUTH2_PROVIDERS'] = {
     # Google OAuth 2.0 documentation:
     # https://developers.google.com/identity/protocols/oauth2/web-server#httprest

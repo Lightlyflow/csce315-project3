@@ -1,4 +1,4 @@
-from .auth import authBlueprint, login
+from .auth import authBlueprint, loginManager
 
 blueprint = authBlueprint
-loginManager = login
+loginManager = loginManager
