@@ -12,19 +12,17 @@ from .auth_helper import getUserByEmail, createUser, getUserById
 CREDIT: https://blog.miguelgrinberg.com/post/oauth-authentication-with-flask-in-2023
 """
 
-authBlueprint = Blueprint("auth", __name__, template_folder="templates")
+authBlueprint = Blueprint("auth", __name__, template_folder="templates", static_folder="static")
 loginManager = LoginManager()
 
 
 @loginManager.user_loader
 def load_user(user_id) -> User | None:
-    print(f"{user_id = }")
     return getUserById(user_id)
 
 
 @authBlueprint.route("/")
 def home():
-    print(f"{current_user = }")
     return render_template("login.html")
 
 
@@ -119,8 +117,6 @@ def oauth2_callback(provider):
         user = createUser(email)
 
     # log the user in
-    print(f"{user = }")
-    login_status = login_user(user)
-    print(f"{login_status = }")
+    login_user(user)
     # TODO :: Add options for employee or manager to go to their pages
     return redirect(url_for('customer.home'))
