@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/customer_home.css') }}">
-    <script type="text/javascript" src="{{ url_for('static', filename='js/customer_home.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('customer.static', filename='css/customer_home.css') }}">
+    <script type="text/javascript" src="{{ url_for('customer.static', filename='js/customer_home.js') }}"></script>
     <title>Project 3 - Self Checkout</title>
 
 </head>
 <body>
     <div class = "navBar">
         <div class = "shareTeaLogo">
-            <img src="{{ url_for('static', filename='shareTeaLogo.png') }}" alt="ShareTea logo", height="100px">
+            <img src="{{ url_for('customer.static', filename='shareTeaLogo.png') }}" alt="ShareTea logo", height="100px">
         </div>
 
         <div class = "checkout">
@@ -19,28 +19,20 @@
         </div>
     </div>
     <div class = "content">  
+        {% for category in menuCategories %}
         <div class = "menuDropdown" id = "dropdown" onclick = "toggleHeight(this)">
-            <h1>Seasonal Items</h1>
+            <h1>{{ category }}</h1>
             <div class = "menuItems">
+                {% for item in menuItems[category] %}
                 <p class = "menuItem">
-                    Sweet Tea
+                    {{item}}
                 </p>
-                <p class = "menuItem">
-                    Mango Peach Tea
-                </p>
-                <p class = "menuItem">
-                    Trevor Tea
-                </p>
-                <p class = "menuItem">
-                    Timothy Tea
-                </p>
-                <p class = "menuItem">
-                    Titus Tea
-                </p>
+                {% endfor %}
             </div>
 
         </div>
-        <script src="{{ url_for('static', filename='js/customer_home.js') }}"></script> 
+        {% endfor %}
+        <script src="{{ url_for('customer.static', filename='js/customer_home.js') }}"></script> 
 
     </div>
 </body>

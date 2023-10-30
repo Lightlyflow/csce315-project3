@@ -3,7 +3,7 @@ body{
     margin:0;
     font-family: 'Helvetica';
     z-index: 1;
-    background-color: rgb(163, 163, 163);
+    background-color: rgb(255, 255, 255);
 }
 p {
     font-size: 16px;
@@ -11,7 +11,6 @@ p {
     font-size: medium;
     line-height: 1.45;
 }
-
 
 a {
     color:#1c87c9;text-decoration: none; transition:.2s;
@@ -22,9 +21,12 @@ a:hover {color:#262f48}
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
 }
-
-
 
 .content {
     width: 100vw;
@@ -33,6 +35,8 @@ a:hover {color:#262f48}
     background: linear-gradient( to bottom, rgb(255, 255, 255), rgb(176, 176, 176));
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 .menuDropdown {
@@ -50,7 +54,7 @@ a:hover {color:#262f48}
 }
 
 .menuDropdown.active {
-    max-height: 200px;
+    max-height: fit-content;
 }
 
 .menuDropdown:has(:not(.active)) h1::after {
@@ -76,6 +80,7 @@ a:hover {color:#262f48}
 .menuItems {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
 }
