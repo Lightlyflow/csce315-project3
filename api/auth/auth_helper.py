@@ -21,7 +21,7 @@ def getUserById(user_id: str):
     result = auth_querier.getUserById(int(user_id))
 
     # If it doesn't exist
-    if len(result) == 0:
+    if result is None or len(result) == 0:
         return None
 
     # If it does exist
