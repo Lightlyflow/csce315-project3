@@ -1,0 +1,104 @@
+body{
+    padding:0;
+    margin:0;
+    font-family: 'Helvetica';
+    z-index: 1;
+    background-color: rgb(255, 255, 255);
+}
+p {
+    font-size: 16px;
+    word-wrap: break-word;
+    font-size: medium;
+    line-height: 1.45;
+}
+
+a {
+    color:#1c87c9;text-decoration: none; transition:.2s;
+}
+a:hover {color:#262f48}
+
+.navStatic {
+    position: fixed;
+    height: 100px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+}
+
+.navBar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 10px; 
+    box-sizing: border-box;
+}
+
+.content {
+    width: 100vw;
+    top: 1000px;
+    margin-top: 50px; 
+    min-height: calc(100vh - 95px);
+    background: linear-gradient( to bottom, rgb(255, 255, 255), rgb(176, 176, 176));
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.menuDropdown {
+    overflow: hidden;
+    max-height: 50px; 
+    transition: max-height 0.5s ease-in-out; 
+    width: 60%;
+    z-index: 3;
+    padding: 30px;
+    background: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    border-radius: 5px;
+    margin: 50px 0 40px;
+    cursor: pointer;
+}
+
+.menuDropdown.active {
+    max-height: fit-content;
+}
+
+.menuDropdown:has(:not(.active)) h1::after {
+    content: "Read more";
+}
+
+.menuDropdown .active h1::after {
+    content: "Read less";
+}
+
+.menuDropdown h1 {
+    width: fit-content;
+}
+
+.menuDropdown h1::after {
+    color: blue;
+    padding-left: 15px;
+    font-size: 16px;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.menuItems {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menuItem {
+    width: 30%;
+    height: 100px;
+
+}
+
+.modal-backdrop {
+    background-color: transparent;
+  }
+  
