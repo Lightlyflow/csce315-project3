@@ -1,7 +1,9 @@
 function toggleHeight(element) {
     element.classList.toggle("active");
-}//Ice level value
 
-//Sweetness Level value
+    var menuDropDown = element.parentElement;
 
-//Topping value, 
+    if (menuDropDown && element !== menuDropDown) {
+        menuDropDown.classList.toggle("active");
+    }
+}

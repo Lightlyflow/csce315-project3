@@ -26,28 +26,29 @@
         </div>
     </div>
 
-    <div class = "navStatic">
-        <div class = "navBar">
-            <div class = "shareTeaLogo">
-                <img src="{{ url_for('customer.static', filename='shareTeaLogo.png') }}" alt="ShareTea logo", height="100px">
-            </div>
+    <div class = "shareTeaLogo">
+        <img src="{{ url_for('customer.static', filename='shareTeaLogo.png') }}" alt="ShareTea logo", height="100px">
+    </div>
 
-            <div class = "checkout">
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal" data-backdrop="false">
-                    <img height="80px" src="{{ url_for('customer.static', filename='shopping-cart.png') }}" alt="Shopping Cart">
-                </button>
-            </div>
-        </div>
+    <div class = "checkout">
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal" data-backdrop="false">
+            <img height="80px" src="{{ url_for('customer.static', filename='shopping-cart.png') }}" alt="Shopping Cart">
+        </button>
+
     </div>
     <div class = "content">  
         {% for category in menuCategories %}
-        <div class = "menuDropdown" id = "dropdown" onclick = "toggleHeight(this)">
-            <h1>{{ category }}</h1>
+        <div class = "menuDropdown" id = "dropdown">
+            <div class = "menuCategory" onclick = "toggleHeight(this)">
+                <h1>{{ category }}</h1>
+            </div>
             <div class = "menuItems">
                 {% for item in menuItems[category] %}
-                <p class = "menuItem">
-                    {{item}}
-                </p>
+                <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this)">
+                    <p class = "menuItem">
+                        {{item}}
+                    </p>
+                </button>
                 {% endfor %}
             </div>
 
@@ -57,7 +58,6 @@
 
 
         <div class="container">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#customizationModal">Open</button>
             <div class="modal fade" id="customizationModal">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
@@ -143,7 +143,7 @@
                     </div>
                 </div>
             </div>
-        </div>-->
+        </div>
 
     </div>
 </body>
