@@ -23,7 +23,7 @@ a:hover {color:#262f48}
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 9999;
+    z-index: 10;
 }
 
 .navBar {
@@ -48,8 +48,7 @@ a:hover {color:#262f48}
 
 .menuDropdown {
     overflow: hidden;
-    max-height: 50px; 
-    transition: max-height 0.5s ease-in-out; 
+    max-height: 90px;
     width: 60%;
     z-index: 3;
     padding: 30px;
@@ -95,10 +94,10 @@ a:hover {color:#262f48}
 .menuItem {
     width: 30%;
     height: 100px;
-
 }
 
 .modal-backdrop {
     background-color: transparent;
-  }
+    z-index: 100;
+}
   
