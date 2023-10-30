@@ -17,4 +17,9 @@
       1. Go download 3.11 from the python website
       2. WIP
 2. Run `./requirements.sh` to install libraries
-3. Run `flask --app api/app.py run` to run server
+   1. If you don't have perms `chmod u+x requirments.sh`
+3. If you don't have the `.env` file in the `api` folder:
+   1. Go and download the file from the Google Drive project folder
+   2. Rename the file to `.env`
+   3. Move the file into the `api` folder
+4. Run `flask --app api/app.py run` to run server
