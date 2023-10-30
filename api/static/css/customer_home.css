@@ -72,3 +72,16 @@ a:hover {color:#262f48}
     font-weight: normal;
     cursor: pointer;
 }
+
+.menuItems {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menuItem {
+    width: 30%;
+    height: 100px;
+
+}
