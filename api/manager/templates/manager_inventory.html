@@ -1,7 +1,32 @@
 {% extends 'manager_base.html' %}
 
 {% block title %}Inventory{% endblock %}
+{% block head %}
+    <script src="{{ url_for('manager.static', filename='js/inventory.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('manager.static', filename='css/inventory.css') }}">
+{% endblock %}
 
 {% block body %}
-    <h1>Manage Inventory</h1>
+    <div class="container-fluid">
+        <table id="inventoryTable" class="table table-bordered table-striped" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th scope="col">Inventory ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Restock Threshold</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in inventory %}
+                <tr>
+                    <th scope="row">{{ row['inventoryid'] }}</th>
+                    <td>{{ row['name'] }}</td>
+                    <td>{{ row['quantity'] }}</td>
+                    <td>{{ row['restockthreshold'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
 {% endblock %}

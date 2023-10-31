@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template
+from .manager_helper import getInventory
 
 managerBlueprint = Blueprint("manager", __name__, template_folder="templates", static_folder="static")
 
@@ -20,7 +21,8 @@ def employees():
 
 @managerBlueprint.route("/inventory")
 def inventory():
-    return render_template("manager_inventory.html")
+    allInventory = getInventory()
+    return render_template("manager_inventory.html", inventory=allInventory)
 
 
 @managerBlueprint.route("/menu")
