@@ -68,3 +68,20 @@ function dropdownFill(val, id) {
     var y = document.getElementById(id);
     var aNode = y.innerHTML = val + ' <span class="caret"></span>'; // Append 
 }
+
+function sendSavedItemsToServer() {
+    var savedItems = JSON.parse(localStorage.getItem("savedItems"));
+
+    if (savedItems && savedItems.length > 0) {
+        var data = { savedItems: savedItems };
+
+        fetch('/post_endpoint', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        emptyCart();
+    }
+}

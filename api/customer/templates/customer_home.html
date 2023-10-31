@@ -25,7 +25,8 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-primary" onclick="emptyCart()">Clear Cart</button>
-                    <button class="btn btn-primary">Checkout</button>
+                    <input type="hidden" id="data">
+                    <button class="btn btn-primary" onclick="sendSavedItemsToServer()">Checkout</button>
                 </div>
             </div>
         </div>
@@ -39,8 +40,13 @@
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal" data-backdrop="false">
             <img height="80px" src="{{ url_for('customer.static', filename='shopping-cart.png') }}" alt="Shopping Cart">
         </button>
-
     </div>
+
+    <div class = "weatherWidget">
+        <p>{{temperature}}°</p>
+        <h2>{{conditions}}</h2>
+    </div>
+
     <div class = "content">  
         {% for category in menuCategories %}
         <div class = "menuDropdown" id = "dropdown">
@@ -51,13 +57,13 @@
                 {% for item in menuItems[category] %}
                 <div class = "menuItemBox">
                     <p class = "menuItemName">
-                        {{item}}
+                        {{item[0]}}
                     </p>
                     <p class = "menuItemCalories"> 
                         1,400 Kcal 
                     </p>
                     <p class = "menuItemPrice">
-                        $10.00
+                        ${{'%0.2f' % item[1]|float}}
                     </p>
                     <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this);saveItem('{{ item }}')">
                         Customize
