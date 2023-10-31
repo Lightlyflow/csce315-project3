@@ -20,9 +20,11 @@
                     <div class="card-body">
                         <h2 class="card-title">{{ category }}</h2>
                         <div class="card-text">
-                            {% for item in menuItems[category] %}
-                                <p>{{item[0]}}</p>
-                            {% endfor %}
+                            <ul>
+                                {% for item in menuItems[category] %}
+                                <li>{{item[0]}} ${{'%0.2f' % item[1]|float}}</li>
+                                {% endfor %}
+                            </ul>
                         </div>
                     </div>
                 </div>
