@@ -56,7 +56,10 @@ a:hover {color:#262f48}
 }
 
 .weatherWidget {
+    user-select: none;
+    -webkit-user-select: none;
     border-radius: 1rem;
+    z-index: 9;
     position: fixed;
     left: 0;
     padding: 15px;
