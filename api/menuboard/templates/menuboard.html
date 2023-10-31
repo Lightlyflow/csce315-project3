@@ -13,16 +13,16 @@
             <div class="col">
                 <h1>Menu</h1>
             </div>
-
+            
             {% for category in menuCategories %}
             <div class = "col">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title">{{category}}</h2>
+                        <h2 class="card-title">{{ category }}</h2>
                         <div class="card-text">
-                                {% for item in menuItems[category] %}
-                                    <p>{{item}}</p>
-                                {% endfor %}
+                            {% for item in menuItems[category] %}
+                                <p>{{item[0]}}</p>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

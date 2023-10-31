@@ -1,11 +1,18 @@
-from flask import Blueprint, render_template
-from .menuboard_helper import getMenuCategories, getMenuItems
-
-menuboardBlueprint = Blueprint("menuboard", __name__, template_folder="templates")
+from flask import Flask, Blueprint, render_template
+from .menuboard_helper import getMenuCategories, getToppingNames, getMenuData
 
 
-@menuboardBlueprint.route("/")
+menuboardBlueprint = Blueprint("menuboard", __name__, template_folder="templates", static_folder = "static")
+
+@menuboardBlueprint.route("/", methods=['GET'])
 def home():
-    menuCategories = getMenuCategories()
-    menuItems = {category: getMenuItems(category) for category in menuCategories}
-    return render_template("menuboard.html")
+    # Menu items dynamic loading
+    menuQuery = getMenuData()
+    menuCategories = getMenuCategories(menuQuery)
+    print(menuCategories)
+    menuItems = {category: [(item[0], item[2]) for item in menuQuery if item[1] == category] for category in menuCategories}
+
+    # Toppings
+    toppingNames = getToppingNames()
+    
+    return render_template("menuboard.html", menuCategories=menuCategories, menuItems=menuItems, toppingNames=toppingNames)

@@ -1,16 +1,19 @@
 from api.db import menuboard_querier
 
-def getMenuCategories() -> list():
-    results = menuboard_querier.getMenuItems()
+def getMenuData():
+    return menuboard_querier.getMenuItems()
+
+def getMenuCategories(menuQuery) -> list():
+    results = menuQuery
     categories = set()
     for result in results:
         categories.add(result[1])
     return list(categories)
 
-def getMenuItems(category) ->list():
-    categories = menuboard_querier.getMenuItems()
-    menuItems = []
-    for cat in categories:
-        if category == cat[1]:
-            menuItems.append(cat[0])
-    return menuItems
+
+def getToppingNames() -> list():
+    results = menuboard_querier.getToppingNames()
+    toppingNames = []
+    for topping in results:
+        toppingNames.append(topping[0])
+    return toppingNames
