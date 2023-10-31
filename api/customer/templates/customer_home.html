@@ -18,8 +18,13 @@
                     <h2>Shopping Cart</h1>
                     <button class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, repellat provident? Veritatis impedit facere reprehenderit laborum officiis fugiat explicabo dolor vel eveniet ratione mollitia harum, aliquid dolore aspernatur reiciendis dolorem nam aut inventore sint repellat eum perferendis iste nisi tempora. Amet eos, maiores quia libero aut maxime suscipit numquam corporis, porro quae mollitia. Dicta corporis distinctio non consequuntur ipsa voluptate dolorem neque quasi provident qui et totam odio facilis quisquam repudiandae amet temporibus sint veniam ipsum ad similique, odit fugiat, cum iure! Aspernatur similique ab voluptatibus sapiente dolor? Dolorem, cupiditate. Facere excepturi ut eum dolorum quasi nostrum eos molestias laboriosam aspernatur, non ipsam est deserunt itaque. Corrupti quae aperiam accusamus, consectetur quos earum nam dolorum molestias, fugiat eveniet voluptatem optio. Odio, cumque dolor aperiam, obcaecati et praesentium velit minus reiciendis ab iure doloribus magni perferendis recusandae natus eius quae porro hic vitae. Repudiandae, sequi odit? A voluptas, vitae voluptatem asperiores nihil quos nesciunt fuga aspernatur reiciendis provident nostrum eos inventore aperiam quis atque. Magni voluptas cupiditate, rerum saepe ullam aperiam dignissimos sunt dolor. Delectus repellat doloribus aliquam molestias dolor! Officia architecto esse aliquam assumenda itaque molestiae, quibusdam rerum, eos quis quas recusandae quisquam fugiat reiciendis fugit illo iusto commodi pariatur.</div>
+                <div class="modal-body">
+                    <div class="container" id="pageCartItems">
+
+                    </div>
+                </div>
                 <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="emptyCart()">Clear Cart</button>
                     <button class="btn btn-primary">Checkout</button>
                 </div>
             </div>
@@ -54,7 +59,7 @@
                     <p class = "menuItemPrice">
                         $10.00
                     </p>
-                    <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this)">
+                    <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this);saveItem('{{ item }}')">
                         Customize
                     </button>
                 </div>
@@ -146,7 +151,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-target="#customizationModal">Close</button>
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Add to Cart</button> <!--Give functionality-->
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="populateCart()">Add to Cart</button> <!--Give functionality-->
                         </div>
                     </div>
                 </div>
