@@ -40,8 +40,8 @@ function populateCart() {
     //Resetting the customization menu after clicking add to cart
     //Topping dropdowns
     document.getElementById("topping1Dropdown").innerText = "Topping 1";
-    document.getElementById("topping2Dropdown").innerText = "Topping 2"
-    document.getElementById("topping3Dropdown").innerText = "Topping 3"
+    document.getElementById("topping2Dropdown").innerText = "Topping 2";
+    document.getElementById("topping3Dropdown").innerText = "Topping 3";
 
     //Radio buttons for ice
     var ele = document.getElementsByName("iceOptions");
