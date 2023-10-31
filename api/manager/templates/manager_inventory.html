@@ -20,6 +20,16 @@
                             <th scope="col">Restock Threshold</th>
                         </tr>
                     </thead>
+                    <tbody>
+                    {% for row in lowStock %}
+                        <tr>
+                            <th scope="row">{{ row['inventoryid'] }}</th>
+                            <td>{{ row['name'] }}</td>
+                            <td>{{ row['quantity'] }}</td>
+                            <td>{{ row['restockthreshold'] }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
                 </table>
             </div>
             <div class="col-sm-6">
