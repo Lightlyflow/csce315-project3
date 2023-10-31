@@ -53,6 +53,13 @@ a:hover {color:#262f48}
     margin-top: 20px;
     box-shadow: rgb(0 0 0 / 16%) 0px 19px 38px, rgb(0 0 0 / 12%) 0px 15px 12px;
 
+    @media (max-width: 500px) {
+        top: auto;
+        bottom: 40px;
+        left: auto;
+        right: 20px;
+    }
+
 }
 
 .weatherWidget {
@@ -86,8 +93,6 @@ a:hover {color:#262f48}
     font-size: 1.1rem;
     margin: 0;
 }
-
-
 
 .btn-primary {
     --bs-btn-bg: #ff9999;
@@ -175,6 +180,7 @@ a:hover {color:#262f48}
     width: 15%;
     text-align: center;
     /*background-color: #ff9999;*/
+    min-width: 100px;
 }
 
 .menuItem {
