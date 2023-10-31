@@ -116,10 +116,10 @@
                                     <div class="col">
                                         <div class="dropdown">
                                             <button class="btn btn-secondary dropdown-toggle" type="button" id="topping1Dropdown" data-bs-toggle="dropdown"
-                                            aria-expanded="false">Topping One</button>
+                                            aria-expanded="false">Topping 1 <span class="caret"></span></button>
                                             <ul class="dropdown-menu">
                                             {% for topping in toppingNames %}
-                                                <li>{{topping}}</li>
+                                                <li onclick="dropdownFill(this.innerHTML, 'topping1Dropdown');">{{topping}}</li>
                                             {% endfor %}
                                             </ul>
                                         </div>
@@ -127,10 +127,10 @@
                                     <div class="col">
                                         <div class="dropdown">
                                             <button class="btn btn-secondary dropdown-toggle" type="button" id="topping2Dropdown" data-bs-toggle="dropdown"
-                                            aria-expanded="false">Topping One</button>
+                                            aria-expanded="false">Topping 2 <span class="caret"></span></button>
                                             <ul class="dropdown-menu">
                                             {% for topping in toppingNames %}
-                                                <li>{{topping}}</li>
+                                                <li onclick="dropdownFill(this.innerHTML, 'topping2Dropdown');">{{topping}}</li>
                                             {% endfor %}
                                             </ul>
                                         </div>
@@ -138,10 +138,10 @@
                                     <div class="col">
                                         <div class="dropdown">
                                             <button class="btn btn-secondary dropdown-toggle" type="button" id="topping3Dropdown" data-bs-toggle="dropdown"
-                                            aria-expanded="false">Topping One</button>
+                                            aria-expanded="false">Topping 3 <span class="caret"></span></button>
                                             <ul class="dropdown-menu">
                                             {% for topping in toppingNames %}
-                                                <li>{{topping}}</li>
+                                                <li onclick="dropdownFill(this.innerHTML, 'topping3Dropdown');">{{topping}}</li>
                                             {% endfor %}
                                             </ul>
                                         </div>

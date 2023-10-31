@@ -20,5 +20,5 @@ def getToppingNames() -> list():
     results = customer_querier.getToppingNames()
     toppingNames = []
     for topping in results:
-        toppingNames.append(topping)
+        toppingNames.append(topping[0])
     return toppingNames
