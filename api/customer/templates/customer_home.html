@@ -59,6 +59,10 @@
                     <p class = "menuItemName">
                         {{item[0]}}
                     </p>
+                    <button class="btnMenuMobile" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this);holdItem('{{ item[0] }}')">
+                        {{item[0]}}
+                        ${{'%0.2f' % item[1]|float}}
+                    </button>
                     <p class = "menuItemCalories"> 
                         1,400 Kcal 
                     </p>
