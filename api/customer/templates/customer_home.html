@@ -57,13 +57,13 @@
                 {% for item in menuItems[category] %}
                 <div class = "menuItemBox">
                     <p class = "menuItemName">
-                        {{item}}
+                        {{item[0]}}
                     </p>
                     <p class = "menuItemCalories"> 
                         1,400 Kcal 
                     </p>
                     <p class = "menuItemPrice">
-                        $10.00
+                        ${{'%0.2f' % item[1]|float}}
                     </p>
                     <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this);saveItem('{{ item }}')">
                         Customize

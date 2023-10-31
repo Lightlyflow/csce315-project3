@@ -7,9 +7,8 @@ else:
     from .querier import execute
 
 
-
 def getMenuItems():
-    return execute(f"SELECT name, category FROM menu_items_table;")
+    return execute(f"SELECT name, category, price FROM menu_items_table;")
 
 if __name__ == '__main__':
     # If you want to run this, delete the period in front of the import statements in this file
