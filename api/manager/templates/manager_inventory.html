@@ -8,25 +8,44 @@
 
 {% block body %}
     <div id="tableContainer" class="container-fluid">
-        <table id="inventoryTable" class="table table-bordered table-striped" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th scope="col">Inventory ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Restock Threshold</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for row in inventory %}
-                <tr>
-                    <th scope="row">{{ row['inventoryid'] }}</th>
-                    <td>{{ row['name'] }}</td>
-                    <td>{{ row['quantity'] }}</td>
-                    <td>{{ row['restockthreshold'] }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-        </table>
+        <div class="row">
+            <div class="col-sm-6">
+                <h1 class="text-center">Low Stock</h1>
+                <table id="lowStockTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Inventory ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Restock Threshold</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="col-sm-6">
+                <h1 class="text-center">Inventory</h1>
+                <table id="inventoryTable" class="table table-bordered table-striped" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th scope="col">Inventory ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Restock Threshold</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in inventory %}
+                        <tr>
+                            <th scope="row">{{ row['inventoryid'] }}</th>
+                            <td>{{ row['name'] }}</td>
+                            <td>{{ row['quantity'] }}</td>
+                            <td>{{ row['restockthreshold'] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 {% endblock %}
+
