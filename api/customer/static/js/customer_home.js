@@ -8,9 +8,14 @@ function toggleHeight(element) {
     }
 }
 
-function saveItem(item) {
+function holdItem(item) {
+    localStorage.setItem("heldItem", JSON.stringify(item));
+}
+
+function saveItem() {
     var savedItems = JSON.parse(localStorage.getItem("savedItems")) || [];
-    savedItems.push(item);
+    var heldItem = JSON.parse(localStorage.getItem("heldItem"));
+    savedItems.push(heldItem);
     localStorage.setItem("savedItems", JSON.stringify(savedItems));
 }
 

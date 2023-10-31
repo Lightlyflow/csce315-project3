@@ -28,6 +28,10 @@ def placeOrder(menuItems):
             currentInventory = customer_querier.getIngredientQuantityInventory(component[0])
             newInventory = currentInventory[0][0] - component[1]
             customer_querier.setIngredientQuantityInventory(component[0], newInventory)
+        currentInventory = customer_querier.getIngredientQuantityInventory(12)
+        customer_querier.setIngredientQuantityInventory(12, currentInventory[0][0] - 1)
+        currentInventory = customer_querier.getIngredientQuantityInventory(13)
+        customer_querier.setIngredientQuantityInventory(13, currentInventory[0][0] - 1)
 
 def getWeather():
     api_key = os.environ["WEATHER_API_KEY"]
