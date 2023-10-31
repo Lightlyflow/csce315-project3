@@ -40,8 +40,13 @@
         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal" data-backdrop="false">
             <img height="80px" src="{{ url_for('customer.static', filename='shopping-cart.png') }}" alt="Shopping Cart">
         </button>
-
     </div>
+
+    <div class = "weatherWidget">
+        <p>{{temperature}}°</p>
+        <h2>{{conditions}}</h2>
+    </div>
+
     <div class = "content">  
         {% for category in menuCategories %}
         <div class = "menuDropdown" id = "dropdown">

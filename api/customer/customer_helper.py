@@ -1,4 +1,7 @@
 from api.db import customer_querier
+import os
+import requests
+
 
 def getMenuCategories() -> list():
     results = customer_querier.getMenuItems()
@@ -32,3 +35,12 @@ def placeOrder(menuItems):
             newInventory = currentInventory[0][0] - component[1]
             customer_querier.setIngredientQuantityInventory(component[0], newInventory)
 
+def getWeather():
+    api_key = os.environ["WEATHER_API_KEY"]
+    city_name = 'College Station'  
+    #state_code = 'TX'
+    url = f'http://api.openweathermap.org/data/2.5/weather?q={city_name}&appid={api_key}&units=imperial'
+
+    # Send a GET request to the API
+    response = requests.get(url).json()
+    return (int(response['main']['temp']), response['weather'][0]['description'])
