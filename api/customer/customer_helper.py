@@ -22,3 +22,13 @@ def getToppingNames() -> list():
     for topping in results:
         toppingNames.append(topping)
     return toppingNames
+
+def placeOrder(menuItems):
+    for menuItem in menuItems:
+        menuItemId = customer_querier.getMenuItemId(menuItem)
+        menuItemComponents = customer_querier.getMenuItemComponents(menuItemId[0][0])
+        for component in menuItemComponents:
+            currentInventory = customer_querier.getIngredientQuantityInventory(component[0])
+            newInventory = currentInventory[0][0] - component[1]
+            customer_querier.setIngredientQuantityInventory(component[0], newInventory)
+

@@ -48,3 +48,20 @@ function emptyCart() {
 document.addEventListener("DOMContentLoaded", function() {
     populateCart();
 });
+
+function sendSavedItemsToServer() {
+    var savedItems = JSON.parse(localStorage.getItem("savedItems"));
+
+    if (savedItems && savedItems.length > 0) {
+        var data = { savedItems: savedItems };
+
+        fetch('/post_endpoint', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        emptyCart();
+    }
+}
