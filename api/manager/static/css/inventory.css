@@ -8,5 +8,9 @@ table.dataTable thead .sorting_desc:after,
 table.dataTable thead .sorting_desc:before,
 table.dataTable thead .sorting_desc_disabled:after,
 table.dataTable thead .sorting_desc_disabled:before {
-    bottom: 0em;
+    bottom: 0;
+}
+
+#tableContainer {
+    padding: 5px;
 }
