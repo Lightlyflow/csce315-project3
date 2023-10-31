@@ -11,6 +11,18 @@ table.dataTable thead .sorting_desc_disabled:before {
     bottom: 0;
 }
 
-#tableContainer {
-    padding: 5px;
+.dt_row {
+    display: flex;
+    vertical-align: middle;
+    align-content: center;
+    justify-content: space-between;
+    margin: 5px;
+}
+
+#inventoryTable_filter {
+    padding-top: 0.8em;
+}
+
+#lowStockTable_filter {
+    padding-top: 0.8em;
 }
