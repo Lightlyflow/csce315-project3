@@ -65,7 +65,7 @@
                     <p class = "menuItemPrice">
                         ${{'%0.2f' % item[1]|float}}
                     </p>
-                    <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this);saveItem('{{ item }}')">
+                    <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this);saveItem('{{ item[0] }}')">
                         Customize
                     </button>
                 </div>
