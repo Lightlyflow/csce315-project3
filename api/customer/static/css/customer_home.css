@@ -218,6 +218,7 @@ a:hover {color:#262f48}
 }
 
 .btnMenuMobile{
+    word-wrap: break-word;
     align-items: center;
     width: 100px;
     height: 130px;
@@ -271,7 +272,7 @@ a:hover {color:#262f48}
   font-size: .8 rem;
   font-weight: 200;
   line-height: 1;
-  padding: .7rem 1rem;
+  padding: .6rem 10%;
   text-align: center;
   text-decoration: none;
   transition: box-shadow .2s,-webkit-box-shadow .2s;
