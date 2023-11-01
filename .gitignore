@@ -4,11 +4,13 @@
 
 # Python
 __pycache__/
+venv/
 .venv/
+env/
 
-# Our key
+# Important Stuff
 **/LightsailDefaultKey-us-east-2.pem
+**/*.env
 
 # Vercel
 .vercel/
-.vercel
