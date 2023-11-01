@@ -7,7 +7,7 @@ else:
     from .querier import execute
 
 def getMenuItems():
-    return execute(f"SELECT name, category, price FROM menu_items_table;")
+    return execute(f"SELECT name, category, price FROM menu_items_table ORDER BY category;")
 
 def getToppingNames():
     return execute(f"Select name from topping_table;")

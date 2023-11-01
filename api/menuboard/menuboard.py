@@ -9,6 +9,12 @@ def home():
     # Menu items dynamic loading
     menuQuery = getMenuData()
     menuCategories = getMenuCategories(menuQuery)
+    menuCategories.sort()
+    for s in menuCategories:
+        if s == "Seasonal":
+            menuCategories.remove("Seasonal")
+            menuCategories.insert(0,"Seasonal")
+    
     print(menuCategories)
     menuItems = {category: [(item[0], item[2]) for item in menuQuery if item[1] == category] for category in menuCategories}
 
