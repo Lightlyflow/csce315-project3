@@ -183,7 +183,6 @@ a:hover {color:#262f48}
     text-align: center;
     /*background-color: #ff9999;*/
     min-width: 100px;
-    overflow: hidden;
     @media (max-width: 700px) {
         margin: 1px;
     }
