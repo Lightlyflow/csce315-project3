@@ -9,6 +9,7 @@ Follow [this link](https://aws.amazon.com/tutorials/serve-a-flask-app/).
 ```docker run -p 5000:5000 flask-container```
 3. [Optional] Check container services \
 ```aws lightsail --profile [profile] get-container-services```
+   1. If you get aws problems, type in `aws configure sso` to reconfigure aws credentials
 4. Push to lightsail container (make sure you are project root) \
 ```aws lightsail --profile [profile] push-container-image --service-name flask-service --label flask-container --image flask-container```
 5. Update `containers.json` to new image version.
