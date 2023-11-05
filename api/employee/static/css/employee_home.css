@@ -26,24 +26,6 @@ a:hover {color:#262f48}
 
 }
 
-.checkout {
-    position: fixed;
-    right: 0;
-    z-index: 12;
-    top: 0;
-    margin-right: 20px;
-    margin-top: 20px;
-    box-shadow: rgb(0 0 0 / 16%) 0px 19px 38px, rgb(0 0 0 / 12%) 0px 15px 12px;
-
-    @media (max-width: 700px) {
-        top: auto;
-        bottom: 40px;
-        left: auto;
-        right: 20px;
-    }
-
-}
-
 .weatherWidget {
     user-select: none;
     -webkit-user-select: none;
@@ -76,13 +58,42 @@ a:hover {color:#262f48}
     margin: 0;
 }
 
-.menuItemsContainer {
-    margin-top: 70px;
-
+.content {
+    width: 100vw;
+    min-height: calc(100vh);
+    background: linear-gradient( to bottom, rgb(255, 255, 255), rgb(176, 176, 176));
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
 }
 
 
+/*START CHECKOUT*/
+
+.checkout {
+    display: block;
+    margin-top: 150px;
+    height: calc(100%-150px);
+}
+/*END CHECKOUT*/
+
 /*START MENU*/
+
+.menuItemsContainer {
+    display: flex;
+    right: 0;
+    margin-top: 150px;
+    top: 0;
+    position: absolute;
+    width: 70%;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.menuContent {
+    background-color: #ff9999;
+}
 
 .menuCategory {
     width: 100%;
@@ -97,6 +108,8 @@ a:hover {color:#262f48}
 }
 
 .menuItemBox {
+    float: left;
+    display: block;
     margin: 20px;
     width: 15%;
     text-align: center;
@@ -199,21 +212,4 @@ a:hover {color:#262f48}
     bottom: 0;
     left: 0;
     pointer-events: auto; 
-}
-
-.content {
-    width: 100vw;
-    top: 0;
-    margin-top: 50px; 
-    min-height: calc(100vh - 95px);
-    background: linear-gradient( to bottom, rgb(255, 255, 255), rgb(176, 176, 176));
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    align-items: center;
-}
-
-.modal-backdrop {
-    background-color: transparent;
-    z-index: 100;
 }
