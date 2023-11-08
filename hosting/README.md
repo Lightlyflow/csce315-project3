@@ -11,7 +11,9 @@ Follow [this link](https://aws.amazon.com/tutorials/serve-a-flask-app/).
 1. Login to AWS on the command line \
    ```aws configure sso```
     1. Note: Start link will be the one in the Google Docs
-    2. Note: We are using server `us-east-2`
+    2. Note: Scope is `sso:account:access`
+    3. Note: We are using server region `us-east-2`
+    4. Note: Output format should be `json`
 2. Make sure you are in the project directory
 3. Start Docker if it isn't already started (it should be an application if you installed Docker Desktop)
     1. Note: It may take a minute or two to start up
