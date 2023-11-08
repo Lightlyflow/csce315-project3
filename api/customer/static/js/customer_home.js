@@ -56,18 +56,7 @@ document.addEventListener("DOMContentLoaded", function() {
     populateCart();
 });
 
-function dropdownFill(val, id) {
-    var y = document.getElementById(id);
-    var aNode = y.innerHTML = val + ' <span class="caret"></span>'; // Append 
-}
-
 function resetCustomization() {
-    //Resetting the customization menu after clicking add to cart
-    //Topping dropdowns, reset to empty
-    document.getElementById("topping1Dropdown").innerText = "Topping 1";
-    document.getElementById("topping2Dropdown").innerText = "Topping 2";
-    document.getElementById("topping3Dropdown").innerText = "Topping 3";
-
     //Radio buttons for ice reset to regular, the default
     var ele = document.getElementsByName("iceOptions");
     for(var i = 0; i < ele.length; i++)
@@ -76,6 +65,8 @@ function resetCustomization() {
 
     //Slider for sweetness level reset to default value 50
     document.getElementById('sweetnessLevel').value = 50;
+
+    //TO DO: reset of topping buttons
 }
 
 function sendSavedItemsToServer() {
