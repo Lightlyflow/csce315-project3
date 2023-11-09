@@ -13,9 +13,10 @@ function holdItem(item) {
 }
 
 function saveItem() {
-    let iceOptions = getElementsByName("iceOptions");
-    for (let i = 0; i < iceOptions.length; i++) {
-        if (iceOptions[i].contains(checked)) {
+    var iceOptions = document.getElementsByName("iceOptions");
+    alert("hi");
+    for (var i = 0; i < iceOptions.length; i++) {
+        if (iceOptions[i].hasAttribute("checked")) {
             var iceLevel = iceOptions[i].textContent;
         }
     }
@@ -29,6 +30,7 @@ function saveItem() {
 
     localStorage.setItem("savedItems", JSON.stringify(savedItems));
     localStorage.setItem("savedIces", JSON.stringify(savedIces));
+    alert(iceLevel);
 }
 
 function populateCart() {
