@@ -25,9 +25,13 @@
         <div class = "checkout">
             <h1 class = "totalCheckoutName">Running Total</h1>
             <div class="container" id="pageCartItems">
-    
             </div>
             <h2 class = "priceCheckout">$100.00</h2>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="emptyCart()">Clear Cart</button>
+                <input type="hidden" id="data">
+                <button class="btn btn-primary" onclick="sendSavedItemsToServer()">Checkout</button>
+            </div>
         </div>
     
 

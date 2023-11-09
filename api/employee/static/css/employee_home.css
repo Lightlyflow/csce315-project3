@@ -22,7 +22,7 @@ a:hover {color:#262f48}
     z-index: 11;
     top: 0;
     left:0;
-    margin-top: 20px;
+    margin-top: 5px;
 
 }
 
@@ -71,10 +71,27 @@ a:hover {color:#262f48}
 /*START CHECKOUT*/
 
 .checkout {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    /*display: block;*/
     margin-top: 150px;
-    height: calc(100%-150px);
+    align-items: center;
 }
+
+.priceCheckout {
+    padding-top: 10px;
+}
+
+.container {
+    padding-left: 2rem;
+    height: 60%;
+    overflow-y: auto;
+}
+
+.totalCheckoutName {
+    margin-left: 10px;
+}
+
 /*END CHECKOUT*/
 
 /*START MENU*/
