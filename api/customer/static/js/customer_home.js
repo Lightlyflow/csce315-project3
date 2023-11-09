@@ -13,10 +13,22 @@ function holdItem(item) {
 }
 
 function saveItem() {
+    let iceOptions = getElementsByName("iceOptions");
+    for (let i = 0; i < iceOptions.length; i++) {
+        if (iceOptions[i].contains(checked)) {
+            var iceLevel = iceOptions[i].textContent;
+        }
+    }
+
     var savedItems = JSON.parse(localStorage.getItem("savedItems")) || [];
     var heldItem = JSON.parse(localStorage.getItem("heldItem"));
+    var savedIces = JSON.parse(localStorage.getItem("savedIces")) || [];
+
     savedItems.push(heldItem);
+    savedIces.push(iceLevel);
+
     localStorage.setItem("savedItems", JSON.stringify(savedItems));
+    localStorage.setItem("savedIces", JSON.stringify(savedIces));
 }
 
 function populateCart() {
