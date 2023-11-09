@@ -14,10 +14,20 @@ function holdItem(item) {
 
 function saveItem() {
     var iceOptions = document.getElementsByName("iceOptions");
-    alert("hi");
     for (var i = 0; i < iceOptions.length; i++) {
-        if (iceOptions[i].hasAttribute("checked")) {
-            var iceLevel = iceOptions[i].textContent;
+        var currentOption = iceOptions[i];
+
+        if (currentOption.hasAttribute('checked')) {
+            var iceId = currentOption.getAttribute('id');
+            if (iceId == "regularIce") {
+                var iceLevel = "Regular";
+            }
+            else if (iceId == "lessIce") {
+                var iceLevel = "Less";
+            }
+            else {
+                var iceLevel = "None";
+            }
         }
     }
 
@@ -30,6 +40,7 @@ function saveItem() {
 
     localStorage.setItem("savedItems", JSON.stringify(savedItems));
     localStorage.setItem("savedIces", JSON.stringify(savedIces));
+    alert(heldItem);
     alert(iceLevel);
 }
 
