@@ -85,3 +85,5 @@ function sendSavedItemsToServer() {
         emptyCart();
     }
 }
+
+//Checks if 3 toppings are selected to limit topping boxes
