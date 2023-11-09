@@ -66,7 +66,11 @@ function resetCustomization() {
     //Slider for sweetness level reset to default value 50
     document.getElementById('sweetnessLevel').value = 100;
 
-    //TO DO: reset of topping buttons
+    //Reset of topping buttons
+    toppings = document.querySelectorAll('input[name=toppingOptions]:checked');
+    for (var i = 0; i < toppings.length; i++) {
+        toppings[i].checked = false;
+    }
 }
 
 function sendSavedItemsToServer() {
