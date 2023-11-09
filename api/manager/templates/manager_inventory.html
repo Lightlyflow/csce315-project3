@@ -9,7 +9,7 @@
 {% block body %}
     <div id="tableContainer" class="container-fluid">
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col">
                 <h1 class="text-center">Low Stock</h1>
                 <table id="lowStockTable" class="table table-bordered table-striped">
                     <thead>
@@ -31,8 +31,19 @@
                     {% endfor %}
                     </tbody>
                 </table>
+                <div class="btn-toolbar" aria-label="Order Button Group 1">
+                    <div class="btn-group m-2">
+                        <button type="button" class="btn btn-secondary">Order Selected</button>
+                        <button type="button" class="btn btn-secondary">Order All</button>
+                        <button type="button" class="btn btn-secondary">Update Threshold</button>
+                    </div>
+                    <div class="input-group m-2">
+                        <input type="text" class="form-control" aria-label="Amount or Threshold Input 1">
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-6">
+            <div class="w-100"></div>
+            <div class="col">
                 <h1 class="text-center">Inventory</h1>
                 <table id="inventoryTable" class="table table-bordered table-striped" cellspacing="0" width="100%">
                 <thead>
@@ -54,6 +65,16 @@
                     {% endfor %}
                 </tbody>
                 </table>
+                <div class="btn-toolbar" aria-label="Order Button Group 2">
+                    <div class="btn-group m-2">
+                        <button type="button" class="btn btn-secondary">Order Selected</button>
+                        <button type="button" class="btn btn-secondary">Order All</button>
+                        <button type="button" class="btn btn-secondary">Update Threshold</button>
+                    </div>
+                    <div class="input-group m-2">
+                        <input type="text" class="form-control" aria-label="Amount or Threshold Input 2">
+                    </div>
+                </div>
             </div>
         </div>
     </div>

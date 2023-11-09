@@ -8,7 +8,7 @@ $(document).ready(function () {
         dom: '<"dt_row"rif>t',
     });
     $('#lowStockTable').DataTable({
-        "scrollY": "65vh",
+        "scrollY": "50vh",
         "scrollCollapse": true,
         select: true,
         order: [[0, 'asc']],

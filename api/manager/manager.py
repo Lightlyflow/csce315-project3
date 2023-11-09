@@ -31,3 +31,7 @@ def inventory():
 @managerBlueprint.route("/menu")
 def menu():
     return render_template("manager_menu.html")
+
+
+# POST Endpoints
+
