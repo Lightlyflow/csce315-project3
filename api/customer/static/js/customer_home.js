@@ -92,3 +92,8 @@ function stopCheckTopping(element) {
         element.checked = false;
     }
 }
+
+//Gets item name to populate customization modal
+function setItemName(name) {
+    document.getElementById("customizationName").innerHTML = name;
+}
