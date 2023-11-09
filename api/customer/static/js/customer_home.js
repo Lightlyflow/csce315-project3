@@ -41,8 +41,6 @@ function populateCart() {
         rowDiv.textContent = "Your cart is empty.";
         pageCartItems.appendChild(rowDiv);
     }
-
-    resetCustomization(); //Resets modal
 }
 
 function emptyCart() {
@@ -56,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
     populateCart();
 });
 
+//Resets modal to default values
 function resetCustomization() {
     //Radio buttons for ice reset to regular, the default
     var ele = document.getElementsByName("iceOptions");
