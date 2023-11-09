@@ -125,7 +125,7 @@
                                 <div class="row row-cols-3 gy-2">
                                 {% for topping in toppingNames %}
                                     <div class="col">
-                                        <input type="checkbox" class="btn-check" name="toppingOptions" id="{{topping}}" autocomplete="off" onclick="stopCheckIf(this);">
+                                        <input type="checkbox" class="btn-check" name="toppingOptions" id="{{topping}}" autocomplete="off" onclick="stopCheckTopping(this);">
                                         <label class="btn btn-secondary" for="{{topping}}">{{topping}}</label>
                                     </div>
                                 {% endfor %}
