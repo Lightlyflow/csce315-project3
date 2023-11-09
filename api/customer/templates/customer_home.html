@@ -122,10 +122,11 @@
                                         Toppings
                                     </div>
                                 </div>
-                                <div class="row row-cols-3">
+                                <div class="row row-cols-3 gy-2">
                                 {% for topping in toppingNames %}
                                     <div class="col">
-                                        <button class="btn-check" name="toppingButton">{{topping}}</button>
+                                        <input type="radio" class="btn-check" name="toppingOptions" id={{topping}} autocomplete="off">
+                                        <label class="btn btn-secondary" for={{topping}}>{{topping}}</label>
                                     </div>
                                 {% endfor %}
                                 </div>
