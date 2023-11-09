@@ -87,3 +87,8 @@ function sendSavedItemsToServer() {
 }
 
 //Checks if 3 toppings are selected to limit topping boxes
+function stopCheckIf(element) {
+    if (document.querySelectorAll('input[name=toppingOptions]:checked').length > 3) {
+        element.checked = false;
+    }
+}
