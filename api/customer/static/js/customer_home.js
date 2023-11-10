@@ -1,14 +1,14 @@
 class MenuItem {
     constructor(name, iceLevel) {
-        this.name = name;
-        this.iceLevel = iceLevel;
+        this._name = name;
+        this._iceLevel = iceLevel;
     }
 
     get name() {
-        return this.name;
+        return this._name;
     }
     get iceLevel() {
-        return this.iceLevel;
+        return this._iceLevel;
     }
 }
 
@@ -50,7 +50,7 @@ function saveItem() {
     var savedIces = JSON.parse(localStorage.getItem("savedIces")) || [];
 
     var savedMenuItems = JSON.parse(localStorage.getItem("savedMenuItems")) || [];
-    var newItem = MenuItem(heldItem, iceLevel);
+    var newItem = new MenuItem(heldItem, iceLevel);
     savedMenuItems.push(newItem);
     localStorage.setItem("savedMenuItems", JSON.stringify(savedMenuItems));
 
@@ -64,7 +64,7 @@ function saveItem() {
 }
 
 function populateCart() {
-    var savedItems = JSON.parse(localStorage.getItem("savedItems"));
+    var savedItems = JSON.parse(localStorage.getItem("savedMenuItems"));
     var pageCartItems = document.getElementById("pageCartItems");
 
     while (pageCartItems.firstChild) {
@@ -72,10 +72,11 @@ function populateCart() {
     }
 
     if (savedItems && savedItems.length > 0) {
+        alert("Item detected");
         savedItems.forEach(function(item) {
             var rowDiv = document.createElement("div");
             rowDiv.className = "row";
-            rowDiv.textContent = item;
+            rowDiv.textContent = item._name;
             pageCartItems.appendChild(rowDiv);
         });
     }
