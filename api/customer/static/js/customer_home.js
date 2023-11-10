@@ -17,7 +17,7 @@ function saveItem() {
     for (var i = 0; i < iceOptions.length; i++) {
         var currentOption = iceOptions[i];
 
-        if (currentOption.hasAttribute('checked')) {
+        if (currentOption.checked) {
             var iceId = currentOption.getAttribute('id');
             if (iceId == "regularIce") {
                 var iceLevel = "Regular";
