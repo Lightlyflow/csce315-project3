@@ -66,7 +66,7 @@ function resetCustomization() {
     document.getElementById('sweetnessLevel').value = 100;
 
     //Reset of topping buttons
-    toppings = document.querySelectorAll('input[name=toppingOptions]:checked');
+    var toppings = document.querySelectorAll('input[name=toppingOptions]:checked');
     for (var i = 0; i < toppings.length; i++) {
         toppings[i].checked = false;
     }
