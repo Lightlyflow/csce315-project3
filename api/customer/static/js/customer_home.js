@@ -76,8 +76,18 @@ function populateCart() {
         savedItems.forEach(function(item) {
             var rowDiv = document.createElement("div");
             rowDiv.className = "row";
-            rowDiv.textContent = item._name;
             pageCartItems.appendChild(rowDiv);
+
+            var colDiv1 = document.createElement("div");
+            colDiv1.className = "col";
+            colDiv1.textContent = item._name;
+
+            var colDiv2 = document.createElement("div");
+            colDiv2.className = "col";
+            colDiv2.textContent = item._iceLevel;
+
+            rowDiv.appendChild(colDiv1);
+            rowDiv.appendChild(colDiv2);
         });
     }
     else {
