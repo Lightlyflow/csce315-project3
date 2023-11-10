@@ -71,14 +71,15 @@ function saveItem() {
         }
     }
     let unpickedToppings = 3 - toppingList.length;
-
     for (let i = 0; i < unpickedToppings; i++) {
         toppingList.push("null");
     }
 
     var heldItem = JSON.parse(localStorage.getItem("heldItem"));
+    let menuItemName = document.getElementById("customizationName").innerHTML;
+
     var savedMenuItems = JSON.parse(localStorage.getItem("savedMenuItems")) || [];
-    var newItem = new MenuItem(heldItem, iceLevel, 0, toppingList[0], toppingList[1], toppingList[2]);
+    var newItem = new MenuItem(menuItemName, iceLevel, 0, toppingList[0], toppingList[1], toppingList[2]);
 
     savedMenuItems.push(newItem);
     localStorage.setItem("savedMenuItems", JSON.stringify(savedMenuItems));
