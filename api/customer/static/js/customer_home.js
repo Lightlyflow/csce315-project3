@@ -1,3 +1,17 @@
+class MenuItem {
+    constructor(name, iceLevel) {
+        this.name = name;
+        this.iceLevel = iceLevel;
+    }
+
+    get name() {
+        return this.name;
+    }
+    get iceLevel() {
+        return this.iceLevel;
+    }
+}
+
 function toggleHeight(element) {
     element.classList.toggle("active");
 
@@ -35,6 +49,11 @@ function saveItem() {
     var heldItem = JSON.parse(localStorage.getItem("heldItem"));
     var savedIces = JSON.parse(localStorage.getItem("savedIces")) || [];
 
+    var savedMenuItems = JSON.parse(localStorage.getItem("savedMenuItems")) || [];
+    var newItem = MenuItem(heldItem, iceLevel);
+    savedMenuItems.push(newItem);
+    localStorage.setItem("savedMenuItems", JSON.stringify(savedMenuItems));
+
     savedItems.push(heldItem);
     savedIces.push(iceLevel);
 
@@ -71,7 +90,11 @@ function populateCart() {
 function emptyCart() {
     var savedItems = JSON.parse(localStorage.getItem("savedItems")) || [];
     savedItems = "";
+    var savedIces = JSON.parse(localStorage.getItem("savedIces")) || [];
+    savedIces = "";
+
     localStorage.setItem("savedItems", JSON.stringify(savedItems));
+    localStorage.setItem("savedIces", JSON.stringify(savedIces));
     populateCart();
 }
 
