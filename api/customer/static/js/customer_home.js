@@ -57,7 +57,7 @@ function saveItem() {
                 var iceLevel = "Less";
             }
             else {
-                var iceLevel = "None";
+                var iceLevel = "No";
             }
         }
     }
@@ -70,7 +70,9 @@ function saveItem() {
             toppingList.push(childElements[1].innerHTML);
         }
     }
-    for (let i = 0; i < 3 - toppingList.length; i++) {
+    let unpickedToppings = 3 - toppingList.length;
+
+    for (let i = 0; i < unpickedToppings; i++) {
         toppingList.push("null");
     }
 
@@ -102,11 +104,22 @@ function populateCart() {
 
             var colDiv2 = document.createElement("div");
             colDiv2.className = "col";
-            colDiv2.textContent = item._iceLevel;
+            colDiv2.textContent = item._iceLevel + " Ice";
 
             var colDiv3 = document.createElement("div");
             colDiv3.className = "col";
-            colDiv3.textContent = item._topping1;
+            let toppingList = [];
+            toppingList.push(item._topping1);
+            toppingList.push(item._topping2);
+            toppingList.push(item._topping3);
+            for (let i = 0; i < 3; i++) {
+                if (toppingList[i] != "null") {
+                    let toppingRow = document.createElement("div");
+                    toppingRow.className = "row";
+                    toppingRow.textContent = toppingList[i];
+                    colDiv3.appendChild(toppingRow);
+                }
+            }
 
             rowDiv.appendChild(colDiv1);
             rowDiv.appendChild(colDiv2);
