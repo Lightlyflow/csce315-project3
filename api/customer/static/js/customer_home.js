@@ -1,7 +1,11 @@
 class MenuItem {
-    constructor(name, iceLevel) {
+    constructor(name, iceLevel, sweetness, topping1, topping2, topping3) {
         this._name = name;
         this._iceLevel = iceLevel;
+        this._sweetness = sweetness;
+        this._topping1 = topping1;
+        this._topping2 = topping2;
+        this._topping3 = topping3;
     }
 
     get name() {
@@ -9,6 +13,18 @@ class MenuItem {
     }
     get iceLevel() {
         return this._iceLevel;
+    }
+    get sweetness() {
+        return this.sweetness;
+    }
+    get topping1() {
+        return this._topping1;
+    }
+    get topping2() {
+        return this._topping2;
+    }
+    get topping3() {
+        return this._topping3;
     }
 }
 
@@ -27,6 +43,7 @@ function holdItem(item) {
 }
 
 function saveItem() {
+
     var iceOptions = document.getElementsByName("iceOptions");
     for (var i = 0; i < iceOptions.length; i++) {
         var currentOption = iceOptions[i];
@@ -45,9 +62,21 @@ function saveItem() {
         }
     }
 
+    let toppingList = [];
+    let toppingBoxes = document.getElementsByClassName('topping-col');
+    for (let i = 0; i < toppingBoxes.length; i++) {
+        let childElements = toppingBoxes[i].getElementsByClassName('topping-col-child');
+        if (childElements[0].checked) {
+            toppingList.push(childElements[1].innerHTML);
+        }
+    }
+    for (let i = 0; i < 3 - toppingList.length; i++) {
+        toppingList.push("null");
+    }
+
     var heldItem = JSON.parse(localStorage.getItem("heldItem"));
     var savedMenuItems = JSON.parse(localStorage.getItem("savedMenuItems")) || [];
-    var newItem = new MenuItem(heldItem, iceLevel);
+    var newItem = new MenuItem(heldItem, iceLevel, 0, toppingList[0], toppingList[1], toppingList[2]);
 
     savedMenuItems.push(newItem);
     localStorage.setItem("savedMenuItems", JSON.stringify(savedMenuItems));
@@ -75,8 +104,13 @@ function populateCart() {
             colDiv2.className = "col";
             colDiv2.textContent = item._iceLevel;
 
+            var colDiv3 = document.createElement("div");
+            colDiv3.className = "col";
+            colDiv3.textContent = item._topping1;
+
             rowDiv.appendChild(colDiv1);
             rowDiv.appendChild(colDiv2);
+            rowDiv.appendChild(colDiv3);
         });
     }
     else {
