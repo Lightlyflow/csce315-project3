@@ -1,5 +1,7 @@
-from flask import Blueprint, render_template, jsonify, request, abort
-from .manager_helper import getInventory, getLowStock, orderItems
+from flask import Blueprint, render_template
+
+from .inventory import inventoryAPIBlueprint
+from .inventory_helper import getInventory, getLowStock
 
 managerBlueprint = Blueprint("manager", __name__, template_folder="templates", static_folder="static")
 
@@ -34,28 +36,4 @@ def menu():
 
 
 # POST Endpoints
-
-@managerBlueprint.route("/inventory/order")
-def inventoryOrder():
-    data = request.get_json()
-    amount: float = 0
-    items: [str] = []
-
-    try:
-        amount = float(data['amount'])
-        items = data['items']
-    except (ValueError, KeyError) as e:
-        abort(400)
-
-    # orderItems(amount, items)
-
-    return "Updated", 201
-
-
-@managerBlueprint.route("/inventory/stock")
-def inventoryStock():
-    lowStock: bool = request.args.get("low", type=bool, default=False)
-
-    if lowStock:
-        return jsonify(getLowStock())
-    return jsonify(getInventory())
+managerBlueprint.register_blueprint(inventoryAPIBlueprint, url_prefix='/inventory')
