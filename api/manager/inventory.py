@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request, abort
-from .inventory_helper import orderItems, orderAllItems, getInventory, getLowStock, updateThreshold
+
+from .inventory_helper import orderItems, orderAllItems, getInventory, getLowStock, updateThresholds
 
 inventoryAPIBlueprint = Blueprint("inventory", __name__)
 
@@ -45,5 +46,19 @@ def inventoryStock():
     return jsonify(getInventory())
 
 
+@inventoryAPIBlueprint.route("/threshold", methods=['POST'])
+def inventoryThreshold():
+    data = request.get_json()
+    names: str = ""
+    threshold: float = 0
 
+    try:
+        threshold = float(data['threshold'])
+        names = data['names']
+    except (ValueError, KeyError) as e:
+        abort(400)
+
+    updateThresholds(names, threshold)
+
+    return "Updated", 201
 

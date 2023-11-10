@@ -46,7 +46,13 @@ $(document).ready(function () {
 
     $("#updateThreshold1").click(async function() {
         console.log("updateThreshold1");
-        refreshLowTable();
+        let amount = textInput1.value;
+        let selected = $.map(lowStockTable.rows({ selected: true }).data(), function(item) { return item[1]; } )
+        let data = {};
+        data['threshold'] = amount;
+        data['names'] = selected;
+        await updateThreshold(data);
+        await refreshLowTable();
     });
 
     $("#orderSelected2").click(async function() {
@@ -68,11 +74,24 @@ $(document).ready(function () {
     });
 
     $("#updateThreshold2").click(async function() {
-        console.log("updateThreshold2");
-        refreshAllTable();
+        let amount = textInput2.value;
+        let selected = $.map(inventoryTable.rows({ selected: true }).data(), function(item) { return item[1]; } )
+        let data = {};
+        data['threshold'] = amount;
+        data['names'] = selected;
+        await updateThreshold(data);
+        await refreshAllTable();
     });
 });
 
+
+async function updateThreshold(data) {
+    const resp = await fetch(`/manager/inventory/threshold`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+}
 
 async function orderAll(data) {
     const resp = await fetch(`/manager/inventory/orderall`, {
@@ -81,7 +100,6 @@ async function orderAll(data) {
         body: JSON.stringify(data)
      });
 }
-
 
 async function orderSelected(data) {
      const resp = await fetch(`/manager/inventory/order`, {

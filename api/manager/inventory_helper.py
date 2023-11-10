@@ -20,5 +20,10 @@ def orderAllItems(amount: float):
     manager_querier.orderAllItems(amount)
 
 
+def updateThresholds(names: [str], amount):
+    for name in names:
+        updateThreshold(name, amount)
+
+
 def updateThreshold(name: str, amount: float):
     manager_querier.updateThreshold(name, amount)
