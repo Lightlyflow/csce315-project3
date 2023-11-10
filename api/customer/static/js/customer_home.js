@@ -66,8 +66,6 @@ function populateCart() {
         rowDiv.textContent = "Your cart is empty.";
         pageCartItems.appendChild(rowDiv);
     }
-
-    resetCustomization(); //Resets modal
 }
 
 function emptyCart() {
@@ -81,18 +79,8 @@ document.addEventListener("DOMContentLoaded", function() {
     populateCart();
 });
 
-function dropdownFill(val, id) {
-    var y = document.getElementById(id);
-    var aNode = y.innerHTML = val + ' <span class="caret"></span>'; // Append 
-}
-
+//Resets modal to default values
 function resetCustomization() {
-    //Resetting the customization menu after clicking add to cart
-    //Topping dropdowns, reset to empty
-    document.getElementById("topping1Dropdown").innerText = "Topping 1";
-    document.getElementById("topping2Dropdown").innerText = "Topping 2";
-    document.getElementById("topping3Dropdown").innerText = "Topping 3";
-
     //Radio buttons for ice reset to regular, the default
     var ele = document.getElementsByName("iceOptions");
     for(var i = 0; i < ele.length; i++)
@@ -100,7 +88,13 @@ function resetCustomization() {
     ele[0].checked = true;
 
     //Slider for sweetness level reset to default value 50
-    document.getElementById('sweetnessLevel').value = 50;
+    document.getElementById('sweetnessLevel').value = 100;
+
+    //Reset of topping buttons
+    toppings = document.querySelectorAll('input[name=toppingOptions]:checked');
+    for (var i = 0; i < toppings.length; i++) {
+        toppings[i].checked = false;
+    }
 }
 
 function sendSavedItemsToServer() {
@@ -118,4 +112,16 @@ function sendSavedItemsToServer() {
         })
         emptyCart();
     }
+}
+
+//Checks if 3 toppings are selected to limit topping boxes
+function stopCheckTopping(element) {
+    if (document.querySelectorAll('input[name=toppingOptions]:checked').length > 3) {
+        element.checked = false;
+    }
+}
+
+//Gets item name to populate customization modal
+function setItemName(name) {
+    document.getElementById("customizationName").innerHTML = name;
 }

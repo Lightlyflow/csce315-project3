@@ -69,7 +69,7 @@
                     <p class = "menuItemPrice">
                         ${{'%0.2f' % item[1]|float}}
                     </p>
-                    <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this);holdItem('{{ item[0] }}')">
+                    <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this);holdItem('{{ item[0] }}');setItemName('{{ item[0] }}');resetCustomization();">
                         Customize
                     </button>
                 </div>
@@ -85,7 +85,7 @@
                 <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Customization Menu</h5> <!--Replace with name of menu item-->
+                            <h5 class="modal-title" id="customizationName">Customization Menu</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#customizationModal"></button>
                         </div>
                         <div class="modal-body">
@@ -122,45 +122,18 @@
                                         Toppings
                                     </div>
                                 </div>
-                                <div class="row row-cols-3">
+                                <div class="row row-cols-3 gy-2">
+                                {% for topping in toppingNames %}
                                     <div class="col">
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="topping1Dropdown" data-bs-toggle="dropdown"
-                                            aria-expanded="false">Topping 1 <span class="caret"></span></button>
-                                            <ul class="dropdown-menu">
-                                            {% for topping in toppingNames %}
-                                                <li onclick="dropdownFill(this.innerHTML, 'topping1Dropdown');">{{topping}}</li>
-                                            {% endfor %}
-                                            </ul>
-                                        </div>
+                                        <input type="checkbox" class="btn-check" name="toppingOptions" id="{{topping}}" autocomplete="off" onclick="stopCheckTopping(this);">
+                                        <label class="btn btn-secondary" for="{{topping}}">{{topping}}</label>
                                     </div>
-                                    <div class="col">
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="topping2Dropdown" data-bs-toggle="dropdown"
-                                            aria-expanded="false">Topping 2 <span class="caret"></span></button>
-                                            <ul class="dropdown-menu">
-                                            {% for topping in toppingNames %}
-                                                <li onclick="dropdownFill(this.innerHTML, 'topping2Dropdown');">{{topping}}</li>
-                                            {% endfor %}
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col">
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="topping3Dropdown" data-bs-toggle="dropdown"
-                                            aria-expanded="false">Topping 3 <span class="caret"></span></button>
-                                            <ul class="dropdown-menu">
-                                            {% for topping in toppingNames %}
-                                                <li onclick="dropdownFill(this.innerHTML, 'topping3Dropdown');">{{topping}}</li>
-                                            {% endfor %}
-                                            </ul>
-                                        </div>
-                                    </div>
+                                {% endfor %}
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-target="#customizationModal" onclick="resetCustomization();">Close</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-target="#customizationModal">Close</button>
                             <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="saveItem();populateCart()">Add to Cart</button>
                         </div>
                     </div>
