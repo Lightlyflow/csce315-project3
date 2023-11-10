@@ -71,10 +71,10 @@ function saveItem() {
     }
 
     let menuItemName = document.getElementById("customizationName").innerHTML;
+    let sweetnessLevel = document.getElementById('sweetnessLevel').value;
 
     var savedMenuItems = JSON.parse(localStorage.getItem("savedMenuItems")) || [];
-    var newItem = new MenuItem(menuItemName, iceLevel, 0, toppingList[0], toppingList[1], toppingList[2]);
-
+    var newItem = new MenuItem(menuItemName, iceLevel, sweetnessLevel, toppingList[0], toppingList[1], toppingList[2]);
     savedMenuItems.push(newItem);
     localStorage.setItem("savedMenuItems", JSON.stringify(savedMenuItems));
 }
@@ -103,6 +103,10 @@ function populateCart() {
 
             var colDiv3 = document.createElement("div");
             colDiv3.className = "col";
+            colDiv3.textContent = item._sweetness;
+
+            var colDiv4 = document.createElement("div");
+            colDiv4.className = "col";
             let toppingList = [];
             toppingList.push(item._topping1);
             toppingList.push(item._topping2);
@@ -112,13 +116,15 @@ function populateCart() {
                     let toppingRow = document.createElement("div");
                     toppingRow.className = "row";
                     toppingRow.textContent = toppingList[i];
-                    colDiv3.appendChild(toppingRow);
+                    colDiv4.appendChild(toppingRow);
                 }
             }
+
 
             rowDiv.appendChild(colDiv1);
             rowDiv.appendChild(colDiv2);
             rowDiv.appendChild(colDiv3);
+            rowDiv.appendChild(colDiv4);
         });
     }
     else {
