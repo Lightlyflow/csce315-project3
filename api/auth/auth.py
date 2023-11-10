@@ -21,6 +21,11 @@ def load_user(user_id) -> User | None:
     return getUserById(user_id)
 
 
+@loginManager.unauthorized_handler
+def unauthorized_callback():
+    return redirect(url_for('auth.home'))
+
+
 @authBlueprint.route("/")
 def home():
     return render_template("login.html")
@@ -65,7 +70,7 @@ def oauth2_authorize(provider: str):
 @authBlueprint.route('/callback/<provider>')
 def oauth2_callback(provider):
     if not current_user.is_anonymous:
-        return redirect(url_for('customer.home'))
+        return redirect(url_for('auth.loginAs'))
 
     provider_data = current_app.config['OAUTH2_PROVIDERS'].get(provider)
     if provider_data is None:
@@ -118,5 +123,12 @@ def oauth2_callback(provider):
 
     # log the user in
     login_user(user)
-    # TODO :: Add options for employee or manager to go to their pages
+
+    return redirect(url_for('auth.loginAs'))
+
+
+@authBlueprint.route('/loginas')
+def loginAs():
+    if current_user.is_authenticated:
+        return render_template("login_as.html")
     return redirect(url_for('customer.home'))
