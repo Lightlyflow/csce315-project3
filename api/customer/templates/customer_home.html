@@ -59,7 +59,7 @@
                     <p class = "menuItemName">
                         {{item[0]}}
                     </p>
-                    <button class="btnMenuMobile" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this);holdItem('{{ item[0] }}')">
+                    <button class="btnMenuMobile" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this)">
                         {{item[0]}}
                         ${{'%0.2f' % item[1]|float}}
                     </button>
@@ -69,7 +69,7 @@
                     <p class = "menuItemPrice">
                         ${{'%0.2f' % item[1]|float}}
                     </p>
-                    <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this);holdItem('{{ item[0] }}');setItemName('{{ item[0] }}');resetCustomization();">
+                    <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this);setItemName('{{ item[0] }}');resetCustomization();">
                         Customize
                     </button>
                 </div>

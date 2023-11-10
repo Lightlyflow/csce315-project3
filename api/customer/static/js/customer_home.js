@@ -38,12 +38,7 @@ function toggleHeight(element) {
     }
 }
 
-function holdItem(item) {
-    localStorage.setItem("heldItem", JSON.stringify(item));
-}
-
 function saveItem() {
-
     var iceOptions = document.getElementsByName("iceOptions");
     for (var i = 0; i < iceOptions.length; i++) {
         var currentOption = iceOptions[i];
@@ -75,7 +70,6 @@ function saveItem() {
         toppingList.push("null");
     }
 
-    var heldItem = JSON.parse(localStorage.getItem("heldItem"));
     let menuItemName = document.getElementById("customizationName").innerHTML;
 
     var savedMenuItems = JSON.parse(localStorage.getItem("savedMenuItems")) || [];
