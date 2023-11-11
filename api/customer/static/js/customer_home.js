@@ -178,6 +178,8 @@ function resetCustomization() {
     for (var i = 0; i < toppings.length; i++) {
         toppings[i].checked = false;
     }
+
+    document.getElementById("quantityPicker").value = 1;
 }
 
 function sendSavedItemsToServer() {
