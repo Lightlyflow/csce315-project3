@@ -33,13 +33,9 @@
                 <button class="btn btn-primary" onclick="sendSavedItemsToServer()">Checkout</button>
             </div>
         </div>
-    
-
-
-
 
         <div class="menuItemsContainer">
-            <ul class="nav nav-pills" style = "justify-content: left;">
+            <ul class="nav nav-pills rounded-lg" style = "justify-content: left;">
                 {% for category in menuCategories %}
                     <li>
                         <a href="#{{category|replace(' ', '_')}}" data-toggle="tab" style="color: white; background-color: #428bca; padding: 5px 15px;">{{category}}</a>

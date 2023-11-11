@@ -59,9 +59,8 @@ a:hover {color:#262f48}
 }
 
 .content {
-    width: 100vw;
-    min-height: calc(100vh);
-    background: linear-gradient( to bottom, rgb(255, 255, 255), rgb(176, 176, 176));
+    width: 100%;
+    box-sizing: border-box;
     display: flex;
     justify-content: center;
     flex-direction: row;
@@ -76,6 +75,9 @@ a:hover {color:#262f48}
     /*display: block;*/
     margin-top: 150px;
     align-items: center;
+    position: fixed;
+    left: 0;
+    height: calc(100% - 150px);
 }
 
 .priceCheckout {
@@ -97,6 +99,7 @@ a:hover {color:#262f48}
 /*START MENU*/
 
 .menuItemsContainer {
+    margin-right: 1rem;
     display: flex;
     right: 0;
     margin-top: 150px;
@@ -104,12 +107,12 @@ a:hover {color:#262f48}
     position: absolute;
     width: 70%;
     justify-content: flex-start;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
+    flex-wrap: nowrap;
 }
 
 .menuContent {
-    background-color: #ff9999;
+    background-color: #ff868654;
 }
 
 .menuCategory {
