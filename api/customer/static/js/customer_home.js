@@ -183,10 +183,10 @@ function resetCustomization() {
 }
 
 function sendSavedItemsToServer() {
-    var savedItems = JSON.parse(localStorage.getItem("savedItems"));
+    var savedMenuItems = JSON.parse(localStorage.getItem("savedMenuItems"));
 
-    if (savedItems && savedItems.length > 0) {
-        var data = { savedItems: savedItems };
+    if (savedMenuItems && savedMenuItems.length > 0) {
+        var data = { savedMenuItems: savedMenuItems };
 
         fetch('/post_endpoint', {
             method: 'POST',
