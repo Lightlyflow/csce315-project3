@@ -37,6 +37,9 @@ def getMenuItemComponents(menuItemId):
 def getIngredientQuantityInventory(inventoryId):
     return execute(f"SELECT quantity FROM inventory_table WHERE inventoryid={inventoryId};")
 
+def getToppingId(name):
+    return execute(f"SELECT inventoryid FROM inventory_table WHERE name='{name}';")
+
 def setIngredientQuantityInventory(inventoryId, quantity):
     return execute(f"UPDATE inventory_table SET quantity={quantity} WHERE inventoryid={inventoryId};")
 

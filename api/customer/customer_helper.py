@@ -24,7 +24,7 @@ def placeOrder(menuItems):
     for menuItem in menuItems:
         itemName = menuItem['_name']
 
-        toppingList = list
+        toppingList = list()
         if menuItem['_topping1'] != 'null':
             toppingList.append(menuItem['_topping1'])
         if menuItem['_topping2'] != 'null':
@@ -49,6 +49,12 @@ def placeOrder(menuItems):
         customer_querier.setIngredientQuantityInventory(12, currentInventory[0][0] - itemQuantity)
         currentInventory = customer_querier.getIngredientQuantityInventory(13)
         customer_querier.setIngredientQuantityInventory(13, currentInventory[0][0] - itemQuantity)
+
+        #Toppings
+        for topping in toppingList:
+            toppingId = customer_querier.getToppingId(topping)[0][0]
+            currentInventory = customer_querier.getIngredientQuantityInventory(toppingId)
+            customer_querier.setIngredientQuantityInventory(toppingId, currentInventory[0][0] - itemQuantity)
 
 def getWeather():
     api_key = os.environ["WEATHER_API_KEY"]
