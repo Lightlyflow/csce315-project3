@@ -22,16 +22,33 @@ def getToppingNames() -> list():
 
 def placeOrder(menuItems):
     for menuItem in menuItems:
-        menuItemId = customer_querier.getMenuItemId(menuItem)
-        menuItemComponents = customer_querier.getMenuItemComponents(menuItemId[0][0])
+        itemName = menuItem['_name']
+
+        toppingList = list
+        if menuItem['_topping1'] != 'null':
+            toppingList.append(menuItem['_topping1'])
+        if menuItem['_topping2'] != 'null':
+            toppingList.append(menuItem['_topping2'])   
+        if menuItem['_topping3'] != 'null':
+            toppingList.append(menuItem['_topping3'])
+
+        itemQuantity = int(menuItem['_quantity'])
+
+        
+        menuItemId = (customer_querier.getMenuItemId(itemName))[0][0]
+
+        #Ingredients
+        menuItemComponents = customer_querier.getMenuItemComponents(menuItemId)
         for component in menuItemComponents:
-            currentInventory = customer_querier.getIngredientQuantityInventory(component[0])
-            newInventory = currentInventory[0][0] - component[1]
+            currentInventory = (customer_querier.getIngredientQuantityInventory(component[0]))[0][0]
+            newInventory = currentInventory - component[1] * itemQuantity
             customer_querier.setIngredientQuantityInventory(component[0], newInventory)
+
+        #Cups and Straws
         currentInventory = customer_querier.getIngredientQuantityInventory(12)
-        customer_querier.setIngredientQuantityInventory(12, currentInventory[0][0] - 1)
+        customer_querier.setIngredientQuantityInventory(12, currentInventory[0][0] - itemQuantity)
         currentInventory = customer_querier.getIngredientQuantityInventory(13)
-        customer_querier.setIngredientQuantityInventory(13, currentInventory[0][0] - 1)
+        customer_querier.setIngredientQuantityInventory(13, currentInventory[0][0] - itemQuantity)
 
 def getWeather():
     api_key = os.environ["WEATHER_API_KEY"]

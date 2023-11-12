@@ -28,11 +28,7 @@ def receive_saved_items():
     data = request.get_json()
     if 'savedMenuItems' in data:
         savedItems = data['savedMenuItems']
-        for item in savedItems:
-            print(item['_name'])
-
-        #saved_items = data['savedItems']
-        #placeOrder(saved_items)
+        placeOrder(savedItems)
         return jsonify({'message': 'Data received successfully'})
     
     return jsonify({'error': 'Invalid format'})
