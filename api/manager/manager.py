@@ -1,9 +1,16 @@
 from flask import Blueprint, render_template
+from flask_login import login_required
 
 from .inventory import inventoryAPIBlueprint
 from .inventory_helper import getInventory, getLowStock
 
 managerBlueprint = Blueprint("manager", __name__, template_folder="templates", static_folder="static")
+
+
+@managerBlueprint.before_request
+@login_required
+def requireLogin():
+    pass
 
 
 @managerBlueprint.route("/", methods=["GET"])
