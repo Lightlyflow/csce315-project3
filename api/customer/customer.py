@@ -26,9 +26,9 @@ def home():
 @customerBlueprint.route("/post_endpoint", methods=['POST'])
 def receive_saved_items():
     data = request.get_json()
-    if 'savedItems' in data:
-        saved_items = data['savedItems']
-        placeOrder(saved_items)
+    if 'savedMenuItems' in data:
+        savedItems = data['savedMenuItems']
+        placeOrder(savedItems)
         return jsonify({'message': 'Data received successfully'})
     
     return jsonify({'error': 'Invalid format'})
