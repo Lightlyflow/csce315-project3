@@ -23,6 +23,8 @@ def getToppingNames() -> list():
 
 def placeOrder(menuItems):
     totalPrice = 0.0
+    orderId = (customer_querier.getMaxOrderId())[0][0] + 1
+
     for menuItem in menuItems:
         menuItemPrice = 0.0
         itemName = menuItem['_name']
@@ -31,7 +33,7 @@ def placeOrder(menuItems):
         if menuItem['_topping1'] != 'null':
             toppingList.append(menuItem['_topping1'])
         if menuItem['_topping2'] != 'null':
-            toppingList.append(menuItem['_topping2'])   
+            toppingList.append(menuItem['_topping2'])
         if menuItem['_topping3'] != 'null':
             toppingList.append(menuItem['_topping3'])
 
@@ -42,6 +44,7 @@ def placeOrder(menuItems):
 
         
         menuItemId = (customer_querier.getMenuItemId(itemName))[0][0]
+        menuItemPrice += (customer_querier.getMenuItemPrice(menuItemId))[0][0]
 
         #Ingredients
         menuItemComponents = customer_querier.getMenuItemComponents(menuItemId)
@@ -57,25 +60,33 @@ def placeOrder(menuItems):
         customer_querier.setIngredientQuantityInventory(13, currentInventory[0][0] - itemQuantity)
 
         #Toppings
+        toppingIdList = list()
         for topping in toppingList:
             toppingId = customer_querier.getToppingId(topping)[0][0]
+            toppingIdList.append(toppingId)
             menuItemPrice += customer_querier.getToppingPrice(toppingId)[0][0]
             currentInventory = customer_querier.getIngredientQuantityInventory(toppingId)
             customer_querier.setIngredientQuantityInventory(toppingId, currentInventory[0][0] - itemQuantity)
+        for i in range (3 - len(toppingList)):
+            toppingIdList.append(-1)
 
         #Order Part
-        totalPrice += menuItemPrice
+        totalPrice += menuItemPrice * itemQuantity
+        if iceLevel == 'Regular':
+            iceLevelNum = 2
+        elif iceLevel == 'Less':
+            iceLevelNum = 1
+        else:
+            iceLevelNum = 0
 
-        
-        
+        for i in range(itemQuantity):
+            uniqueId = (customer_querier.getMaxUniqueId())[0][0] + 1
+            customer_querier.insertIntoOrderPartTable(uniqueId, orderId, menuItemId, toppingIdList[0], toppingIdList[1], toppingIdList[2], menuItemPrice, sweetness, iceLevelNum)
+
+
     #Order
-    orderId = customer_querier.getMaxOrderId()
-    customer_querier.insertIntoOrderTable(orderId, totalPrice, current_user.email)
-
-
-
-
-        
+    currentEmail = 'dummyemail@tamu.edu'
+    customer_querier.insertIntoOrderTable(orderId, totalPrice, currentEmail)
 
 
 def getWeather():
