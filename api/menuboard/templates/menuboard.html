@@ -26,7 +26,7 @@
                                 <div class="card-text">
                                     <ul>
                                         {% for item in menuItems[menuCategories[i]] %}
-                                        <li>{{item[0]}} ${{'%0.2f' % item[1]|float}}</li>
+                                        <li>{{item[0]}} ${{'%0.2f' % item[1]|float}} {{'%4d' % item[2]|int}} Kcal</li>
                                         {% endfor %}
                                     </ul>
                                 </div>

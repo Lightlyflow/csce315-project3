@@ -11,7 +11,7 @@ def home():
     menuQuery = getMenuData()
     menuCategories = getMenuCategories(menuQuery)
     #print(menuCategories)
-    menuItems = {category: [(item[0], item[2]) for item in menuQuery if item[1] == category] for category in menuCategories}
+    menuItems = {category: [(item[0], item[2], item[3]) for item in menuQuery if item[1] == category] for category in menuCategories}
 
     # Weather api work to get temp and conditions
     weather = getWeather()
