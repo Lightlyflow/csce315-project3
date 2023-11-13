@@ -22,7 +22,9 @@ def getToppingNames() -> list():
     return toppingNames
 
 def placeOrder(menuItems):
+    totalPrice = 0.0
     for menuItem in menuItems:
+        menuItemPrice = 0.0
         itemName = menuItem['_name']
 
         toppingList = list()
@@ -34,6 +36,9 @@ def placeOrder(menuItems):
             toppingList.append(menuItem['_topping3'])
 
         itemQuantity = int(menuItem['_quantity'])
+
+        sweetness = menuItem['_sweetness']
+        iceLevel = menuItem['_iceLevel']
 
         
         menuItemId = (customer_querier.getMenuItemId(itemName))[0][0]
@@ -54,15 +59,18 @@ def placeOrder(menuItems):
         #Toppings
         for topping in toppingList:
             toppingId = customer_querier.getToppingId(topping)[0][0]
+            menuItemPrice += customer_querier.getToppingPrice(toppingId)[0][0]
             currentInventory = customer_querier.getIngredientQuantityInventory(toppingId)
             customer_querier.setIngredientQuantityInventory(toppingId, currentInventory[0][0] - itemQuantity)
 
         #Order Part
+        totalPrice += menuItemPrice
+
         
         
     #Order
     orderId = customer_querier.getMaxOrderId()
-    customer_querier.insertIntoOrderTable(orderId, )
+    customer_querier.insertIntoOrderTable(orderId, totalPrice, current_user.email)
 
 
 

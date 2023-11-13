@@ -49,6 +49,12 @@ def getMaxOrderId():
 def insertIntoOrderTable(orderId, price, email):
     return execute(f"INSERT INTO order_table (orderid, employeeid, dateordered, price, email) VALUES ({orderId}, -1, CURRENT_TIMESTAMP, {price}, {email});")
 
+def getMenuItemPrice(menuItemId):
+    return execute(f"SELECT price FROM menu_items_table WHERE menuitemid = {menuItemId};")
+
+def getToppingPrice(toppingId):
+    return execute(f"")
+
 if __name__ == '__main__':
     # If you want to run this, delete the period in front of the import statements in this file
     # but make sure to add them back
