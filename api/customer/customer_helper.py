@@ -1,4 +1,5 @@
 from api.db import customer_querier
+from flask_login import current_user
 import os
 import requests
 
@@ -55,6 +56,19 @@ def placeOrder(menuItems):
             toppingId = customer_querier.getToppingId(topping)[0][0]
             currentInventory = customer_querier.getIngredientQuantityInventory(toppingId)
             customer_querier.setIngredientQuantityInventory(toppingId, currentInventory[0][0] - itemQuantity)
+
+        #Order Part
+        
+        
+    #Order
+    orderId = customer_querier.getMaxOrderId()
+    customer_querier.insertIntoOrderTable(orderId, )
+
+
+
+
+        
+
 
 def getWeather():
     api_key = os.environ["WEATHER_API_KEY"]
