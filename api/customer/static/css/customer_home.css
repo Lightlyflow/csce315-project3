@@ -286,3 +286,13 @@ a:hover {color:#262f48}
 .btnMenu:hover {
   box-shadow: #121212 0 0 0 3px, transparent 0 0 0 0;
 }
+
+.sweetnessTick {
+    width: 2px;
+    height: 8px;
+    background-color: #000;
+}
+
+.form-range {
+    width: 87%;
+}
