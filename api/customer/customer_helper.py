@@ -85,7 +85,11 @@ def placeOrder(menuItems):
 
 
     #Order
-    currentEmail = 'dummyemail@tamu.edu'
+    if (current_user.is_authenticated == True):
+        currentEmail = current_user.email
+    else:
+        currentEmail = 'dummyemail@tamu.edu'
+        
     customer_querier.insertIntoOrderTable(orderId, totalPrice, currentEmail)
 
 
