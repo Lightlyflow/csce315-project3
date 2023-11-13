@@ -292,3 +292,7 @@ a:hover {color:#262f48}
     height: 8px;
     background-color: #000;
 }
+
+.form-range {
+    width: 87%;
+}
