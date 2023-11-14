@@ -20,7 +20,7 @@ def home():
     # Toppings
     toppingNames = getToppingNames()
     
-    return render_template("employee_home.html", menuCategories=menuCategories, menuItems=menuItems, toppingNames=toppingNames, temperature=temperature, conditions=conditions, current_user=current_user)
+    return render_template("employee_home.html", menuCategories=menuCategories, menuItems=menuItems, toppingNames=toppingNames, temperature=temperature, conditions=conditions)
 
 @employeeBlueprint.route("/post_endpoint", methods=['POST'])
 def receive_saved_items():
