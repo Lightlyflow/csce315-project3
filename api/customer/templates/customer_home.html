@@ -33,7 +33,7 @@
     </div>
 
     <div class = "shareTeaLogo">
-        <img src="{{ url_for('customer.static', filename='shareTeaLogo.png') }}" alt="ShareTea logo", height="100px">
+        <img src="{{ url_for('customer.static', filename='shareTeaLogo.png') }}" alt="ShareTea logo", height="120px">
     </div>
 
     <div class = "checkout">
@@ -59,7 +59,7 @@
                     <p class = "menuItemName">
                         {{item[0]}}
                     </p>
-                    <button class="btnMenuMobile" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this);holdItem('{{ item[0] }}')">
+                    <button class="btnMenuMobile" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this)">
                         {{item[0]}}
                         ${{'%0.2f' % item[1]|float}}
                     </button>
@@ -69,7 +69,7 @@
                     <p class = "menuItemPrice">
                         ${{'%0.2f' % item[1]|float}}
                     </p>
-                    <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this);holdItem('{{ item[0] }}');setItemName('{{ item[0] }}');resetCustomization();">
+                    <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this);setItemName('{{ item[0] }}');resetCustomization();">
                         Customize
                     </button>
                 </div>
@@ -161,11 +161,21 @@
                                 </div>
                                 <div class="row row-cols-3 gy-2">
                                 {% for topping in toppingNames %}
-                                    <div class="col">
-                                        <input type="checkbox" class="btn-check" name="toppingOptions" id="{{topping}}" autocomplete="off" onclick="stopCheckTopping(this);">
-                                        <label class="btn btn-secondary" for="{{topping}}">{{topping}}</label>
+                                    <div class="col topping-col">
+                                        <input type="checkbox" class="btn-check topping-col-child" name="toppingOptions" id="{{topping}}" autocomplete="off" onclick="stopCheckTopping(this);">
+                                        <label class="btn btn-secondary topping-col-child" for="{{topping}}">{{topping}}</label>
                                     </div>
                                 {% endfor %}
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        Quantity
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <input id="quantityPicker" type="number" value="1" min="1" max="5">
+                                    </div>
                                 </div>
                             </div>
                         </div>
