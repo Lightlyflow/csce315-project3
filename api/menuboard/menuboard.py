@@ -9,7 +9,7 @@ def home():
     # Menu items dynamic loading
     menuQuery = getMenuData()
     menuCategories = getMenuCategories(menuQuery)
-    menuCategories.sort()
+    # menuCategories.sort()
     for s in menuCategories:
         if s == "Seasonal":
             menuCategories.remove("Seasonal")
