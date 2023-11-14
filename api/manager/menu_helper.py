@@ -1,7 +1,9 @@
+from api.db import manager_querier
+
+
 def getMenuItems():
-    pass
+    return manager_querier.getMenuItems()
 
 
-def getIngredients():
-    pass
-
+def getIngredients(itemId: int):
+    return manager_querier.getIngredients(itemId)
