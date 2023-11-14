@@ -57,7 +57,7 @@
                 <div class="tab-pane fade {% if loop.first %}show active{% endif %}" id="{{ category|replace(' ', '_') }}" role="tabpanel">
                     <div class="menuContent d-flex flex-wrap justify-content-center" style="margin-top: 50px;">
                         {% for item in menuItems[category] %}
-                            <div class = "menuItemBox">
+                            <button class = "menuItemBox" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this);setItemName('{{ item[0] }}');resetCustomization();">
                                 <p class = "menuItemName">
                                     {{item[0]}}
                                 </p>
@@ -71,10 +71,7 @@
                                 <p class = "menuItemPrice">
                                     ${{'%0.2f' % item[1]|float}}
                                 </p>
-                                <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this);setItemName('{{ item[0] }}');resetCustomization();">
-                                    Customize
-                                </button>
-                            </div>
+                            </button>
                         {% endfor %}
                     </div>
                 </div>

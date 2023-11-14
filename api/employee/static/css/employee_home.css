@@ -162,9 +162,16 @@ a:hover {color:#262f48}
     /*background-color: #ff9999;*/
     min-width: 100px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border: 3px solid transparent;
+    transition: border-color 0.3s;
+
     @media (max-width: 700px) {
         margin: 1px;
     }
+}
+
+.menuItemBox:hover {
+    border-color: black; /* Change the border color on hover */
 }
 
 .menuItem {
@@ -191,32 +198,6 @@ a:hover {color:#262f48}
         -webkit-box-orient: vertical;
     }
     @media (max-width: 700px) {
-        display: none !important;;
-    }
-}
-
-.btnMenuMobile{
-    word-wrap: break-word;
-    align-items: center;
-    width: 100px;
-    height: 130px;
-    background-color: #fff;
-    border-radius: 13px;
-    box-shadow: transparent 0 0 0 3px,rgba(18, 18, 18, 0.176) 0 6px 20px;
-    box-sizing: border-box;
-    color: #121212;
-    cursor: pointer;
-    font-size: .8 rem;
-    font-weight: 200;
-    line-height: 1;
-    padding: .7rem 1rem;
-    text-align: center;
-    text-decoration: none;
-    transition: box-shadow .2s,-webkit-box-shadow .2s;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    @media (min-width: 701px) {
         display: none !important;;
     }
 }
@@ -255,6 +236,7 @@ a:hover {color:#262f48}
 
 .btn-primary {
     --bs-btn-bg: #c62222 !important;
+    --bs-btn-hover-bg: #fe8383 !important;
 }
 
 .button-container::before {
@@ -289,6 +271,8 @@ a:hover {color:#262f48}
     /* min-height: 9%; */
     height: 100px;
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.16), 0px 0px 0px 3px rgba(51, 51, 51,1);
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .shareTeaLogo {
