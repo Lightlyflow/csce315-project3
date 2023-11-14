@@ -17,15 +17,6 @@ a {
 }
 a:hover {color:#262f48}
 
-.shareTeaLogo {
-    position: fixed;
-    z-index: 11;
-    top: 0;
-    left:0;
-    margin-top: 5px;
-
-}
-
 .weatherWidget {
     user-select: none;
     -webkit-user-select: none;
@@ -62,6 +53,7 @@ a:hover {color:#262f48}
     width: 100%;
     box-sizing: border-box;
     display: flex;
+    margin-top:100px;
     justify-content: center;
     flex-direction: row;
 }
@@ -72,12 +64,33 @@ a:hover {color:#262f48}
 .checkout {
     display: flex;
     flex-direction: column;
-    /*display: block;*/
-    margin-top: 150px;
+    /* margin-top: 100px; */
     align-items: center;
     position: fixed;
     left: 0;
-    height: calc(100% - 150px);
+    width: 30%;
+    height: calc(100% - 100px);
+    /* background: linear-gradient(#ffffff00, #c7c7c754); */
+    /* background: linear-gradient(#ffffff00, #0042a454); */
+    background: #f8f8f8;
+    /* box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.16), 0px 0px 0px 3px rgba(51, 51, 51,1); */
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    z-index: 4;
+
+
+    /*ALTERNATE LOOK*/
+    /*
+    display: flex;
+    flex-direction: column;
+    margin-top: 115px;
+    align-items: center;
+    border-radius: 2rem;
+    position: fixed;
+    left: 1%;
+    height: calc(100% - 130px);
+    background: linear-gradient(#ffffff00, #c7c7c754);
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.16), 0px 0px 0px 3px rgba(51, 51, 51,1);
+    */
 }
 
 .priceCheckout {
@@ -92,28 +105,37 @@ a:hover {color:#262f48}
 
 .totalCheckoutName {
     margin-left: 10px;
+    padding-top: 30px;
 }
 
 /*END CHECKOUT*/
 
 /*START MENU*/
-
 .menuItemsContainer {
     margin-right: 1rem;
     display: flex;
-    right: 0;
-    margin-top: 150px;
-    top: 0;
+    left: 30.3%;
+    padding-top: 20px;
+    height: calc(100% - 100px);
     position: absolute;
-    width: 70%;
+    width: 69.7%;
     justify-content: flex-start;
     flex-direction: column;
     flex-wrap: nowrap;
 }
 
-.menuContent {
-    background-color: #ff868654;
+.wallpaper {
+    width:100%;
+    height: calc(100% + 20px);
+    top:-20px;
+    position: fixed;
+    background-color: #007bff36;
+    z-index: 1;
 }
+
+/* .menuContent {
+    background-color: #ff868654;
+} */
 
 .menuCategory {
     width: 100%;
@@ -125,16 +147,21 @@ a:hover {color:#262f48}
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
+    z-index: 2;
 }
 
 .menuItemBox {
     float: left;
     display: block;
-    margin: 20px;
+    margin: 10px;
+    border-radius: 1rem;
+    padding: 20px;
+    background: #ffffffc4;
     width: 15%;
     text-align: center;
     /*background-color: #ff9999;*/
     min-width: 100px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     @media (max-width: 700px) {
         margin: 1px;
     }
@@ -198,7 +225,7 @@ a:hover {color:#262f48}
     align-items: center;
     background-color: #fff;
     border-radius: 13px;
-    box-shadow: transparent 0 0 0 3px,rgba(18, 18, 18, 0.176) 0 6px 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     box-sizing: border-box;
     color: #121212;
     cursor: pointer;
@@ -217,11 +244,17 @@ a:hover {color:#262f48}
       }
   }
 
+.nav-link.active {
+    background-color: #ffffff !important; 
+    color: black !important;
+}
+
+
 /*END MENU*/
 
 
 .btn-primary {
-    --bs-btn-bg: #ff9999;
+    --bs-btn-bg: #c62222 !important;
 }
 
 .button-container::before {
@@ -232,4 +265,46 @@ a:hover {color:#262f48}
     bottom: 0;
     left: 0;
     pointer-events: auto; 
+}
+
+.modal-footer {
+    width: 100%;
+    padding: 15px 0;
+    justify-content: space-evenly !important;
+}
+
+/* START NAVBAR*/
+
+#navbar {
+    position: fixed;
+    z-index: 11;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background: linear-gradient(0.25turn, #3f87a6, #ebf8e1, #f69d3c); */
+    background: linear-gradient(0.25turn, #ffffff, #a3d6f6, #ffffff);
+    /* min-height: 9%; */
+    height: 100px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.16), 0px 0px 0px 3px rgba(51, 51, 51,1);
+}
+
+.shareTeaLogo {
+    height: 100%;
+}
+
+#clock {
+    font-size: 2rem;
+    position: absolute;
+    right: 0;
+    padding-right: 1.5%;
+}
+
+#user {
+    left: 0;
+    font-size: 1.7rem;
+    position: absolute;
+    padding-left: 1.5%;
 }
