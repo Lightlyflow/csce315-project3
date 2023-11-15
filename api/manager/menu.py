@@ -9,7 +9,16 @@ def menuItems():
     if request.method == 'GET':
         return jsonify(getMenuItems())
     elif request.method == 'POST':
-        abort(404)
+        method = request.args.get("method", default="")
+        data = request.get_json()
+
+        if method == 'ADD':
+            return 'ADD menu item'
+        elif method == 'DEL':
+            return jsonify('DEL items')
+        elif method == 'UPDATE':
+            pass
+        abort(400)
 
 
 @menuAPIBlueprint.route("/ingredients", methods=['GET', 'POST'])
@@ -22,4 +31,13 @@ def ingredients():
             abort(400)
         return jsonify(getIngredients(menuItemID))
     elif request.method == 'POST':
-        abort(404)
+        method = request.args.get("method", default="")
+        data = request.get_json()
+
+        if method == 'ADD':
+            pass
+        elif method == 'DEL':
+            pass
+        elif method == 'UPDATE':
+            pass
+        abort(400)

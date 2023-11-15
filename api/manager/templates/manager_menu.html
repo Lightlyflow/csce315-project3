@@ -36,11 +36,11 @@
                         </div>
                         <div class="flex-fill"></div>
                         <div class="btn-group flex-fill">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#menuModal">Edit Selected Item</button>
+                            <button type="button" class="btn btn-primary" id="editMenuItem" data-toggle="modal" data-target="#menuModal">Edit Selected Item</button>
                         </div>
                         <div class="flex-fill"></div>
                         <div class="btn-group flex-fill">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#menuModal">Add Selected Item</button>
+                            <button type="button" class="btn btn-primary" id="addMenuItem" data-toggle="modal" data-target="#menuModal">Add Selected Item</button>
                         </div>
                     </div>
                 </div>
@@ -50,6 +50,8 @@
                             <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">Quantity</th>
+                                <th scope="col">Inventory ID</th>
+                                <th scope="col">Unique ID</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,11 +64,11 @@
                         </div>
                         <div class="flex-fill"></div>
                         <div class="btn-group flex-fill">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ingredientModal">Edit Ingredient</button>
+                            <button type="button" class="btn btn-primary" id="editIngredient" data-toggle="modal" data-target="#ingredientModal">Edit Ingredient</button>
                         </div>
                         <div class="flex-fill"></div>
                         <div class="btn-group flex-fill">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ingredientModal">Add Ingredient</button>
+                            <button type="button" class="btn btn-primary" id="addIngredient" data-toggle="modal" data-target="#ingredientModal">Add Ingredient</button>
                         </div>
                     </div>
                 </div>
@@ -82,13 +84,44 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add/Edit Menu Item</h5>
+                    <h5 class="modal-title" id="menuItemModalTitle">Add/Edit Menu Item</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Stuff goes here</p>
+                    <form>
+                        <div class="form-group form-row">
+                            <label for="menuItemNameInput" class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="menuItemNameInput" placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="menuItemPriceInput" class="col-sm-2 col-form-label">Price</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="menuItemPriceInput" placeholder="Price">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="menuItemCategoryInput" class="col-sm-2 col-form-label">Category</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="menuItemCategoryInput" placeholder="Category">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="menuItemCaloriesInput" class="col-sm-2 col-form-label">Calories</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="menuItemCaloriesInput" placeholder="Calories">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="menuItemStockInput" class="col-sm-2 col-form-label">In Stock?</label>
+                            <div class="col-sm-10">
+                                <input type="checkbox" class="form-control" id="menuItemStockInput">
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="menuModalSubmit" data-dismiss="modal">Submit</button>
@@ -100,13 +133,26 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Add/Edit Ingredient</h5>
+                    <h5 class="modal-title" id="ingredientModalTitle">Add/Edit Ingredient</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Stuff goes here</p>
+                    <form>
+                        <div class="form-group form-row">
+                            <label for="ingredientNameInput" class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="ingredientNameInput" placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="ingredientQuantityInput" class="col-sm-2 col-form-label">Quantity</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="ingredientQuantityInput" placeholder="Quantity">
+                            </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="ingredientModalSubmit" data-dismiss="modal">Submit</button>

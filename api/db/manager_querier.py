@@ -43,5 +43,22 @@ def addMenuItem(name: str, price: float, inStock: bool, category: str, calories:
     execute(f"INSERT INTO menu_items_table (name, price, instock, category, calories) VALUES ({name}, {price}, {inStock}, {category}, {calories});")
 
 
-def deleteMenuItem():
-    pass
+def deleteMenuItem(itemID: int):
+    execute(f"DELETE FROM menu_items_table WHERE menuItemID={itemID};")
+
+
+def updateMenuItem(price: int, inStock: bool, name: str, category: str, itemID: int):
+    execute(f"UPDATE menu_items_table SET price={price}, inStock={inStock}, name='{name}', category='{category}' WHERE menuItemID={itemID};")
+
+
+def addIngredient(menuItemID: int, inventoryID: int, quantity: float):
+    execute(f"INSERT INTO menu_part_table (menuitemid, inventoryid, quantity) VALUES ({menuItemID}, {inventoryID}, {quantity});")
+
+
+def deleteIngredient(uniqueID: int):
+    execute(f"DELETE FROM menu_part_table WHERE uniqueID={uniqueID};")
+
+
+def updateIngredient(quantity: float, ingredientID: int):
+    execute(f"UPDATE menu_part_table SET quantity={quantity} WHERE uniqueID={ingredientID}")
+
