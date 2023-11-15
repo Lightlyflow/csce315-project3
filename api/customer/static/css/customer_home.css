@@ -39,8 +39,8 @@ a:hover {color:#262f48}
     position: fixed;
     z-index: 11;
     top: 0;
-    left:0;
-    margin-top: 20px;
+    left: 0;
+    margin-top: 5px;
 
 }
 
@@ -109,7 +109,7 @@ a:hover {color:#262f48}
 }
 
 .content {
-    width: 100vw;
+    width: 100%;
     top: 0;
     margin-top: 50px; 
     min-height: calc(100vh - 95px);
@@ -285,4 +285,14 @@ a:hover {color:#262f48}
 
 .btnMenu:hover {
   box-shadow: #121212 0 0 0 3px, transparent 0 0 0 0;
+}
+
+.sweetnessTick {
+    width: 2px;
+    height: 8px;
+    background-color: #000;
+}
+
+.form-range {
+    width: 87%;
 }

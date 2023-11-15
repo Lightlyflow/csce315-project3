@@ -206,7 +206,32 @@ function stopCheckTopping(element) {
     }
 }
 
+
 //Gets item name to populate customization modal
 function setItemName(name) {
     document.getElementById("customizationName").innerHTML = name;
 }
+
+
+// create clock 
+function updateClock() {
+    var now = new Date();
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    var seconds = now.getSeconds();
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+
+    hours = hours % 12 || 12;
+
+    var timeString = (hours < 10 ? '0' : '') + hours + ':' +
+                      (minutes < 10 ? '0' : '') + minutes + ':' +
+                      (seconds < 10 ? '0' : '') + seconds + ' ' + ampm;
+
+    document.getElementById('clock').innerHTML = timeString;
+}
+
+// update the clock every second
+setInterval(updateClock, 1000);
+
+// initial call to set the clock immediately
+updateClock();
