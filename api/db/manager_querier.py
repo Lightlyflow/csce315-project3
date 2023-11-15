@@ -62,3 +62,6 @@ def deleteIngredient(uniqueID: int):
 def updateIngredient(quantity: float, ingredientID: int):
     execute(f"UPDATE menu_part_table SET quantity={quantity} WHERE uniqueID={ingredientID}")
 
+
+def createIngredient():
+    pass

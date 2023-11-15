@@ -100,6 +100,7 @@ $(document).ready(async function() {
 
         if (menuItemMode === "edit") {
             console.log("edit menu");
+
             data['name'] = menuNameInput.value;
             data['price'] = menuPriceInput.value;
             data['instock'] = menuInStockInput.checked;
@@ -109,8 +110,19 @@ $(document).ready(async function() {
 
             await updateMenuItem(data);
             await refreshMenuItems();
+            resetMenuInput();
         } else if (menuItemMode === "add") {
             console.log("add menu");
+
+            data['name'] = menuNameInput.value;
+            data['price'] = menuPriceInput.value;
+            data['instock'] = menuInStockInput.checked;
+            data['category'] = menuCategoryInput.value;
+            data['calories'] = menuCalorieInput.value;
+
+            await addMenuItem(data);
+            await refreshMenuItems();
+            resetMenuInput();
         }
     })
 
@@ -132,6 +144,19 @@ function hideCols() {
     menuItemTable.column(3).visible(false);
     ingredientTable.column(2).visible(false);
     ingredientTable.column(3).visible(false);
+}
+
+function resetMenuInput() {
+    menuNameInput.value = "";
+    menuPriceInput.value = "";
+    menuInStockInput.checked = false;
+    menuCategoryInput.value = "";
+    menuCalorieInput.value = "";
+}
+
+function resetIngredientInput() {
+    ingredientNameInput.value = "";
+    ingredientQuantityInput.value = "";
 }
 
 // =================== Fetch/Post data ===================
