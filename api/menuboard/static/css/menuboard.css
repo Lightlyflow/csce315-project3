@@ -1,5 +1,6 @@
 body{
     background-color: bisque;
+    background-image: url(background.jfif);
 }
 
 #board {
@@ -30,13 +31,17 @@ body{
     margin-right: auto;
 }
 
+#header{
+    margin-bottom: 4%;
+}
+
 #endCard{
 
 }
 
 .toppingList{
     column-count: 3;
-    column-gap: 0px;
+    column-gap: 30px;
 }
 
 .sweet{
@@ -45,7 +50,7 @@ body{
 }
 
 .card{
-    background-color:bisque;    
+    background-color: rgb(255,228,196,0.4);
 }
 
 
