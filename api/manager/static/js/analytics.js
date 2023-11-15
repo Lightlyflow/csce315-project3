@@ -4,7 +4,7 @@ $(document).ready(function () {
         "scrollY": "65vh",
         "scrollCollapse": true,
         select: true,
-        order: [[0, 'asc']],
+        order: [[2, 'desc']],
         paging: false,
         dom: '<"dt_row"rif>t',
     });

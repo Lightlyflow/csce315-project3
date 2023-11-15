@@ -3,6 +3,7 @@ from flask_login import login_required
 
 from .inventory import inventoryAPIBlueprint
 from .inventory_helper import getInventory, getLowStock
+from .analytics import analyticsAPIBlueprint
 from .analytics_helper import getPairReport
 
 managerBlueprint = Blueprint("manager", __name__, template_folder="templates", static_folder="static")
@@ -22,6 +23,7 @@ def home():
 @managerBlueprint.route("/analytics", methods=["GET"])
 def analytics():
     pairReport = getPairReport()
+    print(f"{pairReport =}")
     return render_template("manager_analytics.html", pairReport = pairReport)
 
 
@@ -46,3 +48,4 @@ def menu():
 
 # POST Endpoints
 managerBlueprint.register_blueprint(inventoryAPIBlueprint, url_prefix='/inventory')
+managerBlueprint.register_blueprint(analyticsAPIBlueprint, url_prefix='/analytics')

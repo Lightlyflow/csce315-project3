@@ -22,9 +22,9 @@
                     <tbody>
                     {% for row in pairReport %}
                         <tr>
-                            <th scope="row">{{ row['menuitems1.name'] }}</th>
-                            <td>{{ row['menuitems2.name'] }}</td>
-                            <td>{{ row['frequency'] }}</td>
+                            <th scope="row">{{ row[0] }}</th>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>

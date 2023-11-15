@@ -22,7 +22,7 @@ def updateThreshold(name: str, amount: float):
     execute(f"UPDATE inventory_table SET restockThreshold={amount} WHERE name='{name}';")
 
 def getPairReport():
-    execute(f"""Select menuItems1.name, menuItems2.name, COUNT (*) 
+    return execute(f"""Select menuItems1.name, menuItems2.name, COUNT (*) 
             AS frequency FROM order_part_table 
             AS t1 JOIN order_part_table AS t2 
             ON t1.orderid = t2.orderid 
