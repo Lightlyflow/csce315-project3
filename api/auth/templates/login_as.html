@@ -1,0 +1,27 @@
+{% extends 'auth_base.html' %}
+
+{% block title %}Login{% endblock %}
+{% block head %}
+    <link href="{{ url_for('auth.static', filename='css/loginAs.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <div class="container h-100 d-flex align-items-center justify-content-center">
+        <div class="jumbotron">
+            <h1>Login As</h1>
+            {% if current_user.is_authenticated and current_user.isManager %}
+            <p>
+                <a class="btn btn-lg btn-block" href="{{ url_for('manager.home') }}">Manager</a>
+            </p>
+            {% endif %}
+            {% if current_user.is_authenticated and current_user.isEmployee %}
+            <p>
+                <a class="btn btn-lg btn-block" href="{{ url_for('employee.home') }}">Employee</a>
+            </p>
+            {% endif %}
+            <p>
+                <a class="btn btn-lg btn-block" href="{{ url_for('customer.home') }}">Customer</a>
+            </p>
+        </div>
+    </div>
+{% endblock %}

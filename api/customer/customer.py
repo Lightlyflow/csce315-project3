@@ -11,7 +11,7 @@ def home():
     menuQuery = getMenuData()
     menuCategories = getMenuCategories(menuQuery)
     #print(menuCategories)
-    menuItems = {category: [(item[0], item[2]) for item in menuQuery if item[1] == category] for category in menuCategories}
+    menuItems = {category: [(item[0], item[2], item[3]) for item in menuQuery if item[1] == category] for category in menuCategories}
 
     # Weather api work to get temp and conditions
     weather = getWeather()
@@ -26,9 +26,9 @@ def home():
 @customerBlueprint.route("/post_endpoint", methods=['POST'])
 def receive_saved_items():
     data = request.get_json()
-    if 'savedItems' in data:
-        saved_items = data['savedItems']
-        placeOrder(saved_items)
+    if 'savedMenuItems' in data:
+        savedItems = data['savedMenuItems']
+        placeOrder(savedItems)
         return jsonify({'message': 'Data received successfully'})
     
     return jsonify({'error': 'Invalid format'})

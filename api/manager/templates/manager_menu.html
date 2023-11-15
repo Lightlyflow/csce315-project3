@@ -1,7 +1,163 @@
 {% extends 'manager_base.html' %}
 
 {% block title %}Edit Menu{% endblock %}
+{% block head %}
+    <script src="{{ url_for('manager.static', filename='js/menu.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('manager.static', filename='css/menu.css') }}">
+{% endblock %}
 
 {% block body %}
-    <h1>Edit Menu</h1>
+    <ul class="nav nav-tabs">
+        <li><a data-toggle="tab" href="#ingredients">Edit Menu Items</a></li>
+        <li><a data-toggle="tab" href="#order">Edit Menu Order</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="ingredients">
+            <div class="row justify-content-center">
+                <div class="col-sm-5 m-3">
+                    <table class="table table-bordered table-striped" id="menuItemTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">Item Name</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">In Stock?</th>
+                                <th scope="col">ID</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Calories</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                    <div class="btn-toolbar d-flex m-2" role="toolbar" aria-label="Menu Item Toolbar">
+                        <div class="btn-group flex-fill">
+                            <button type="button" class="btn btn-primary" id="deleteMenuItem">Delete Selected Item</button>
+                        </div>
+                        <div class="flex-fill"></div>
+                        <div class="btn-group flex-fill">
+                            <button type="button" class="btn btn-primary" id="editMenuItem" data-toggle="modal" data-target="#menuModal">Edit Selected Item</button>
+                        </div>
+                        <div class="flex-fill"></div>
+                        <div class="btn-group flex-fill">
+                            <button type="button" class="btn btn-primary" id="addMenuItem" data-toggle="modal" data-target="#menuModal">Add Item</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5 m-3">
+                    <table class="table table-bordered table-striped" id="ingredientTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Inventory ID</th>
+                                <th scope="col">Unique ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                    <div class="btn-toolbar d-flex m-2" role="toolbar" aria-label="Ingredient Toolbar">
+                        <div class="btn-group flex-fill">
+                            <button type="button" class="btn btn-primary" id="deleteIngredient">Delete Ingredient</button>
+                        </div>
+                        <div class="flex-fill"></div>
+                        <div class="btn-group flex-fill">
+                            <button type="button" class="btn btn-primary" id="editIngredient" data-toggle="modal" data-target="#ingredientModal">Edit Ingredient</button>
+                        </div>
+                        <div class="flex-fill"></div>
+                        <div class="btn-group flex-fill">
+                            <button type="button" class="btn btn-primary" id="addIngredient" data-toggle="modal" data-target="#ingredientModal">Add Ingredient</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade m-2" id="order">
+            <div class="container">
+                <h1>Edit Menu Order</h1>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="menuModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="menuItemModalTitle">Add/Edit Menu Item</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group form-row">
+                            <label for="menuItemNameInput" class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="menuItemNameInput" placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="menuItemPriceInput" class="col-sm-2 col-form-label">Price</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="menuItemPriceInput" placeholder="Price">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="menuItemCategoryInput" class="col-sm-2 col-form-label">Category</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="menuItemCategoryInput" placeholder="Category">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="menuItemCaloriesInput" class="col-sm-2 col-form-label">Calories</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="menuItemCaloriesInput" placeholder="Calories">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="menuItemStockInput" class="col-sm-2 col-form-label">In Stock?</label>
+                            <div class="col-sm-10">
+                                <input type="checkbox" class="form-control" id="menuItemStockInput">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="menuModalSubmit" data-dismiss="modal">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="ingredientModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ingredientModalTitle">Add/Edit Ingredient</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group form-row">
+                            <label for="ingredientNameInput" class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="ingredientNameInput" placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="ingredientQuantityInput" class="col-sm-2 col-form-label">Quantity</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="ingredientQuantityInput" placeholder="Quantity">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="ingredientModalSubmit" data-dismiss="modal">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
