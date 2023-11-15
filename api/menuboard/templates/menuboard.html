@@ -17,7 +17,7 @@
 <body onload="scaleMenu(numC,catSize,iSize)">
     <div class="container-fluid" id="board">
         <div class="col">
-            <img src="{{ url_for('menuboard.static', filename='assets/shareTeaLogo.png') }}" alt="ShareTea logo", height="100px">
+            <img id="logo" src="{{ url_for('menuboard.static', filename='assets/shareTeaLogo.png') }}" alt="ShareTea logo", height="100px">
             <h1 id="bruh">Menu</h1>
         </div>
         
@@ -40,7 +40,7 @@
         {% endfor %} 
 
         <div class="col">
-            <div class="card">
+            <div class="card" id="endCard">
                 <div class="card-body">
                     <h3 class="card-title">Ice Level</h3>
                     <div class="row">
@@ -60,24 +60,24 @@
                     <h3 class="card-title">Sweetness Level</h3>
                     <div class="row">
                         <div class="col">
-                            <img src="{{ url_for('menuboard.static', filename='assets/100_sweetness.png') }}" alt="100% Sweetness", height="50px">
-                            <p class="sweet1">100%<br>Regular</p>
+                            <img class="sweet" src="{{ url_for('menuboard.static', filename='assets/100_sweetness.png') }}" alt="100% Sweetness", height="50px">
+                            <p">100%<br>Regular</p>
                         </div>
                         <div class="col">
-                            <img src="{{ url_for('menuboard.static', filename='assets/80_sweetness.png') }}" alt="80% sweetness", height="50px">
-                            <p class="sweet2">80%<br>Less</p>
+                            <img class="sweet" src="{{ url_for('menuboard.static', filename='assets/80_sweetness.png') }}" alt="80% sweetness", height="50px">
+                            <p>80%<br>Less</p>
                         </div>
                         <div class="col">
-                            <img src="{{ url_for('menuboard.static', filename='assets/50_sweetness.png') }}" alt="50% Sweetness", height="50px">
-                            <p class="sweet3">50%<br>Half</p>
+                            <img class="sweet" src="{{ url_for('menuboard.static', filename='assets/50_sweetness.png') }}" alt="50% Sweetness", height="50px">
+                            <p>50%<br>Half</p>
                         </div>
                         <div class="col">
-                            <img src="{{ url_for('menuboard.static', filename='assets/30_sweetness.png') }}" alt="30% Sweetness", height="50px">
-                            <p class="sweet4">30%<br>Light</p>
+                            <img class="sweet" src="{{ url_for('menuboard.static', filename='assets/30_sweetness.png') }}" alt="30% Sweetness", height="50px">
+                            <p>30%<br>Light</p>
                         </div>
                         <div class="col">
-                            <img class="sweet0" src="{{ url_for('menuboard.static', filename='assets/0_sweetness.png') }}" alt="0% Sweetness", height="50px">
-                            <p class="sweet5">0%<br>No Sugar</p>
+                            <img class="sweet" src="{{ url_for('menuboard.static', filename='assets/0_sweetness.png') }}" alt="0% Sweetness", height="50px">
+                            <p>0%<br>No Sugar</p>
                         </div>
                     </div>
                     

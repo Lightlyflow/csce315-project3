@@ -9,7 +9,3 @@ function scaleMenu(numC, catSize, iSize){
         items[i].style.fontSize = iSize;
     }
 }
-
-function test(){
-    
-}

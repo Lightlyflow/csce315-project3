@@ -23,9 +23,9 @@ def home():
     for cat in menuItems:
         numItems += len(cat)
     numItems -= 15
-    numCols = (numCategories//3) + 1
-    categorySize = str(1600 // numCategories) + "%"
-    itemSize = str(5400 // numItems) + "%"
+    numCols = (numCategories//2)+1
+    categorySize = str((400*numCols) // numCategories) + "%"
+    itemSize = str((1350*numCols) // numItems) + "%"
 
     # Toppings
     toppingNames = getToppingNames()
