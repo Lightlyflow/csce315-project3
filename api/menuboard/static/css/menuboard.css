@@ -14,3 +14,33 @@
 #item {
     font-size: 100%;
 }
+
+.sweet1{
+    padding-left:5%;
+}
+.sweet2{
+    padding-left:10%;
+}
+.sweet3{
+    padding-left:10%;
+}
+.sweet4{
+    padding-left:10%;
+}
+.sweet5{
+    padding-right:9%;
+    text-align: center;
+}
+
+.sweet0{
+    padding-left: 6%;
+}
+
+.toppingList{
+    column-count: 3;
+    column-gap: 0px;
+}
+
+h3{
+    margin-bottom:20%;
+}
