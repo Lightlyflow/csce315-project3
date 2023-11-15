@@ -3,6 +3,7 @@ from flask_login import login_required
 
 from .inventory import inventoryAPIBlueprint
 from .inventory_helper import getInventory, getLowStock
+from .analytics_helper import getPairReport
 
 managerBlueprint = Blueprint("manager", __name__, template_folder="templates", static_folder="static")
 
@@ -20,7 +21,8 @@ def home():
 
 @managerBlueprint.route("/analytics", methods=["GET"])
 def analytics():
-    return render_template("manager_analytics.html")
+    pairReport = getPairReport()
+    return render_template("manager_analytics.html", pairReport = pairReport)
 
 
 @managerBlueprint.route("/employees", methods=["GET"])
