@@ -67,7 +67,7 @@ $(document).ready(async function() {
 
         menuNameInput.value = selectedItem[0];
         menuPriceInput.value = selectedItem[1];
-        menuInStockInput.value = selectedItem[2];
+        menuInStockInput.checked = selectedItem[2];
         menuCategoryInput.value = selectedItem[4];
         menuCalorieInput.value = selectedItem[5];
     })
@@ -96,8 +96,19 @@ $(document).ready(async function() {
     })
 
     $('#menuModalSubmit').click(async function() {
+        let data = {};
+
         if (menuItemMode === "edit") {
             console.log("edit menu");
+            data['name'] = menuNameInput.value;
+            data['price'] = menuPriceInput.value;
+            data['instock'] = menuInStockInput.checked;
+            data['category'] = menuCategoryInput.value;
+            data['calories'] = menuCalorieInput.value;
+            data['itemid'] = selectedItem[3];
+
+            await updateMenuItem(data);
+            await refreshMenuItems();
         } else if (menuItemMode === "add") {
             console.log("add menu");
         }
