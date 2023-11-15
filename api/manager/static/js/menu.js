@@ -79,7 +79,9 @@ $(document).ready(async function() {
 
     $('#deleteIngredient').click(async function() {
         let data = {};
-        // await delIngredient({});
+        data['uniqueid'] = lastSelectedIngredient[3];
+        await delIngredient(data);
+        await refreshIngredients(selectedItem[3]);
     })
 
     $('#editIngredient').click(function() {
@@ -87,12 +89,15 @@ $(document).ready(async function() {
         $('#ingredientModalTitle')[0].innerText = 'Edit Ingredient';
 
         ingredientNameInput.value = lastSelectedIngredient[0];
+        ingredientNameInput.readOnly = true;
         ingredientQuantityInput.value = lastSelectedIngredient[1];
     })
 
     $('#addIngredient').click(function() {
         ingredientMode = "add";
         $('#ingredientModalTitle')[0].innerText = 'Add Ingredient';
+
+        ingredientNameInput.readOnly = false;
     })
 
     $('#menuModalSubmit').click(async function() {
@@ -127,12 +132,23 @@ $(document).ready(async function() {
     })
 
     $('#ingredientModalSubmit').click(async function() {
+        let data = {};
+
         if (ingredientMode === "edit") {
-            console.log("edit ingredient");
+            data['quantity'] = ingredientQuantityInput.value;
+            data['uniqueid'] = lastSelectedIngredient[3];
 
+            await updateIngredient(data);
+            await refreshIngredients(selectedItem[3]);
+            resetIngredientInput();
         } else if (ingredientMode === "add") {
-            console.log("add ingredient");
+            data['menuitemid'] = selectedItem[3];
+            data['name'] = ingredientNameInput.value;
+            data['quantity'] = ingredientQuantityInput.value;
 
+            await addIngredient(data);
+            await refreshIngredients(data['menuitemid']);
+            resetIngredientInput();
         }
     })
 

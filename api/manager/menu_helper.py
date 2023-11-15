@@ -14,6 +14,7 @@ def addMenuItem(name: str, price: float, inStock: bool, category: str, calories:
 
 
 def delMenuItem(itemID: int):
+    # TODO :: Remove associated menu item parts (ingredients)
     manager_querier.deleteMenuItem(itemID)
 
 
@@ -21,9 +22,16 @@ def updateMenuItem(price: int, inStock: bool, name: str, category: str, calories
     manager_querier.updateMenuItem(price, inStock, name, category, calories, itemID)
 
 
-def addIngredient(menuItemID: int, inventoryID: int, quantity: float):
-    # TODO :: check if exists
-    pass
+def addIngredient(menuItemID: int, name: str, quantity: float):
+    # TODO :: Check if already exists in db!
+    result = manager_querier.getIngredientInventoryID(name)
+    if len(result) > 0:
+        inventoryID = result[0][0]
+    else:
+        manager_querier.createIngredient(name)
+        inventoryID = manager_querier.getIngredientInventoryID(name)[0][0]
+
+    manager_querier.addIngredient(menuItemID, inventoryID, quantity)
 
 
 def delIngredient(uniqueID: int):

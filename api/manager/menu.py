@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify, abort
-from .menu_helper import getMenuItems, getIngredients, addMenuItem, delMenuItem, updateMenuItem
+from .menu_helper import getMenuItems, getIngredients, addMenuItem, delMenuItem, updateMenuItem, delIngredient, \
+    addIngredient, updateIngredient
 
 menuAPIBlueprint = Blueprint("menu", __name__)
 
@@ -77,10 +78,39 @@ def ingredients():
         data = request.get_json()
 
         if method == 'ADD':
-            # TODO :: Check if already exists in db!
-            pass
+            menuItemID = -1
+            name = ''
+            quantity = 0
+
+            try:
+                menuItemID = data['menuitemid']
+                name = data['name']
+                quantity = data['quantity']
+            except (ValueError, KeyError) as e:
+                abort(400)
+
+            addIngredient(menuItemID, name, quantity)
+            return 'Added ingredient', 201
         elif method == 'DEL':
-            pass
+            uniqueID = -1
+
+            try:
+                uniqueID = int(data['uniqueid'])
+            except (ValueError, KeyError) as e:
+                abort(400)
+
+            delIngredient(uniqueID)
+            return 'Deleted ingredient', 201
         elif method == 'UPDATE':
-            pass
+            quantity = 0
+            uniqueID = -1
+
+            try:
+                quantity = float(data['quantity'])
+                uniqueID = int(data['uniqueid'])
+            except (ValueError, KeyError) as e:
+                abort(400)
+
+            updateIngredient(quantity, uniqueID)
+            return 'Updated ingredient', 201
         abort(400)

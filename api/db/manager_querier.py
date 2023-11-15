@@ -11,6 +11,10 @@ def getLowStock():
         "SELECT inventoryID, name, quantity, restockThreshold FROM inventory_table WHERE quantity<restockThreshold;")
 
 
+def createIngredient(name: str):
+    execute(f"INSERT INTO inventory_table (name, quantity) VALUES ('{name}', 0);")
+
+
 def orderItem(amount: float, name: str):
     execute(f"UPDATE inventory_table SET quantity=quantity+{amount} WHERE name='{name}';")
 
@@ -52,6 +56,7 @@ def updateMenuItem(price: int, inStock: bool, name: str, category: str, calories
 
 
 def addIngredient(menuItemID: int, inventoryID: int, quantity: float):
+    """DOES NOT CHECK IF INGREDIENT ALREADY EXISTS!!!"""
     execute(f"INSERT INTO menu_part_table (menuitemid, inventoryid, quantity) VALUES ({menuItemID}, {inventoryID}, {quantity});")
 
 
@@ -63,5 +68,5 @@ def updateIngredient(quantity: float, ingredientID: int):
     execute(f"UPDATE menu_part_table SET quantity={quantity} WHERE uniqueID={ingredientID}")
 
 
-def createIngredient():
-    pass
+def getIngredientInventoryID(name: str):
+    return execute(f"SELECT inventoryID FROM inventory_table WHERE name='{name}';")
