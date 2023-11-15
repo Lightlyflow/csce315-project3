@@ -40,7 +40,7 @@ def getIngredients(menuItemID: int):
 
 
 def addMenuItem(name: str, price: float, inStock: bool, category: str, calories: int):
-    execute(f"INSERT INTO menu_items_table (name, price, instock, category, calories) VALUES ({name}, {price}, {inStock}, {category}, {calories});")
+    execute(f"INSERT INTO menu_items_table (name, price, instock, category, calories) VALUES ('{name}', {price}, {inStock}, '{category}', {calories});")
 
 
 def deleteMenuItem(itemID: int):
