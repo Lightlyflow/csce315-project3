@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, abort
-from .menu_helper import getMenuItems, getIngredients
+from .menu_helper import getMenuItems, getIngredients, addMenuItem, delMenuItem, updateMenuItem
 
 menuAPIBlueprint = Blueprint("menu", __name__)
 
@@ -13,11 +13,53 @@ def menuItems():
         data = request.get_json()
 
         if method == 'ADD':
-            return 'ADD menu item'
+            name = ''
+            price = 0
+            inStock = 'false'
+            category = ''
+            calories = 0
+
+            try:
+                name = data['name']
+                price = float(data['price'])
+                inStock = data['instock']
+                category = data['category']
+                calories = int(data['calories'])
+            except (ValueError, KeyError) as e:
+                abort(400)
+
+            addMenuItem(name, price, inStock, category, calories)
+            return "Added Menu Item", 201
         elif method == 'DEL':
-            return jsonify('DEL items')
+            itemID = -1
+
+            try:
+                itemID = int(data['itemid'])
+            except (ValueError, KeyError) as e:
+                abort(400)
+
+            delMenuItem(itemID)
+            return "Deleted Menu Item", 201
         elif method == 'UPDATE':
-            pass
+            name = ''
+            price = 0
+            inStock = 'false'
+            category = ''
+            calories = 0
+            itemID = -1
+
+            try:
+                name = data['name']
+                price = float(data['price'])
+                inStock = data['instock']
+                category = data['category']
+                calories = int(data['calories'])
+                itemID = int(data['itemid'])
+            except (ValueError, KeyError) as e:
+                abort(400)
+
+            updateMenuItem(price, inStock, name, category, calories, itemID)
+            return "Updated Menu Item", 201
         abort(400)
 
 
@@ -35,6 +77,7 @@ def ingredients():
         data = request.get_json()
 
         if method == 'ADD':
+            # TODO :: Check if already exists in db!
             pass
         elif method == 'DEL':
             pass

@@ -47,8 +47,8 @@ def deleteMenuItem(itemID: int):
     execute(f"DELETE FROM menu_items_table WHERE menuItemID={itemID};")
 
 
-def updateMenuItem(price: int, inStock: bool, name: str, category: str, itemID: int):
-    execute(f"UPDATE menu_items_table SET price={price}, inStock={inStock}, name='{name}', category='{category}' WHERE menuItemID={itemID};")
+def updateMenuItem(price: int, inStock: bool, name: str, category: str, calories: int, itemID: int):
+    execute(f"UPDATE menu_items_table SET price={price}, inStock={inStock}, name='{name}', category='{category}', calories='{calories}' WHERE menuItemID={itemID};")
 
 
 def addIngredient(menuItemID: int, inventoryID: int, quantity: float):
