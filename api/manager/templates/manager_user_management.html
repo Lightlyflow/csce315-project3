@@ -1,0 +1,15 @@
+{% extends 'manager_base.html' %}
+
+{% block title %}Employees{% endblock %}
+{% block head %}
+    <script src="{{ url_for('manager.static', filename='js/user_management.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('manager.static', filename='css/user_management.css') }}">
+{% endblock %}
+
+{% block body %}
+    <ul class="nav nav-tabs">
+        <li><a data-toggle="tab" href="#users">Users</a></li>
+        <li><a data-toggle="tab" href="#employees">Employees</a></li>
+    </ul>
+    <div class=""
+{% endblock %}

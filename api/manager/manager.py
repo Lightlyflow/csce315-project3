@@ -24,9 +24,9 @@ def analytics():
     return render_template("manager_analytics.html")
 
 
-@managerBlueprint.route("/employees", methods=["GET"])
+@managerBlueprint.route("/user_management", methods=["GET"])
 def employees():
-    return render_template("manager_employees.html")
+    return render_template("manager_user_management.html")
 
 
 @managerBlueprint.route("/inventory", methods=["GET"])
