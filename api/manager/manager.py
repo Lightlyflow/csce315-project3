@@ -4,6 +4,7 @@ from flask_login import login_required
 from .inventory import inventoryAPIBlueprint
 from .inventory_helper import getInventory, getLowStock
 from .menu import menuAPIBlueprint
+from .user_management import userManagementBlueprint
 
 managerBlueprint = Blueprint("manager", __name__, template_folder="templates", static_folder="static")
 
@@ -46,3 +47,4 @@ def menu():
 # POST Endpoints
 managerBlueprint.register_blueprint(inventoryAPIBlueprint, url_prefix='/inventory')
 managerBlueprint.register_blueprint(menuAPIBlueprint, url_prefix='/menu')
+managerBlueprint.register_blueprint(userManagementBlueprint, url_prefix='/user_management')

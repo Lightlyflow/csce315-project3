@@ -44,7 +44,8 @@ def getIngredients(menuItemID: int):
 
 
 def addMenuItem(name: str, price: float, inStock: bool, category: str, calories: int):
-    execute(f"INSERT INTO menu_items_table (name, price, instock, category, calories) VALUES ('{name}', {price}, {inStock}, '{category}', {calories});")
+    execute(
+        f"INSERT INTO menu_items_table (name, price, instock, category, calories) VALUES ('{name}', {price}, {inStock}, '{category}', {calories});")
 
 
 def deleteMenuItem(itemID: int):
@@ -52,12 +53,14 @@ def deleteMenuItem(itemID: int):
 
 
 def updateMenuItem(price: int, inStock: bool, name: str, category: str, calories: int, itemID: int):
-    execute(f"UPDATE menu_items_table SET price={price}, inStock={inStock}, name='{name}', category='{category}', calories='{calories}' WHERE menuItemID={itemID};")
+    execute(
+        f"UPDATE menu_items_table SET price={price}, inStock={inStock}, name='{name}', category='{category}', calories='{calories}' WHERE menuItemID={itemID};")
 
 
 def addIngredient(menuItemID: int, inventoryID: int, quantity: float):
     """DOES NOT CHECK IF INGREDIENT ALREADY EXISTS!!!"""
-    execute(f"INSERT INTO menu_part_table (menuitemid, inventoryid, quantity) VALUES ({menuItemID}, {inventoryID}, {quantity});")
+    execute(
+        f"INSERT INTO menu_part_table (menuitemid, inventoryid, quantity) VALUES ({menuItemID}, {inventoryID}, {quantity});")
 
 
 def deleteIngredient(uniqueID: int):
@@ -70,3 +73,37 @@ def updateIngredient(quantity: float, ingredientID: int):
 
 def getIngredientInventoryID(name: str):
     return execute(f"SELECT inventoryID FROM inventory_table WHERE name='{name}';")
+
+
+# ===================== User Management =====================
+def getUsers():
+    return execute(f"SELECT user_id, username, email, employee_id FROM user_table;")
+
+
+def getEmployees():
+    return execute(f"SELECT employeeID, name, isManager FROM employee_table;")
+
+
+def addEmployee():
+    pass
+
+
+def updateEmployee():
+    pass
+
+
+def removeEmployee():
+    pass
+
+
+def addUser():
+    pass
+
+
+def updateUser():
+    pass
+
+
+def removeUser():
+    pass
+
