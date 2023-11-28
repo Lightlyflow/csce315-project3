@@ -23,8 +23,8 @@ def updateEmployeeByID(employeeID: int, name: str, isManager: bool, email: str):
     manager_querier.updateEmployee(employeeID, name, isManager, email)
 
 
-def removeEmployeeByID():
-    pass
+def deleteEmployeeByID(employeeID: int):
+    manager_querier.deleteEmployee(employeeID)
 
 
 def addEmployee(name: str, isManager: bool, email: str):

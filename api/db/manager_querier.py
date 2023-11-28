@@ -92,8 +92,8 @@ def updateEmployee(employeeID: int, name: str, isManager: bool, email: str):
     execute(f"UPDATE employee_table SET name='{name}', ismanager={isManager}, email='{email}' WHERE employeeid={employeeID};")
 
 
-def removeEmployee():
-    pass
+def deleteEmployee(employeeID: int):
+    execute(f"DELETE FROM employee_table WHERE employeeid={employeeID};")
 
 
 def updateUser(userID: int, username: str, email: str, employeeID: int):

@@ -1,3 +1,5 @@
+// noinspection JSJQueryEfficiency
+
 let userTable = null;
 let employeeTable = null;
 
@@ -7,7 +9,7 @@ let employeeEmailInput = null;
 let employeeManagerInput = null;
 let employeeModalSubmit = null;
 
-let selectedData = null;
+let selectedItem = null;
 let employeeMode = null;
 
 
@@ -40,7 +42,6 @@ $(document).ready(async function() {
 
     employeeTable.on('click', 'tbody tr', async function() {
         selectedItem = employeeTable.row(this).data();
-        console.log(selectedItem);
     });
 
     $("#editEmployee").click(function() {
@@ -62,9 +63,17 @@ $(document).ready(async function() {
         employeeModalSubmit.innerText = "Add";
     });
 
+    $("#deleteEmployee").click(async function() {
+        let data = {};
+
+        data['employeeid'] = selectedItem[0];
+
+        await deleteEmployee(data);
+        await refreshEmployees();
+    });
+
     $("#employeeModalSubmit").click(async function() {
         let data = {};
-        console.log('huh1');
 
         if (employeeMode === "edit") {
             data['employeeid'] = selectedItem[0];
@@ -74,7 +83,6 @@ $(document).ready(async function() {
 
             await updateEmployee(data);
             await refreshEmployees();
-            console.log("edited");
         } else if (employeeMode === "add") {
             data['name'] = employeeNameInput.value;
             data['ismanager'] = employeeManagerInput.checked;
@@ -82,9 +90,7 @@ $(document).ready(async function() {
 
             await addEmployee(data);
             await refreshEmployees();
-            console.log("added");
         }
-        console.log('huh');
     });
 
     await refreshEmployees();
@@ -112,7 +118,14 @@ async function addEmployee(data) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
-    })
+    });
+}
+async function deleteEmployee(data) {
+    const resp = await fetch("/manager/user_management/employees/delete", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
 }
 
 // =================== Call these ===================

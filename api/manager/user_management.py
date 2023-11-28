@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request, abort
 
-from .user_management_helper import getUsers, getEmployees, updateEmployeeByID, addEmployee
+from .user_management_helper import getUsers, getEmployees, updateEmployeeByID, addEmployee, deleteEmployeeByID
 
 userManagementBlueprint = Blueprint("userManagement", __name__)
 
@@ -55,4 +55,13 @@ def employeeAdd():
 
 @userManagementBlueprint.route("/employees/delete", methods=['POST'])
 def employeeDelete():
-    pass
+    data = request.get_json()
+    employeeID: int = -1
+
+    try:
+        employeeID = int(data['employeeid'])
+    except (ValueError, KeyError):
+        abort(400)
+
+    deleteEmployeeByID(employeeID)
+    return 'Deleted employee', 201
