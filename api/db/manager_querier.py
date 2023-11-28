@@ -81,29 +81,20 @@ def getUsers():
 
 
 def getEmployees():
-    return execute(f"SELECT employeeID, name, isManager FROM employee_table;")
+    return execute(f"SELECT employeeID, name, isManager, email FROM employee_table;")
 
 
-def addEmployee():
-    pass
+def addEmployee(name: str, isManager: bool, email: str):
+    execute(f"INSERT INTO employee_table (name, ismanager, email) VALUES ('{name}', {isManager}, '{email}');")
 
 
-def updateEmployee():
-    pass
+def updateEmployee(employeeID: int, name: str, isManager: bool, email: str):
+    execute(f"UPDATE employee_table SET name='{name}', ismanager={isManager}, email='{email}' WHERE employeeid={employeeID};")
 
 
 def removeEmployee():
     pass
 
 
-def addUser():
-    pass
-
-
-def updateUser():
-    pass
-
-
-def removeUser():
-    pass
-
+def updateUser(userID: int, username: str, email: str, employeeID: int):
+    execute(f"UPDATE user_table SET username='{username}', email='{email}', employee_id={employeeID} WHERE user_id={userID};")

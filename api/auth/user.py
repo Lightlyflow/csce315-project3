@@ -12,6 +12,10 @@ class User(UserMixin):
         self.employeeId = _employeeID
         self.isManager = self.getManagerStatus()
 
+    def getEmployeeInfo(self):
+        # TODO :: FINISH THIS, REMOVE getManagerStatus()
+        pass
+
     def getManagerStatus(self) -> bool:
         if self.employeeId is None:
             return False

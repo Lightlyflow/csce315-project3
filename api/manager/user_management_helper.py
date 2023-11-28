@@ -19,15 +19,23 @@ def addUser():
     pass
 
 
-def updateEmployee():
+def updateEmployeeByID(employeeID: int, name: str, isManager: bool, email: str):
+    manager_querier.updateEmployee(employeeID, name, isManager, email)
+
+
+def removeEmployeeByID():
     pass
 
 
-def removeEmployee():
-    pass
-
-
-def addEmployee():
+def addEmployee(name: str, isManager: bool, email: str):
+    # https://www.commandprompt.com/education/postgresql-insert-if-not-exists/
     # Add employee ID to existing user in user_table
     # Add employee entry to employee_table
-    pass
+    manager_querier.addEmployee(name, isManager, email)
+
+
+"""
+1. Add emails to employees
+2. Change manager status to check email in employees
+3. (?) Remove employee_id col in user table
+"""

@@ -1,6 +1,6 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request, abort
 
-from .user_management_helper import getUsers, getEmployees
+from .user_management_helper import getUsers, getEmployees, updateEmployeeByID, addEmployee
 
 userManagementBlueprint = Blueprint("userManagement", __name__)
 
@@ -14,3 +14,45 @@ def users():
 def employees():
     return jsonify(getEmployees())
 
+
+@userManagementBlueprint.route("/employees/update", methods=['POST'])
+def employeeUpdate():
+    data = request.get_json()
+    employeeID = -1
+    name = ""
+    isManager = False
+    email = ""
+
+    try:
+        employeeID = int(data['employeeid'])
+        name = data['name']
+        isManager = int(data['ismanager'])
+        email = data['email']
+    except (ValueError, KeyError):
+        abort(400)
+
+    updateEmployeeByID(employeeID, name, isManager, email)
+    return 'Updated employee', 201
+
+
+@userManagementBlueprint.route("/employees/add", methods=['POST'])
+def employeeAdd():
+    data = request.get_json()
+    name = ""
+    isManager = False
+    email = ""
+
+    try:
+        name = data['name']
+        isManager = int(data['ismanager'])
+        email = data['email']
+    except (ValueError, KeyError):
+        abort(400)
+
+    addEmployee(name, isManager, email)
+    return 'Added employee', 201
+
+
+@userManagementBlueprint.route("/employees/delete", methods=['POST'])
+def employeeDelete():
+    pass
