@@ -68,8 +68,12 @@ $(document).ready(async function() {
 
         data['employeeid'] = selectedItem[0];
 
-        await deleteEmployee(data);
-        await refreshEmployees();
+        let doDelete = confirm(`Delete employee ${selectedItem[1]}?`)
+
+        if (doDelete) {
+            await deleteEmployee(data);
+            await refreshEmployees();
+        }
     });
 
     $("#employeeModalSubmit").click(async function() {
