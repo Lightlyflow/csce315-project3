@@ -18,7 +18,7 @@ async function refreshOrders(startDate, endDate) {
     data['enddate'] = endDate;
 
     orderTable.clear();
-    let result = await getMenuItems(data);
+    let result = await getOrders(data);
     orderTable.rows.add(result).draw();
 }
 
