@@ -1,0 +1,39 @@
+{% extends 'manager_base.html' %}
+
+{% block title %}Orders{% endblock %}
+{% block head %}
+    <script src="{{ url_for('manager.static', filename='js/user_management.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('manager.static', filename='css/user_management.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center">Order History</h1>
+                <table id="orderTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Order ID</th>
+                            <th scope="col">Employee ID</th>
+                            <th scope="col">Date Ordered</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Customer Email</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <div class="btn-toolbar d-flex m-2" role="toolbar" aria-label="Order Toolbar">
+                    <div class="btn-group flex-fill">
+                        <button type="button" class="btn btn-primary" id="deleteOrder">Delete Ingredient</button>
+                    </div>
+                    <div class="flex-fill"></div>
+                    <div class="btn-group flex-fill">
+                        <button type="button" class="btn btn-primary" id="editOrder" data-toggle="modal" data-target="#ingredientModal">Edit Ingredient</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
