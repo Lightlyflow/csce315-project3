@@ -190,6 +190,11 @@ a:hover {color:#262f48}
     cursor: pointer;
 }
 
+.menuCategory h2 {
+    padding-top: 25px;
+    font-size: 2rem;
+}
+
 .menuItems {
     display: flex;
     flex-direction: row;
