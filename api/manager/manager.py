@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 from .inventory import inventoryAPIBlueprint
 from .inventory_helper import getInventory, getLowStock
 from .analytics import analyticsAPIBlueprint
-from .analytics_helper import getPairFrequency, getProductUsage
+from .analytics_helper import getProductUsage, getPairFrequency
 from .menu import menuAPIBlueprint
 from .user_management import userManagementBlueprint
 
