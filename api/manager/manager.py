@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, abort
+from flask import Blueprint, render_template, abort, redirect, url_for
 from flask_login import login_required, current_user
 
 from .inventory import inventoryAPIBlueprint
@@ -20,14 +20,14 @@ def requireLogin():
 
 @managerBlueprint.route("/", methods=["GET"])
 def home():
-    return render_template("manager_analytics.html")
+    return redirect(url_for('manager.analytics'))
 
 
 @managerBlueprint.route("/analytics", methods=["GET"])
 def analytics():
     pairReport = getPairReport()
     print(f"{pairReport =}")
-    return render_template("manager_analytics.html", pairReport = pairReport)
+    return render_template("manager_analytics.html", pairReport=pairReport)
 
 
 @managerBlueprint.route("/user_management", methods=["GET"])
