@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template
-from flask_login import login_required
+from flask import Blueprint, render_template, abort
+from flask_login import login_required, current_user
 
 from .inventory import inventoryAPIBlueprint
 from .inventory_helper import getInventory, getLowStock
@@ -12,8 +12,8 @@ managerBlueprint = Blueprint("manager", __name__, template_folder="templates", s
 @managerBlueprint.before_request
 @login_required
 def requireLogin():
-    # TODO :: Check if manager
-    pass
+    if not current_user.is_authenticated or not current_user.isManager:
+        abort(403)
 
 
 @managerBlueprint.route("/", methods=["GET"])
