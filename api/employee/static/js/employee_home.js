@@ -40,10 +40,7 @@ function toggleHeight(element) {
     if (menuDropDown && element !== menuDropDown) {
         menuDropDown.classList.toggle("active");
     }
-    // scroll to clicked category
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
-
 
 function saveItem() {
     //Ice Options
@@ -209,7 +206,47 @@ function stopCheckTopping(element) {
     }
 }
 
+
 //Gets item name to populate customization modal
 function setItemName(name) {
     document.getElementById("customizationName").innerHTML = name;
+}
+
+
+// create clock 
+function updateClock() {
+    var now = new Date();
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+
+    hours = hours % 12 || 12;
+
+    var timeString = (hours < 10 ? '' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes + ' ' + ampm;
+
+    document.getElementById('clock').innerHTML = timeString;
+}
+window.onload = function() {
+    updateClock();
+}
+setInterval(updateClock, 1000);
+
+
+
+var isExpanded = true;
+ function minimizeButton(event) {
+    event.target.classList.toggle("active");
+    var checkout = document.getElementById('checkout');
+    var menuItemsContainer = document.getElementById('menuItemsContainer');
+
+    if (isExpanded) {
+        checkout.style.display = 'none'; 
+        menuItemsContainer.style.width = '100%'; 
+        isExpanded = false; 
+    } else {
+        checkout.style.display = 'flex';
+        menuItemsContainer.style.width = '70%'; 
+
+        isExpanded = true; 
+    }
 }

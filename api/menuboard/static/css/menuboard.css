@@ -1,0 +1,56 @@
+body{
+    background-color: bisque;
+    background-image: url(background.jfif);
+}
+
+#board {
+    margin-top:1%;
+    -webkit-column-count: 3;
+    -webkit-column-gap:   20px;
+    -moz-column-count:    3;
+    -moz-column-gap:      10px;
+    column-count:         3;
+    column-gap:           0px;
+}
+
+#category {
+    font-size: 200%;
+}
+
+#item {
+    font-size: 100%;
+}
+
+#bruh{
+    text-align: center;
+}
+
+#logo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#header{
+    margin-bottom: 4%;
+}
+
+#endCard{
+
+}
+
+.toppingList{
+    column-count: 3;
+    column-gap: 30px;
+}
+
+.sweet{
+    width:80%;
+    height:auto;
+}
+
+.card{
+    background-color: rgb(255,228,196,0.4);
+}
+
+
