@@ -168,7 +168,7 @@ a:hover {color:#262f48}
     min-width: 150px;
     box-shadow: rgba(0, 0, 0, .02) 0px 3px 8px;
     border: 3px solid transparent;
-    transition: border-color 0.3s;
+    transition: width .5s ease-in-out; 
 
     @media (max-width: 700px) {
         margin: 1px;
@@ -283,7 +283,6 @@ a:hover {color:#262f48}
 }
 
 /* START NAVBAR*/
-
 #navbar {
     position: fixed;
     z-index: 11;
@@ -292,19 +291,32 @@ a:hover {color:#262f48}
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     /* background: linear-gradient(0.25turn, #ffffff, #a3d6f6, #ffffff); */
     background: white;
     height: 100px;
     box-shadow: 0px 1px 4px rgb(0 0 0 / 16%), 0px 0px 0px 3px rgb(172 168 168 / 33%);
     user-select: none;
     -webkit-user-select: none;
-    border-bottom-right-radius: 1rem;
-    border-bottom-left-radius: 1rem;
+    /* border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem; */
 }
 
 .shareTeaLogo {
     height: 100%;
+    margin: auto;
+    width: 15%;
+    left: calc(50% - 7.5%);
+    position: absolute;
+}
+
+.logoutButton {
+    background: url(../media/logout-svgrepo-com.svg) no-repeat;
+    background-size: contain;
+    width: 25px;
+    border: none;
+    height: 25px;
+    margin-left: 13px;
 }
 
 #clock {
@@ -317,6 +329,6 @@ a:hover {color:#262f48}
 #user {
     left: 0;
     font-size: 1.7rem;
-    position: absolute;
+    /* position: absolute; */
     padding-left: 1.5%;
 }

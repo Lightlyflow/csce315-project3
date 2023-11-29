@@ -17,6 +17,7 @@
         {% else %}
             <div id="user">Hello, Guest</div>
         {% endif %}
+        <a class="logoutButton" href="{{ url_for('auth.logout') }}"></a>
         <div class = "shareTeaLogo">
             <img src="{{ url_for('employee.static', filename='shareTeaLogo.png') }}" alt="ShareTea logo", height="100%" >
         </div>
