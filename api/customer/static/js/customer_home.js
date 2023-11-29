@@ -1,5 +1,5 @@
 class MenuItem {
-    constructor(name, iceLevel, sweetness, topping1, topping2, topping3, quantity) {
+    constructor(name, iceLevel, sweetness, topping1, topping2, topping3, quantity, price) {
         this._name = name;
         this._iceLevel = iceLevel;
         this._sweetness = sweetness;
@@ -7,6 +7,7 @@ class MenuItem {
         this._topping2 = topping2;
         this._topping3 = topping3;
         this._quantity = quantity;
+        this._price = price;
     }
 
     get name() {
@@ -29,6 +30,9 @@ class MenuItem {
     }
     get quantity() {
         return this._quantity;
+    }
+    get price() {
+        return this._price;
     }
 }
 
@@ -90,7 +94,7 @@ function saveItem() {
 
     //Local Storage List
     var savedMenuItems = JSON.parse(localStorage.getItem("savedMenuItems")) || [];
-    var newItem = new MenuItem(menuItemName, iceLevel, sweetnessLevel, toppingList[0], toppingList[1], toppingList[2], quantity);
+    var newItem = new MenuItem(menuItemName, iceLevel, sweetnessLevel, toppingList[0], toppingList[1], toppingList[2], quantity, 0.75);
     savedMenuItems.push(newItem);
     localStorage.setItem("savedMenuItems", JSON.stringify(savedMenuItems));
 }
@@ -104,9 +108,44 @@ function populateCart() {
     }
 
     if (savedMenuItems && savedMenuItems.length > 0) {
+        var rowDiv = document.createElement("div");
+        rowDiv.className = "row rows-col-6";
+        pageCartItems.appendChild(rowDiv);
+
+        var colDiv1 = document.createElement("div");
+        colDiv1.className = "col";
+        colDiv1.textContent = "Name";
+
+        var colDiv2 = document.createElement("div");
+        colDiv2.className = "col";
+        colDiv2.textContent = "Ice Level";
+
+        var colDiv3 = document.createElement("div");
+        colDiv3.className = "col";
+        colDiv3.textContent = "Sweetness";
+
+        var colDiv4 = document.createElement("div");
+        colDiv4.className = "col";
+        colDiv4.textContent = "Toppings";
+
+        var colDiv5 = document.createElement("div");
+        colDiv5.className = "col";
+        colDiv5.textContent = "Quantity";
+
+        var colDiv6 = document.createElement("div");
+        colDiv6.className = "col";
+        colDiv6.textContent = "Price";
+
+        rowDiv.appendChild(colDiv1);
+        rowDiv.appendChild(colDiv2);
+        rowDiv.appendChild(colDiv3);
+        rowDiv.appendChild(colDiv4);
+        rowDiv.appendChild(colDiv5);
+        rowDiv.appendChild(colDiv6);
+
         savedMenuItems.forEach(function(item) {
             var rowDiv = document.createElement("div");
-            rowDiv.className = "row";
+            rowDiv.className = "row row-cols-6";
             pageCartItems.appendChild(rowDiv);
 
             var colDiv1 = document.createElement("div");
@@ -140,11 +179,16 @@ function populateCart() {
             colDiv5.className = "col";
             colDiv5.textContent = item._quantity;
 
+            var colDiv6 = document.createElement("div");
+            colDiv6.className = "col";
+            colDiv6.textContent = item._price;
+
             rowDiv.appendChild(colDiv1);
             rowDiv.appendChild(colDiv2);
             rowDiv.appendChild(colDiv3);
             rowDiv.appendChild(colDiv4);
             rowDiv.appendChild(colDiv5);
+            rowDiv.appendChild(colDiv6);
         });
     }
     else {
