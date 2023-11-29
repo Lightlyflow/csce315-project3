@@ -1,10 +1,12 @@
-from flask import Blueprint, render_template
-from flask_login import login_required
+from flask import Blueprint, render_template, abort
+from flask_login import login_required, current_user
 
 from .inventory import inventoryAPIBlueprint
 from .inventory_helper import getInventory, getLowStock
 from .analytics import analyticsAPIBlueprint
 from .analytics_helper import getPairReport
+from .menu import menuAPIBlueprint
+from .user_management import userManagementBlueprint
 
 managerBlueprint = Blueprint("manager", __name__, template_folder="templates", static_folder="static")
 
@@ -12,7 +14,8 @@ managerBlueprint = Blueprint("manager", __name__, template_folder="templates", s
 @managerBlueprint.before_request
 @login_required
 def requireLogin():
-    pass
+    if not current_user.is_authenticated or not current_user.isManager:
+        abort(403)
 
 
 @managerBlueprint.route("/", methods=["GET"])
@@ -27,9 +30,9 @@ def analytics():
     return render_template("manager_analytics.html", pairReport = pairReport)
 
 
-@managerBlueprint.route("/employees", methods=["GET"])
+@managerBlueprint.route("/user_management", methods=["GET"])
 def employees():
-    return render_template("manager_employees.html")
+    return render_template("manager_user_management.html")
 
 
 @managerBlueprint.route("/inventory", methods=["GET"])
@@ -49,3 +52,5 @@ def menu():
 # POST Endpoints
 managerBlueprint.register_blueprint(inventoryAPIBlueprint, url_prefix='/inventory')
 managerBlueprint.register_blueprint(analyticsAPIBlueprint, url_prefix='/analytics')
+managerBlueprint.register_blueprint(menuAPIBlueprint, url_prefix='/menu')
+managerBlueprint.register_blueprint(userManagementBlueprint, url_prefix='/user_management')

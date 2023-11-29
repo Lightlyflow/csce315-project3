@@ -2,3 +2,11 @@ html, body {
     height: 100%;
     background-color: #FAF9F6;
 }
+
+a.btn {
+    background-color: #8ab3d4;
+}
+
+a.btn:hover {
+    background-color: #40687c;
+}
