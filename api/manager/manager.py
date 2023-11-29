@@ -12,6 +12,7 @@ managerBlueprint = Blueprint("manager", __name__, template_folder="templates", s
 @managerBlueprint.before_request
 @login_required
 def requireLogin():
+    # TODO :: Check if manager
     pass
 
 
