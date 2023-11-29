@@ -1,9 +1,13 @@
 from flask import Blueprint, jsonify, request, abort
 
-from .analytics_helper import getPairReport
+from .analytics_helper import getPairFrequency, getProductUsage
 
 analyticsAPIBlueprint = Blueprint("analytics", __name__)
 
+@analyticsAPIBlueprint.route("/usage")
+def productUsage():
+    return jsonify(getProductUsage())
+
 @analyticsAPIBlueprint.route("/pair")
-def pairReport():
-    return jsonify(getPairReport())
+def pairFrequency():
+    return jsonify(getPairFrequency())

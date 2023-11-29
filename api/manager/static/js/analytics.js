@@ -1,6 +1,15 @@
 $(document).ready(function () {
     // Data Tables
-    pairFrequencyTable = $('#pairReportTable').DataTable({
+    productUsageTable = $('#productUsageTable').DataTable({
+        "scrollY": "65vh",
+        "scrollCollapse": true,
+        select: true,
+        order: [[2, 'desc']],
+        paging: false,
+        dom: '<"dt_row"rif>t',
+    });
+
+    pairFrequencyTable = $('#pairFrequencyTable').DataTable({
         "scrollY": "65vh",
         "scrollCollapse": true,
         select: true,

@@ -10,8 +10,38 @@
     <div id="tableContainer" class="container-fluid">
         <div class="row m-5">
             <div class="col m-5">
+                <h1 class="text-center">Product Usage Report</h1>
+                <table id="productUsageTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Quantity Used</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in productUsage %}
+                        <tr>
+                            <th scope="row">{{ row[0] }}</th>
+                            <td>{{ row[1] }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="btn-toolbar" aria-label="Date Picker">
+                    <div class="input-group m-2">
+                        <span class="input-group-text" id="startDateTextUsage">Start Date:</span>
+                        <input type="text" class="form-control" aria-label="Add Start Date" placeholder="MM/DD/YYYY" id="usageDate1">
+                    </div>
+                    <div class="input-group m-2">
+                        <span class="input-group-text" id="endDateTextUsage">End Date:</span>
+                        <input type="text" class="form-control" aria-label="Add End Date" placeholder="MM/DD/YYYY" id="usageDate2">
+                    </div>
+                </div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col m-5">
                 <h1 class="text-center">Pair Frequency Report</h1>
-                <table id="pairReportTable" class="table table-bordered table-striped">
+                <table id="pairFrequencyTable" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th scope="col">Item 1</th>
@@ -20,7 +50,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    {% for row in pairReport %}
+                    {% for row in pairFrequency %}
                         <tr>
                             <th scope="row">{{ row[0] }}</th>
                             <td>{{ row[1] }}</td>
@@ -29,12 +59,14 @@
                     {% endfor %}
                     </tbody>
                 </table>
-                <div class="btn-toolbar" aria-label="Date Picker Pair Report">
+                <div class="btn-toolbar" aria-label="Date Picker">
                     <div class="input-group m-2">
-                        <input type="text" class="form-control" aria-label="Add Start Date" placeholder="Start Date" id="pairDate1">
+                        <span class="input-group-text" id="startDateTextPair">Start Date:</span>
+                        <input type="text" class="form-control" aria-label="Add Start Date" placeholder="MM/DD/YYYY" id="pairDate1">
                     </div>
                     <div class="input-group m-2">
-                        <input type="text" class="form-control" aria-label="Add End Date" placeholder="End Date" id="pairDate2">
+                        <span class="input-group-text" id="endDateTextPair">End Date:</span>
+                        <input type="text" class="form-control" aria-label="Add End Date" placeholder="MM/DD/YYYY" id="pairDate2">
                     </div>
                 </div>
             </div>

@@ -28,7 +28,23 @@ def updateThreshold(name: str, amount: float):
 
 
 # ===================== Reports =====================
-def getPairReport():
+def getProductUsage():
+    return execute("""SELECT inventory_table.name AS name,
+                    SUM(menu_part_table.quantity) AS quantity
+                FROM (SELECT order_part_table.menuItemID
+                        FROM order_part_table
+                        INNER JOIN order_table
+                        ON order_table.orderID=order_part_table.orderID
+                        WHERE order_table.dateOrdered >= '2023-09-01'
+                            AND order_table.dateOrdered <= '2023-10-01')
+                    AS menu_id
+                    INNER JOIN menu_part_table
+                    ON menu_id.menuItemID=menu_part_table.menuItemID
+                    INNER JOIN inventory_table
+                    ON menu_part_table.inventoryID=inventory_table.inventoryID
+                GROUP BY name;""")
+
+def getPairFrequency():
     return execute(f"""Select menuItems1.name, menuItems2.name, COUNT (*) 
             AS frequency FROM order_part_table 
             AS t1 JOIN order_part_table AS t2 
@@ -40,8 +56,8 @@ def getPairReport():
             ON t2.menuitemid = menuItems2.menuitemid 
             JOIN order_table AS orders 
             ON t1.orderid = orders.orderid 
-            WHERE orders.dateordered > '2023-09-01' 
-            AND orders.dateordered < '2023-10-01' 
+            WHERE orders.dateordered >= '2023-09-01' 
+            AND orders.dateordered <= '2023-10-01' 
             GROUP BY menuItems1.name, menuItems2.name 
             ORDER BY frequency DESC;""")
 
