@@ -37,8 +37,8 @@
     </div>
 
     <div class = "checkout">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal" data-backdrop="false">
-            <img height="80px" src="{{ url_for('customer.static', filename='shopping-cart.png') }}" alt="Shopping Cart">
+        <button class="btn btn-primary checkoutButton" data-bs-toggle="modal" data-bs-target="#modal" data-backdrop="false">
+            <img height="65px" src="{{ url_for('customer.static', filename='shopping-cart.png') }}" alt="Shopping Cart">
         </button>
     </div>
 
@@ -49,7 +49,7 @@
 
     <div class = "content">  
         {% for category in menuCategories %}
-        <div class = "menuDropdown" id = "dropdown">
+        <div class = "menuDropdown {% if loop.first %}firstDropDown active{% endif %}" id = "dropdown">
             <div class = "menuCategory" onclick = "toggleHeight(this)">
                 <h1>{{ category }}</h1>
             </div>
@@ -64,14 +64,18 @@
                         ${{'%0.2f' % item[1]|float}}
                     </button>
                     <p class = "menuItemCalories"> 
-                        {{'%4d' % item[2]|int}} Kcal 
+                        {{'%4d' % item[2]|int}} Cal 
                     </p>
-                    <p class = "menuItemPrice">
-                        ${{'%0.2f' % item[1]|float}}
-                    </p>
-                    <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this);setItemName('{{ item[0] }}');resetCustomization();">
-                        Customize
-                    </button>
+                    <div class="menuContentDesc">
+                        <p class = "menuItemPrice">
+                            ${{'%0.2f' % item[1]|float}}
+                        </p>
+
+                        <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this);setItemName('{{ item[0] }}');resetCustomization();">
+                            +
+                        </button>
+                    </div>
+
                 </div>
                 {% endfor %}
             </div>

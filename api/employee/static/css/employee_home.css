@@ -266,6 +266,11 @@ a:hover {color:#262f48}
     --bs-btn-active-border-color: #ffffff00 !important;
 }
 
+.btn-secondary {
+    --bs-btn-active-border-color: black !important;
+    --bs-btn-active-bg: black !important;
+}
+
 .button-container::before {
     content: ""; 
     position: absolute;
