@@ -1,6 +1,6 @@
 from flask import Blueprint, request, abort, jsonify
 
-from .orders_helper import getOrders
+from .orders_helper import getOrders, getOrderItems
 
 ordersAPIBlueprint = Blueprint("orders", __name__)
 
@@ -18,5 +18,18 @@ def orderData():
         abort(400)
 
     orders = getOrders(startDate, endDate)
-
     return jsonify(orders)
+
+
+@ordersAPIBlueprint.route("/parts", methods=['POST'])
+def orderPart():
+    data = request.get_json()
+    orderID = -1
+
+    try:
+        orderID = int(data['orderid'])
+    except (ValueError, KeyError):
+        abort(400)
+
+    parts = getOrderItems(orderID)
+    return jsonify(parts)

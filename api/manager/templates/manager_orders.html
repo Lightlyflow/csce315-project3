@@ -10,7 +10,8 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <h1 class="text-center">Order History</h1>
+                <h2 class="text-center">Order History</h2>
+                <h6 class="text-center" id="orderTimeInterval">(for previous 7 days)</h6>
                 <table id="orderTable" class="table table-bordered table-striped">
                     <thead>
                         <tr>
@@ -25,25 +26,60 @@
                     <tbody></tbody>
                 </table>
                 <div class="btn-toolbar d-flex m-2" role="toolbar" aria-label="Order Toolbar">
+                    <div class="flex-fill"></div>
                     <div class="btn-group flex-fill">
-                        <button type="button" class="btn btn-primary" id="deleteOrder">Delete Selected Order</button>
+                        <button type="button" class="btn btn-primary" id="getOrders" data-toggle="modal" data-target="#orderModal">Get Orders</button>
                     </div>
-                    <div class="btn-group flex-fill">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text" id="startDateLabel">Start Date:</div>
-                        </div>
-                        <input type="date" class="form-control" id="startDateInput" aria-label="start date input" aria-describedby="startDateLabel">
+                    <div class="flex-fill"></div>
+                </div>
+            </div>
+            <div class="col">
+                <h2 class="text-center">Order Items</h2>
+                <h6 class="text-center" id="orderItemsLabel">(for none)</h6>
+                <table id="orderItemsTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Drink</th>
+                            <th scope="col">Topping 1</th>
+                            <th scope="col">Topping 2</th>
+                            <th scope="col">Topping 3</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Sweetness</th>
+                            <th scope="col">Ice Level</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
 
-                    </div>
-                    <div class="btn-group flex-fill">
-                        <div class="input-group-prepend">
-                            <div class="input-group-text" id="endDateLabel">End Date:</div>
+    <div class="modal fade" id="orderModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="menuItemModalTitle">Get Orders</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group form-row">
+                            <label for="startDateInput" class="col-sm-2 col-form-label">Start Date</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="startDateInput">
+                            </div>
                         </div>
-                        <input type="date" class="form-control" id="endDateInput" aria-label="end date input" aria-describedby="endDateLabel">
-                    </div>
-                    <div class="btn-group flex-fill">
-                        <button type="button" class="btn btn-primary" id="getOrders">Get Orders</button>
-                    </div>
+                        <div class="form-group form-row">
+                            <label for="endDateInput" class="col-sm-2 col-form-label">End Date</label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" id="endDateInput">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="orderModalSubmit" data-dismiss="modal">Submit</button>
                 </div>
             </div>
         </div>

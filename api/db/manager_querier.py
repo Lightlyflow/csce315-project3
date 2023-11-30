@@ -106,3 +106,14 @@ def updateUser(userID: int, username: str, email: str, employeeID: int):
 def getOrders(startDate: str, endDate: str):
     """Dates should be in the format YYYY-MM-DD. End date is non-inclusive"""
     return execute(f"SELECT orderID, employeeID, dateOrdered, price, email, status FROM order_table WHERE dateordered >= '{startDate}' AND dateordered <= '{endDate}';")
+
+
+def getOrderItemsByOrderID(orderID: int):
+    return execute(f"SELECT m.name AS drink_name, t1.name AS topping1, t2.name AS topping2, t3.name AS topping3, "
+                   f"part.price AS price, part.sweetness AS sweetness, part.ice AS ice_level "
+                   f"FROM order_part_table AS part "
+                   f"LEFT JOIN menu_items_table AS m ON part.menuitemID=m.menuitemID "
+                   f"LEFT JOIN topping_table AS t1 ON part.toppingID1=t1.toppingID "
+                   f"LEFT JOIN topping_table AS t2 ON part.toppingID2=t2.toppingID "
+                   f"LEFT JOIN topping_table AS t3 ON part.toppingID3=t3.toppingID "
+                   f"WHERE part.orderID={orderID};")
