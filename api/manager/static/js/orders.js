@@ -1,6 +1,7 @@
 let orderTable = null;
 let orderTimeInterval = null;
 let orderItemsTable = null;
+let orderItemsLabel = null;
 
 let startDateInput = null;
 let endDateInput = null;
@@ -9,16 +10,18 @@ let lastSelected = null;
 
 $(document).ready(async function() {
     orderTimeInterval = $("#orderTimeInterval")[0];
+    orderItemsLabel = $("#orderItemsLabel")[0];
 
     startDateInput = $("#startDateInput")[0];
     endDateInput = $("#endDateInput")[0];
 
     orderTable = $("#orderTable").DataTable({
         "scrollY": "65vh",
-        "scrollCollapse": true,
+        "scrollCollapse": false,
         select: true,
         order: [[0, 'desc']],
-        dom: '<"dt_row"rif>t',
+        dom: '<"dt_row"prif>t',
+        paging: true,
     });
 
     orderItemsTable = $("#orderItemsTable").DataTable({
@@ -26,7 +29,7 @@ $(document).ready(async function() {
         "scrollCollapse": true,
         select: true,
         order: [[0, 'desc']],
-        dom: '<"dt_row"rif>t',
+        dom: '<"dt_row"prif>t',
         paging: false,
     });
 
@@ -77,6 +80,8 @@ async function refreshOrderParts(orderID) {
     orderItemsTable.clear();
     let result = await getOrderParts(data);
     orderItemsTable.rows.add(result).draw();
+
+    orderItemsLabel.innerText = `(for order ID: ${orderID})`
 }
 
 // =================== Fetch/Post data ===================
