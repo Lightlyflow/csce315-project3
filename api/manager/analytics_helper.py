@@ -6,6 +6,6 @@ def getProductUsage(startDate, endDate):
     return result if result is not None else []
 
 #Pair frequency report
-def getPairFrequency():
-    result = manager_querier.getPairFrequency()
+def getPairFrequency(startDate, endDate):
+    result = manager_querier.getPairFrequency(startDate, endDate)
     return result if result is not None else []

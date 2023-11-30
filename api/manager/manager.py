@@ -4,7 +4,6 @@ from flask_login import login_required, current_user
 from .inventory import inventoryAPIBlueprint
 from .inventory_helper import getInventory, getLowStock
 from .analytics import analyticsAPIBlueprint
-from .analytics_helper import getProductUsage, getPairFrequency
 from .menu import menuAPIBlueprint
 from .user_management import userManagementBlueprint
 
@@ -25,9 +24,7 @@ def home():
 
 @managerBlueprint.route("/analytics", methods=["GET"])
 def analytics():
-    pairFrequency = getPairFrequency()
-    return render_template("manager_analytics.html", 
-                           pairFrequency=pairFrequency)
+    return render_template("manager_analytics.html")
 
 
 @managerBlueprint.route("/user_management", methods=["GET"])

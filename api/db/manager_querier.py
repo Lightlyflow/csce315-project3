@@ -44,7 +44,7 @@ def getProductUsage(startDate, endDate):
                     ON menu_part_table.inventoryID=inventory_table.inventoryID
                 GROUP BY name;""")
 
-def getPairFrequency():
+def getPairFrequency(startDate, endDate):
     return execute(f"""Select menuItems1.name, menuItems2.name, COUNT (*) 
             AS frequency FROM order_part_table 
             AS t1 JOIN order_part_table AS t2 
@@ -56,8 +56,8 @@ def getPairFrequency():
             ON t2.menuitemid = menuItems2.menuitemid 
             JOIN order_table AS orders 
             ON t1.orderid = orders.orderid 
-            WHERE orders.dateordered >= '2023-09-01' 
-            AND orders.dateordered <= '2023-10-01' 
+            WHERE orders.dateordered >= '{startDate}' 
+            AND orders.dateordered <= '{endDate}' 
             GROUP BY menuItems1.name, menuItems2.name 
             ORDER BY frequency DESC;""")
 
