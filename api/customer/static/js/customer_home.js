@@ -143,6 +143,7 @@ function populateCart() {
         rowDiv.appendChild(colDiv5);
         rowDiv.appendChild(colDiv6);
 
+        //Add elements to page
         savedMenuItems.forEach(function(item) {
             var rowDiv = document.createElement("div");
             rowDiv.className = "row row-cols-6";
