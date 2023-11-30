@@ -43,6 +43,39 @@
             </div>
             <div class="w-100"></div>
             <div class="col m-5">
+                <h1 class="text-center">Sales Report</h1>
+                <table id="salesHistoryTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Number of Sales</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in salesHistory %}
+                        <tr>
+                            <td scope="row">{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="btn-toolbar" aria-label="Date Picker">
+                    <div class="input-group m-2">
+                        <span class="input-group-text" id="salesStartDateText">Start Date:</span>
+                        <input type="date" class="form-control" aria-label="Add Start Date" placeholder="Start Date" id="salesDate1">
+                    </div>
+                    <div class="input-group m-2">
+                        <span class="input-group-text" id="salesEndDateText">End Date:</span>
+                        <input type="date" class="form-control" aria-label="Add End Date" placeholder="End Date" id="salesDate2">
+                    </div>
+                    <div class="input_group m-2">
+                        <button id="updateSales" type="button" class="btn btn-secondary">Update</button>
+                    </div>
+                </div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col m-5">
                 <h1 class="text-center">Pair Frequency Report</h1>
                 <table id="pairFrequencyTable" class="table table-bordered table-striped">
                     <thead>

@@ -61,6 +61,15 @@ def getPairFrequency(startDate, endDate):
             GROUP BY menuItems1.name, menuItems2.name 
             ORDER BY frequency DESC;""")
 
+def getSalesHistory(startDate, endDate):
+    return execute(f""" SELECT mi.name, COUNT(op.menuitemid) AS sales
+                FROM menu_items_table mi
+                LEFT JOIN order_part_table op ON mi.menuitemid = op.menuitemid
+                LEFT JOIN order_table o ON op.orderid = o.orderid
+                WHERE o.dateordered >= '{startDate}' AND o.dateordered <= '{endDate}'
+                GROUP BY mi.name
+                ORDER BY sales DESC;""")
+
 
 # ===================== Menu =====================
 def getMenuItems():

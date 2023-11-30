@@ -23,6 +23,10 @@ table.dataTable thead .sorting_desc_disabled:before {
     padding-top: 0.8em;
 }
 
+#salesHistoryTable_filter {
+    padding-top: 0.8em;
+}
+
 #productUsageTable_filter {
     padding-top: 0.8em;
 }
