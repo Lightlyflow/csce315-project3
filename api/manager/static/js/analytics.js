@@ -34,17 +34,11 @@ $(document).ready(function () {
         let data = {};
         data['startDate'] = usageDate1.value;
         data['endDate'] = usageDate2.value;
-        await updateUsage(data);
-        await refreshUsage();
+        await refreshUsage(data);
     });
 
 
     // =================== Fetch/Post Data ======================
-
-    async function getUsageReport() {
-        const resp = await fetch(`/manager/analytics/usage`, { method: 'GET' });
-        return resp.json();
-    }
 
     async function updateUsage(data) {
         const resp = await fetch(`/manager/analytics/usage?method=UPDATE`, {
@@ -52,14 +46,15 @@ $(document).ready(function () {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         });
+        return resp.json();
     }
 
 
     // =================== Call These =====================
     
-    async function refreshUsage() {
+    async function refreshUsage(inputData) {
         productUsageTable.clear();
-        let data = await getUsageReport();
+        let data = await updateUsage(inputData);
         productUsageTable.rows.add(data).draw();
     }
 });
