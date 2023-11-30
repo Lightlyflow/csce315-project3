@@ -89,7 +89,8 @@ def addEmployee(name: str, isManager: bool, email: str):
 
 
 def updateEmployee(employeeID: int, name: str, isManager: bool, email: str):
-    execute(f"UPDATE employee_table SET name='{name}', ismanager={isManager}, email='{email}' WHERE employeeid={employeeID};")
+    execute(
+        f"UPDATE employee_table SET name='{name}', ismanager={isManager}, email='{email}' WHERE employeeid={employeeID};")
 
 
 def deleteEmployee(employeeID: int):
@@ -97,4 +98,11 @@ def deleteEmployee(employeeID: int):
 
 
 def updateUser(userID: int, username: str, email: str, employeeID: int):
-    execute(f"UPDATE user_table SET username='{username}', email='{email}', employee_id={employeeID} WHERE user_id={userID};")
+    execute(
+        f"UPDATE user_table SET username='{username}', email='{email}', employee_id={employeeID} WHERE user_id={userID};")
+
+
+# ===================== Orders =====================
+def getOrders(startDate: str, endDate: str):
+    """Dates should be in the format YYYY-MM-DD. End date is non-inclusive"""
+    return execute(f"SELECT orderID, employeeID, dateOrdered, price, email, status FROM order_table WHERE dateordered >= '{startDate}' AND dateordered <= '{endDate}';")

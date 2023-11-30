@@ -2,8 +2,8 @@
 
 {% block title %}Orders{% endblock %}
 {% block head %}
-    <script src="{{ url_for('manager.static', filename='js/user_management.js') }}"></script>
-    <link rel="stylesheet" href="{{ url_for('manager.static', filename='css/user_management.css') }}">
+    <script src="{{ url_for('manager.static', filename='js/orders.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('manager.static', filename='css/orders.css') }}">
 {% endblock %}
 
 {% block body %}
@@ -16,7 +16,7 @@
                         <tr>
                             <th scope="col">Order ID</th>
                             <th scope="col">Employee ID</th>
-                            <th scope="col">Date Ordered</th>
+                            <th scope="col">Time Ordered</th>
                             <th scope="col">Price</th>
                             <th scope="col">Customer Email</th>
                             <th scope="col">Status</th>
@@ -26,11 +26,23 @@
                 </table>
                 <div class="btn-toolbar d-flex m-2" role="toolbar" aria-label="Order Toolbar">
                     <div class="btn-group flex-fill">
-                        <button type="button" class="btn btn-primary" id="deleteOrder">Delete Ingredient</button>
+                        <button type="button" class="btn btn-primary" id="deleteOrder">Delete Selected Order</button>
                     </div>
-                    <div class="flex-fill"></div>
                     <div class="btn-group flex-fill">
-                        <button type="button" class="btn btn-primary" id="editOrder" data-toggle="modal" data-target="#ingredientModal">Edit Ingredient</button>
+                        <div class="input-group-prepend">
+                            <div class="input-group-text" id="startDateLabel">Start Date:</div>
+                        </div>
+                        <input type="date" class="form-control" id="startDateInput" aria-label="start date input" aria-describedby="startDateLabel">
+
+                    </div>
+                    <div class="btn-group flex-fill">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text" id="endDateLabel">End Date:</div>
+                        </div>
+                        <input type="date" class="form-control" id="endDateInput" aria-label="end date input" aria-describedby="endDateLabel">
+                    </div>
+                    <div class="btn-group flex-fill">
+                        <button type="button" class="btn btn-primary" id="getOrders">Get Orders</button>
                     </div>
                 </div>
             </div>
