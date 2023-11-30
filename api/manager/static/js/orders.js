@@ -30,7 +30,6 @@ $(document).ready(async function() {
         select: true,
         order: [[0, 'desc']],
         dom: '<"dt_row"prif>t',
-        paging: false,
     });
 
     orderTable.on('click', 'tbody tr', async function() {
@@ -61,6 +60,7 @@ async function refreshOrders(startDate, endDate) {
     orderTable.clear();
     let result = await getOrders(data);
     orderTable.rows.add(result).draw();
+    orderTable.columns.adjust();
 
     orderTimeInterval.innerText = `(from ${startDate} to ${endDate})`;
 }
@@ -81,6 +81,7 @@ async function refreshOrderParts(orderID) {
     let result = await getOrderParts(data);
     orderItemsTable.rows.add(result).draw();
 
+    orderItemsTable.columns.adjust();
     orderItemsLabel.innerText = `(for order ID: ${orderID})`
 }
 
