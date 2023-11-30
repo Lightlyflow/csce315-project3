@@ -30,11 +30,14 @@
                 <div class="btn-toolbar" aria-label="Date Picker">
                     <div class="input-group m-2">
                         <span class="input-group-text" id="startDateTextUsage">Start Date:</span>
-                        <input type="text" class="form-control" aria-label="Add Start Date" placeholder="MM/DD/YYYY" id="usageDate1">
+                        <input type="date" class="form-control" aria-label="Add Start Date" placeholder="Start Date" id="usageDate1">
                     </div>
                     <div class="input-group m-2">
                         <span class="input-group-text" id="endDateTextUsage">End Date:</span>
-                        <input type="text" class="form-control" aria-label="Add End Date" placeholder="MM/DD/YYYY" id="usageDate2">
+                        <input type="date" class="form-control" aria-label="Add End Date" placeholder="End Date" id="usageDate2">
+                    </div>
+                    <div class="input_group m-2">
+                        <button id="updateUsage" type="button" class="btn btn-secondary">Update</button>
                     </div>
                 </div>
             </div>
@@ -61,10 +64,15 @@
                 </table>
                 <div class="btn-toolbar" aria-label="Date Picker">
                     <div class="input-group m-2">
+                        <span class="input-group-text" id="pairStartDateText">Start Date:</span>
                         <input type="date" class="form-control" aria-label="Add Start Date" placeholder="Start Date" id="pairDate1">
                     </div>
                     <div class="input-group m-2">
+                        <span class="input-group-text" id="pairEndDateText">End Date:</span>
                         <input type="date" class="form-control" aria-label="Add End Date" placeholder="End Date" id="pairDate2">
+                    </div>
+                    <div class="input_group m-2">
+                        <button id="updatePair" type="button" class="btn btn-secondary">Update</button>
                     </div>
                 </div>
             </div>

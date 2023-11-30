@@ -25,10 +25,8 @@ def home():
 
 @managerBlueprint.route("/analytics", methods=["GET"])
 def analytics():
-    productUsage = getProductUsage()
     pairFrequency = getPairFrequency()
     return render_template("manager_analytics.html", 
-                           productUsage=productUsage, 
                            pairFrequency=pairFrequency)
 
 

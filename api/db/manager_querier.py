@@ -28,15 +28,15 @@ def updateThreshold(name: str, amount: float):
 
 
 # ===================== Reports =====================
-def getProductUsage():
-    return execute("""SELECT inventory_table.name AS name,
+def getProductUsage(startDate, endDate):
+    return execute(f"""SELECT inventory_table.name AS name,
                     SUM(menu_part_table.quantity) AS quantity
                 FROM (SELECT order_part_table.menuItemID
                         FROM order_part_table
                         INNER JOIN order_table
                         ON order_table.orderID=order_part_table.orderID
-                        WHERE order_table.dateOrdered >= '2023-09-01'
-                            AND order_table.dateOrdered <= '2023-10-01')
+                        WHERE order_table.dateOrdered >= '{startDate}'
+                            AND order_table.dateOrdered <= '{endDate}')
                     AS menu_id
                     INNER JOIN menu_part_table
                     ON menu_id.menuItemID=menu_part_table.menuItemID
