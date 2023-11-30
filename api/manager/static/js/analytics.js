@@ -40,7 +40,7 @@ $(document).ready(function () {
 
     // =================== Fetch/Post Data ======================
 
-    async function updateUsage(data) {
+    async function updateUsagePeriod(data) {
         const resp = await fetch(`/manager/analytics/usage?method=UPDATE`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -54,7 +54,7 @@ $(document).ready(function () {
     
     async function refreshUsage(inputData) {
         productUsageTable.clear();
-        let data = await updateUsage(inputData);
+        let data = await updateUsagePeriod(inputData);
         productUsageTable.rows.add(data).draw();
     }
 });

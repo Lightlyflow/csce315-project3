@@ -7,7 +7,7 @@ analyticsAPIBlueprint = Blueprint("analytics", __name__)
 @analyticsAPIBlueprint.route("/usage", methods = ['GET', 'POST'])
 def productUsage():
     if request.method == 'GET':
-        return jsonify(getProductUsage('2023-09-26', '2023-10-3'))
+        return jsonify(getProductUsage('2023-09-26', '2023-10-3')) # This doesn't get used at the moment
     elif request.method == 'POST':
         method = request.args.get("method", default="")
         data = request.get_json()
