@@ -5,6 +5,8 @@ let orderItemsLabel = null;
 
 let startDateInput = null;
 let endDateInput = null;
+let startDate = null;
+let endDate = null;
 
 let lastSelected = null;
 
@@ -16,7 +18,7 @@ $(document).ready(async function() {
     endDateInput = $("#endDateInput")[0];
 
     orderTable = $("#orderTable").DataTable({
-        "scrollY": "65vh",
+        "scrollY": "55vh",
         "scrollCollapse": false,
         select: true,
         order: [[0, 'desc']],
@@ -25,7 +27,7 @@ $(document).ready(async function() {
     });
 
     orderItemsTable = $("#orderItemsTable").DataTable({
-        "scrollY": "65vh",
+        "scrollY": "55vh",
         "scrollCollapse": true,
         select: true,
         order: [[0, 'desc']],
@@ -38,11 +40,21 @@ $(document).ready(async function() {
     });
 
     $("#orderModalSubmit").click(async function() {
-        let startDate = new Date(startDateInput.value);
-        let endDate = new Date(endDateInput.value);
+        startDate = new Date(startDateInput.value);
+        endDate = new Date(endDateInput.value);
 
         await refreshOrders(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]);
     });
+
+    $("#deleteOrderBtn").click(async function() {
+        let data = {};
+        data['orderid'] = selectedItem[0];
+
+        if (confirm(`Delete order with id ${data['orderid']}?`)) {
+            await deleteOrder(data);
+            await refreshOrders(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0]);
+        }
+    })
 
     await initOrders();
 });
@@ -65,12 +77,12 @@ async function refreshOrders(startDate, endDate) {
     orderTimeInterval.innerText = `(from ${startDate} to ${endDate})`;
 }
 async function initOrders() {
-    let today = new Date();
-    let prevWeek = new Date();
+    startDate = new Date();
+    endDate = new Date();
 
-    prevWeek.setDate(today.getDate() - 7);
+    startDate.setDate(endDate.getDate() - 7);
 
-    await refreshOrders(prevWeek.toLocaleDateString(), today.toLocaleDateString());
+    await refreshOrders(startDate.toLocaleDateString(), endDate.toLocaleDateString());
     orderTimeInterval.innerText = "(for last 7 days)"
 }
 async function refreshOrderParts(orderID) {
@@ -101,4 +113,11 @@ async function getOrderParts(data) {
         body: JSON.stringify(data)
     });
     return resp.json();
+}
+async function deleteOrder(data) {
+    const resp = await fetch("/manager/orders/delete", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
 }
