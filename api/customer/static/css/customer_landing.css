@@ -64,19 +64,33 @@ a:hover {color:#262f48}
     box-shadow: rgb(0 0 0 / 0%) 0px 19px 10px, rgb(0 0 0 / 12%) 0px 15px 12px;
 }
 
-.contentBox h1 {
-    font-weight: 600;
-    padding-bottom: 1rem;
+.getStarted {
+    margin-bottom: 2rem;
+    font-size: 3.2rem;
+    text-align: center;
 }
 
-.contentBox p {
-    background-color: #ffffff;
-    border-radius: 1rem;
-    margin-top: 1.2rem;
+.googleLoginButton {
+    background-color: #d12c41;
+    margin-bottom: 1rem;
 }
 
-.contentBox p:hover {
-    background-color: #e2e2e2;
+.googleLoginButton:hover {
+    background-color: #db5b6b;
+}
+
+.googleLoginButton span {
+    font-size: 2rem;
+}
+
+.guestLogin a {
+    font-weight: 200;
+    font-size: 1.3rem;
+    color: black;
+}
+
+.guestLogin a:hover {
+    color: #1c87c9;
 }
 
 @media (max-width: 630px) {
@@ -85,12 +99,33 @@ a:hover {color:#262f48}
         border-radius: 0;
         padding: 2rem;
     }
+    
+    .shareTeaLogo {
+        padding-bottom: 1rem;
+    }
+
+    .shareTeaLogo img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
 }
 
-a.btn {
-    background-color: #8ab3d4;
+
+.name {
+    font-size: 2.5rem !important;
 }
 
-a.btn:hover {
-    background-color: #40687c;
+.secondaryButton {
+    background-color: #ffffff;
+    border-radius: 1rem;
+    margin-top: 1.2rem;
+    padding:10px;
+    color: black;
+    font-size: 1.4rem;
+
+}
+
+.secondaryButton:hover {
+    background-color: #e2e2e2;
 }

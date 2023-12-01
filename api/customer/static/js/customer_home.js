@@ -40,7 +40,10 @@ function toggleHeight(element) {
     if (menuDropDown && element !== menuDropDown) {
         menuDropDown.classList.toggle("active");
     }
+    // scroll to clicked category
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
+
 
 function saveItem() {
     //Ice Options

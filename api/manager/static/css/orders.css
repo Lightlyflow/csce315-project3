@@ -1,0 +1,15 @@
+.dt_row {
+    display: flex!important;
+    justify-content: space-between!important;
+}
+
+.navbar {
+    position: fixed !important;
+    z-index: 1000 !important;
+    width: 100% !important;
+    top:0 !important;
+}
+
+.text-center {
+    margin-top: 80px;
+}

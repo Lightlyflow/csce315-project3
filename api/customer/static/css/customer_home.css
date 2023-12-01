@@ -3,13 +3,14 @@ body{
     margin:0;
     font-family: 'Helvetica';
     z-index: 1;
-    background-color: rgb(255, 255, 255);
+    background-color: #e2e2e2;
 }
 p {
     font-size: 16px;
     word-wrap: break-word;
     font-size: medium;
     line-height: 1.45;
+    margin-bottom: 0.6rem;
 }
 
 a {
@@ -17,31 +18,41 @@ a {
 }
 a:hover {color:#262f48}
 
-/*.navStatic {
-    position: fixed;
-    height: 100px;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 10;
-}
-
-.navBar {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    padding: 10px; 
-    box-sizing: border-box;
-    pointer-events: none;
-}*/
-
-.shareTeaLogo {
+.homeContent {
     position: fixed;
     z-index: 11;
     top: 0;
     left: 0;
     margin-top: 5px;
 
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 600px) {
+        left: -10px;
+    }
+}
+
+.accessButton {
+    position: fixed;
+    right: 20px;
+    bottom: 40px;
+    z-index: 10 !important;
+    
+    @media (max-width: 600px) {
+        top: 0 !important;
+        bottom: auto !important;
+        right: 0px !important;
+        left: auto !important;
+    }
+}
+
+.logoutButton {
+    background: url(../logout-svgrepo-com.svg) no-repeat;
+    background-size: contain;
+    width: 25px;
+    border: none;
+    height: 25px;
 }
 
 .checkout {
@@ -51,15 +62,19 @@ a:hover {color:#262f48}
     top: 0;
     margin-right: 20px;
     margin-top: 20px;
-    box-shadow: rgb(0 0 0 / 16%) 0px 19px 38px, rgb(0 0 0 / 12%) 0px 15px 12px;
+    box-shadow: rgb(0 0 0 / 0%) 0px 19px 10px, rgb(0 0 0 / 12%) 0px 15px 12px;
+    border-radius: 1rem;
 
-    @media (max-width: 700px) {
+    @media (max-width: 600px) {
         top: auto;
-        bottom: 40px;
+        bottom: 20px;
         left: auto;
-        right: 20px;
+        right: 0px;
     }
+}
 
+.checkoutButton {
+    background: white !important;
 }
 
 .weatherWidget {
@@ -68,6 +83,7 @@ a:hover {color:#262f48}
     border-radius: 1rem;
     z-index: 9;
     position: fixed;
+    background: white;
     left: 0;
     padding: 15px;
     bottom: 0;
@@ -79,23 +95,42 @@ a:hover {color:#262f48}
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow: rgb(0 0 0 / 16%) 0px 19px 38px, rgb(0 0 0 / 12%) 0px 15px 12px;
+    box-shadow: rgb(0 0 0 / 4%) 0px 19px 38px, rgb(0 0 0 / 5%) 0px 15px 12px;
+
+    @media (max-width: 600px) {
+        top: auto;
+        bottom: 0px;
+        left: 0px;
+        right: auto;
+        margin-left: 20px;
+        margin-bottom: 20px;
+    }
 }
 
 .weatherWidget p {
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-family: sans-serif;
     font-weight: bold;
     margin: 0;
 }
 
 .weatherWidget h2 {
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin: 0;
 }
 
 .btn-primary {
-    --bs-btn-bg: #ff9999;
+    --bs-btn-bg: #d64356 !important;
+    --bs-btn-hover-bg: #a31023 !important;
+    --bs-btn-border-color: #ffffff00 !important;
+    --bs-btn-hover-border-color: #ffffff00 !important;
+    --bs-btn-active-bg: #a31023 !important;
+    --bs-btn-active-border-color: #ffffff00 !important;
+}
+
+.btn-secondary {
+    --bs-btn-active-border-color: black !important;
+    --bs-btn-active-bg: black !important;
 }
 
 .button-container::before {
@@ -113,11 +148,15 @@ a:hover {color:#262f48}
     top: 0;
     margin-top: 50px; 
     min-height: calc(100vh - 95px);
-    background: linear-gradient( to bottom, rgb(255, 255, 255), rgb(176, 176, 176));
+    /* background: linear-gradient( to bottom, rgb(255, 255, 255), rgb(176, 176, 176)); */
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+}
+
+.firstDropDown {
+    margin: 60px 0 40px !important;
 }
 
 .menuDropdown {
@@ -127,9 +166,9 @@ a:hover {color:#262f48}
     z-index: 3;
     padding: 0 30px 30px 30px;
     background: white;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.03), 0 6px 6px rgba(0,0,0,0.03);
     border-radius: 5px;
-    margin: 50px 0 40px;
+    margin: 10px 0 40px;
     cursor: pointer;
 }
 
@@ -164,9 +203,33 @@ a:hover {color:#262f48}
     cursor: pointer;
 }
 
+#dropdownMenuButton {
+    border-radius: 7rem !important;
+    --bs-btn-color: #fff0 !important;
+    --bs-btn-bg: #fff0 !important;
+    --bs-btn-border-color: #fff0 !important;
+    --bs-btn-hover-color: #fff0 !important;
+    --bs-btn-hover-bg: rgba(255, 255, 255, 0) !important;
+    --bs-btn-hover-border-color: #fff0 !important;
+    --bs-btn-focus-shadow-rgb: 130,138,145;
+    --bs-btn-active-color: #fff0 !important;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+    --bs-btn-disabled-color: #fff0 !important;
+    --bs-btn-disabled-bg: #fff0 !important;
+    --bs-btn-disabled-border-color: #fff0 !important;
+    --bs-btn-active-border-color: #fff0 !important;
+    --bs-btn-active-bg: #fff0 !important;
+}
+
 .menuCategory {
     width: 100%;
     cursor: pointer;
+}
+
+.menuCategory h2 {
+    padding-top: 25px;
+    font-size: 2rem;
+    margin-bottom: 1.3rem;
 }
 
 .menuItems {
@@ -174,7 +237,7 @@ a:hover {color:#262f48}
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .menuItemBox {
@@ -183,7 +246,7 @@ a:hover {color:#262f48}
     text-align: center;
     /*background-color: #ff9999;*/
     min-width: 100px;
-    @media (max-width: 700px) {
+    @media (max-width: 600px) {
         margin: 1px;
     }
 }
@@ -195,11 +258,11 @@ a:hover {color:#262f48}
 }
 
 .menuItemName {
-    height: 3.3rem;
+    height: 3rem;
     text-align: center;
     text-overflow: ellipsis;
     overflow: hidden;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: bold;
 
 
@@ -211,7 +274,7 @@ a:hover {color:#262f48}
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
     }
-    @media (max-width: 700px) {
+    @media (max-width: 600px) {
         display: none !important;;
     }
 }
@@ -223,7 +286,7 @@ a:hover {color:#262f48}
     height: 130px;
     background-color: #fff;
     border-radius: 13px;
-    box-shadow: transparent 0 0 0 3px,rgba(18, 18, 18, 0.176) 0 6px 20px;
+    /* box-shadow: transparent 0 0 0 3px,rgba(18, 18, 18, 0.176) 0 6px 20px; */
     box-sizing: border-box;
     color: #121212;
     cursor: pointer;
@@ -241,50 +304,70 @@ a:hover {color:#262f48}
         display: none !important;;
     }
 }
-.menuItemCalories {
+
+.menuContentDesc {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.menuItemPrice {
+    color: #b81228;
+    font-weight: 750;
+    margin-right:5px;
     font-size: .95rem;
-    @media (max-width: 700px) {
+    margin-bottom: 0;
+    text-align: center;
+
+    @media (max-width: 600px) {
+        display: none !important;;
+    }
+}
+
+.menuItemCalories {
+    font-weight: 330;
+    @media (max-width: 600px) {
         display: none !important;;
     }
 }
 
 .menuItemPrice {
     font-size: 1.1rem;
-    @media (max-width: 700px) {
+    @media (max-width: 600px) {
         display: none !important;;
     }
 }
 
 .modal-backdrop {
-    background-color: transparent;
     z-index: 100;
 }
 
 .btnMenu {
-  align-items: center;
-  background-color: #fff;
-  border-radius: 13px;
-  box-shadow: transparent 0 0 0 3px,rgba(18, 18, 18, 0.176) 0 6px 20px;
-  box-sizing: border-box;
-  color: #121212;
-  cursor: pointer;
-  font-size: .8 rem;
-  font-weight: 200;
-  line-height: 1;
-  padding: .6rem 10%;
-  text-align: center;
-  text-decoration: none;
-  transition: box-shadow .2s,-webkit-box-shadow .2s;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  @media (max-width: 700px) {
-    display: none !important;
+    background-color: #cc142c;
+    border-radius: 13px;
+    /* box-shadow: transparent 0 0 0 3px, rgba(18, 18, 18, 0.176) 0 6px 20px; */
+    box-sizing: border-box;
+    color: white;
+    cursor: pointer;
+    font-size: 1.3rem;
+    font-weight: bolder;
+    line-height: 1;
+    padding: 0.3rem 7%;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow .2s,-webkit-box-shadow .2s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    border: none;
+    @media (max-width: 600px) {
+        display: none !important;
     }
 }
 
 .btnMenu:hover {
-  box-shadow: #121212 0 0 0 3px, transparent 0 0 0 0;
+  box-shadow: #cc142c 0 0 0 3px, transparent 0 0 0 0;
 }
 
 .sweetnessTick {

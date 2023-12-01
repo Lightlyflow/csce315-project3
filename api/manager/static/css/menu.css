@@ -33,3 +33,14 @@
 .dataTables_filter {
     padding-top: 0.8em;
 }
+
+.navbar {
+    position: fixed !important;
+    z-index: 1000 !important;
+    width: 100% !important;
+    top:0 !important;
+}
+
+.navCustom {
+    margin-top: 55px;
+}

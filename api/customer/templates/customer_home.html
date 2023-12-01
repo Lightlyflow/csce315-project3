@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project 3 - Customer</title>
+    <title>ShareTea - Customer</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('customer.static', filename='css/customer_home.css') }}">
@@ -34,16 +34,34 @@
             </div>
         </div>
     </div>
+    <div class="homeContent">
+        <div class = "shareTeaLogo">
+            <img src="{{ url_for('customer.static', filename='shareTeaLogo.png') }}" alt="ShareTea logo", height="105px">
+        </div>
+
 
     <div id="google_translate_element"></div>
 
     <div class = "shareTeaLogo">
         <img src="{{ url_for('customer.static', filename='shareTeaLogo.png') }}" alt="ShareTea logo", height="120px">
+      
+        <a class="logoutButton" href="{{ url_for('auth.logout') }}"></a>
+    </div>
+    
+    <div class="dropdown accessButton">
+        <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="{{ url_for('customer.static', filename='accessibility-alt.svg') }}" alt="Accessibility Button", height="70px">
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li><a class="dropdown-item" href="">Translate</a></li>
+            <li><a class="dropdown-item" href="">Text Resize</a></li>
+        </ul>
+
     </div>
 
     <div class = "checkout">
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal" data-backdrop="false">
-            <img height="80px" src="{{ url_for('customer.static', filename='shopping-cart.png') }}" alt="Shopping Cart">
+        <button class="btn btn-primary checkoutButton" data-bs-toggle="modal" data-bs-target="#modal" data-backdrop="false">
+            <img height="65px" src="{{ url_for('customer.static', filename='shopping-cart.png') }}" alt="Shopping Cart">
         </button>
     </div>
 
@@ -54,9 +72,9 @@
 
     <div class = "content">  
         {% for category in menuCategories %}
-        <div class = "menuDropdown" id = "dropdown">
+        <div class = "menuDropdown {% if loop.first %}firstDropDown active{% endif %}" id = "dropdown">
             <div class = "menuCategory" onclick = "toggleHeight(this)">
-                <h1>{{ category }}</h1>
+                <h2>{{ category }}</h2>
             </div>
             <div class = "menuItems">
                 {% for item in menuItems[category] %}
@@ -64,19 +82,23 @@
                     <p class = "menuItemName">
                         {{item[0]}}
                     </p>
-                    <button class="btnMenuMobile" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this)">
+                    <button class="btnMenuMobile" data-bs-toggle="modal" data-bs-target="#customizationModal">
                         {{item[0]}}
                         ${{'%0.2f' % item[1]|float}}
                     </button>
                     <p class = "menuItemCalories"> 
-                        {{'%4d' % item[2]|int}} Kcal 
+                        {{'%4d' % item[2]|int}} Cal 
                     </p>
-                    <p class = "menuItemPrice">
-                        ${{'%0.2f' % item[1]|float}}
-                    </p>
-                    <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this);setItemName('{{ item[0] }}');resetCustomization();">
-                        Customize
-                    </button>
+                    <div class="menuContentDesc">
+                        <p class = "menuItemPrice">
+                            ${{'%0.2f' % item[1]|float}}
+                        </p>
+
+                        <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="setItemName('{{ item[0] }}');resetCustomization();">
+                            +
+                        </button>
+                    </div>
+
                 </div>
                 {% endfor %}
             </div>
