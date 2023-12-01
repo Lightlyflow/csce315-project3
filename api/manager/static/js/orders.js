@@ -22,7 +22,7 @@ $(document).ready(async function() {
         "scrollCollapse": false,
         select: true,
         order: [[0, 'desc']],
-        dom: '<"dt_row"prif>t',
+        dom: '<"dt_row"prf>ti',
         paging: true,
     });
 
@@ -31,7 +31,7 @@ $(document).ready(async function() {
         "scrollCollapse": true,
         select: true,
         order: [[0, 'desc']],
-        dom: '<"dt_row"prif>t',
+        dom: '<"dt_row"prf>ti',
     });
 
     orderTable.on('click', 'tbody tr', async function() {
