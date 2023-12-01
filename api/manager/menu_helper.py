@@ -47,3 +47,19 @@ def getMenuCategories():
     for i, row in enumerate(result):
         row.insert(0, i + 1)
     return result if not None else []
+
+
+def addMenuCategories(categories: [str]):
+    cats: [str] = []
+    for cat in categories:
+        cats.append(f"('{cat}', -1)")
+
+    manager_querier.addCategories(", ".join(cats))
+
+
+def updateMenuCategoriesOrder(categories: [str]):
+    cats: [str] = []
+    for cat in categories:
+        cats.append(f"('{cat[1]}', {cat[0]})")
+
+    manager_querier.updateCategories(", ".join(cats))

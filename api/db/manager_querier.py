@@ -76,7 +76,26 @@ def getIngredientInventoryID(name: str):
 
 
 def getMenuItemCategories():
-    return execute(f"SELECT m.category, p.priority FROM menu_items_table AS m LEFT JOIN priority AS p ON p.name=m.category GROUP BY m.category, p.priority ORDER BY p.priority DESC;")
+    """Gets categories of menu items, sorted by priority (if any priority)"""
+    return execute(f"SELECT m.category FROM menu_items_table AS m LEFT JOIN category_priority AS p ON p.name=m.category GROUP BY m.category, p.priority ORDER BY p.priority DESC;")
+
+
+def addCategories(categories: str):
+    """:param categories: Must be of form ('category1', -1), ...., (categoryN, -1). Inserts into db only if category doesn't exist."""
+    execute(f"""INSERT INTO category_priority (name, priority)
+                        VALUES
+                            {categories}
+                        ON CONFLICT (name) DO NOTHING;""")
+
+
+def updateCategories(categories: str):
+    """:param categories: Must be of form ('category1', int(priority)), ..., ('categoryN', int(priority))"""
+    execute(f"""UPDATE category_priority AS t SET
+                            priority = c.priority
+                        FROM (VALUES
+                            {categories} 
+                        ) as c(name, priority) 
+                        WHERE c.name = t.name;""")
 
 
 # ===================== User Management =====================

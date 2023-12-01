@@ -13,6 +13,7 @@ let ingredientNameInput = null;
 let ingredientQuantityInput = null;
 
 let menuItemOrderTable = null;
+let updateCategoryInput = null;
 
 $(document).ready(async function() {
     // =================== Initialize Elements ===================
@@ -38,6 +39,7 @@ $(document).ready(async function() {
             selector: "tr",
             dataSrc: 0
         },
+        order: [[0, 'asc']],
         columnDefs: [
             { orderable: true, className: 'reorder', targets: 0 },
             { orderable: false, targets: '_all' }
@@ -160,6 +162,15 @@ $(document).ready(async function() {
         }
     })
 
+    $("#updateCategoryInput").click(async function() {
+        let data = {};
+
+        data['categories'] = menuItemOrderTable.data().toArray();
+
+        await updateCategories(data);
+        await refreshCategories();
+    })
+
     await refreshMenuItems();
     await refreshCategories();
     hideCols();
@@ -240,6 +251,13 @@ async function updateIngredient(data) {
 async function getCategories() {
     const resp = await fetch(`/manager/menu/categories`, { method: 'GET' });
     return resp.json();
+}
+async function updateCategories(data) {
+    const resp = await fetch(`/manager/menu/categories`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
 }
 
 // =================== Call these ===================
