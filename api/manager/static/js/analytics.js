@@ -68,54 +68,82 @@ $(document).ready(function () {
         await refreshSales(data);
     });
 
-
-    // =================== Fetch/Post Data ======================
-
-    async function updateUsagePeriod(data) {
-        const resp = await fetch(`/manager/analytics/usage?method=UPDATE`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
-        return resp.json();
-    }
-
-    async function updatePairPeriod(data) {
-        const resp = await fetch(`/manager/analytics/pair?method=UPDATE`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
-        return resp.json();
-    }
-
-    async function updateSalesPeriod(data) {
-        const resp = await fetch(`/manager/analytics/sales?method=UPDATE`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
-        return resp.json();
-    }
-
-
-    // =================== Call These =====================
-    
-    async function refreshUsage(inputData) {
-        productUsageTable.clear();
-        let data = await updateUsagePeriod(inputData);
-        productUsageTable.rows.add(data).draw();
-    }
-
-    async function refreshPair(inputData) {
-        pairFrequencyTable.clear();
-        let data = await updatePairPeriod(inputData);
-        pairFrequencyTable.rows.add(data).draw();
-    }
-
-    async function refreshSales(inputData) {
-        salesHistoryTable.clear();
-        let data = await updateSalesPeriod(inputData);
-        salesHistoryTable.rows.add(data).draw();
-    }
+    refreshDefault();
 });
+
+
+// =================== Fetch/Post Data ======================
+
+async function getDefaultUsage() {
+    const resp = await fetch(`/manager/analytics/usage`, { method: 'GET' });
+    return resp.json();
+}
+
+async function getDefaultSales() {
+    const resp = await fetch(`/manager/analytics/sales`, { method: 'GET' });
+    return resp.json();
+}
+
+async function getDefaultPair() {
+    const resp = await fetch(`/manager/analytics/pair`, { method: 'GET' });
+    return resp.json();
+}
+
+async function updateUsagePeriod(data) {
+    const resp = await fetch(`/manager/analytics/usage?method=UPDATE`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+    return resp.json();
+}
+
+async function updatePairPeriod(data) {
+    const resp = await fetch(`/manager/analytics/pair?method=UPDATE`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+    return resp.json();
+}
+
+async function updateSalesPeriod(data) {
+    const resp = await fetch(`/manager/analytics/sales?method=UPDATE`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+    return resp.json();
+}
+
+// =================== Call These =====================
+
+async function refreshUsage(inputData) {
+    productUsageTable.clear();
+    let data = await updateUsagePeriod(inputData);
+    productUsageTable.rows.add(data).draw();
+}
+
+async function refreshPair(inputData) {
+    pairFrequencyTable.clear();
+    let data = await updatePairPeriod(inputData);
+    pairFrequencyTable.rows.add(data).draw();
+}
+
+async function refreshSales(inputData) {
+    salesHistoryTable.clear();
+    let data = await updateSalesPeriod(inputData);
+    salesHistoryTable.rows.add(data).draw();
+}
+
+async function refreshDefault() {
+    productUsageTable.clear();
+    pairFrequencyTable.clear();
+    salesHistoryTable.clear();
+    let data1 = await getDefaultUsage();
+    let data2 = await getDefaultSales();
+    let data3 = await getDefaultPair();
+    productUsageTable.rows.add(data1).draw();
+    salesHistoryTable.rows.add(data2).draw();
+    pairFrequencyTable.rows.add(data3).draw();
+}

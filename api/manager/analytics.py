@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request, abort
+from datetime import datetime, timedelta
 
 from .analytics_helper import getProductUsage, getSalesHistory, getPairFrequency
 
@@ -7,7 +8,9 @@ analyticsAPIBlueprint = Blueprint("analytics", __name__)
 @analyticsAPIBlueprint.route("/usage", methods = ['GET', 'POST'])
 def productUsage():
     if request.method == 'GET':
-        return jsonify(getProductUsage('2023-09-26', '2023-10-3')) # This doesn't get used at the moment
+        currDate = datetime.today().strftime('%Y-%m-%d')
+        lastWeekDate = datetime.today() - timedelta(days=7)
+        return jsonify(getProductUsage(lastWeekDate, currDate))
     elif request.method == 'POST':
         method = request.args.get("method", default="")
         data = request.get_json()
@@ -27,7 +30,9 @@ def productUsage():
 @analyticsAPIBlueprint.route("/sales", methods = ['GET', 'POST'])
 def salesHistory():
     if request.method == 'GET':
-        return jsonify(getSalesHistory('2023-09-26', '2023-10-3')) # This doesn't get used at the moment
+        currDate = datetime.today().strftime('%Y-%m-%d')
+        lastWeekDate = datetime.today() - timedelta(days=7)
+        return jsonify(getSalesHistory(lastWeekDate, currDate))
     elif request.method == 'POST':
         method = request.args.get("method", default="")
         data = request.get_json()
@@ -47,7 +52,9 @@ def salesHistory():
 @analyticsAPIBlueprint.route("/pair", methods = ['GET', 'POST'])
 def pairFrequency():
     if request.method == 'GET':
-        return jsonify(getPairFrequency('2023-09-26', '2023-10-3')) # This doesn't get used at the moment
+        currDate = datetime.today().strftime('%Y-%m-%d')
+        lastWeekDate = datetime.today() - timedelta(days=7)
+        return jsonify(getPairFrequency(lastWeekDate, currDate))
     elif request.method == 'POST':
         method = request.args.get("method", default="")
         data = request.get_json()
