@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, abort
 from .menu_helper import getMenuItems, getIngredients, addMenuItem, delMenuItem, updateMenuItem, delIngredient, \
-    addIngredient, updateIngredient
+    addIngredient, updateIngredient, getMenuCategories
 
 menuAPIBlueprint = Blueprint("menu", __name__)
 
@@ -114,3 +114,8 @@ def ingredients():
             updateIngredient(quantity, uniqueID)
             return 'Updated ingredient', 201
         abort(400)
+
+
+@menuAPIBlueprint.route("/categories", methods=['GET', 'POST'])
+def categories():
+    return jsonify(getMenuCategories())

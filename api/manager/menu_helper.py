@@ -41,3 +41,9 @@ def delIngredient(uniqueID: int):
 def updateIngredient(quantity: float, ingredientID: int):
     manager_querier.updateIngredient(quantity, ingredientID)
 
+
+def getMenuCategories():
+    result = manager_querier.getMenuItemCategories()
+    for i, row in enumerate(result):
+        row.insert(0, i + 1)
+    return result if not None else []

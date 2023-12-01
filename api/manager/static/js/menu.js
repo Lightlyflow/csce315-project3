@@ -12,6 +12,8 @@ let menuInStockInput = null;
 let ingredientNameInput = null;
 let ingredientQuantityInput = null;
 
+let menuItemOrderTable = null;
+
 $(document).ready(async function() {
     // =================== Initialize Elements ===================
     menuItemTable = $("#menuItemTable").DataTable({
@@ -21,13 +23,25 @@ $(document).ready(async function() {
         "scrollCollapse": true,
         "scrollY": "65vh",
     });
-
     ingredientTable = $("#ingredientTable").DataTable({
         select: true,
         paging: false,
         dom: '<"dt_row"rif>t',
         "scrollCollapse": true,
         "scrollY": "65vh",
+    });
+    menuItemOrderTable = $("#menuItemOrderTable").DataTable({
+        paging: false,
+        dom: '<"dt_row"rf>t',
+        rowReorder: {
+            cancelable: true,
+            selector: "tr",
+            dataSrc: 0
+        },
+        columnDefs: [
+            { orderable: true, className: 'reorder', targets: 0 },
+            { orderable: false, targets: '_all' }
+        ]
     });
 
     menuNameInput = $('#menuItemNameInput')[0];
@@ -45,7 +59,6 @@ $(document).ready(async function() {
         selectedItem = menuItemTable.row(this).data();
         await refreshIngredients(selectedItem[3]);
     });
-
     ingredientTable.on('click', 'tbody tr', async function() {
         lastSelectedIngredient = ingredientTable.row(this).data();
     });
@@ -60,7 +73,6 @@ $(document).ready(async function() {
         await delMenuItem(data);
         await refreshMenuItems();
     })
-
     $('#editMenuItem').click(function() {
         menuItemMode = "edit";
         $('#menuItemModalTitle')[0].innerText = "Edit Menu Item";
@@ -71,7 +83,6 @@ $(document).ready(async function() {
         menuCategoryInput.value = selectedItem[4];
         menuCalorieInput.value = selectedItem[5];
     })
-
     $('#addMenuItem').click(function() {
         menuItemMode = "add";
         $('#menuItemModalTitle')[0].innerText = "Add Menu Item";
@@ -83,7 +94,6 @@ $(document).ready(async function() {
         await delIngredient(data);
         await refreshIngredients(selectedItem[3]);
     })
-
     $('#editIngredient').click(function() {
         ingredientMode = "edit";
         $('#ingredientModalTitle')[0].innerText = 'Edit Ingredient';
@@ -92,7 +102,6 @@ $(document).ready(async function() {
         ingredientNameInput.readOnly = true;
         ingredientQuantityInput.value = lastSelectedIngredient[1];
     })
-
     $('#addIngredient').click(function() {
         ingredientMode = "add";
         $('#ingredientModalTitle')[0].innerText = 'Add Ingredient';
@@ -130,7 +139,6 @@ $(document).ready(async function() {
             resetMenuInput();
         }
     })
-
     $('#ingredientModalSubmit').click(async function() {
         let data = {};
 
@@ -153,6 +161,7 @@ $(document).ready(async function() {
     })
 
     await refreshMenuItems();
+    await refreshCategories();
     hideCols();
 });
 
@@ -181,12 +190,10 @@ async function getMenuItems() {
     const resp = await fetch(`/manager/menu/menuitems`, { method: 'GET' });
     return resp.json();
 }
-
 async function getIngredients(itemID) {
     const resp = await fetch(`/manager/menu/ingredients?menuitemid=${itemID}`, { method: 'GET' });
     return resp.json();
 }
-
 async function addMenuItem(data) {
     const resp = await fetch(`/manager/menu/menuitems?method=ADD`, {
         method: 'POST',
@@ -194,7 +201,6 @@ async function addMenuItem(data) {
         body: JSON.stringify(data)
     });
 }
-
 async function delMenuItem(data) {
     const resp = await fetch(`/manager/menu/menuitems?method=DEL`, {
         method: 'POST',
@@ -202,7 +208,6 @@ async function delMenuItem(data) {
         body: JSON.stringify(data)
     });
 }
-
 async function updateMenuItem(data) {
     const resp = await fetch(`/manager/menu/menuitems?method=UPDATE`, {
         method: 'POST',
@@ -210,7 +215,6 @@ async function updateMenuItem(data) {
         body: JSON.stringify(data)
     });
 }
-
 async function addIngredient(data) {
     const resp = await fetch(`/manager/menu/ingredients?method=ADD`, {
         method: 'POST',
@@ -218,7 +222,6 @@ async function addIngredient(data) {
         body: JSON.stringify(data)
     });
 }
-
 async function delIngredient(data) {
     const resp = await fetch(`/manager/menu/ingredients?method=DEL`, {
         method: 'POST',
@@ -226,7 +229,6 @@ async function delIngredient(data) {
         body: JSON.stringify(data)
     });
 }
-
 async function updateIngredient(data) {
     const resp = await fetch(`/manager/menu/ingredients?method=UPDATE`, {
         method: 'POST',
@@ -235,16 +237,30 @@ async function updateIngredient(data) {
     });
 }
 
+async function getCategories() {
+    const resp = await fetch(`/manager/menu/categories`, { method: 'GET' });
+    return resp.json();
+}
+
 // =================== Call these ===================
 
 async function refreshMenuItems() {
     menuItemTable.clear();
     let data = await getMenuItems();
     menuItemTable.rows.add(data).draw();
+    menuItemTable.columns.adjust().draw();
 }
 
 async function refreshIngredients(itemID) {
     ingredientTable.clear();
     let data = await getIngredients(itemID);
     ingredientTable.rows.add(data).draw();
+    ingredientMode.columns.adjust().draw();
+}
+
+async function refreshCategories() {
+    menuItemOrderTable.clear();
+    let data = await getCategories();
+    menuItemOrderTable.rows.add(data).draw();
+    menuItemOrderTable.columns.adjust().draw();
 }

@@ -75,6 +75,10 @@ def getIngredientInventoryID(name: str):
     return execute(f"SELECT inventoryID FROM inventory_table WHERE name='{name}';")
 
 
+def getMenuItemCategories():
+    return execute(f"SELECT m.category, p.priority FROM menu_items_table AS m LEFT JOIN priority AS p ON p.name=m.category GROUP BY m.category, p.priority ORDER BY p.priority DESC;")
+
+
 # ===================== User Management =====================
 def getUsers():
     return execute(f"SELECT user_id, username, email, employee_id FROM user_table;")
