@@ -27,6 +27,74 @@ def updateThreshold(name: str, amount: float):
     execute(f"UPDATE inventory_table SET restockThreshold={amount} WHERE name='{name}';")
 
 
+# ===================== Reports =====================
+def getProductUsage(startDate, endDate):
+    return execute(f"""SELECT inventory_table.name AS name,
+            SUM(menu_part_table.quantity) AS quantity
+        FROM (SELECT order_part_table.menuItemID
+                FROM order_part_table
+                INNER JOIN order_table
+                ON order_table.orderID=order_part_table.orderID
+                WHERE order_table.dateOrdered >= '{startDate}'
+                    AND order_table.dateOrdered <= '{endDate}')
+            AS menu_id
+            INNER JOIN menu_part_table
+            ON menu_id.menuItemID=menu_part_table.menuItemID
+            INNER JOIN inventory_table
+            ON menu_part_table.inventoryID=inventory_table.inventoryID
+        GROUP BY name;""")
+
+def getPairFrequency(startDate, endDate):
+    return execute(f"""Select menuItems1.name, menuItems2.name, COUNT (*) 
+        AS frequency FROM order_part_table 
+        AS t1 JOIN order_part_table AS t2 
+        ON t1.orderid = t2.orderid 
+        AND t1.menuitemid < t2.menuitemid 
+        JOIN menu_items_table AS menuItems1 
+        ON t1.menuitemid = menuItems1.menuitemid 
+        JOIN menu_items_table AS menuItems2 
+        ON t2.menuitemid = menuItems2.menuitemid 
+        JOIN order_table AS orders 
+        ON t1.orderid = orders.orderid 
+        WHERE orders.dateordered >= '{startDate}' 
+        AND orders.dateordered <= '{endDate}' 
+        GROUP BY menuItems1.name, menuItems2.name 
+        ORDER BY frequency DESC;""")
+
+def getSalesHistory(startDate, endDate):
+    return execute(f"""SELECT mi.name, COUNT(op.menuitemid) AS sales
+        FROM menu_items_table mi
+        LEFT JOIN order_part_table op ON mi.menuitemid = op.menuitemid
+        LEFT JOIN order_table o ON op.orderid = o.orderid
+        WHERE o.dateordered >= '{startDate}' AND o.dateordered <= '{endDate}'
+        GROUP BY mi.name
+        ORDER BY sales DESC;""")
+
+def getExcessItems(startDate):
+    return execute(f"""WITH ItemSales as (
+            SELECT mpt.inventoryid, SUM(mpt.quantity) AS total_quantity_sold 
+            FROM (
+                SELECT 	opt.menuitemid 
+                FROM order_table AS ot 
+                INNER JOIN order_part_table AS opt ON ot.orderid = opt.orderid 
+                WHERE ot.dateordered >= '{startDate}') 
+            AS oid INNER JOIN menu_part_table as mpt ON oid.menuitemid = mpt.menuitemid 
+            GROUP BY inventoryid
+        ), Inventory as (
+            SELECT * 
+            FROM inventory_table 
+            WHERE (inventoryid >= 14 AND inventoryid <= 47) OR inventoryid >= 50
+        )
+        SELECT
+            i.name,
+            COALESCE(s.total_quantity_sold, 0) AS quantitySold,
+            i.quantity
+        FROM
+            Inventory i
+        LEFT JOIN ItemSales s ON i.inventoryid = s.inventoryid
+        WHERE COALESCE(s.total_quantity_sold, 0) <= (0.1 * i.quantity);""")
+
+
 # ===================== Menu =====================
 def getMenuItems():
     return execute("SELECT name, price, inStock, menuItemID, category, calories FROM menu_items_table;")

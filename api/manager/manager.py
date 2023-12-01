@@ -1,8 +1,9 @@
-from flask import Blueprint, render_template, abort
+from flask import Blueprint, render_template, abort, redirect, url_for
 from flask_login import login_required, current_user
 
 from .inventory import inventoryAPIBlueprint
 from .inventory_helper import getInventory, getLowStock
+from .analytics import analyticsAPIBlueprint
 from .menu import menuAPIBlueprint
 from .user_management import userManagementBlueprint
 from .orders import ordersAPIBlueprint
@@ -19,7 +20,7 @@ def requireLogin():
 
 @managerBlueprint.route("/", methods=["GET"])
 def home():
-    return render_template("manager_analytics.html")
+    return redirect(url_for('manager.analytics'))
 
 
 @managerBlueprint.route("/analytics", methods=["GET"])
@@ -53,6 +54,7 @@ def orders():
 
 # POST Endpoints
 managerBlueprint.register_blueprint(inventoryAPIBlueprint, url_prefix='/inventory')
+managerBlueprint.register_blueprint(analyticsAPIBlueprint, url_prefix='/analytics')
 managerBlueprint.register_blueprint(menuAPIBlueprint, url_prefix='/menu')
 managerBlueprint.register_blueprint(userManagementBlueprint, url_prefix='/user_management')
 managerBlueprint.register_blueprint(ordersAPIBlueprint, url_prefix='/orders')
