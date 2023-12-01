@@ -1,12 +1,14 @@
 from flask import Flask, Blueprint, render_template, url_for, request, jsonify
 from .customer_helper import getMenuCategories, getToppingNames, placeOrder, getWeather, getMenuData
-
+import os
 customerBlueprint = Blueprint("customer", __name__, template_folder="templates", static_folder="static")
 
 
 @customerBlueprint.route("/")
 def home():
-    return render_template("customer_landing.html")
+    
+    googleID = os.environ.get('GOOGLE_CLIENT_ID')
+    return render_template("customer_landing.html", googleID=googleID)
 
 
 @customerBlueprint.route("/order", methods=['GET'])
