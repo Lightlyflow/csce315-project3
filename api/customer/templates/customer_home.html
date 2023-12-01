@@ -39,13 +39,14 @@
             <img src="{{ url_for('customer.static', filename='shareTeaLogo.png') }}" alt="ShareTea logo", height="105px">
         </div>
 
-
-    <div id="google_translate_element"></div>
-
-    <div class = "shareTeaLogo">
-        <img src="{{ url_for('customer.static', filename='shareTeaLogo.png') }}" alt="ShareTea logo", height="120px">
-      
         <a class="logoutButton" href="{{ url_for('auth.logout') }}"></a>
+
+        <script type="text/javascript">
+
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: "en,fr,ar,es", layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+        }
+        </script>
     </div>
     
     <div class="dropdown accessButton">
@@ -53,7 +54,9 @@
             <img src="{{ url_for('customer.static', filename='accessibility-alt.svg') }}" alt="Accessibility Button", height="70px">
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li><a class="dropdown-item" href="">Translate</a></li>
+            <li><a class="dropdown-item disabled" href="">Translate</a></li>
+            <div id="google_translate_element"></div>
+            <div class="dropdown-divider"></div>
             <li><a class="dropdown-item" href="">Text Resize</a></li>
         </ul>
 
