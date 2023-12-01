@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request, abort
 from datetime import datetime, timedelta
 
-from .analytics_helper import getProductUsage, getSalesHistory, getPairFrequency
+from .analytics_helper import getProductUsage, getSalesHistory, getPairFrequency, getExcessItems
 
 analyticsAPIBlueprint = Blueprint("analytics", __name__)
 
@@ -48,6 +48,25 @@ def salesHistory():
                 abort(400)
 
             return jsonify(getSalesHistory(startDate, endDate))
+
+@analyticsAPIBlueprint.route("/excess", methods = ['GET', 'POST'])
+def excessItems():
+    if request.method == 'GET':
+        lastWeekDate = datetime.today() - timedelta(days=7)
+        return jsonify(getExcessItems(lastWeekDate))
+    elif request.method == 'POST':
+        method = request.args.get("method", default="")
+        data = request.get_json()
+
+        if method == 'UPDATE':
+            startDate = ''
+
+            try:
+                startDate = data['startDate']
+            except (ValueError, KeyError) as e:
+                abort(400)
+
+            return jsonify(getExcessItems(startDate))
 
 @analyticsAPIBlueprint.route("/pair", methods = ['GET', 'POST'])
 def pairFrequency():

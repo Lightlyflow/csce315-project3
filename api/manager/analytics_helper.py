@@ -10,6 +10,11 @@ def getSalesHistory(startDate, endDate):
     result = manager_querier.getSalesHistory(startDate, endDate)
     return result if result is not None else []
 
+#Excess report
+def getExcessItems(startDate):
+    result = manager_querier.getExcessItems(startDate)
+    return result if result is not None else []
+
 #Pair frequency report
 def getPairFrequency(startDate, endDate):
     result = manager_querier.getPairFrequency(startDate, endDate)

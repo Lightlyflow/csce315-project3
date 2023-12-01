@@ -5,6 +5,7 @@ let pairDate1 = null;
 let pairDate2 = null;
 let salesDate1 = null;
 let salesDate2 = null;
+let excessDate = null;
 
 $(document).ready(function () {
     // ====================== Initializing Elements ========================
@@ -35,6 +36,15 @@ $(document).ready(function () {
         dom: '<"dt_row"rif>t',
     });
 
+    excessItemsTable = $('#excessItemsTable').DataTable({
+        "scrollY": "65vh",
+        "scrollCollapse": true,
+        select: true,
+        order: [[1, 'desc']],
+        paging: false,
+        dom: '<"dt_row"rif>t',
+    });
+
     $('.dataTables_length').addClass('bs-select');
 
     usageDate1 = $('#usageDate1').get()[0];
@@ -43,6 +53,7 @@ $(document).ready(function () {
     pairDate2 = $('#pairDate2').get()[0];
     salesDate1 = $('#salesDate1').get()[0];
     salesDate2 = $('#salesDate2').get()[0];
+    excessDate = $('#excessDate').get()[0];
 
 
     // =================== Button/Table Functions ====================
@@ -68,6 +79,12 @@ $(document).ready(function () {
         await refreshSales(data);
     });
 
+    $('#updateExcess').click(async function() {
+        let data = {};
+        data['startDate'] = excessDate.value;
+        await refreshExcess(data);
+    });
+
     refreshDefault();
 });
 
@@ -86,6 +103,11 @@ async function getDefaultSales() {
 
 async function getDefaultPair() {
     const resp = await fetch(`/manager/analytics/pair`, { method: 'GET' });
+    return resp.json();
+}
+
+async function getDefaultExcess() {
+    const resp = await fetch(`/manager/analytics/excess`, { method: 'GET' });
     return resp.json();
 }
 
@@ -116,6 +138,15 @@ async function updateSalesPeriod(data) {
     return resp.json();
 }
 
+async function updateExcessPeriod(data) {
+    const resp = await fetch(`/manager/analytics/excess?method=UPDATE`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+    return resp.json();
+}
+
 // =================== Call These =====================
 
 async function refreshUsage(inputData) {
@@ -136,14 +167,23 @@ async function refreshSales(inputData) {
     salesHistoryTable.rows.add(data).draw();
 }
 
+async function refreshExcess(inputData) {
+    excessItemsTable.clear();
+    let data = await updateExcessPeriod(inputData);
+    excessItemsTable.rows.add(data).draw();
+}
+
 async function refreshDefault() {
     productUsageTable.clear();
     pairFrequencyTable.clear();
     salesHistoryTable.clear();
+    excessItemsTable.clear();
     let data1 = await getDefaultUsage();
     let data2 = await getDefaultSales();
     let data3 = await getDefaultPair();
+    let data4 = await getDefaultExcess();
     productUsageTable.rows.add(data1).draw();
     salesHistoryTable.rows.add(data2).draw();
     pairFrequencyTable.rows.add(data3).draw();
+    excessItemsTable.rows.add(data4).draw();
 }

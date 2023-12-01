@@ -76,6 +76,37 @@
             </div>
             <div class="w-100"></div>
             <div class="col m-5">
+                <h1 class="text-center">Excess Report</h1>
+                <table id="excessItemsTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Quantity Sold</th>
+                            <th scope="col">Total Inventory Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in excessItems %}
+                        <tr>
+                            <td scope="row">{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="btn-toolbar" aria-label="Date Picker">
+                    <div class="input-group m-2">
+                        <span class="input-group-text" id="excessStartDateText">Start Date:</span>
+                        <input type="date" class="form-control" aria-label="Add Start Date" placeholder="Start Date" id="excessDate">
+                    </div>
+                    <div class="input_group m-2">
+                        <button id="updateExcess" type="button" class="btn btn-secondary">Update</button>
+                    </div>
+                </div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col m-5">
                 <h1 class="text-center">Pair Frequency Report</h1>
                 <table id="pairFrequencyTable" class="table table-bordered table-striped">
                     <thead>

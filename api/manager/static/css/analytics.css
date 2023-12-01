@@ -31,6 +31,10 @@ table.dataTable thead .sorting_desc_disabled:before {
     padding-top: 0.8em;
 }
 
+#excessItemsTable_filter {
+    padding-top: 0.8em;
+}
+
 .dataTables_filter {
     padding-top: 0.8em;
 }
