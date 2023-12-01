@@ -75,8 +75,31 @@
             </div>
         </div>
         <div class="tab-pane fade m-2" id="order">
-            <div class="container">
+            <div class="row justify-content-center">
                 <h1>Edit Menu Order</h1>
+            </div>
+            <div class="row justify-content-center">
+                <h6>Click and drag table row to adjust order of appearance</h6>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-6">
+                    <table id="menuItemOrderTable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Priority (Topmost Displayed First)</th>
+                                <th scope="col">Category</th>
+                            </tr>
+                        </thead>
+                    <tbody></tbody>
+                    </table>
+                    <div class="btn-toolbar d-flex m-2" role="toolbar" aria-label="Category Toolbar">
+                        <div class="flex-fill"></div>
+                        <div class="btn-group flex-fill">
+                            <button type="button" class="btn btn-primary" id="updateCategoryInput">Update Categories</button>
+                        </div>
+                        <div class="flex-fill"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
