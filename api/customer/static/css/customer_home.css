@@ -300,7 +300,7 @@ a:hover {color:#262f48}
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
-    @media (min-width: 701px) {
+    @media (min-width: 601px) {
         display: none !important;;
     }
 }
