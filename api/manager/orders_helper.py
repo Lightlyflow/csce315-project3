@@ -18,3 +18,8 @@ def getOrderItems(orderID: int):
 #     convertedDate: struct_time = strptime(date, "%m/%d/%Y")
 #     convertedDate: str = strftime("%Y-%m-%d", convertedDate)
 #     return convertedDate
+
+
+def deleteOrder(orderID: int):
+    manager_querier.deleteOrder(orderID)
+    manager_querier.deleteOrderParts(orderID)
