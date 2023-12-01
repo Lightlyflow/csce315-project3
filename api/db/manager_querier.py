@@ -208,3 +208,14 @@ def getOrderItemsByOrderID(orderID: int):
                    f"LEFT JOIN topping_table AS t2 ON part.toppingID2=t2.toppingID "
                    f"LEFT JOIN topping_table AS t3 ON part.toppingID3=t3.toppingID "
                    f"WHERE part.orderID={orderID};")
+
+
+def deleteOrder(orderID: int):
+    """Deletes from order_table"""
+    execute(f"DELETE FROM order_table WHERE orderid={orderID};")
+
+
+def deleteOrderParts(orderID: int):
+    """Deletes from order_parts_table"""
+    execute(f"DELETE FROM order_part_table WHERE orderid={orderID};")
+
