@@ -31,9 +31,22 @@
             </div>
         </div>
     </div>
+    <div class="homeContent">
+        <div class = "shareTeaLogo">
+            <img src="{{ url_for('customer.static', filename='shareTeaLogo.png') }}" alt="ShareTea logo", height="105px">
+        </div>
 
-    <div class = "shareTeaLogo">
-        <img src="{{ url_for('customer.static', filename='shareTeaLogo.png') }}" alt="ShareTea logo", height="105px">
+        <a class="logoutButton" href="{{ url_for('auth.logout') }}"></a>
+    </div>
+    
+    <div class="dropdown accessButton">
+        <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="{{ url_for('customer.static', filename='accessibility-alt.svg') }}" alt="Accessibility Button", height="70px">
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li><a class="dropdown-item" href="">Translate</a></li>
+            <li><a class="dropdown-item" href="">Text Resize</a></li>
+        </ul>
     </div>
 
     <div class = "checkout">
