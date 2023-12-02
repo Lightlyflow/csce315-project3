@@ -213,3 +213,34 @@ function stopCheckTopping(element) {
 function setItemName(name) {
     document.getElementById("customizationName").innerHTML = name;
 }
+
+
+
+const btnMenu = document.querySelector('.btnMenu');
+
+// Add a focus event listener to btnMenu
+btnMenu.addEventListener('focus', function(event) {
+  // Check if its parent class is not active
+  const parent = btnMenu.parentElement;
+  if (!parent.classList.contains('active')) {
+    // Trigger toggleHeight function
+    toggleHeight();
+  }
+});
+
+function checkDocumentFocus() {
+    if (document.hasFocus()) {
+      log.textContent = "This document has focus.";
+      body.style.background = "white";
+    } else {
+      log.textContent = "This document does not have focus.";
+      body.style.background = "gray";
+    }
+  }
+
+function checkHeight(element) {
+    var menuDropDown = element.parentElement;
+    if (!menuDropDown.classList.contains('active')) {
+        toggleHeight(element);
+    }
+}
