@@ -50,6 +50,13 @@ function toggleHeight(element) {
 
 
 function saveItem() {
+    //Quantity
+    let quantity = document.getElementById('quantityPicker').value;
+    if (quantity == "") {
+        return;
+    }
+
+
     //Ice Options
     var iceOptions = document.getElementsByName("iceOptions");
     for (var i = 0; i < iceOptions.length; i++) {
@@ -89,11 +96,8 @@ function saveItem() {
     //Sweetness Level
     let sweetnessLevel = document.getElementById('sweetnessLevel').value;
 
-    //Quantity
-    let quantity = document.getElementById('quantityPicker').value;
-
     //Price
-    let price = document.getElementById("customizePrice").textContent;
+    let price = parseFloat(document.getElementById("customizePrice").textContent) / parseInt(quantity);
 
     //Local Storage List
     var savedMenuItems = JSON.parse(localStorage.getItem("savedMenuItems")) || [];
@@ -187,7 +191,7 @@ function populateCart() {
 
             var colDiv6 = document.createElement("div");
             colDiv6.className = "col";
-            colDiv6.textContent = parseFloat(item._price) * parseFloat(item._quantity);
+            colDiv6.textContent = (parseFloat(item._price) * parseFloat(item._quantity)).toFixed(2);
 
             rowDiv.appendChild(colDiv1);
             rowDiv.appendChild(colDiv2);
@@ -286,6 +290,10 @@ function setCustomizationPrice() {
             currentItemPrice += parseFloat(childElements[1].id);
         }
     }
-    document.getElementById("customizePrice").textContent = currentItemPrice.toFixed(2);
+    let quantity = document.getElementById('quantityPicker').value;
+    if (quantity != "1" && quantity != "2" && quantity != "3" && quantity != "4" && quantity != "5") {
+        quantity = "1";
+    }
 
+    document.getElementById("customizePrice").textContent = (currentItemPrice * parseInt(quantity)).toFixed(2);
 }
