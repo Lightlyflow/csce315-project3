@@ -123,9 +123,10 @@ function populateCart() {
             var rowDiv1 = document.createElement("div");
             rowDiv1.className = "row";
             colDiv = document.createElement("div");
-            colDiv.className = "col";
+            colDiv.className = "col menuItemCart";
             colDiv.textContent = item._name;
             rowDiv1.appendChild(colDiv);
+            pageCartItems.appendChild(rowDiv1);
 
             var rowDiv2 = document.createElement("div");
             rowDiv2.className = "row";
@@ -133,13 +134,20 @@ function populateCart() {
             colDiv.className = "col";
             colDiv.textContent = "Ice: " + item._iceLevel;
             rowDiv2.appendChild(colDiv);
+            pageCartItems.appendChild(rowDiv2);
 
             var rowDiv3 = document.createElement("div");
             rowDiv3.className = "row";
             colDiv = document.createElement("div");
             colDiv.className = "col";
-            colDiv.textContent = "Sweetness: " + item._sweetness;
+            colDiv.textContent = "Sweetness: " + item._sweetness + "%";
             rowDiv3.appendChild(colDiv);
+            pageCartItems.appendChild(rowDiv3);
+
+            let toppingList = [];
+            toppingList.push(item._topping1);
+            toppingList.push(item._topping2);
+            toppingList.push(item._topping3);
 
             if (toppingList[0] != "null") {
                 var rowDiv4 = document.createElement("div");
@@ -150,10 +158,7 @@ function populateCart() {
                 rowDiv4.appendChild(colDiv);
                 pageCartItems.appendChild(rowDiv4);
             }
-            let toppingList = [];
-            toppingList.push(item._topping1);
-            toppingList.push(item._topping2);
-            toppingList.push(item._topping3);
+
             for (let i = 0; i < 3; i++) {
                 if (toppingList[i] != "null") {
                     let toppingRow = document.createElement("div");
@@ -172,19 +177,14 @@ function populateCart() {
             colDiv.className = "col";
             colDiv.textContent = "Quantity: " + item._quantity;
             rowDiv5.appendChild(colDiv);
+            pageCartItems.appendChild(rowDiv5);
 
             var rowDiv6 = document.createElement("div");
             rowDiv6.className = "row";
             colDiv = document.createElement("div");
-            colDiv.className = "col";
+            colDiv.className = "col finalCartEntry";
             colDiv.textContent = "$" + (parseFloat(item._price) * parseFloat(item._quantity)).toFixed(2);
             rowDiv6.appendChild(colDiv);
-
-
-            pageCartItems.appendChild(rowDiv1);
-            pageCartItems.appendChild(rowDiv2);
-            pageCartItems.appendChild(rowDiv3);
-            pageCartItems.appendChild(rowDiv5);
             pageCartItems.appendChild(rowDiv6);
         });
     }
