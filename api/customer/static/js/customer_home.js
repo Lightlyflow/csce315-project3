@@ -149,27 +149,27 @@ function populateCart() {
             toppingList.push(item._topping2);
             toppingList.push(item._topping3);
 
-            if (toppingList[0] != "null") {
-                var rowDiv4 = document.createElement("div");
-                rowDiv4.className = "row";
-                colDiv = document.createElement("div");
-                colDiv.className = "col";
-                colDiv.textContent = "Toppings:"
-                rowDiv4.appendChild(colDiv);
-                pageCartItems.appendChild(rowDiv4);
+            let toppingText = "Toppings: ";
+            if (toppingList[0] == "null") {
+                toppingText += "None";
+            }
+            else if (toppingList[1] == "null") {
+                toppingText += toppingList[0];
+            }
+            else if (toppingList[2] == "null") {
+                toppingText += toppingList[0] + ", " + toppingList[1];
+            }
+            else {
+                toppingText += toppingList[0] + ", " + toppingList[1] + ", " + toppingList[2];
             }
 
-            for (let i = 0; i < 3; i++) {
-                if (toppingList[i] != "null") {
-                    let toppingRow = document.createElement("div");
-                    toppingRow.className = "row";
-                    colDiv = document.createElement("div");
-                    colDiv.className = "col";
-                    colDiv.textContent = toppingList[i];
-                    toppingRow.appendChild(colDiv);
-                    pageCartItems.appendChild(toppingRow);
-                }
-            }
+            var rowDiv4 = document.createElement("div");
+            rowDiv4.className = "row";
+            colDiv = document.createElement("div");
+            colDiv.className = "col";
+            colDiv.textContent = toppingText;
+            rowDiv4.appendChild(colDiv);
+            pageCartItems.appendChild(rowDiv4);
 
             var rowDiv5 = document.createElement("div");
             rowDiv5.className = "row";
