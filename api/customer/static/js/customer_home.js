@@ -229,6 +229,7 @@ function resetCustomization() {
 
     document.getElementById("quantityPicker").value = 1;
 
+    //Price
     let customizePrice = document.getElementById("customizePrice");
     let savedItemPrice = parseFloat(localStorage.getItem("currentItemPrice"));
     customizePrice.textContent = savedItemPrice.toFixed(2);    
@@ -272,10 +273,14 @@ function setItemName(name, price) {
 
 function setCustomizationPrice() {
     let toppingBoxes = document.getElementsByClassName('topping-col');
+    let currentItemPrice = parseFloat(localStorage.getItem("currentItemPrice"));
+
     for (let i = 0; i < toppingBoxes.length; i++) {
         let childElements = toppingBoxes[i].getElementsByClassName('topping-col-child');
         if (childElements[0].checked) {
-            toppingList.push(childElements[1].innerHTML);
+            currentItemPrice += parseFloat(childElements[1].id);
         }
     }
+    document.getElementById("customizePrice").textContent = currentItemPrice.toFixed(2);
+
 }
