@@ -4,7 +4,6 @@ def getMenuData():
     return menuboard_querier.getMenuItems()
 
 def getMenuCategories() -> list():
-
     results = menuboard_querier.getCategoryNames()
     categoryNames = []
     for cat in results:

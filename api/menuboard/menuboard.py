@@ -14,6 +14,7 @@ def home():
     menuItems = {category: [(item[0], item[2]) for item in menuQuery if item[1] == category] for category in menuCategories}
 
     numCategories = len(menuCategories)
+    print(numCategories)
     numItems = 0
     for cat in menuItems:
         numItems += len(cat)
@@ -25,4 +26,4 @@ def home():
     # Toppings
     toppingNames = getToppingNames()
     
-    return render_template("menuboard.html", menuCategories=menuCategories, menuItems=menuItems, toppingNames=toppingNames, numCols=numCols, categorySize=categorySize, itemSize=itemSize)
+    return render_template("menuboard.html", menuCategories=menuCategories, numCategories=numCategories, menuItems=menuItems, toppingNames=toppingNames, numCols=numCols, categorySize=categorySize, itemSize=itemSize)

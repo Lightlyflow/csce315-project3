@@ -1,3 +1,4 @@
+/*
 function scaleMenu(numC, catSize, iSize){
     document.getElementById("board").style.columnCount = numC;
     var categories = document.querySelectorAll('h2');
@@ -8,4 +9,15 @@ function scaleMenu(numC, catSize, iSize){
     for (var i = 0; i < items.length; i++) {
         items[i].style.fontSize = iSize;
     }
+}
+*/
+
+function checkOverflow(element){
+    var curOverf = element.style.overflow; 
+        if ( !curOverf || curOverf === "visible" ) 
+            element.style.overflow = "hidden";  
+        var isOverflowing = el.clientWidth < el.scrollWidth || el.clientHeight < el.scrollHeight; 
+        el.style.overflow = curOverf; 
+                  
+        return isOverflowing; 
 }
