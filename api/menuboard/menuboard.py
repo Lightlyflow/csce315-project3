@@ -8,12 +8,7 @@ menuboardBlueprint = Blueprint("menuboard", __name__, template_folder="templates
 def home():
     # Menu items dynamic loading
     menuQuery = getMenuData()
-    menuCategories = getMenuCategories(menuQuery)
-    # menuCategories.sort()
-    for s in menuCategories:
-        if s == "Seasonal":
-            menuCategories.remove("Seasonal")
-            menuCategories.insert(0,"Seasonal")
+    menuCategories = getMenuCategories()
     
     print(menuCategories)
     menuItems = {category: [(item[0], item[2]) for item in menuQuery if item[1] == category] for category in menuCategories}
@@ -23,8 +18,8 @@ def home():
     for cat in menuItems:
         numItems += len(cat)
     numItems -= 15
-    numCols = (numCategories//2)+1
-    categorySize = str((400*numCols) // numCategories) + "%"
+    numCols = (numCategories//2)
+    categorySize = str((450*numCols) // numCategories) + "%"
     itemSize = str((1350*numCols) // numItems) + "%"
 
     # Toppings

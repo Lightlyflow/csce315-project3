@@ -3,13 +3,13 @@ from api.db import menuboard_querier
 def getMenuData():
     return menuboard_querier.getMenuItems()
 
-def getMenuCategories(menuQuery) -> list():
-    results = menuQuery
-    categories = set()
-    for result in results:
-        categories.add(result[1])
-    return list(categories)
+def getMenuCategories() -> list():
 
+    results = menuboard_querier.getCategoryNames()
+    categoryNames = []
+    for cat in results:
+        categoryNames.append(cat[0])
+    return categoryNames
 
 def getToppingNames() -> list():
     results = menuboard_querier.getToppingNames()

@@ -9,6 +9,9 @@ else:
 def getMenuItems():
     return execute(f"SELECT name, category, price FROM menu_items_table ORDER BY category;")
 
+def getCategoryNames():
+    return execute(f"SELECT name FROM category_priority ORDER BY priority")
+
 def getToppingNames():
     return execute(f"Select name from topping_table;")
 
