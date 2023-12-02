@@ -1,5 +1,5 @@
 from flask import Flask, Blueprint, render_template, url_for, request, jsonify
-from .customer_helper import getMenuCategories, getToppingNames, placeOrder, getWeather, getMenuData
+from .customer_helper import getMenuCategories, getToppingData, placeOrder, getWeather, getMenuData
 
 
 customerBlueprint = Blueprint("customer", __name__, template_folder="templates", static_folder = "static")
@@ -19,7 +19,7 @@ def home():
     conditions = weather[1]
 
     # Toppings
-    toppingNames = getToppingNames()
+    toppingNames = getToppingData()
     
     return render_template("customer_home.html", menuCategories=menuCategories, menuItems=menuItems, toppingNames=toppingNames, temperature=temperature, conditions=conditions)
 

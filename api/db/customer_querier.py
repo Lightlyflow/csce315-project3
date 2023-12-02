@@ -26,7 +26,7 @@ else:
 
 
 def getToppingNames():
-    return execute(f"Select name from topping_table;")
+    return execute(f"SELECT name, price from topping_table;")
 
 def getMenuItemId(name):
     return execute(f"SELECT menuitemid FROM menu_items_table WHERE name='{name}';")
