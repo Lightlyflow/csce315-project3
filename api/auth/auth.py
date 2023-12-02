@@ -41,7 +41,7 @@ def logout():
 @authBlueprint.route("/<provider>")
 def oauth2_authorize(provider: str):
     if not current_user.is_anonymous:
-        return redirect(url_for('customer.order'))
+        return redirect(url_for('auth.loginAs'))
 
     provider_data = current_app.config['OAUTH2_PROVIDERS'].get(provider)
     if provider_data is None:
