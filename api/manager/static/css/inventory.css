@@ -37,3 +37,27 @@ table.dataTable thead .sorting_desc_disabled:before {
     width: 100% !important;
     top:0 !important;
 }
+
+.tab-content {
+    width: 100%;
+}
+
+.row {
+    width: 100%;
+}
+
+.nav > li > a {
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 4px;
+}
+
+.nav > li > a.active {
+    border: 1px solid #ddd;
+    font-weight: bold;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid #ddd;
+}
