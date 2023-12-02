@@ -6,15 +6,13 @@ import requests
 def getMenuData():
     return customer_querier.getMenuItems()
 
-def getMenuCategories(menuQuery) -> list():
-    results = menuQuery
-    categories = set()
-    for result in results:
-        categories.add(result[1])
-    return list(categories)
+def getMenuCategories():
+    results = customer_querier.getMenuCategories()
+    categories = [item for sublist in results for item in sublist]
+    return categories
 
 
-def getToppingNames() -> list():
+def getToppingNames():
     results = customer_querier.getToppingNames()
     toppingNames = []
     for topping in results:
