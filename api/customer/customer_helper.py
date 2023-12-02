@@ -7,12 +7,7 @@ def getMenuData():
     return customer_querier.getMenuItems()
 
 def getToppingData():
-    results = getToppingNames()
-    categories = set()
-    for result in results:
-        categories.add({result[0] : result[1]})
-    return categories
-
+    return customer_querier.getToppingNames()
 
 def getMenuCategories(menuQuery) -> list():
     results = menuQuery
