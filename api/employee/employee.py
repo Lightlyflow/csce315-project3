@@ -43,3 +43,8 @@ def receive_saved_items():
         return jsonify({'message': 'Data received successfully'})
 
     return jsonify({'error': 'Invalid format'})
+
+
+@employeeBlueprint.route("/timesheet", methods=['GET'])
+def timesheet():
+    return render_template("employee_timesheet.html")
