@@ -228,6 +228,12 @@ function resetCustomization() {
     }
 
     document.getElementById("quantityPicker").value = 1;
+
+    let customizePrice = document.getElementById("customizePrice");
+    let savedItemPrice = parseFloat(localStorage.getItem("currentItemPrice"));
+    customizePrice.textContent = savedItemPrice.toFixed(2);    
+
+
 }
 
 function sendSavedItemsToServer() {
@@ -255,6 +261,21 @@ function stopCheckTopping(element) {
 }
 
 //Gets item name to populate customization modal
-function setItemName(name) {
+function setItemName(name, price) {
     document.getElementById("customizationName").innerHTML = name;
+
+    let currentItemPrice = localStorage.getItem("currentItemPrice") || 0;
+    currentItemPrice = parseFloat(price)
+    localStorage.setItem("currentItemPrice", currentItemPrice);
+
+}
+
+function setCustomizationPrice() {
+    let toppingBoxes = document.getElementsByClassName('topping-col');
+    for (let i = 0; i < toppingBoxes.length; i++) {
+        let childElements = toppingBoxes[i].getElementsByClassName('topping-col-child');
+        if (childElements[0].checked) {
+            toppingList.push(childElements[1].innerHTML);
+        }
+    }
 }
