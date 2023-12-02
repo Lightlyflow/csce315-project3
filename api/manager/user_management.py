@@ -22,16 +22,28 @@ def employeeUpdate():
     name = ""
     isManager = False
     email = ""
+    phoneNumber = ""
+    altEmail = ""
+    prefName = ""
+    address = ""
+    eContact = ""
+    payRate = 0
 
     try:
         employeeID = int(data['employeeid'])
         name = data['name']
         isManager = int(data['ismanager'])
         email = data['email']
+        phoneNumber = data['phonenumber']
+        altEmail = data['altemail']
+        prefName = data['prefname']
+        address = data['address']
+        eContact = data['econtact']
+        payRate = float(data['payrate'])
     except (ValueError, KeyError):
         abort(400)
 
-    updateEmployeeByID(employeeID, name, isManager, email)
+    updateEmployeeByID(employeeID, name, isManager, email, phoneNumber, altEmail, prefName, address, eContact, payRate)
     return 'Updated employee', 201
 
 
@@ -41,15 +53,27 @@ def employeeAdd():
     name = ""
     isManager = False
     email = ""
+    phoneNumber = ""
+    altEmail = ""
+    prefName = ""
+    address = ""
+    eContact = ""
+    payRate = 0
 
     try:
         name = data['name']
         isManager = int(data['ismanager'])
         email = data['email']
+        phoneNumber = data['phonenumber']
+        altEmail = data['altemail']
+        prefName = data['prefname']
+        address = data['address']
+        eContact = data['econtact']
+        payRate = float(data['payrate'])
     except (ValueError, KeyError):
         abort(400)
 
-    addEmployee(name, isManager, email)
+    addEmployee(name, isManager, email, phoneNumber, altEmail, prefName, address, eContact, payRate)
     return 'Added employee', 201
 
 

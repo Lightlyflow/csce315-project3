@@ -7,8 +7,8 @@
 {% endblock %}
 
 {% block body %}
-    <ul class="nav nav-tabs navCustom">
-        <li><a data-toggle="tab" href="#users">Users</a></li>
+    <ul class="nav nav-tabs justify-content-center navCustom">
+        <li><a data-toggle="tab" class="active" href="#users">Users</a></li>
         <li><a data-toggle="tab" href="#employees">Employees</a></li>
     </ul>
     <div class="tab-content">
@@ -34,8 +34,8 @@
         </div>
         <div class="tab-pane fade show" id="employees">
             <div class="row justify-content-center">
-                <div class="col-sm-5 m-3">
-                    <h1>Employees</h1>
+                <div class="col-sm-11 m-3">
+                    <h1 class="text-center">Employees</h1>
                     <table class="table table-bordered table-striped" id="employeeTable">
                         <thead>
                             <tr>
@@ -43,11 +43,15 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Is Manager?</th>
                                 <th scope="col">Email</th>
+                                <th scope="col">Phone Number</th>
+                                <th scope="col">Alternate Email</th>
+                                <th scope="col">Preferred Name</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Emergency Contact</th>
+                                <th scope="col">Pay Rate</th>
                             </tr>
                         </thead>
-                        <tbody>
-
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                     <div class="btn-toolbar d-flex m-2" role="toolbar" aria-label="Employee Table Toolbar">
                         <div class="btn-group flex-fill">
@@ -67,7 +71,7 @@
         </div>
     </div>
     <div class="modal fade" id="employeeModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="employeeModalTitle">Add/Edit Employee</h5>
@@ -93,6 +97,42 @@
                             <label for="employeeManagerInput" class="col-sm-2 col-form-label">Is Manager?</label>
                             <div class="col-sm-10">
                                 <input type="checkbox" class="form-control" id="employeeManagerInput">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="phoneNumberInput" class="col-sm-2 col-form-label">Phone Number</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="phoneNumberInput">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="altEmailInput" class="col-sm-2 col-form-label">Alternate Email</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="altEmailInput">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="prefNameInput" class="col-sm-2 col-form-label">Preferred Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="prefNameInput">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="addressInput" class="col-sm-2 col-form-label">Address</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="addressInput">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="eContactInput" class="col-sm-2 col-form-label">Emergency Contact</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="eContactInput">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="payRateInput" class="col-sm-2 col-form-label">Pay Rate</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="payRateInput">
                             </div>
                         </div>
                     </form>

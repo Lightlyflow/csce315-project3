@@ -172,16 +172,27 @@ def getUsers():
 
 
 def getEmployees():
-    return execute(f"SELECT employeeID, name, isManager, email FROM employee_table;")
+    return execute(f"SELECT employeeID, name, isManager, email, phone, alt_email, pref_name, address, emergency_contact, pay_rate FROM employee_table;")
 
 
-def addEmployee(name: str, isManager: bool, email: str):
-    execute(f"INSERT INTO employee_table (name, ismanager, email) VALUES ('{name}', {isManager}, '{email}');")
+def addEmployee(name: str, isManager: bool, email: str, phoneNumber: str, altEmail: str, prefName: str, address: str, eContact: str, payRate: float):
+    execute(f"INSERT INTO employee_table (name, ismanager, email, phone, alt_email, pref_name, address, emergency_contact, pay_rate) "
+            f"VALUES ('{name}', {isManager}, '{email}', '{phoneNumber}', '{altEmail}', '{prefName}', '{address}', '{eContact}', '{payRate}');")
 
 
-def updateEmployee(employeeID: int, name: str, isManager: bool, email: str):
+def updateEmployee(employeeID: int, name: str, isManager: bool, email: str, phoneNumber: str, altEmail: str, prefName: str, address: str, eContact: str, payRate: float):
     execute(
-        f"UPDATE employee_table SET name='{name}', ismanager={isManager}, email='{email}' WHERE employeeid={employeeID};")
+        f"UPDATE employee_table "
+        f"SET name='{name}',"
+        f"    ismanager={isManager},"
+        f"    email='{email}',"
+        f"    phone='{phoneNumber}',"
+        f"    alt_email='{altEmail}',"
+        f"    pref_name='{prefName}',"
+        f"    address='{address}',"
+        f"    emergency_contact='{eContact}',"
+        f"    pay_rate={payRate}"
+        f"WHERE employeeid={employeeID};")
 
 
 def deleteEmployee(employeeID: int):
