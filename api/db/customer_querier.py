@@ -43,6 +43,9 @@ def getToppingId(name):
 def setIngredientQuantityInventory(inventoryId, quantity):
     return execute(f"UPDATE inventory_table SET quantity={quantity} WHERE inventoryid={inventoryId};")
 
+def subtractIngredientQuantityInventory(inventoryId, quantity):
+    return execute(f"UPDATE inventory_table SET quantity = quantity - {quantity} WHERE inventoryid={inventoryId};")
+
 def getMaxOrderId():
     return execute(f"SELECT max(orderid) FROM order_table;")
 
