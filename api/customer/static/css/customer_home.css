@@ -172,7 +172,7 @@ a:hover {color:#262f48}
     cursor: pointer;
 }
 
-.menuDropdown h1 {
+.menuDropdown h2 {
     padding:  22px 0 22px 0;
     cursor: pointer;
     width: fit-content;
@@ -185,17 +185,17 @@ a:hover {color:#262f48}
     cursor: auto;
 }
 
-.menuDropdown:has(:not(.active)) h1::after {
+.menuDropdown:has(:not(.active)) h2::after {
     content: "▼";
     color: rgb(255, 111, 111)
 }
 
-.menuDropdown .active h1::after {
+.menuDropdown .active h2::after {
     content: "▲";
     color: rgb(255, 111, 111)
 }
 
-.menuDropdown h1::after {
+.menuDropdown h2::after {
     color: blue;
     padding-left: 15px;
     font-size: 16px;

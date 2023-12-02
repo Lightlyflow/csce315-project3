@@ -76,7 +76,7 @@
     <div class = "content">  
         {% for category in menuCategories %}
         <div class = "menuDropdown {% if loop.first %}firstDropDown active{% endif %}" id = "dropdown">
-            <div class = "menuCategory" onclick = "toggleHeight(this)">
+            <div class = "menuCategory {% if loop.first %}active{% endif %}" onclick = "toggleHeight(this)">
                 <h2>{{ category }}</h2>
             </div>
             <div class = "menuItems">
