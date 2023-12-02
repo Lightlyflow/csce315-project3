@@ -92,11 +92,16 @@ function saveItem() {
     //Quantity
     let quantity = document.getElementById('quantityPicker').value;
 
+    //Price
+    let price = document.getElementById("customizePrice").textContent;
+
     //Local Storage List
     var savedMenuItems = JSON.parse(localStorage.getItem("savedMenuItems")) || [];
-    var newItem = new MenuItem(menuItemName, iceLevel, sweetnessLevel, toppingList[0], toppingList[1], toppingList[2], quantity, 0.75);
+    var newItem = new MenuItem(menuItemName, iceLevel, sweetnessLevel, toppingList[0], toppingList[1], toppingList[2], quantity, price);
     savedMenuItems.push(newItem);
     localStorage.setItem("savedMenuItems", JSON.stringify(savedMenuItems));
+
+
 }
 
 function populateCart() {
@@ -182,7 +187,7 @@ function populateCart() {
 
             var colDiv6 = document.createElement("div");
             colDiv6.className = "col";
-            colDiv6.textContent = item._price;
+            colDiv6.textContent = parseFloat(item._price) * parseFloat(item._quantity);
 
             rowDiv.appendChild(colDiv1);
             rowDiv.appendChild(colDiv2);
