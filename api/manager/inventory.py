@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request, abort
 
-from .inventory_helper import orderItems, orderAllItems, getInventory, getLowStock, updateThresholds
+from .inventory_helper import orderItems, orderAllItems, getInventory, getLowStock, updateThresholds, \
+    deleteInventoryItem, updateInventoryItem, addInventoryItem
 
 inventoryAPIBlueprint = Blueprint("inventory", __name__)
 
@@ -62,3 +63,54 @@ def inventoryThreshold():
 
     return "Updated", 201
 
+
+@inventoryAPIBlueprint.route("/delete", methods=['POST'])
+def inventoryDelete():
+    data = request.get_json()
+    inventoryID = -1
+
+    try:
+        inventoryID = int(data['inventoryid'])
+    except (ValueError, KeyError):
+        abort(400)
+
+    deleteInventoryItem(inventoryID)
+    return "Deleted", 201
+
+
+@inventoryAPIBlueprint.route("/update", methods=['POST'])
+def inventoryUpdate():
+    data = request.get_json()
+    inventoryID = -1
+    name = ""
+    quantity = 0
+    restockThreshold = 0
+
+    try:
+        inventoryID = int(data['inventoryid'])
+        name = data['name']
+        quantity = float(data['quantity'])
+        restockThreshold = float(data['restockthreshold'])
+    except (ValueError, KeyError):
+        abort(400)
+
+    updateInventoryItem(inventoryID, name, quantity, restockThreshold)
+    return "Updated", 201
+
+
+@inventoryAPIBlueprint.route("/add", methods=['POST'])
+def inventoryAdd():
+    data = request.get_json()
+    name = ""
+    quantity = 0
+    restockThreshold = 0
+
+    try:
+        name = data['name']
+        quantity = float(data['quantity'])
+        restockThreshold = float(data['restockthreshold'])
+    except (ValueError, KeyError):
+        abort(400)
+
+    addInventoryItem(name, quantity, restockThreshold)
+    return "Added", 201
