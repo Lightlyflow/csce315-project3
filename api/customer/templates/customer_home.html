@@ -76,7 +76,7 @@
     <div class = "content">  
         {% for category in menuCategories %}
         <div class = "menuDropdown {% if loop.first %}firstDropDown active{% endif %}" id = "dropdown">
-            <div class = "menuCategory" onclick = "toggleHeight(this)">
+            <div class = "menuCategory {% if loop.first %}active{% endif %}" onclick = "toggleHeight(this)">
                 <h2>{{ category }}</h2>
             </div>
             <div class = "menuItems">
@@ -97,7 +97,7 @@
                             ${{'%0.2f' % item[1]|float}}
                         </p>
 
-                        <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="setItemName('{{ item[0] }}');resetCustomization();">
+                        <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onfocus="checkHeight(this.parentElement.parentElement.parentElement);" onclick="setItemName('{{ item[0] }}');resetCustomization();">
                             +
                         </button>
                     </div>
