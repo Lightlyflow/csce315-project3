@@ -39,7 +39,7 @@ $(document).ready(async function() {
             selector: "tr",
             dataSrc: 0
         },
-        order: [[0, 'asc']],
+        order: [[0, 'desc']],
         columnDefs: [
             { orderable: true, className: 'reorder', targets: 0 },
             { orderable: false, targets: '_all' }
@@ -74,6 +74,7 @@ $(document).ready(async function() {
         data['itemid'] = selectedItem[3];
         await delMenuItem(data);
         await refreshMenuItems();
+        await refreshCategories();
     })
     $('#editMenuItem').click(function() {
         menuItemMode = "edit";
@@ -138,6 +139,7 @@ $(document).ready(async function() {
 
             await addMenuItem(data);
             await refreshMenuItems();
+            await refreshCategories();
             resetMenuInput();
         }
     })
@@ -273,7 +275,7 @@ async function refreshIngredients(itemID) {
     ingredientTable.clear();
     let data = await getIngredients(itemID);
     ingredientTable.rows.add(data).draw();
-    ingredientMode.columns.adjust().draw();
+    ingredientTable.columns.adjust().draw();
 }
 
 async function refreshCategories() {
