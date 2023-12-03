@@ -403,3 +403,21 @@ a:hover {color:#262f48}
     background: #ffffff !important;
     --bs-dropdown-link-disabled-color: black !important;
 }
+
+.textResizeGroup {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    justify-content: center;
+}
+
+.fontDecreaseButton {
+    border-width: 1px;
+    margin-right: 10px;
+}
+
+.fontIncreaseButton {
+    border-width: 1px;
+    margin-left: 10px;
+}
