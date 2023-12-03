@@ -202,12 +202,24 @@ function populateCart() {
 
             var rowDiv7 = document.createElement("div");
             rowDiv7.className = "row";
-            let buttonDiv = document.createElement("button");
-            buttonDiv.className = "btn btn-primary";
-            buttonDiv.textContent = "Delete Item";
-            buttonDiv.setAttribute("onclick", "removeFromCart(" + i.toString() + ")")
-            rowDiv7.appendChild(buttonDiv);
+            let buttonDiv1 = document.createElement("button");
+            buttonDiv1.className = "btn btn-primary";
+            buttonDiv1.textContent = "Delete Item";
+            buttonDiv1.setAttribute("onclick", "removeFromCart(" + i.toString() + ")")
+            rowDiv7.appendChild(buttonDiv1);
             rightColDiv.appendChild(rowDiv7);
+
+            var rowDiv8 = document.createElement("div");
+            rowDiv8.className = "row";
+            let buttonDiv2 = document.createElement("button");
+            buttonDiv2.className = "btn btn-primary";
+            buttonDiv2.textContent = "Edit Item";
+            buttonDiv2.setAttribute("onclick", "editFromCart(" + i.toString() + ")")
+            buttonDiv2.setAttribute("data-bs-toggle", "modal");
+            buttonDiv2.setAttribute("data-bs-target", "#customizationModal");
+            rowDiv8.appendChild(buttonDiv2);
+            rightColDiv.appendChild(rowDiv8);
+            //data-bs-toggle="modal" data-bs-target="#customizationModal"
 
             i++;
         });
@@ -313,4 +325,48 @@ function removeFromCart(rowNum) {
     savedMenuItems.splice(rowNum, 1);
     localStorage.setItem("savedMenuItems", JSON.stringify(savedMenuItems));
     populateCart();
+}
+
+function editFromCart(rowNum) {
+    let savedMenuItems = JSON.parse(localStorage.getItem("savedMenuItems"));
+    let editedItem = savedMenuItems[rowNum];
+    localStorage.setItem("editedItem", JSON.stringify(editedItem));
+    savedMenuItems.splice(rowNum, 1);
+    localStorage.setItem("savedMenuItems", JSON.stringify(savedMenuItems));
+
+
+    document.getElementById("customizationName").innerHTML = editedItem._name;
+    //Radio buttons for ice reset to regular, the default
+    var ele = document.getElementsByName("iceOptions");
+    for(var i = 0; i < ele.length; i++)
+        ele[i].checked = false;
+    if (editedItem._iceLevel == "Regular") {
+        ele[0].checked = true;
+    }
+    else if (editedItem._iceLevel == "Less") {
+        ele[1].checked = true;
+    }
+    else {
+       ele[2].checked = true;
+    }
+    //Slider for sweetness level reset to default value 50
+    document.getElementById('sweetnessLevel').value = editedItem._sweetness;
+
+    //Reset of topping buttons
+    var toppings = document.querySelectorAll('input[name=toppingOptions]:checked');
+    for (let i = 0; i < toppings.length; i++) {
+        toppings[i].checked = false;
+    }
+    toppings = document.querySelectorAll('input[name=toppingOptions]')
+    for (let i = 0; i < toppings.length; i++) {
+        if (toppings[i].getAttribute("id") == editedItem._topping1) {
+            toppings[i].checked = true;
+        }
+    }
+
+    document.getElementById("quantityPicker").value = editedItem._quantity;
+
+    localStorage.setItem("currentItemPrice", editedItem._price);
+
+    setCustomizationPrice();
 }
