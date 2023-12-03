@@ -9,12 +9,10 @@ def getMenuData():
 def getToppingData():
     return customer_querier.getToppingNames()
 
-def getMenuCategories(menuQuery) -> list():
-    results = menuQuery
-    categories = set()
-    for result in results:
-        categories.add(result[1])
-    return list(categories)
+def getMenuCategories():
+    results = customer_querier.getMenuCategories()
+    categories = [item for sublist in results for item in sublist]
+    return categories
 
 
 #Unused

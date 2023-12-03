@@ -14,24 +14,12 @@
     border-bottom: 1px solid #ddd;
 }
 
-.dt_row {
-    display: flex;
-    vertical-align: middle;
-    align-content: center;
-    justify-content: space-between;
-    margin: 5px;
-}
-
 .tab-content {
     width: 100%;
 }
 
 .row {
     width: 100%;
-}
-
-.dataTables_filter {
-    padding-top: 0.8em;
 }
 
 .navbar {
