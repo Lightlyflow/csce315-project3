@@ -7,6 +7,12 @@ let employeeModalTitle = null;
 let employeeNameInput = null;
 let employeeEmailInput = null;
 let employeeManagerInput = null;
+let phoneNumberInput = null;
+let altEmailInput = null;
+let prefNameInput = null;
+let addressInput = null;
+let eContactInput = null;
+let payRateInput = null;
 let employeeModalSubmit = null;
 
 let selectedItem = null;
@@ -19,6 +25,12 @@ $(document).ready(async function() {
     employeeEmailInput = $("#employeeEmailInput")[0];
     employeeManagerInput = $("#employeeManagerInput")[0];
     employeeModalSubmit = $("#employeeModalSubmit")[0];
+    phoneNumberInput = $('#phoneNumberInput')[0];
+    altEmailInput = $('#altEmailInput')[0];
+    prefNameInput = $('#prefNameInput')[0];
+    addressInput = $('#addressInput')[0];
+    eContactInput = $('#eContactInput')[0];
+    payRateInput = $('#payRateInput')[0];
 
     userTable = $("#userTable").DataTable({
         select: true,
@@ -53,6 +65,12 @@ $(document).ready(async function() {
         employeeNameInput.value = selectedItem[1];
         employeeManagerInput.checked = selectedItem[2];
         employeeEmailInput.value = selectedItem[3];
+        phoneNumberInput.value = selectedItem[4];
+        altEmailInput.value = selectedItem[5];
+        prefNameInput.value = selectedItem[6];
+        addressInput.value = selectedItem[7];
+        eContactInput.value = selectedItem[8];
+        payRateInput.value = selectedItem[9];
     });
 
     $("#addEmployee").click(function() {
@@ -84,6 +102,12 @@ $(document).ready(async function() {
             data['name'] = employeeNameInput.value;
             data['ismanager'] = employeeManagerInput.checked;
             data['email'] = employeeEmailInput.value;
+            data['phonenumber'] = phoneNumberInput.value;
+            data['altemail'] = altEmailInput.value;
+            data['prefname'] = prefNameInput.value;
+            data['address'] = addressInput.value;
+            data['econtact'] = eContactInput.value;
+            data['payrate'] = payRateInput.value;
 
             await updateEmployee(data);
             await refreshEmployees();
@@ -91,6 +115,12 @@ $(document).ready(async function() {
             data['name'] = employeeNameInput.value;
             data['ismanager'] = employeeManagerInput.checked;
             data['email'] = employeeEmailInput.value;
+            data['phonenumber'] = phoneNumberInput.value;
+            data['altemail'] = altEmailInput.value;
+            data['prefname'] = prefNameInput.value;
+            data['address'] = addressInput.value;
+            data['econtact'] = eContactInput.value;
+            data['payrate'] = payRateInput.value;
 
             await addEmployee(data);
             await refreshEmployees();

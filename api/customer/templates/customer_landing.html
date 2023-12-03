@@ -18,7 +18,7 @@
             </div>
             {% if current_user.is_authenticated %}
                 <h1 class="getStarted name">Logged in as {{ current_user.username }}</h1>
-                <a class="secondaryButton" href="./order">Continue</a>
+                <a class="secondaryButton" href="{{ url_for('auth.loginAs') }}">Continue</a>
                 <a class="secondaryButton" href="{{ url_for('auth.logout') }}">Logout</a>
             {% else %}
                 <h1 class="getStarted">Let's Get Started</h1>

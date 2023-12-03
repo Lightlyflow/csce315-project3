@@ -7,13 +7,19 @@ else:
     from .querier import execute
 
 def getMenuItems():
-    return execute(f"SELECT name, category, price, calories FROM menu_items_table ORDER BY category;")
+    return execute(f"SELECT name, category, price FROM menu_items_table WHERE instock = 't' ORDER BY category;")
+
+def getCategoryNames():
+    return execute(f"SELECT name FROM category_priority ORDER BY priority")
 
 def getToppingNames():
     return execute(f"Select name from topping_table;")
 
 def getMenuItemId(name):
     return execute(f"SELECT menuitemid FROM menu_items_table WHERE name='{name}';")
+
+def getMenuCategories():
+    return execute(f"SELECT name FROM category_priority order by priority;")
 
 if __name__ == '__main__':
     # If you want to run this, delete the period in front of the import statements in this file

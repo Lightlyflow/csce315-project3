@@ -27,6 +27,18 @@ def updateThreshold(name: str, amount: float):
     execute(f"UPDATE inventory_table SET restockThreshold={amount} WHERE name='{name}';")
 
 
+def deleteItemByID(inventoryID: int):
+    execute(f"DELETE FROM inventory_table WHERE inventoryid={inventoryID};")
+
+
+def updateItemByID(inventoryID: int, name: str, quantity: float, restockThreshold: float):
+    execute(f"UPDATE inventory_table SET name='{name}', quantity={quantity}, restockthreshold={restockThreshold} WHERE inventoryid={inventoryID};")
+
+
+def addItemInventory(name: str, quantity: float, restockThreshold: float):
+    execute(f"INSERT INTO inventory_table (name, quantity, restockthreshold) VALUES ('{name}', {quantity}, {restockThreshold});")
+
+
 # ===================== Reports =====================
 def getProductUsage(startDate, endDate):
     return execute(f"""SELECT inventory_table.name AS name,
@@ -43,6 +55,7 @@ def getProductUsage(startDate, endDate):
             INNER JOIN inventory_table
             ON menu_part_table.inventoryID=inventory_table.inventoryID
         GROUP BY name;""")
+
 
 def getPairFrequency(startDate, endDate):
     return execute(f"""Select menuItems1.name, menuItems2.name, COUNT (*) 
@@ -61,6 +74,7 @@ def getPairFrequency(startDate, endDate):
         GROUP BY menuItems1.name, menuItems2.name 
         ORDER BY frequency DESC;""")
 
+
 def getSalesHistory(startDate, endDate):
     return execute(f"""SELECT mi.name, COUNT(op.menuitemid) AS sales
         FROM menu_items_table mi
@@ -69,6 +83,7 @@ def getSalesHistory(startDate, endDate):
         WHERE o.dateordered >= '{startDate}' AND o.dateordered <= '{endDate}'
         GROUP BY mi.name
         ORDER BY sales DESC;""")
+
 
 def getExcessItems(startDate):
     return execute(f"""WITH ItemSales as (
@@ -145,7 +160,8 @@ def getIngredientInventoryID(name: str):
 
 def getMenuItemCategories():
     """Gets categories of menu items, sorted by priority (if any priority)"""
-    return execute(f"SELECT m.category FROM menu_items_table AS m LEFT JOIN category_priority AS p ON p.name=m.category GROUP BY m.category, p.priority ORDER BY p.priority DESC;")
+    return execute(
+        f"SELECT m.category FROM menu_items_table AS m LEFT JOIN category_priority AS p ON p.name=m.category GROUP BY m.category, p.priority ORDER BY p.priority DESC;")
 
 
 def addCategories(categories: str):
@@ -172,16 +188,27 @@ def getUsers():
 
 
 def getEmployees():
-    return execute(f"SELECT employeeID, name, isManager, email FROM employee_table;")
+    return execute(f"SELECT employeeID, name, isManager, email, phone, alt_email, pref_name, address, emergency_contact, pay_rate FROM employee_table;")
 
 
-def addEmployee(name: str, isManager: bool, email: str):
-    execute(f"INSERT INTO employee_table (name, ismanager, email) VALUES ('{name}', {isManager}, '{email}');")
+def addEmployee(name: str, isManager: bool, email: str, phoneNumber: str, altEmail: str, prefName: str, address: str, eContact: str, payRate: float):
+    execute(f"INSERT INTO employee_table (name, ismanager, email, phone, alt_email, pref_name, address, emergency_contact, pay_rate) "
+            f"VALUES ('{name}', {isManager}, '{email}', '{phoneNumber}', '{altEmail}', '{prefName}', '{address}', '{eContact}', '{payRate}');")
 
 
-def updateEmployee(employeeID: int, name: str, isManager: bool, email: str):
+def updateEmployee(employeeID: int, name: str, isManager: bool, email: str, phoneNumber: str, altEmail: str, prefName: str, address: str, eContact: str, payRate: float):
     execute(
-        f"UPDATE employee_table SET name='{name}', ismanager={isManager}, email='{email}' WHERE employeeid={employeeID};")
+        f"UPDATE employee_table "
+        f"SET name='{name}',"
+        f"    ismanager={isManager},"
+        f"    email='{email}',"
+        f"    phone='{phoneNumber}',"
+        f"    alt_email='{altEmail}',"
+        f"    pref_name='{prefName}',"
+        f"    address='{address}',"
+        f"    emergency_contact='{eContact}',"
+        f"    pay_rate={payRate}"
+        f"WHERE employeeid={employeeID};")
 
 
 def deleteEmployee(employeeID: int):
@@ -196,7 +223,8 @@ def updateUser(userID: int, username: str, email: str, employeeID: int):
 # ===================== Orders =====================
 def getOrders(startDate: str, endDate: str):
     """Dates should be in the format YYYY-MM-DD. End date is non-inclusive"""
-    return execute(f"SELECT orderID, employeeID, dateOrdered, price, email, status FROM order_table WHERE dateordered >= '{startDate}' AND dateordered <= '{endDate}';")
+    return execute(
+        f"SELECT orderID, employeeID, dateOrdered, price, email, status FROM order_table WHERE dateordered >= '{startDate}' AND dateordered <= '{endDate}';")
 
 
 def getOrderItemsByOrderID(orderID: int):
@@ -218,4 +246,3 @@ def deleteOrder(orderID: int):
 def deleteOrderParts(orderID: int):
     """Deletes from order_parts_table"""
     execute(f"DELETE FROM order_part_table WHERE orderid={orderID};")
-
