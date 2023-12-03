@@ -126,6 +126,7 @@ function populateCart() {
         //Add elements to page
         var colDiv;
         let i = 0;
+        var orderTotal = 0.0;
         savedMenuItems.forEach(function(item) {
             var totalRowDiv = document.createElement("div");
             totalRowDiv.className = "row";
@@ -134,13 +135,9 @@ function populateCart() {
             var leftColDiv = document.createElement("div");
             leftColDiv.className = "col";
             totalRowDiv.appendChild(leftColDiv);
-    
-            var rightColDiv = document.createElement("div");
-            rightColDiv.className = "col";
-            totalRowDiv.appendChild(rightColDiv);
 
             var rowDiv1 = document.createElement("div");
-            rowDiv1.className = "row";
+            rowDiv1.className = "row firstCartEntry";
             colDiv = document.createElement("div");
             colDiv.className = "col menuItemCart";
             colDiv.textContent = item._name;
@@ -199,10 +196,11 @@ function populateCart() {
             leftColDiv.appendChild(rowDiv5);
 
             var rowDiv6 = document.createElement("div");
-            rowDiv6.className = "row";
+            rowDiv6.className = "row finalCartEntry";
             colDiv = document.createElement("div");
-            colDiv.className = "col finalCartEntry";
+            colDiv.className = "col";
             colDiv.textContent = "$" + (parseFloat(item._price) * parseFloat(item._quantity)).toFixed(2);
+            orderTotal += parseFloat(item._price) * parseFloat(item._quantity)
             rowDiv6.appendChild(colDiv);
             leftColDiv.appendChild(rowDiv6);
 
@@ -212,29 +210,34 @@ function populateCart() {
             buttonDiv1.className = "btn btn-primary";
             buttonDiv1.textContent = "Delete Item";
             buttonDiv1.setAttribute("onclick", "removeFromCart(" + i.toString() + ")")
-            rowDiv7.appendChild(buttonDiv1);
-            rightColDiv.appendChild(rowDiv7);
+            let colDiv1 = document.createElement("div");
+            colDiv1.className = "col";
+            let colDiv2 = document.createElement("div");
+            colDiv2.className = "col";
+            rowDiv7.appendChild(colDiv1);
+            rowDiv7.appendChild(colDiv2);
 
-            var rowDiv8 = document.createElement("div");
-            rowDiv8.className = "row";
+            colDiv1.appendChild(buttonDiv1);
+
             let buttonDiv2 = document.createElement("button");
             buttonDiv2.className = "btn btn-primary";
             buttonDiv2.textContent = "Edit Item";
             buttonDiv2.setAttribute("onclick", "editFromCart(" + i.toString() + ")")
             buttonDiv2.setAttribute("data-bs-toggle", "modal");
             buttonDiv2.setAttribute("data-bs-target", "#customizationModal");
-            rowDiv8.appendChild(buttonDiv2);
-            rightColDiv.appendChild(rowDiv8);
-            //data-bs-toggle="modal" data-bs-target="#customizationModal"
+            colDiv2.appendChild(buttonDiv2);
+            leftColDiv.appendChild(rowDiv7);
 
             i++;
         });
+        document.getElementById("orderTotal").innerText = "Total: $" + (orderTotal).toFixed(2);
     }
     else {
         var rowDiv = document.createElement("div");
         rowDiv.className = "row";
         rowDiv.textContent = "Your cart is empty.";
         pageCartItems.appendChild(rowDiv);
+        document.getElementById("orderTotal").innerText = "Total: $0.00";
     }
 }
 

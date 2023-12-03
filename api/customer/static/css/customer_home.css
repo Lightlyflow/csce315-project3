@@ -264,6 +264,10 @@ a:hover {color:#262f48}
     }
 }
 
+.firstCartEntry {
+    padding-top: 1rem;
+}
+
 .finalCartEntry {
     padding-bottom: 1rem;
 }

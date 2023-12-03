@@ -11,7 +11,7 @@
 
 </head>
 <body>
-    <div class="modal fade modal-lg" id="modal">
+    <div class="modal fade modal-md" id="modal">
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -24,6 +24,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <h2 id="orderTotal">Total: $0.00</h2>
                     <button class="btn btn-primary" onclick="emptyCart()">Clear Cart</button>
                     <input type="hidden" id="data">
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#checkoutModal">Checkout</button>
@@ -88,7 +89,7 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="customizationName">Checkout</h5>
+                            <h5 class="modal-title">Checkout</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#checkoutModal"></button>
                         </div>
                         <div class="modal-body">

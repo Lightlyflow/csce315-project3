@@ -25,7 +25,7 @@ def getToppingNames() -> list():
         toppingNames.append(topping[0])
     return toppingNames
 
-def placeOrder(menuItems):
+def placeOrder(menuItems, orderDate):
     totalPrice = 0.0
     orderId = (customer_querier.getMaxOrderId())[0][0] + 1
 
@@ -41,6 +41,8 @@ def placeOrder(menuItems):
             toppingList.append(menuItem['_topping3'])
 
         itemQuantity = int(menuItem['_quantity'])
+
+        print(orderDate)
 
         sweetness = menuItem['_sweetness']
         iceLevel = menuItem['_iceLevel']
@@ -84,9 +86,12 @@ def placeOrder(menuItems):
     if (current_user.is_authenticated == True):
         currentEmail = current_user.email
     else:
-        currentEmail = 'dummyemail@tamu.edu'
+        currentEmail = ''
+
+    dateParts = orderDate.split('T')
+    dateString = dateParts[0] + ' ' + dateParts[1] + ':00'
         
-    customer_querier.insertIntoOrderTable(orderId, round(totalPrice, 2), currentEmail)
+    customer_querier.insertIntoOrderTable(orderId, round(totalPrice, 2), currentEmail, dateString)
 
 
 def getWeather():
