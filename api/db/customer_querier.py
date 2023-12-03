@@ -68,7 +68,7 @@ def getToppingPrice(toppingId):
     return execute(f"SELECT price FROM topping_table WHERE inventoryid = {toppingId};")
 
 def getOrderInfoForUser(email):
-    return execute(f"SELECT orderid, dateordered, price FROM order_table WHERE email = {email};")
+    return execute(f"SELECT ot.orderid, ot.dateordered, ot.price AS order_price, mi.name AS menu_item_name, t1.name AS topping1_name, t2.name AS topping2_name, t3.name AS topping3_name, opt.price, opt.sweetness, opt.ice FROM order_table ot JOIN order_part_table opt ON ot.orderid = opt.orderid LEFT JOIN topping_table t1 ON opt.toppingid1 = t1.toppingid LEFT JOIN topping_table t2 ON opt.toppingid2 = t2.toppingid LEFT JOIN topping_table t3 ON opt.toppingid3 = t3.toppingid JOIN menu_items_table mi ON opt.menuitemid = mi.menuitemid WHERE ot.email = '{email}' ORDER BY ot.dateordered DESC;")
 
 if __name__ == '__main__':
     # If you want to run this, delete the period in front of the import statements in this file

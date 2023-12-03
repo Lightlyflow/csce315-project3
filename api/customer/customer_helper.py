@@ -2,6 +2,7 @@ from api.db import customer_querier
 from flask_login import current_user
 import os
 import requests
+import datetime
 
 def getMenuData():
     return customer_querier.getMenuItems()
@@ -13,6 +14,17 @@ def getMenuCategories():
     results = customer_querier.getMenuCategories()
     categories = [item for sublist in results for item in sublist]
     return categories
+
+def getUserOrders():
+    if (current_user.is_authenticated == True):
+        results = customer_querier.getOrderInfoForUser(current_user.email)
+        for result in results:
+            result[1] = datetime.date(result[1].year, result[1].month, result[1].day)
+            result[2] = "{:.2f}".format(result[2])
+            result[7] = "{:.2f}".format(result[7])
+        return results
+    else:
+        return []
 
 
 #Unused
