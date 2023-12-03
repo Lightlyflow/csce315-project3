@@ -1,6 +1,5 @@
 html, body {
     height: 100%;
-    background-color: #FAF9F6;
 }
 
 .container-narrow > hr {
@@ -45,4 +44,23 @@ html, body {
     padding-top: 19px;
     color: #777;
     border-top: 1px solid #e5e5e5;
+}
+.jumbotron {
+    background: #e2e2e2e0;
+}
+.picture {
+    background: url(../drinksImage.jpeg) no-repeat;
+    background-size: cover;
+    background-position: center;
+
+    filter: blur(3px);
+    -webkit-filter: blur(3px);
+    object-fit: contain;
+    transform: scale(1.1);
+
+    width:100%;
+    height: 100%;
+    position:fixed;
+    left:0;
+    z-index: -1;
 }

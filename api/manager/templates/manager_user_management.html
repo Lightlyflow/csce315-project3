@@ -1,0 +1,146 @@
+{% extends 'manager_base.html' %}
+
+{% block title %}Employees{% endblock %}
+{% block head %}
+    <script src="{{ url_for('manager.static', filename='js/user_management.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('manager.static', filename='css/user_management.css') }}">
+{% endblock %}
+
+{% block body %}
+    <ul class="nav nav-tabs justify-content-center navCustom">
+        <li><a data-toggle="tab" class="active" href="#users">Users</a></li>
+        <li><a data-toggle="tab" href="#employees">Employees</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="users">
+            <div class="row justify-content-center">
+                <div class="col-sm-5 m-3">
+                    <h1>Users</h1>
+                    <table class="table table-bordered table-striped" id="userTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">User ID</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Employee ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade show" id="employees">
+            <div class="row justify-content-center">
+                <div class="col-sm-11 m-3">
+                    <h1 class="text-center">Employees</h1>
+                    <table class="table table-bordered table-striped" id="employeeTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">Employee ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Is Manager?</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone Number</th>
+                                <th scope="col">Alternate Email</th>
+                                <th scope="col">Preferred Name</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Emergency Contact</th>
+                                <th scope="col">Pay Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                    <div class="btn-toolbar d-flex m-2" role="toolbar" aria-label="Employee Table Toolbar">
+                        <div class="btn-group flex-fill">
+                            <button type="button" class="btn btn-primary" id="deleteEmployee">Delete Employee</button>
+                        </div>
+                        <div class="flex-fill"></div>
+                        <div class="btn-group flex-fill">
+                            <button type="button" class="btn btn-primary" id="editEmployee" data-toggle="modal" data-target="#employeeModal">Edit Selected</button>
+                        </div>
+                        <div class="flex-fill"></div>
+                        <div class="btn-group flex-fill">
+                            <button type="button" class="btn btn-primary" id="addEmployee" data-toggle="modal" data-target="#employeeModal">Add Employee</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="employeeModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="employeeModalTitle">Add/Edit Employee</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group form-row">
+                            <label for="employeeNameInput" class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="employeeNameInput" placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="employeeEmailInput" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="employeeEmailInput" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="employeeManagerInput" class="col-sm-2 col-form-label">Is Manager?</label>
+                            <div class="col-sm-10">
+                                <input type="checkbox" class="form-control" id="employeeManagerInput">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="phoneNumberInput" class="col-sm-2 col-form-label">Phone Number</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="phoneNumberInput">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="altEmailInput" class="col-sm-2 col-form-label">Alternate Email</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="altEmailInput">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="prefNameInput" class="col-sm-2 col-form-label">Preferred Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="prefNameInput">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="addressInput" class="col-sm-2 col-form-label">Address</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="addressInput">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="eContactInput" class="col-sm-2 col-form-label">Emergency Contact</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="eContactInput">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="payRateInput" class="col-sm-2 col-form-label">Pay Rate</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="payRateInput">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="employeeModalSubmit" data-dismiss="modal">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
