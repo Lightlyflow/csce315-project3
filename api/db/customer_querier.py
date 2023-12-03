@@ -8,7 +8,10 @@ else:
 
 
 def getMenuItems():
-    return execute(f"SELECT name, category, price, calories FROM menu_items_table;")
+    return execute(f"SELECT m.name, m.category, m.price, m.calories FROM menu_items_table m JOIN category_priority p ON m.category = p.name ORDER BY p.priority;")
+
+def getMenuCategories():
+    return execute(f"SELECT name FROM category_priority order by priority;")
 
 if __name__ == '__main__':
     # If you want to run this, delete the period in front of the import statements in this file

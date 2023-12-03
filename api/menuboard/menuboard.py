@@ -8,7 +8,7 @@ menuboardBlueprint = Blueprint("menuboard", __name__, template_folder="templates
 def home():
     # Menu items dynamic loading
     menuQuery = getMenuData()
-    menuCategories = getMenuCategories(menuQuery)
+    menuCategories = getMenuCategories()
     # menuCategories.sort()
     for s in menuCategories:
         if s == "Seasonal":

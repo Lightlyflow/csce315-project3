@@ -17,8 +17,7 @@ def requireLogin():
 def home():
     # Menu items dynamic loading
     menuQuery = getMenuData()
-    menuCategories = getMenuCategories(menuQuery)
-    # print(menuCategories)
+    menuCategories = getMenuCategories()
     menuItems = {category: [(item[0], item[2], item[3]) for item in menuQuery if item[1] == category] for category in
                  menuCategories}
 

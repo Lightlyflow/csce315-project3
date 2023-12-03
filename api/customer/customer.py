@@ -15,8 +15,7 @@ def home():
 def order():
     # Menu items dynamic loading
     menuQuery = getMenuData()
-    menuCategories = getMenuCategories(menuQuery)
-
+    menuCategories = getMenuCategories()
     menuItems = {category: [(item[0], item[2], item[3]) for item in menuQuery if item[1] == category] for category in
                  menuCategories}
 
