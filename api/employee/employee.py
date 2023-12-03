@@ -48,3 +48,7 @@ def receive_saved_items():
 @employeeBlueprint.route("/timesheet", methods=['GET'])
 def timesheet():
     return render_template("employee_timesheet.html")
+
+
+# Other blueprints
+employeeBlueprint.register_blueprint()
