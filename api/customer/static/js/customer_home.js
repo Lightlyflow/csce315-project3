@@ -276,9 +276,11 @@ function resetCustomization() {
 
 function sendSavedItemsToServer() {
     var savedMenuItems = JSON.parse(localStorage.getItem("savedMenuItems"));
+    var orderDate = document.getElementById("orderDate").value;
 
     if (savedMenuItems && savedMenuItems.length > 0) {
         var data = { savedMenuItems: savedMenuItems };
+        data.orderDate = orderDate;
 
         fetch('/post_endpoint', {
             method: 'POST',
