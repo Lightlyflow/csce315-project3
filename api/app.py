@@ -1,5 +1,6 @@
 import os
 
+import cloudinary
 from dotenv import load_dotenv
 from flask import Flask
 
@@ -7,7 +8,6 @@ from flask import Flask
 load_dotenv()
 
 from api import manager, customer, auth, menuboard, employee
-
 
 app = Flask(__name__, static_folder=None)
 
@@ -29,6 +29,13 @@ app.config['OAUTH2_PROVIDERS'] = {
     }
 }
 auth.loginManager.init_app(app)
+
+# Image CDN
+cloudinary.config(
+    cloud_name=os.environ.get("CLOUDINAIRY_NAME"),
+    api_key=os.environ.get("CLOUDINAIRY_KEY"),
+    api_secret=os.environ.get("wlNd3Vx7MfCCYywUtcvTFnwZF8k")
+)
 
 app.register_blueprint(manager.blueprint, url_prefix='/manager')
 app.register_blueprint(customer.blueprint, url_prefix='/')
