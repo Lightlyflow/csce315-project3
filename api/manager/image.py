@@ -1,6 +1,6 @@
-from flask import Blueprint, request, render_template, abort, redirect, url_for
+from flask import Blueprint, request, render_template, abort, redirect, url_for, jsonify
 
-from .image_helper import imageUpload, imageDelete, imageUpdate
+from .image_helper import imageUpload, imageDelete, imageUpdate, imageGet
 
 imageAPIBlueprint = Blueprint("images", __name__)
 
@@ -10,13 +10,13 @@ def upload():
     if request.method == 'GET':
         return render_template("manager_images.html")
     elif request.method == 'POST':
-        image = request.files['images']
+        image = request.files['image']
         description = request.form.get("description")
         category = request.form.get("category")
 
         imageUpload(image, description, category)
 
-        return redirect(url_for('images.upload'))
+        return redirect(url_for('manager.images.upload'))
 
     abort(404)
 
@@ -53,3 +53,8 @@ def update():
 
     imageUpdate(imageID, description, category)
     return "Updated", 201
+
+
+@imageAPIBlueprint.route("/get", methods=['GET'])
+def get():
+    return jsonify(imageGet())

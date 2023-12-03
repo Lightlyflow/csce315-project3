@@ -4,10 +4,10 @@ from .user import User
 
 def getUserByEmail(email: str) -> User | None:
     # Request from db
-    result = auth_querier.emailExists(email)[0][0]
+    result = auth_querier.emailExists(email)[0]
 
     # If it doesn't exist
-    if result == 0:
+    if len(result) == 0:
         return None
 
     # If it does exist

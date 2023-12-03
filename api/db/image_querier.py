@@ -14,3 +14,6 @@ def deleteImage(imageID: int):
     """Only deletes image from db."""
     execute(f"DELETE FROM images WHERE id={imageID};")
 
+
+def getImages():
+    return execute(f"SELECT id, publicid, description, category, url FROM images;")

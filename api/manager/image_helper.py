@@ -13,7 +13,7 @@ def imageUpload(image: FileStorage, description: str | None, category: str | Non
 
     if image and description and image.filename.split(".")[-1].lower() in ALLOWED_EXTENSIONS:
         upload_result = uploader.upload(image)
-        image_querier.addImage(description, upload_result['SECURE_URL'], category, upload_result['public_id'])
+        image_querier.addImage(description, upload_result['secure_url'], category, upload_result['public_id'])
         return True
     return False
 
@@ -29,3 +29,8 @@ def imageDelete(imageID: int, publicID: str):
     """Deletes image from database and image CDN. May take a few minutes to invalidate cached images."""
     image_querier.deleteImage(imageID)
     uploader.destroy(publicID)
+
+
+def imageGet():
+    result = image_querier.getImages()
+    return result if result is not None else []
