@@ -74,6 +74,10 @@
         <h2>{{conditions}}</h2>
     </div>
 
+    <div class="pastOrderButton">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pastOrderModal">Past Orders</button>
+    </div>
+    
     <div class = "content">  
         {% for category in menuCategories %}
         <div class = "menuDropdown {% if loop.first %}firstDropDown active{% endif %}" id = "dropdown">
@@ -125,6 +129,30 @@
                             <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-target="#checkoutModal" onclick="sendSavedItemsToServer()">
                                 Place Order
                             </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="modal fade modal-lg" id="pastOrderModal">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Past Orders</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#pastOrderModal"></button>
+                        </div>
+                        <div class="modal-body">
+                            {% for order in userOrders %}
+                                <div class="row"><h5>{{ order[3] }}</h5></div>
+                                <div class="row">{{ order[2] }}</div>
+                                <div class="row">Toppings: {{ order[4] }}, {{ order[5] }}, {{ order[6] }}</div>
+                                <div class="row">Sweetness: {{ order[8] }}%</div>
+                                <div class="row">Ice: {{ order[9] }}</div>
+                                <div class="row">${{ order[7] }}</div>
+                                <div class="row finalCartEntry">Date ordered: {{ order[1] }}</div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>

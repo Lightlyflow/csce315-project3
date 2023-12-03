@@ -22,6 +22,12 @@ def getUserOrders():
             result[1] = datetime.date(result[1].year, result[1].month, result[1].day)
             result[2] = "{:.2f}".format(result[2])
             result[7] = "{:.2f}".format(result[7])
+            if result[9] == 2:
+                result[9] = "Regular"
+            elif result[9] == 1:
+                result[9] = "Less"
+            else:
+                result[9] = "None"
         return results
     else:
         return []
