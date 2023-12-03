@@ -3,6 +3,7 @@ from api.db import menuboard_querier
 def getMenuData():
     return menuboard_querier.getMenuItems()
 
+  
 def getMenuCategories():
     results = menuboard_querier.getMenuCategories()
     categories = [item for sublist in results for item in sublist]

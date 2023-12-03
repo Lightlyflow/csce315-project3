@@ -1,16 +1,16 @@
 body{
     background-color: bisque;
-    background-image: url(background.jfif);
+    background-image: url(blurred_bg.jpg);
+    background-size:100%;
+}
+
+#page{
+    
 }
 
 #board {
     margin-top:1%;
-    -webkit-column-count: 3;
-    -webkit-column-gap:   20px;
-    -moz-column-count:    3;
-    -moz-column-gap:      10px;
-    column-count:         3;
-    column-gap:           0px;
+    column-gap: 0px;
 }
 
 #category {
@@ -29,6 +29,8 @@ body{
     display: block;
     margin-left: auto;
     margin-right: auto;
+    width:100%;
+    height:auto;
 }
 
 #header{
@@ -42,15 +44,17 @@ body{
 .toppingList{
     column-count: 3;
     column-gap: 30px;
+    margin:0px;
 }
 
 .sweet{
-    width:80%;
-    height:auto;
+    width:40px;
+    height:40px;
 }
 
 .card{
-    background-color: rgb(255,228,196,0.4);
+    margin-bottom:15px;
+    background-color: rgba(240, 216, 185, 0.8);
 }
 
 
