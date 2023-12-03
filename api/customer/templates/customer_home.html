@@ -59,8 +59,8 @@
             <div class="dropdown-divider"></div>
             <li><a class="dropdown-item disabled" href="">Text Resize</a></li>
             <div class="textResizeGroup">
-                <button class="fontDecreaseButton" onclick="scaleText(-5);">A-</button>
-                <button class="fontIncreaseButton" onclick="scaleText(5);">A+</button>
+                <button class="fontResizeButton" onclick="event.stopPropagation();scaleText(-5);">A-</button>
+                <button class="fontResizeButton" onclick="event.stopPropagation();scaleText(5);">A+</button>
             </div>
         </ul>
 

@@ -1,3 +1,7 @@
+html {
+    font-size: 16px;
+}
+
 body{
     padding:0;
     margin:0;
@@ -197,8 +201,8 @@ a:hover {color:#262f48}
 
 .menuDropdown h2::after {
     color: blue;
-    padding-left: 15px;
-    font-size: 16px;
+    padding-left: 1rem;
+    font-size: 1rem;
     font-weight: normal;
     cursor: pointer;
 }
@@ -227,7 +231,7 @@ a:hover {color:#262f48}
 }
 
 .menuCategory h2 {
-    padding-top: 25px;
+    padding-top: 1.5rem;
     font-size: 2rem;
     padding-bottom: 1.3rem;
 }
@@ -301,7 +305,7 @@ a:hover {color:#262f48}
     -webkit-user-select: none;
     touch-action: manipulation;
     @media (min-width: 601px) {
-        display: none !important;;
+        display: none !important;
     }
 }
 
@@ -327,6 +331,7 @@ a:hover {color:#262f48}
 
 .menuItemCalories {
     font-weight: 330;
+    font-size: .8rem;
     @media (max-width: 600px) {
         display: none !important;;
     }
@@ -411,12 +416,14 @@ a:hover {color:#262f48}
     justify-content: center;
 }
 
-.fontDecreaseButton {
+.fontResizeButton {
     border-width: 1px;
+    border-radius: 0.3rem;
     margin-right: 10px;
+    border: none;
+    background: #e2e2e2;
 }
 
-.fontIncreaseButton {
-    border-width: 1px;
-    margin-left: 10px;
+.fontResizeButton:hover {
+    background: rgb(169, 169, 169)
 }
