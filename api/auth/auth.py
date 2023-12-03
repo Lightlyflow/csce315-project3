@@ -28,7 +28,8 @@ def unauthorized_callback():
 
 @authBlueprint.route("/")
 def home():
-    return render_template("login.html")
+    
+    return render_template("customer_landing.html")
 
 
 @authBlueprint.route("/logout")
