@@ -105,11 +105,17 @@ function saveItem() {
     savedMenuItems.push(newItem);
     localStorage.setItem("savedMenuItems", JSON.stringify(savedMenuItems));
 
-
+    localStorage.setItem("editedItem", JSON.stringify(""));
 }
 
 function populateCart() {
     var savedMenuItems = JSON.parse(localStorage.getItem("savedMenuItems"));
+    var editedItem = JSON.parse(localStorage.getItem("editedItem")) || "";
+    if (editedItem != "") {
+        savedMenuItems.push(editedItem);
+        localStorage.setItem("savedMenuItems", JSON.stringify(savedMenuItems));
+        localStorage.setItem("editedItem", JSON.stringify(""));
+    }
     var pageCartItems = document.getElementById("pageCartItems");
 
     while (pageCartItems.firstChild) {

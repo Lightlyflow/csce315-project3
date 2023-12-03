@@ -37,7 +37,7 @@
     </div>
 
     <div class = "checkout">
-        <button class="btn btn-primary checkoutButton" data-bs-toggle="modal" data-bs-target="#modal" data-backdrop="false">
+        <button class="btn btn-primary checkoutButton" data-bs-toggle="modal" data-bs-target="#modal" onclick="populateCart()" data-backdrop="false">
             <img height="65px" src="{{ url_for('customer.static', filename='shopping-cart.png') }}" alt="Shopping Cart">
         </button>
     </div>
