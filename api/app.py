@@ -34,7 +34,7 @@ auth.loginManager.init_app(app)
 cloudinary.config(
     cloud_name=os.environ.get("CLOUDINAIRY_NAME"),
     api_key=os.environ.get("CLOUDINAIRY_KEY"),
-    api_secret=os.environ.get("wlNd3Vx7MfCCYywUtcvTFnwZF8k")
+    api_secret=os.environ.get("CLOUDINAIRY_SECRET")
 )
 
 app.register_blueprint(manager.blueprint, url_prefix='/manager')
