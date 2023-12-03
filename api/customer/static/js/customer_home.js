@@ -119,14 +119,27 @@ function populateCart() {
     if (savedMenuItems && savedMenuItems.length > 0) {
         //Add elements to page
         var colDiv;
+        let i = 0;
         savedMenuItems.forEach(function(item) {
+            var totalRowDiv = document.createElement("div");
+            totalRowDiv.className = "row";
+            pageCartItems.appendChild(totalRowDiv);
+    
+            var leftColDiv = document.createElement("div");
+            leftColDiv.className = "col";
+            totalRowDiv.appendChild(leftColDiv);
+    
+            var rightColDiv = document.createElement("div");
+            rightColDiv.className = "col";
+            totalRowDiv.appendChild(rightColDiv);
+
             var rowDiv1 = document.createElement("div");
             rowDiv1.className = "row";
             colDiv = document.createElement("div");
             colDiv.className = "col menuItemCart";
             colDiv.textContent = item._name;
             rowDiv1.appendChild(colDiv);
-            pageCartItems.appendChild(rowDiv1);
+            leftColDiv.appendChild(rowDiv1);
 
             var rowDiv2 = document.createElement("div");
             rowDiv2.className = "row";
@@ -134,7 +147,7 @@ function populateCart() {
             colDiv.className = "col";
             colDiv.textContent = "Ice: " + item._iceLevel;
             rowDiv2.appendChild(colDiv);
-            pageCartItems.appendChild(rowDiv2);
+            leftColDiv.appendChild(rowDiv2);
 
             var rowDiv3 = document.createElement("div");
             rowDiv3.className = "row";
@@ -142,7 +155,7 @@ function populateCart() {
             colDiv.className = "col";
             colDiv.textContent = "Sweetness: " + item._sweetness + "%";
             rowDiv3.appendChild(colDiv);
-            pageCartItems.appendChild(rowDiv3);
+            leftColDiv.appendChild(rowDiv3);
 
             let toppingList = [];
             toppingList.push(item._topping1);
@@ -169,7 +182,7 @@ function populateCart() {
             colDiv.className = "col";
             colDiv.textContent = toppingText;
             rowDiv4.appendChild(colDiv);
-            pageCartItems.appendChild(rowDiv4);
+            leftColDiv.appendChild(rowDiv4);
 
             var rowDiv5 = document.createElement("div");
             rowDiv5.className = "row";
@@ -177,7 +190,7 @@ function populateCart() {
             colDiv.className = "col";
             colDiv.textContent = "Quantity: " + item._quantity;
             rowDiv5.appendChild(colDiv);
-            pageCartItems.appendChild(rowDiv5);
+            leftColDiv.appendChild(rowDiv5);
 
             var rowDiv6 = document.createElement("div");
             rowDiv6.className = "row";
@@ -185,7 +198,18 @@ function populateCart() {
             colDiv.className = "col finalCartEntry";
             colDiv.textContent = "$" + (parseFloat(item._price) * parseFloat(item._quantity)).toFixed(2);
             rowDiv6.appendChild(colDiv);
-            pageCartItems.appendChild(rowDiv6);
+            leftColDiv.appendChild(rowDiv6);
+
+            var rowDiv7 = document.createElement("div");
+            rowDiv7.className = "row";
+            let buttonDiv = document.createElement("button");
+            buttonDiv.className = "btn btn-primary";
+            buttonDiv.textContent = "Delete Item";
+            buttonDiv.setAttribute("onclick", "removeFromCart(" + i.toString() + ")")
+            rowDiv7.appendChild(buttonDiv);
+            rightColDiv.appendChild(rowDiv7);
+
+            i++;
         });
     }
     else {
@@ -213,7 +237,6 @@ function resetCustomization() {
     for(var i = 0; i < ele.length; i++)
         ele[i].checked = false;
     ele[0].checked = true;
-
     //Slider for sweetness level reset to default value 50
     document.getElementById('sweetnessLevel').value = 100;
 
@@ -283,4 +306,11 @@ function setCustomizationPrice() {
     }
 
     document.getElementById("customizePrice").textContent = (currentItemPrice * parseInt(quantity)).toFixed(2);
+}
+
+function removeFromCart(rowNum) {
+    let savedMenuItems = JSON.parse(localStorage.getItem("savedMenuItems"));
+    savedMenuItems.splice(rowNum, 1);
+    localStorage.setItem("savedMenuItems", JSON.stringify(savedMenuItems));
+    populateCart();
 }
