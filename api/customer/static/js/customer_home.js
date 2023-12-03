@@ -214,7 +214,22 @@ function setItemName(name) {
     document.getElementById("customizationName").innerHTML = name;
 }
 
-
+function scaleText(pixelIncrement){
+    let names = document.getElementsByClassName('menuItemName');
+    let prices = document.getElementsByClassName('menuItemPrice');
+    let calories = document.getElementsByClassName('menuItemCalories');
+    for (var i = 0; i < names.length; i++) {
+        style = window.getComputedStyle(names[i], null).getPropertyValue('font-size');
+        currentSize = parseFloat(style);
+        names[i].style.fontSize = (currentSize + pixelIncrement) + 'px';
+        style = window.getComputedStyle(prices[i], null).getPropertyValue('font-size');
+        currentSize = parseFloat(style);
+        prices[i].style.fontSize = (currentSize + pixelIncrement) + 'px';
+        style = window.getComputedStyle(calories[i], null).getPropertyValue('font-size');
+        currentSize = parseFloat(style);
+        calories[i].style.fontSize = (currentSize + pixelIncrement) + 'px';
+    }
+}
 
 const btnMenu = document.querySelector('.btnMenu');
 
