@@ -12,9 +12,9 @@
 
 <body id="page">
     <div class="container-fluid" id="board">
-        <div class="row row-cols-4 gy-4">
+        <div class="row row-cols-4 g-3">
 
-            <div class="col">
+            <div class="col" id="mainCol">
                 <div class="row">
                     <div class="col" id="header">
                         <img id="logo" src="{{ url_for('menuboard.static', filename='assets/shareTeaLogo.png') }}" alt="ShareTea logo", height="130px">
@@ -45,7 +45,7 @@
                 {% endfor %}
             </div>
 
-            <div class="col">
+            <div class="col" id="mainCol">
                 {% for i in range (numCategories//4+1,numCategories//2+1) %}
                 <div class="row">
                     <div class="col">
@@ -69,7 +69,7 @@
                 {% endfor %}
             </div>
 
-            <div class="col">
+            <div class="col" id="mainCol">
                 {% for i in range (numCategories//2+1,3*numCategories//4+1) %}
                 <div class="row">
                     <div class="col">
@@ -94,7 +94,7 @@
             </div>
             
         
-            <div class="col">
+            <div class="col" id="mainCol">
                 {% for i in range (3*numCategories//4+1,numCategories) %}
                 <div class="row">
                     <div class="col">
@@ -121,7 +121,7 @@
                         <div class="card" id="endCard">
                             <div class="card-body">
                                 <h3 class="card-title">Ice Level</h3>
-                                <div class="row">
+                                <div class="row g-0">
                                     <div class="col">
                                         <img src="{{ url_for('menuboard.static', filename='assets/full_ice.jpg') }}" alt="Full Ice", height="50px">
                                         <p>Full Ice</p>
@@ -136,25 +136,25 @@
                                     </div>
                                 </div>
                                 <h3 class="card-title">Sweetness Level</h3>
-                                <div class="row">
+                                <div class="row g-0">
                                     <div class="col">
-                                        <img class="sweet" src="{{ url_for('menuboard.static', filename='assets/100_sweetness.png') }}" alt="100% Sweetness", height="50px">
-                                        <p">100%<br>Regular</p>
+                                        <img class="sweet" src="{{ url_for('menuboard.static', filename='assets/100_sweetness.png') }}" alt="100% Sweetness">
+                                        <p>100%<br>Regular</p>
                                     </div>
                                     <div class="col">
-                                        <img class="sweet" src="{{ url_for('menuboard.static', filename='assets/80_sweetness.png') }}" alt="80% sweetness", height="50px">
+                                        <img class="sweet" src="{{ url_for('menuboard.static', filename='assets/80_sweetness.png') }}" alt="80% sweetness">
                                         <p>80%<br>Less</p>
                                     </div>
                                     <div class="col">
-                                        <img class="sweet" src="{{ url_for('menuboard.static', filename='assets/50_sweetness.png') }}" alt="50% Sweetness", height="50px">
+                                        <img class="sweet" src="{{ url_for('menuboard.static', filename='assets/50_sweetness.png') }}" alt="50% Sweetness">
                                         <p>50%<br>Half</p>
                                     </div>
                                     <div class="col">
-                                        <img class="sweet" src="{{ url_for('menuboard.static', filename='assets/30_sweetness.png') }}" alt="30% Sweetness", height="50px">
+                                        <img class="sweet" src="{{ url_for('menuboard.static', filename='assets/30_sweetness.png') }}" alt="30% Sweetness">
                                         <p>30%<br>Light</p>
                                     </div>
                                     <div class="col">
-                                        <img class="sweet" src="{{ url_for('menuboard.static', filename='assets/0_sweetness.png') }}" alt="0% Sweetness", height="50px">
+                                        <img class="sweet" src="{{ url_for('menuboard.static', filename='assets/0_sweetness.png') }}" alt="0% Sweetness">
                                         <p>0%<br>No Sugar</p>
                                     </div>
                                 </div>                                
