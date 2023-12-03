@@ -63,3 +63,4 @@ def updateMenuCategoriesOrder(categories: [str]):
         cats.append(f"('{cat[1]}', {cat[0]})")
 
     manager_querier.updateCategories(", ".join(cats))
+    manager_querier.removeUnusedCategories()
