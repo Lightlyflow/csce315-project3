@@ -93,6 +93,14 @@ def placeOrder(menuItems, orderDate):
         
     customer_querier.insertIntoOrderTable(orderId, round(totalPrice, 2), currentEmail, dateString)
 
+#def getPastOrders():
+#    if (current_user.is_authenticated == True):
+#        orderInfos = customer_querier.getOrderInfoForUser(current_user.email)
+ #       for orderInfo in orderInfos:
+ #           
+ #   else:
+ #       return []
+
 
 def getWeather():
     api_key = os.environ["WEATHER_API_KEY"]

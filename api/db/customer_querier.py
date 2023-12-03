@@ -64,6 +64,9 @@ def getMenuItemPrice(menuItemId):
 def getToppingPrice(toppingId):
     return execute(f"SELECT price FROM topping_table WHERE inventoryid = {toppingId};")
 
+def getOrderInfoForUser(email):
+    return execute(f"SELECT orderid, dateordered, price FROM order_table WHERE email = {email};")
+
 if __name__ == '__main__':
     # If you want to run this, delete the period in front of the import statements in this file
     # but make sure to add them back
