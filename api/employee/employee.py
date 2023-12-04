@@ -52,4 +52,4 @@ def timesheet():
 
 
 # Other blueprints
-employeeBlueprint.register_blueprint(timesheetAPIBlueprint, url_prefix="/timesheet")
+employeeBlueprint.register_blueprint(timesheetAPIBlueprint, url_prefix = "/timesheet")

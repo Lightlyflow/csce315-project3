@@ -12,3 +12,13 @@ def clockOut(employeeID: int):
             f"WHERE employeeid={employeeID} "
             f"AND clockout=(SELECT MAX(clockin) FROM clockinout "
             f"              WHERE employeeid={employeeID});")
+    
+def getWeek1(employeeID, lastWeekDate, currDate):
+    return execute(f"""SELECT employeeid, clockin, clockout, activity, EXTRACT(EPOCH FROM clockout -  clockin) AS hours
+        FROM clockinout
+        WHERE employeeid = {employeeID} AND (clockin >= '{lastWeekDate}' AND clockin <= '{currDate}');""")
+
+def getWeek2(employeeID, secondLastWeekDate, lastWeekDate):
+    return execute(f"""SELECT employeeid, clockin, clockout, activity, EXTRACT(EPOCH FROM clockout -  clockin) AS hours
+        FROM clockinout
+        WHERE employeeid = {employeeID} AND (clockin >= '{secondLastWeekDate}' AND clockin <= '{lastWeekDate}');""")
