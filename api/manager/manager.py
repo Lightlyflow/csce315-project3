@@ -7,6 +7,7 @@ from .analytics import analyticsAPIBlueprint
 from .menu import menuAPIBlueprint
 from .user_management import userManagementBlueprint
 from .orders import ordersAPIBlueprint
+from .payroll import payrollAPIBlueprint
 
 managerBlueprint = Blueprint("manager", __name__, template_folder="templates", static_folder="static")
 
@@ -63,3 +64,4 @@ managerBlueprint.register_blueprint(analyticsAPIBlueprint, url_prefix='/analytic
 managerBlueprint.register_blueprint(menuAPIBlueprint, url_prefix='/menu')
 managerBlueprint.register_blueprint(userManagementBlueprint, url_prefix='/user_management')
 managerBlueprint.register_blueprint(ordersAPIBlueprint, url_prefix='/orders')
+managerBlueprint.register_blueprint(payrollAPIBlueprint, url_prefix='/payroll')
