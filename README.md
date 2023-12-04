@@ -2,8 +2,11 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=12489224&assignment_repo_type=AssignmentRepo)
 
 
-## How to Run
-1. Make sure you have python version 3.11 at least
+## How to Run (Option 1)
+1. Requirements
+   1. `Python 3.11`
+   2. `.env` from Google Drive (move inside `api` folder)
+2. Make sure you have python version 3.11 at least
    1. If not and you're on Unix:
       1. `sudo apt update && sudo apt upgrade`
       2. `sudo add-apt-repository ppa:deadsnakes/ppa`
@@ -23,3 +26,10 @@
    2. Rename the file to `.env`
    3. Move the file into the `api` folder
 4. Run `flask --app api/app.py run` to run server
+
+## How to Run (Option 2 - Docker)
+1. Requirements
+   1. `Docker`
+2. Make sure you are in the project root
+3. ```docker build -t project3 .```
+4. ```docker run -p 5000:5000 project3```
