@@ -17,7 +17,7 @@ def order():
     # Menu items dynamic loading
     menuQuery = getMenuData()
     menuCategories = getMenuCategories()
-    menuItems = {category: [(item[0], item[2], item[3]) for item in menuQuery if item[1] == category] for category in
+    menuItems = {category: [(item[0], item[2], item[3], item[4]) for item in menuQuery if item[1] == category] for category in
                  menuCategories}
     # Weather api work to get temp and conditions
     weather = getWeather()

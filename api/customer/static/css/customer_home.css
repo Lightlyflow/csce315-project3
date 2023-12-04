@@ -278,19 +278,19 @@ a:hover {color:#262f48}
 }
 
 .menuItems {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); /* Adjust column width as needed */
+    justify-items: center;
 }
 
 .menuItemBox {
     margin: 20px;
     width: 15%;
     text-align: center;
-    /*background-color: #ff9999;*/
+    display: flex;
+    flex-direction: column;
     min-width: 100px;
+    justify-content: space-between;
     @media (max-width: 600px) {
         margin: 1px;
     }
@@ -384,7 +384,7 @@ a:hover {color:#262f48}
     display: flex;
     justify-content: space-around;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 .menuItemPrice {
@@ -497,4 +497,37 @@ a:hover {color:#262f48}
 
 .fontResizeButton:hover {
     background: rgb(169, 169, 169)
+}
+
+.menuContents {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+.image-container {
+    width: 3rem;
+    height: 4rem;
+    overflow: hidden;
+    border-radius: 5px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    @media (max-width: 600px) {
+        display: none !important;
+    }
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+.imageMenuItem {
+    border-radius: 5px;
 }
