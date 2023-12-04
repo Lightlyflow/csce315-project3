@@ -135,7 +135,6 @@ a:hover {color:#262f48}
     }
 }
 
-
 .name {
     font-size: 2.5rem !important;
 }
@@ -152,4 +151,480 @@ a:hover {color:#262f48}
 
 .secondaryButton:hover {
     background-color: #e2e2e2;
+}
+
+.accessButton {
+    position: fixed;
+    right: 20px;
+    bottom: 40px;
+    z-index: 10 !important;
+    
+    @media (max-width: 600px) {
+        top: 0 !important;
+        bottom: auto !important;
+        right: 0px !important;
+        left: auto !important;
+    }
+}
+
+.accessButton {
+    position: fixed;
+    right: 20px;
+    bottom: 40px;
+    z-index: 10 !important;
+    
+    @media (max-width: 600px) {
+        top: 0 !important;
+        bottom: auto !important;
+        right: 0px !important;
+        left: auto !important;
+    }
+}
+
+.logoutButton {
+    background: url(../logout-svgrepo-com.svg) no-repeat;
+    background-size: contain;
+    width: 25px;
+    border: none;
+    height: 25px;
+}
+
+#orderDate {
+    margin-bottom: 1rem;
+}
+
+#orderTotal {
+    position: absolute;
+    left: 10px;
+}
+
+#datePickerContainer {
+    display: none !important;
+}
+
+.checkout {
+    position: fixed;
+    right: 0;
+    z-index: 12;
+    top: 0;
+    margin-right: 20px;
+    margin-top: 20px;
+    box-shadow: rgb(0 0 0 / 0%) 0px 19px 10px, rgb(0 0 0 / 12%) 0px 15px 12px;
+    border-radius: 1rem;
+
+    @media (max-width: 600px) {
+        top: auto;
+        bottom: 20px;
+        left: auto;
+        right: 0px;
+    }
+}
+
+.checkoutButton {
+    background: white !important;
+}
+
+.weatherWidget {
+    user-select: none;
+    -webkit-user-select: none;
+    border-radius: 1rem;
+    z-index: 9;
+    position: fixed;
+    background: white;
+    left: 0;
+    padding: 15px;
+    bottom: 0;
+    margin-left: 40px;
+    margin-bottom: 40px;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgb(0 0 0 / 4%) 0px 19px 38px, rgb(0 0 0 / 5%) 0px 15px 12px;
+
+    @media (max-width: 600px) {
+        top: auto;
+        bottom: 0px;
+        left: 0px;
+        right: auto;
+        margin-left: 20px;
+        margin-bottom: 20px;
+    }
+}
+
+.weatherWidget p {
+    font-size: 1.5rem;
+    font-family: sans-serif;
+    font-weight: bold;
+    margin: 0;
+}
+
+.weatherWidget h2 {
+    font-size: 1rem;
+    margin: 0;
+}
+
+.pastOrderButton {
+    user-select: none;
+    -webkit-user-select: none;
+    border-radius: 1rem;
+    z-index: 9;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    margin-left: 40px;
+    margin-bottom: 160px;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgb(0 0 0 / 4%) 0px 19px 38px, rgb(0 0 0 / 5%) 0px 15px 12px;
+
+    @media (max-width: 600px) {
+        top: auto;
+        bottom: 0px;
+        left: 0px;
+        right: auto;
+        margin-left: 20px;
+        margin-bottom: 20px;
+    }
+}
+
+.btn-primary {
+    --bs-btn-bg: #d64356 !important;
+    --bs-btn-hover-bg: #a31023 !important;
+    --bs-btn-border-color: #ffffff00 !important;
+    --bs-btn-hover-border-color: #ffffff00 !important;
+    --bs-btn-active-bg: #a31023 !important;
+    --bs-btn-active-border-color: #ffffff00 !important;
+}
+
+.btn-secondary {
+    --bs-btn-active-border-color: black !important;
+    --bs-btn-active-bg: black !important;
+}
+
+.button-container::before {
+    content: ""; 
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: auto; 
+}
+
+.content {
+    width: 100%;
+    top: 0;
+    margin-top: 50px; 
+    min-height: calc(100vh - 95px);
+    /* background: linear-gradient( to bottom, rgb(255, 255, 255), rgb(176, 176, 176)); */
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.firstDropDown {
+    margin: 60px 0 40px !important;
+}
+
+.menuDropdown {
+    overflow: hidden;
+    max-height: 5.3em;
+    width: 60%;
+    z-index: 3;
+    padding: 0 30px 30px 30px;
+    background: white;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.03), 0 6px 6px rgba(0,0,0,0.03);
+    border-radius: 5px;
+    margin: 10px 0 40px;
+    cursor: pointer;
+}
+
+.menuDropdown h2 {
+    padding:  22px 0 22px 0;
+    cursor: pointer;
+    width: fit-content;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.menuDropdown.active {
+    max-height: fit-content;
+    cursor: auto;
+}
+
+.menuDropdown:has(:not(.active)) h2::after {
+    content: "▼";
+    color: rgb(255, 111, 111)
+}
+
+.menuDropdown .active h2::after {
+    content: "▲";
+    color: rgb(255, 111, 111)
+}
+
+.menuDropdown h2::after {
+    color: blue;
+    padding-left: 1rem;
+    font-size: 1rem;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+#dropdownMenuButton {
+    border-radius: 7rem !important;
+    --bs-btn-color: #fff0 !important;
+    --bs-btn-bg: #fff0 !important;
+    --bs-btn-border-color: #fff0 !important;
+    --bs-btn-hover-color: #fff0 !important;
+    --bs-btn-hover-bg: rgba(255, 255, 255, 0) !important;
+    --bs-btn-hover-border-color: #fff0 !important;
+    --bs-btn-focus-shadow-rgb: 130,138,145;
+    --bs-btn-active-color: #fff0 !important;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+    --bs-btn-disabled-color: #fff0 !important;
+    --bs-btn-disabled-bg: #fff0 !important;
+    --bs-btn-disabled-border-color: #fff0 !important;
+    --bs-btn-active-border-color: #fff0 !important;
+    --bs-btn-active-bg: #fff0 !important;
+}
+
+.menuCategory {
+    width: 100%;
+    cursor: pointer;
+}
+
+.menuCategory h2 {
+    padding-top: 1.5rem;
+    font-size: 2rem;
+    padding-bottom: 1.3rem;
+}
+
+.menuItems {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr)); /* Adjust column width as needed */
+    justify-items: center;
+}
+
+.menuItemBox {
+    margin: 20px;
+    width: 15%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    min-width: 100px;
+    justify-content: space-between;
+    @media (max-width: 600px) {
+        margin: 1px;
+    }
+}
+
+.menuItem {
+    width: 20%;
+    height: 100px;
+    padding: 100px;
+}
+
+.menuItemName {
+    height: 3rem;
+    text-align: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 1rem;
+    font-weight: bold;
+
+
+    @supports (-webkit-line-clamp: 2) {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: initial;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    @media (max-width: 600px) {
+        display: none !important;;
+    }
+}
+
+.menuItemCart {
+    height: 1.5rem;
+    text-align: left;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 1rem;
+    font-weight: bold;
+
+
+    @supports (-webkit-line-clamp: 2) {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: initial;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+    @media (max-width: 700px) {
+        display: none !important;;
+    }
+}
+
+.firstCartEntry {
+    padding-top: 1rem;
+}
+
+.finalCartEntry {
+    padding-bottom: 1rem;
+}
+
+.btnMenuMobile{
+    word-wrap: break-word;
+    align-items: center;
+    width: 100px;
+    height: 130px;
+    background-color: #fff;
+    border-radius: 13px;
+    /* box-shadow: transparent 0 0 0 3px,rgba(18, 18, 18, 0.176) 0 6px 20px; */
+    box-sizing: border-box;
+    color: #121212;
+    cursor: pointer;
+    font-size: .8 rem;
+    font-weight: 200;
+    line-height: 1;
+    padding: .7rem 1rem;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow .2s,-webkit-box-shadow .2s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    @media (min-width: 601px) {
+        display: none !important;
+    }
+}
+
+.menuContentDesc {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+.menuItemPrice {
+    color: #b81228;
+    font-weight: 750;
+    margin-right:5px;
+    font-size: .95rem;
+    margin-bottom: 0;
+    text-align: center;
+
+    @media (max-width: 600px) {
+        display: none !important;;
+    }
+}
+
+.menuItemCalories {
+    font-weight: 330;
+    font-size: .8rem;
+    @media (max-width: 600px) {
+        display: none !important;;
+    }
+}
+
+.menuItemPrice {
+    font-size: 1.1rem;
+    @media (max-width: 600px) {
+        display: none !important;;
+    }
+}
+
+.modal-backdrop {
+    z-index: 100;
+}
+
+.btnMenu {
+    background-color: #cc142c;
+    border-radius: 13px;
+    /* box-shadow: transparent 0 0 0 3px, rgba(18, 18, 18, 0.176) 0 6px 20px; */
+    box-sizing: border-box;
+    color: white;
+    cursor: pointer;
+    font-size: 1.3rem;
+    font-weight: bolder;
+    line-height: 1;
+    padding: 0.3rem 7%;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow .2s,-webkit-box-shadow .2s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    border: none;
+    @media (max-width: 600px) {
+        display: none !important;
+    }
+}
+
+.btnMenu:hover {
+  box-shadow: #cc142c 0 0 0 3px, transparent 0 0 0 0;
+}
+
+.sweetnessTick {
+    width: 2px;
+    height: 8px;
+    background-color: #000;
+}
+
+.form-range {
+    width: 87%;
+}
+
+.goog-te-gadget-icon {
+    display:none;
+}
+
+.goog-te-gadget-simple {
+    background-color: #ffffff !important;
+    border:0 !important;
+    font-size: .9rem !important;
+    font-weight: 500;
+    display: inline-block;
+    padding:10px 10px !important;
+    zoom: 1;
+}
+  
+.goog-te-gadget-simple  span {
+    color:#000000 !important;
+}
+
+.dropdown-menu {
+    background: #ffffff !important;
+    --bs-dropdown-link-disabled-color: black !important;
+}
+
+.textResizeGroup {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    justify-content: center;
+}
+
+.fontResizeButton {
+    border-width: 1px;
+    border-radius: 0.3rem;
+    margin-right: 10px;
+    border: none;
+    background: #e2e2e2;
+}
+
+.fontResizeButton:hover {
+    background: rgb(169, 169, 169)
 }
