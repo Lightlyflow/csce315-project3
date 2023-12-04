@@ -14,6 +14,8 @@ def getMenuCategories():
 
     return categories
 
+def getToppingData():
+    return customer_querier.getToppingNames()
 
 def getToppingNames() -> []:
     results = customer_querier.getToppingNames()
@@ -28,7 +30,6 @@ def placeOrder(menuItems):
     orderId = (customer_querier.getMaxOrderId())[0][0] + 1
 
     for menuItem in menuItems:
-        menuItemPrice = 0.0
         itemName = menuItem['_name']
 
         toppingList = list()
@@ -43,36 +44,30 @@ def placeOrder(menuItems):
 
         sweetness = menuItem['_sweetness']
         iceLevel = menuItem['_iceLevel']
+        price = float(menuItem['_price'])
 
         menuItemId = (customer_querier.getMenuItemId(itemName))[0][0]
-        menuItemPrice += (customer_querier.getMenuItemPrice(menuItemId))[0][0]
 
-        # Ingredients
+        #Ingredients
         menuItemComponents = customer_querier.getMenuItemComponents(menuItemId)
         for component in menuItemComponents:
-            currentInventory = (customer_querier.getIngredientQuantityInventory(component[0]))[0][0]
-            newInventory = currentInventory - component[1] * itemQuantity
-            customer_querier.setIngredientQuantityInventory(component[0], newInventory)
+            customer_querier.subtractIngredientQuantityInventory(component[0], component[1] * itemQuantity)
 
-        # Cups and Straws
-        currentInventory = customer_querier.getIngredientQuantityInventory(12)
-        customer_querier.setIngredientQuantityInventory(12, currentInventory[0][0] - itemQuantity)
-        currentInventory = customer_querier.getIngredientQuantityInventory(13)
-        customer_querier.setIngredientQuantityInventory(13, currentInventory[0][0] - itemQuantity)
+        #Cups and Straws
+        customer_querier.subtractIngredientQuantityInventory(12, itemQuantity)
+        customer_querier.subtractIngredientQuantityInventory(13, itemQuantity)
 
-        # Toppings
+        #Toppings
         toppingIdList = list()
         for topping in toppingList:
             toppingId = customer_querier.getToppingId(topping)[0][0]
             toppingIdList.append(toppingId)
-            menuItemPrice += customer_querier.getToppingPrice(toppingId)[0][0]
-            currentInventory = customer_querier.getIngredientQuantityInventory(toppingId)
-            customer_querier.setIngredientQuantityInventory(toppingId, currentInventory[0][0] - itemQuantity)
-        for i in range(3 - len(toppingList)):
+            customer_querier.subtractIngredientQuantityInventory(toppingId, itemQuantity)
+        for i in range (3 - len(toppingList)):
             toppingIdList.append(-1)
 
-        # Order Part
-        totalPrice += menuItemPrice * itemQuantity
+        #Order Part
+        totalPrice += price * itemQuantity
         if iceLevel == 'Regular':
             iceLevelNum = 2
         elif iceLevel == 'Less':
@@ -82,17 +77,15 @@ def placeOrder(menuItems):
 
         for i in range(itemQuantity):
             uniqueId = (customer_querier.getMaxUniqueId())[0][0] + 1
-            customer_querier.insertIntoOrderPartTable(uniqueId, orderId, menuItemId, toppingIdList[0], toppingIdList[1],
-                                                      toppingIdList[2], menuItemPrice, sweetness, iceLevelNum)
+            customer_querier.insertIntoOrderPartTable(uniqueId, orderId, menuItemId, toppingIdList[0], toppingIdList[1], toppingIdList[2], round(price, 2), sweetness, iceLevelNum)
 
-    # Order
-    if current_user.is_authenticated:
+    #Order
+    if (current_user.is_authenticated == True):
         currentEmail = current_user.email
     else:
-        # TODO :: FIX THIS?
-        currentEmail = 'dummyemail@tamu.edu'
+        currentEmail = ''
 
-    customer_querier.insertIntoOrderTable(orderId, totalPrice, currentEmail)
+    customer_querier.insertIntoOrderTableCurrent(orderId, round(totalPrice, 2), currentEmail, current_user.employeeId)
 
 
 def getWeather():

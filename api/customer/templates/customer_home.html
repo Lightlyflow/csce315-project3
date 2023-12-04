@@ -15,7 +15,7 @@
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
-    <div class="modal modal-md" id="modal">
+    <div class="modal fade modal-md" id="modal">
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
@@ -28,9 +28,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <h2 id="orderTotal">Total: $0.00</h2>
                     <button class="btn btn-primary" onclick="emptyCart()">Clear Cart</button>
                     <input type="hidden" id="data">
-                    <button class="btn btn-primary" onclick="sendSavedItemsToServer()">Checkout</button>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#checkoutModal">Checkout</button>
                 </div>
             </div>
         </div>
@@ -68,7 +69,7 @@
     </div>
 
     <div class = "checkout">
-        <button class="btn btn-primary checkoutButton" data-bs-toggle="modal" data-bs-target="#modal" data-backdrop="false">
+        <button class="btn btn-primary checkoutButton" data-bs-toggle="modal" data-bs-target="#modal" onclick="populateCart()" data-backdrop="false">
             <img height="65px" src="{{ url_for('customer.static', filename='shopping-cart.png') }}" alt="Shopping Cart">
         </button>
     </div>
@@ -76,6 +77,10 @@
     <div class = "weatherWidget"> 
         <p>{{temperature}}°</p>
         <h2>{{conditions}}</h2>
+    </div>
+
+    <div class="pastOrderButton">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#pastOrderModal">Past Orders</button>
     </div>
 
     <div class = "content">  
@@ -102,7 +107,7 @@
                             ${{'%0.2f' % item[1]|float}}
                         </p>
 
-                        <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onfocus="checkHeight(this.parentElement.parentElement.parentElement);" onclick="setItemName('{{ item[0] }}');resetCustomization();">
+                        <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onfocus="checkHeight(this.parentElement.parentElement.parentElement);" onclick="setItemName('{{ item[0] }}', '{{ item[1] }}');resetCustomization();">
                             +
                         </button>
                     </div>
@@ -113,6 +118,73 @@
 
         </div>
         {% endfor %}
+
+        <div class="container">
+            <div class="modal fade" id="checkoutModal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Checkout</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#checkoutModal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row mt-2">
+                                <div class="col-auto">
+                                    <div class="form-check">
+                                        <input class="form-check-input active" type="radio" name="showDatepicker" value="no" id="showDatepickerNo" onclick="toggleActive(this);" checked>
+                                        <label class="form-check-label" for="showDatepickerNo">
+                                            Order ASAP
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="showDatepicker" value="yes" id="showDatepickerYes" onclick="toggleActive(this);">
+                                        <label class="form-check-label" for="showDatepickerYes">
+                                            Order for Later
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="row" id="datePickerContainer">
+                                <input type="datetime-local" id="orderDate" class="form-control" min="{{currentTime}}">
+                            </div>
+                        </div>
+                        
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-target="#checkoutModal" onclick="sendSavedItemsToServer();">
+                                Place Order
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="modal fade modal-lg" id="pastOrderModal">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Past Orders</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#pastOrderModal"></button>
+                        </div>
+                        <div class="modal-body">
+                            {% for order in userOrders %}
+                                <div class="row"><h5>{{ order[3] }}</h5></div>
+                                <div class="row"><label>Toppings: {{ order[4] }}, {{ order[5] }}, {{ order[6] }}</label></div>
+                                <div class="row"><label>Sweetness: {{ order[8] }}%</label></div>
+                                <div class="row"><label>Ice: {{ order[9] }}</label></div>
+                                <div class="row"><label>${{ order[7] }}</label></div>
+                                <div class="row"><label>Date ordered: {{ order[1] }}</label></div>
+                                <hr>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
         <div class="container">
@@ -197,8 +269,8 @@
                                 <div class="row row-cols-3 gy-2">
                                 {% for topping in toppingNames %}
                                     <div class="col topping-col">
-                                        <input type="checkbox" class="btn-check topping-col-child" name="toppingOptions" id="{{topping}}" autocomplete="off" onclick="stopCheckTopping(this);">
-                                        <label class="btn btn-secondary topping-col-child" for="{{topping}}">{{topping}}</label>
+                                        <input type="checkbox" class="btn-check topping-col-child" price="{{topping[1]}}" name="toppingOptions" id="{{topping[0]}}" autocomplete="off" onclick="stopCheckTopping(this);setCustomizationPrice()">
+                                        <label class="btn btn-secondary topping-col-child" id="{{topping[1]}}" for="{{topping[0]}}">{{topping[0]}}</label>
                                     </div>
                                 {% endfor %}
                                 </div>
@@ -209,8 +281,14 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <input id="quantityPicker" type="number" value="1" min="1" max="5">
+                                        <input id="quantityPicker" oninput="setCustomizationPrice()" type="number" value="1" min="1" max="5">
                                     </div>
+                                </div>
+                                <div class="row">
+                                    <label>Price:</label>
+                                </div>
+                                <div class="row">
+                                    <label id="customizePrice">0.00</label>
                                 </div>
                             </div>
                         </div>

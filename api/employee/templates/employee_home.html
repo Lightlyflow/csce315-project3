@@ -35,11 +35,11 @@
             <h1 class = "totalCheckoutName">Current Order</h1>
             <div class="container" id="pageCartItems" style="width:100%;">
             </div>
-            <h2 class = "priceCheckout">$100.00</h2>
+            <h2 class = "priceCheckout" id="orderTotal">$0.00</h2>
             <div class="modal-footer">
                 <button class="btn btn-primary" onclick="emptyCart()">Clear Cart</button>
                 <input type="hidden" id="data">
-                <button class="btn btn-primary" onclick="sendSavedItemsToServer()">Checkout</button>
+                <button class="btn btn-primary" onclick="sendSavedItemsToServer()">Place Order</button>
             </div>
         </div>
 
@@ -61,7 +61,7 @@
                 <div class="tab-pane fade {% if loop.first %}show active{% endif %}" id="{{ category|replace(' ', '_') }}" role="tabpanel">
                     <div class="menuContent d-flex flex-wrap justify-content-center" style="margin-top: 50px;">
                         {% for item in menuItems[category] %}
-                            <button class = "menuItemBox" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this);setItemName('{{ item[0] }}');resetCustomization();">
+                            <button class = "menuItemBox" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="toggleHeight(this);setItemName('{{ item[0] }}', '{{ item[1] }}');resetCustomization();">
                                 <p class = "menuItemName">
                                     {{item[0]}}
                                 </p>
@@ -167,8 +167,8 @@
                                 <div class="row row-cols-3 gy-2">
                                 {% for topping in toppingNames %}
                                     <div class="col topping-col">
-                                        <input type="checkbox" class="btn-check topping-col-child" name="toppingOptions" id="{{topping}}" autocomplete="off" onclick="stopCheckTopping(this);">
-                                        <label class="btn btn-secondary topping-col-child" for="{{topping}}">{{topping}}</label>
+                                        <input type="checkbox" class="btn-check topping-col-child" name="toppingOptions" price="{{topping[1]}}" id="{{topping[0]}}" autocomplete="off" onclick="stopCheckTopping(this);setCustomizationPrice()">
+                                        <label class="btn btn-secondary topping-col-child" id="{{topping[1]}}" for="{{topping[0]}}">{{topping[0]}}</label>
                                     </div>
                                 {% endfor %}
                                 </div>
@@ -179,8 +179,14 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <input id="quantityPicker" type="number" value="1" min="1" max="5">
+                                        <input id="quantityPicker" oninput="setCustomizationPrice()" type="number" value="1" min="1" max="5">
                                     </div>
+                                </div>
+                                <div class="row">
+                                    <label>Price:</label>
+                                </div>
+                                <div class="row">
+                                    <label id="customizePrice">0.00</label>
                                 </div>
                             </div>
                         </div>

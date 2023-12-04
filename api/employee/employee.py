@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, jsonify, abort
 from flask_login import login_required, current_user
 
-from .employee_helper import getMenuCategories, getToppingNames, placeOrder, getWeather, getMenuData
+from .employee_helper import getMenuCategories, getToppingData, placeOrder, getWeather, getMenuData
 
 employeeBlueprint = Blueprint("employee", __name__, template_folder="templates", static_folder="static")
 
@@ -27,7 +27,7 @@ def home():
     conditions = weather[1]
 
     # Toppings
-    toppingNames = getToppingNames()
+    toppingNames = getToppingData()
 
     return render_template("employee_home.html", menuCategories=menuCategories, menuItems=menuItems,
                            toppingNames=toppingNames, temperature=temperature, conditions=conditions)
@@ -38,6 +38,7 @@ def receive_saved_items():
     data = request.get_json()
     if 'savedMenuItems' in data:
         savedItems = data['savedMenuItems']
+        print("Beforeplace")
         placeOrder(savedItems)
         return jsonify({'message': 'Data received successfully'})
 

@@ -1,5 +1,5 @@
 from flask import Flask, Blueprint, render_template, url_for, request, jsonify
-from .customer_helper import getMenuCategories, getToppingNames, placeOrder, getWeather, getMenuData
+from .customer_helper import getMenuCategories, getToppingData, placeOrder, getWeather, getMenuData, getUserOrders, getCurrentTime
 import os
 customerBlueprint = Blueprint("customer", __name__, template_folder="templates", static_folder="static")
 
@@ -25,20 +25,23 @@ def order():
     conditions = weather[1]
 
     # Toppings
-    toppingNames = getToppingNames()
+    toppingNames = getToppingData()
 
-    clientid = os.environ.get("client_id")
+    #Past Orders
+    userOrders = getUserOrders()
 
-    return render_template("customer_home.html", menuCategories=menuCategories, menuItems=menuItems,
-                           toppingNames=toppingNames, temperature=temperature, conditions=conditions, clientid=clientid)
-
+    #Time
+    currentTime = getCurrentTime()
+    
+    return render_template("customer_home.html", menuCategories=menuCategories, menuItems=menuItems, toppingNames=toppingNames, temperature=temperature, conditions=conditions, userOrders=userOrders, currentTime=currentTime)
 
 @customerBlueprint.route("/post_endpoint", methods=['POST'])
 def receive_saved_items():
     data = request.get_json()
     if 'savedMenuItems' in data:
         savedItems = data['savedMenuItems']
-        placeOrder(savedItems)
+        orderDate = data['orderDate']
+        placeOrder(savedItems, orderDate)
         return jsonify({'message': 'Data received successfully'})
 
     return jsonify({'error': 'Invalid format'})
