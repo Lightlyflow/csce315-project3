@@ -1,4 +1,4 @@
-from flask import Blueprint, request, abort
+from flask import Blueprint, request, abort, jsonify
 from datetime import datetime, timedelta
 
 from .timesheet_helper import clockInHelper, clockOutHelper, getWeek1, getWeek2
@@ -47,8 +47,7 @@ def week1():
     except (ValueError, KeyError):
         abort(400)
 
-    getWeek1(employeeID, lastWeekDate, currDate)
-    return "Week 1", 201
+    return jsonify(getWeek1(employeeID, lastWeekDate, currDate))
 
 @timesheetAPIBlueprint.route("/week2", methods=['POST'])
 def week2():
@@ -62,5 +61,4 @@ def week2():
     except (ValueError, KeyError):
         abort(400)
 
-    getWeek2(employeeID, secondLastWeekDate, lastWeekDate)
-    return "Week 2", 201
+    return jsonify(getWeek2(employeeID, secondLastWeekDate, lastWeekDate))
