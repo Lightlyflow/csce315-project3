@@ -23,19 +23,19 @@ def load_user(user_id) -> User | None:
 
 @loginManager.unauthorized_handler
 def unauthorized_callback():
-    return redirect(url_for('auth.home'))
+    return redirect(url_for('customer.home'))
 
 
 @authBlueprint.route("/")
 def home():
-    return render_template("login.html")
+    return render_template("customer_landing.html")
 
 
 @authBlueprint.route("/logout")
 def logout():
     logout_user()
     flash("You have been logged out.")
-    return redirect(url_for("auth.home"))
+    return redirect(url_for("customer.home"))
 
 
 @authBlueprint.route("/<provider>")

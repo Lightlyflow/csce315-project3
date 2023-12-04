@@ -6,9 +6,10 @@ customerBlueprint = Blueprint("customer", __name__, template_folder="templates",
 
 @customerBlueprint.route("/")
 def home():
-    
-    googleID = os.environ.get('GOOGLE_CLIENT_ID')
-    return render_template("customer_landing.html", googleID=googleID)
+    googleID1 = os.environ.get('GOOGLE_CLIENT_ID')
+    strings = "ID: " + googleID1
+    print(strings)
+    return render_template("customer_landing.html", googleID1=googleID1)
 
 
 @customerBlueprint.route("/order", methods=['GET'])
@@ -18,7 +19,6 @@ def order():
     menuCategories = getMenuCategories()
     menuItems = {category: [(item[0], item[2], item[3]) for item in menuQuery if item[1] == category] for category in
                  menuCategories}
-
     # Weather api work to get temp and conditions
     weather = getWeather()
     temperature = weather[0]

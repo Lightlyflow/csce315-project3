@@ -1,3 +1,7 @@
+html {
+    font-size: 16px;
+}
+
 body{
     padding:0;
     margin:0;
@@ -238,8 +242,8 @@ a:hover {color:#262f48}
 
 .menuDropdown h2::after {
     color: blue;
-    padding-left: 15px;
-    font-size: 16px;
+    padding-left: 1rem;
+    font-size: 1rem;
     font-weight: normal;
     cursor: pointer;
 }
@@ -268,7 +272,7 @@ a:hover {color:#262f48}
 }
 
 .menuCategory h2 {
-    padding-top: 25px;
+    padding-top: 1.5rem;
     font-size: 2rem;
     padding-bottom: 1.3rem;
 }
@@ -372,7 +376,7 @@ a:hover {color:#262f48}
     -webkit-user-select: none;
     touch-action: manipulation;
     @media (min-width: 601px) {
-        display: none !important;;
+        display: none !important;
     }
 }
 
@@ -398,6 +402,7 @@ a:hover {color:#262f48}
 
 .menuItemCalories {
     font-weight: 330;
+    font-size: .8rem;
     @media (max-width: 600px) {
         display: none !important;;
     }
@@ -458,7 +463,7 @@ a:hover {color:#262f48}
 .goog-te-gadget-simple {
     background-color: #ffffff !important;
     border:0 !important;
-    font-size: 10pt;
+    font-size: .9rem !important;
     font-weight: 500;
     display: inline-block;
     padding:10px 10px !important;
@@ -472,4 +477,24 @@ a:hover {color:#262f48}
 .dropdown-menu {
     background: #ffffff !important;
     --bs-dropdown-link-disabled-color: black !important;
+}
+
+.textResizeGroup {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    justify-content: center;
+}
+
+.fontResizeButton {
+    border-width: 1px;
+    border-radius: 0.3rem;
+    margin-right: 10px;
+    border: none;
+    background: #e2e2e2;
+}
+
+.fontResizeButton:hover {
+    background: rgb(169, 169, 169)
 }
