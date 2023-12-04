@@ -11,7 +11,9 @@ def clockOutHelper(employeeID: int):
     employee_querier.clockOut(employeeID)
 
 def getWeek1(employeeID, lastweekDate, currDate):
-    employee_querier.getWeek1(employeeID, lastweekDate, currDate)
+    result = employee_querier.getWeek1(employeeID, lastweekDate, currDate)
+    return result if result is not None else []
 
 def getWeek2(employeeID, secondLastWeekDate, lastWeekDate):
-    employee_querier.getWeek2(employeeID, secondLastWeekDate, lastWeekDate)
+    result = employee_querier.getWeek2(employeeID, secondLastWeekDate, lastWeekDate)
+    return result if result is not None else []
