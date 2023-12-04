@@ -11,7 +11,7 @@ def clockOut(employeeID: int):
     """Updates latest clockin row with clock out time. Time is rounded to nearest 15 minutes"""
     execute(f"UPDATE clockinout SET clockout=round_time_quarter_hour(NOW())"
             f"WHERE employeeid={employeeID} "
-            f"AND clockout=(SELECT MAX(clockin) FROM clockinout "
+            f"AND clockin=(SELECT MAX(clockin) FROM clockinout "
             f"              WHERE employeeid={employeeID});")
 
 
