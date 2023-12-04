@@ -52,6 +52,11 @@ def orders():
     return render_template("manager_orders.html")
 
 
+@managerBlueprint.route("/payroll", methods=['GET'])
+def payroll():
+    return render_template("manager_payroll.html")
+
+
 # POST Endpoints
 managerBlueprint.register_blueprint(inventoryAPIBlueprint, url_prefix='/inventory')
 managerBlueprint.register_blueprint(analyticsAPIBlueprint, url_prefix='/analytics')
