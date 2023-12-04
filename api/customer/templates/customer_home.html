@@ -95,6 +95,12 @@
                     <p class = "menuItemName">
                         {{item[0]}}
                     </p>
+                    <div class="image-container">
+                        {% if item[3] != '-1' %}
+                            <img src="{{item[3]}}" alt="{{item[0]}} Image">
+                        {%endif%}
+                    </div>
+
                     <button class="btnMenuMobile" data-bs-toggle="modal" data-bs-target="#customizationModal">
                         {{item[0]}}
                         ${{'%0.2f' % item[1]|float}}

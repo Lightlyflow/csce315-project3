@@ -498,3 +498,21 @@ a:hover {color:#262f48}
 .fontResizeButton:hover {
     background: rgb(169, 169, 169)
 }
+
+.image-container {
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    @media (max-width: 600px) {
+        display: none !important;
+    }
+}
+
+.image-container img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin: 0 auto;
+}
