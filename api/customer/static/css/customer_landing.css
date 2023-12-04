@@ -72,15 +72,39 @@ a:hover {color:#262f48}
 
 .googleLoginButton {
     background-color: #d12c41;
+    border-radius: 4px;
     margin-bottom: 1rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    padding-right: 1.5rem;
+    padding-bottom: .15rem;
+    padding-top: .15rem;
+    padding-left: .15rem;
+
+    cursor: pointer;
+    outline: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
 }
 
 .googleLoginButton:hover {
-    background-color: #db5b6b;
+    background-color: #b81228;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
 }
 
 .googleLoginButton span {
-    font-size: 2rem;
+    font-size: 1.5rem;
+    font-family: Roboto,arial,sans-serif;
+    color: #fff;
+}
+
+.GoogleIcon {
+    background-color: white;
+    padding: 15px;
+    margin-right: 15px;
+    border-radius: 2px;
 }
 
 .guestLogin a {

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShareTea - Get Started</title>
+
+    <link rel="icon" type="image/x-icon" href="{{ url_for('customer.static', filename='shareTeaFavicon.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('customer.static', filename='css/customer_landing.css') }}">
@@ -22,11 +24,13 @@
                 <a class="secondaryButton" href="{{ url_for('auth.logout') }}">Logout</a>
             {% else %}
                 <h1 class="getStarted">Let's Get Started</h1>
-                <p class="login">
-                    <a class="btn btn-google-plus-style btn-lg btn-block googleLoginButton" href="{{ url_for('auth.oauth2_authorize', provider='google') }}">
-                        <i class="fa fa-google-plus-square"></i>  <span>Login with <strong>Google</strong></span>
-                    </a>
-                </p>
+                <a class="googleLoginButton" href="{{ url_for('auth.oauth2_authorize', provider='google') }}">
+                    <div class="GoogleIcon">
+                        <img src="{{ url_for('customer.static', filename='Google__G__logo.svg') }} " alt="Google Logo", height="25px">
+                    </div>
+                    <i class="fa fa-google-plus-square"></i>  <span class="googleLoginSpan">Login with <strong>Google</strong></span>
+                </a>
+
                 <p class="guestLogin">
                     <a href="./order">Continue as Guest</a>
                 </p>
