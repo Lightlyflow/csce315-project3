@@ -392,7 +392,7 @@ a:hover {color:#262f48}
 .goog-te-gadget-simple {
     background-color: #ffffff !important;
     border:0 !important;
-    font-size: 10pt;
+    font-size: .9rem !important;
     font-weight: 500;
     display: inline-block;
     padding:10px 10px !important;
