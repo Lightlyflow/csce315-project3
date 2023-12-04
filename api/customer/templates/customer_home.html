@@ -41,7 +41,7 @@
             <img src="{{ url_for('customer.static', filename='shareTeaLogo.png') }}" alt="ShareTea logo", height="105px">
         </a>
 
-        <a class="logoutButton" href="{{ url_for('auth.logout') }}"></a>
+        <a class="logoutButton" href="{{ url_for('auth.logout') }}" aria-label="Logout Button"></a>
 
         <script type="text/javascript">
 
@@ -90,35 +90,41 @@
             </div>
             <div class = "menuItems">
                 {% for item in menuItems[category] %}
-                <div class = "menuItemBox">
-                    <p class = "menuItemName">
-                        {{item[0]}}
-                    </p>
+                <div class="menuItemOuterBox">
+                    <div class = "menuItemBox">
+                        <p class = "menuItemName">
+                            {{item[0]}}
+                        </p>
 
-                    <button class="btnMenuMobile" data-bs-toggle="modal" data-bs-target="#customizationModal">
-                        {{item[0]}}
-                        ${{'%0.2f' % item[1]|float}}
-                    </button>
+                        <button class="btnMenuMobile" data-bs-toggle="modal" data-bs-target="#customizationModal" onclick="setItemName('{{ item[0] }}', '{{ item[1] }}');resetCustomization();">
+                            {{item[0]}}
+                            ${{'%0.2f' % item[1]|float}}
+                        </button>
+
+                        <p class = "menuItemCalories"> 
+                            {{'%4d' % item[2]|int}} Cal 
+                        </p>
+                    
+                        <div class="menuContentDesc">
+                            <p class = "menuItemPrice">
+                                ${{'%0.2f' % item[1]|float}}
+                            </p>
+
+                            <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onfocus="checkHeight(this.parentElement.parentElement.parentElement.parentElement);" onclick="setItemName('{{ item[0] }}', '{{ item[1] }}');resetCustomization();">
+                                +
+                            </button>
+                        </div>
+                    </div>
+
                     <div class="menuContents">
                         {% if item[3] != '-1' %}
                             <div class="image-container">
                                 <img src="{{item[3]}}" alt="{{item[0]}} Image" class="imageMenuItem">
                             </div>
                         {%endif%}
-                        <p class = "menuItemCalories"> 
-                            {{'%4d' % item[2]|int}} Cal 
-                        </p>
-                 
-                    <div class="menuContentDesc">
-                        <p class = "menuItemPrice">
-                            ${{'%0.2f' % item[1]|float}}
-                        </p>
-
-                        <button class="btnMenu" data-bs-toggle="modal" data-bs-target="#customizationModal" onfocus="checkHeight(this.parentElement.parentElement.parentElement);" onclick="setItemName('{{ item[0] }}', '{{ item[1] }}');resetCustomization();">
-                            +
-                        </button>
                     </div>
-                </div>
+                 
+
 
                 </div>
                 {% endfor %}

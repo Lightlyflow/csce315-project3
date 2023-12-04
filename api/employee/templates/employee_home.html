@@ -18,7 +18,7 @@
         {% else %}
             <div id="user">Hello, Guest</div>
         {% endif %}
-        <a class="logoutButton" href="{{ url_for('auth.logout') }}"></a>
+        <a class="logoutButton" href="{{ url_for('auth.logout') }}" aria-label="Logout Button"></a>
         <a href="/auth/loginas" class = "shareTeaLogo">
             <img src="{{ url_for('employee.static', filename='shareTeaLogo.png') }}" alt="ShareTea logo", height="100%" >
         </a>
@@ -44,7 +44,7 @@
         </div>
 
         <div id="menuItemsContainer">
-            <button class="minimizeCartButton" onclick="minimizeButton(event)"></button>
+            <button class="minimizeCartButton" onclick="minimizeButton(event)" aria-label="Expand/Minimize Cart Button"></button>
 
             <div class="wallpaper"></div>
             
