@@ -6,11 +6,11 @@ def getTimesheet():
 
 
 def addTimesheetEntry(employeeID: int, activity: str, clockIn: str, clockOut: str):
-    execute(f"INSERT INTO clockinout (employeeid, clockin, clockout, activity) VALUES ({employeeID}, '{clockIn}', '{clockOut}', '{activity}';)")
+    execute(f"INSERT INTO clockinout (employeeid, clockin, clockout, activity) VALUES ({employeeID}, '{clockIn}', '{clockOut}', '{activity}');")
 
 
 def updateTimesheetEntryByID(entryID: int, employeeID: int, activity: str, clockIn: str, clockOut: str):
-    execute(f"UPDATE clockinout SET employeeID={employeeID}, activity='{activity}', clockIn='{clockIn}', clockOut='{clockOut}' WHERE id={entryID};")
+    execute(f"UPDATE clockinout SET employeeID={employeeID}, activity='{activity}', clockIn=round_time_quarter_hour('{clockIn}'), clockOut=round_time_quarter_hour('{clockOut}') WHERE id={entryID};")
 
 
 def deleteTimesheetEntry(entryID: int):

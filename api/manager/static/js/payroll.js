@@ -75,6 +75,8 @@ $(document).ready(async function() {
             await refreshTimesheet();
         }
     });
+
+    await refreshTimesheet();
 })
 
 
