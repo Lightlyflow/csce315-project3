@@ -1,0 +1,7 @@
+.logoutButton {
+    background: url(../logout-svgrepo-com.svg) no-repeat;
+    background-size: contain;
+    width: 25px;
+    border: none;
+    height: 25px;
+}
