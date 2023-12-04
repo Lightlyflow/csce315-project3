@@ -182,6 +182,15 @@ def updateCategories(categories: str):
                         WHERE c.name = t.name;""")
 
 
+def removeUnusedCategories():
+    """Removes categories from category_priority if they don't appear in menu_items_table."""
+    execute(f"DELETE FROM category_priority row "
+            f"WHERE NOT EXISTS ("
+            f"    SELECT FROM menu_items_table mi"
+            f"    WHERE mi.category = row.name"
+            f");")
+
+
 # ===================== User Management =====================
 def getUsers():
     return execute(f"SELECT user_id, username, email, employee_id FROM user_table;")
