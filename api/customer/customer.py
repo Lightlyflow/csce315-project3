@@ -1,5 +1,5 @@
 from flask import Flask, Blueprint, render_template, url_for, request, jsonify
-from .customer_helper import getMenuCategories, getToppingData, placeOrder, getWeather, getMenuData, getUserOrders
+from .customer_helper import getMenuCategories, getToppingData, placeOrder, getWeather, getMenuData, getUserOrders, getCurrentTime
 import os
 customerBlueprint = Blueprint("customer", __name__, template_folder="templates", static_folder="static")
 
@@ -29,8 +29,11 @@ def order():
 
     #Past Orders
     userOrders = getUserOrders()
+
+    #Time
+    currentTime = getCurrentTime()
     
-    return render_template("customer_home.html", menuCategories=menuCategories, menuItems=menuItems, toppingNames=toppingNames, temperature=temperature, conditions=conditions, userOrders=userOrders)
+    return render_template("customer_home.html", menuCategories=menuCategories, menuItems=menuItems, toppingNames=toppingNames, temperature=temperature, conditions=conditions, userOrders=userOrders, currentTime=currentTime)
 
 @customerBlueprint.route("/post_endpoint", methods=['POST'])
 def receive_saved_items():

@@ -59,8 +59,13 @@ a:hover {color:#262f48}
     margin-bottom: 1rem;
 }
 
-.datePickerContainer {
-    display: none;
+#orderTotal {
+    position: absolute;
+    left: 10px;
+}
+
+#datePickerContainer {
+    display: none !important;
 }
 
 .checkout {

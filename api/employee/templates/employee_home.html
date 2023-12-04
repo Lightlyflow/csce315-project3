@@ -38,40 +38,7 @@
             <div class="modal-footer">
                 <button class="btn btn-primary" onclick="emptyCart()">Clear Cart</button>
                 <input type="hidden" id="data">
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#checkoutModal">Checkout</button>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="modal fade" id="checkoutModal">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Checkout</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#checkoutModal"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="row" id="datePickerContainer">
-                                <input type="datetime-local" id="orderDate">
-                            </div>
-                            <div class="row">
-                                <label>
-                                    <input type="radio" name="showDatepicker" value="no" id="showDatepickerNo" checked>
-                                    Order ASAP
-                                </label>
-                                <label>
-                                    <input type="radio" name="showDatepicker" value="yes" id="showDatepickerYes">
-                                    Order for Later
-                                </label>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-target="#checkoutModal" onclick="sendSavedItemsToServer()">
-                                Place Order
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <button class="btn btn-primary" onclick="sendSavedItemsToServer()">Place Order</button>
             </div>
         </div>
 

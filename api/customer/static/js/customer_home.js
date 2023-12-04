@@ -97,7 +97,7 @@ function saveItem() {
     let sweetnessLevel = document.getElementById('sweetnessLevel').value;
 
     //Price
-    let price = parseFloat(document.getElementById("customizePrice").textContent) / parseInt(quantity);
+    let price = parseFloat(document.getElementById("customizePrice").textContent.substring(1)) / parseInt(quantity);
 
     //Local Storage List
     var savedMenuItems = JSON.parse(localStorage.getItem("savedMenuItems")) || [];
@@ -235,7 +235,10 @@ function populateCart() {
     else {
         var rowDiv = document.createElement("div");
         rowDiv.className = "row";
-        rowDiv.textContent = "Your cart is empty.";
+        let colDiv = document.createElement("col");
+        colDiv.className = "col";
+        colDiv.textContent = "Your cart is empty.";
+        rowDiv.appendChild(colDiv);
         pageCartItems.appendChild(rowDiv);
         document.getElementById("orderTotal").innerText = "Total: $0.00";
     }
@@ -272,18 +275,24 @@ function resetCustomization() {
     //Price
     let customizePrice = document.getElementById("customizePrice");
     let savedItemPrice = parseFloat(localStorage.getItem("currentItemPrice"));
-    customizePrice.textContent = savedItemPrice.toFixed(2);    
+    customizePrice.textContent = "$" + savedItemPrice.toFixed(2);    
 
 
 }
 
 function sendSavedItemsToServer() {
     var savedMenuItems = JSON.parse(localStorage.getItem("savedMenuItems"));
-    var orderDate = document.getElementById("orderDate").value;
 
     if (savedMenuItems && savedMenuItems.length > 0) {
         var data = { savedMenuItems: savedMenuItems };
-        data.orderDate = orderDate;
+        let asapButton = document.getElementById("showDatepickerNo");
+        if (asapButton.classList.contains("active")) {
+            data.orderDate = "current";
+        }
+        else {
+            let orderDate = document.getElementById("orderDate").value;
+            data.orderDate = orderDate;
+        }
 
         fetch('/post_endpoint', {
             method: 'POST',
@@ -327,7 +336,7 @@ function setCustomizationPrice() {
         quantity = "1";
     }
 
-    document.getElementById("customizePrice").textContent = (currentItemPrice * parseInt(quantity)).toFixed(2);
+    document.getElementById("customizePrice").textContent = "$" + (currentItemPrice * parseInt(quantity)).toFixed(2);
 }
 
 function removeFromCart(rowNum) {
@@ -412,5 +421,27 @@ function checkHeight(element) {
     var menuDropDown = element.parentElement;
     if (!menuDropDown.classList.contains('active')) {
         toggleHeight(element);
+    }
+}
+
+function toggleActive(element) {
+    element.classList.toggle("active");
+
+    var datePickerContainer = document.getElementById('datePickerContainer');
+    var orderDate = document.getElementById('orderDate');
+    var showDatepickerNo = document.getElementById('showDatepickerNo');
+    var showDatepickerYes = document.getElementById('showDatepickerYes');
+
+    if (element.id === 'showDatepickerNo') {
+        showDatepickerYes.classList.toggle("active");
+    } else if (element.id === 'showDatepickerYes') {
+        showDatepickerNo.classList.toggle("active");
+    }
+
+    if (showDatepickerNo.classList.contains("active")) {
+        datePickerContainer.style.setProperty("display", "none", "important"); 
+        orderDate.value = '';
+    } else {
+        datePickerContainer.style.setProperty("display", "flex", "important"); 
     }
 }

@@ -123,22 +123,32 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#checkoutModal"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="row" id="datePickerContainer">
-                                <input type="datetime-local" id="orderDate">
+                            <div class="row mt-2">
+                                <div class="col-auto">
+                                    <div class="form-check">
+                                        <input class="form-check-input active" type="radio" name="showDatepicker" value="no" id="showDatepickerNo" onclick="toggleActive(this);" checked>
+                                        <label class="form-check-label" for="showDatepickerNo">
+                                            Order ASAP
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="showDatepicker" value="yes" id="showDatepickerYes" onclick="toggleActive(this);">
+                                        <label class="form-check-label" for="showDatepickerYes">
+                                            Order for Later
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="row">
-                                <label>
-                                    <input type="radio" name="showDatepicker" value="no" id="showDatepickerNo" checked>
-                                    Order ASAP
-                                </label>
-                                <label>
-                                    <input type="radio" name="showDatepicker" value="yes" id="showDatepickerYes">
-                                    Order for Later
-                                </label>
+                        
+                            <div class="row" id="datePickerContainer">
+                                <input type="datetime-local" id="orderDate" class="form-control" min="{{currentTime}}">
                             </div>
                         </div>
+                        
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-target="#checkoutModal" onclick="sendSavedItemsToServer()">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-bs-target="#checkoutModal" onclick="sendSavedItemsToServer();">
                                 Place Order
                             </button>
                         </div>
@@ -158,12 +168,12 @@
                         <div class="modal-body">
                             {% for order in userOrders %}
                                 <div class="row"><h5>{{ order[3] }}</h5></div>
-                                <div class="row">{{ order[2] }}</div>
-                                <div class="row">Toppings: {{ order[4] }}, {{ order[5] }}, {{ order[6] }}</div>
-                                <div class="row">Sweetness: {{ order[8] }}%</div>
-                                <div class="row">Ice: {{ order[9] }}</div>
-                                <div class="row">${{ order[7] }}</div>
-                                <div class="row finalCartEntry">Date ordered: {{ order[1] }}</div>
+                                <div class="row"><label>Toppings: {{ order[4] }}, {{ order[5] }}, {{ order[6] }}</label></div>
+                                <div class="row"><label>Sweetness: {{ order[8] }}%</label></div>
+                                <div class="row"><label>Ice: {{ order[9] }}</label></div>
+                                <div class="row"><label>${{ order[7] }}</label></div>
+                                <div class="row"><label>Date ordered: {{ order[1] }}</label></div>
+                                <hr>
                             {% endfor %}
                         </div>
                     </div>

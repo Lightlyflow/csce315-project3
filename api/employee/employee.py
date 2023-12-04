@@ -38,6 +38,7 @@ def receive_saved_items():
     data = request.get_json()
     if 'savedMenuItems' in data:
         savedItems = data['savedMenuItems']
+        print("Beforeplace")
         placeOrder(savedItems)
         return jsonify({'message': 'Data received successfully'})
 

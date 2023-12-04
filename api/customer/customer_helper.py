@@ -15,6 +15,11 @@ def getMenuCategories():
     categories = [item for sublist in results for item in sublist]
     return categories
 
+def getCurrentTime():
+    currentTime = datetime.datetime.now()
+    formattedDatetime = currentTime.strftime("%Y-%m-%dT%H:%M")
+    return formattedDatetime
+
 def getUserOrders():
     if (current_user.is_authenticated == True):
         results = customer_querier.getOrderInfoForUser(current_user.email)
@@ -104,10 +109,13 @@ def placeOrder(menuItems, orderDate):
     else:
         currentEmail = ''
 
-    dateParts = orderDate.split('T')
-    dateString = dateParts[0] + ' ' + dateParts[1] + ':00'
-        
-    customer_querier.insertIntoOrderTable(orderId, round(totalPrice, 2), currentEmail, dateString)
+    if orderDate == "current":
+        customer_querier.insertIntoOrderTableCurrent(orderId, round(totalPrice, 2), currentEmail, -1)
+    else:
+        dateParts = orderDate.split('T')
+        dateString = dateParts[0] + ' ' + dateParts[1] + ':00'
+            
+        customer_querier.insertIntoOrderTable(orderId, round(totalPrice, 2), currentEmail, dateString)
 
 #def getPastOrders():
 #    if (current_user.is_authenticated == True):
