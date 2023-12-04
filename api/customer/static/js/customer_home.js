@@ -214,7 +214,10 @@ function setItemName(name) {
     document.getElementById("customizationName").innerHTML = name;
 }
 
-
+function scaleText(pixelIncrement){
+    currentSize = parseFloat(window.getComputedStyle(document.documentElement).fontSize);
+    document.documentElement.style.fontSize = (currentSize + pixelIncrement) + 'px';
+}
 
 const btnMenu = document.querySelector('.btnMenu');
 
