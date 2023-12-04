@@ -22,7 +22,7 @@ def timesheetAdd():
         employeeID = int(data['employeeid'])
         activity = data['activity']
         clockIn = data['clockin']
-        clockOut = data['clockOut']
+        clockOut = data['clockout']
     except (ValueError, KeyError):
         abort(400)
 
@@ -44,7 +44,7 @@ def timesheetUpdate():
         employeeID = int(data['employeeid'])
         activity = data['activity']
         clockIn = data['clockin']
-        clockOut = data['clockOut']
+        clockOut = data['clockout']
     except (ValueError, KeyError):
         abort(400)
 
