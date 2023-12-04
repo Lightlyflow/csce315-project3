@@ -17,7 +17,7 @@
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light nav-tabs">
             <a href="/auth/loginas" class = "shareTeaLogo">
-                <img src="{{ url_for('manager.static', filename='shareTeaLogo.png') }}" alt="ShareTea logo", height="75px" >
+                <img src="{{ url_for('manager.static', filename='shareTeaLogo.png') }}" alt="ShareTea logo" height="75px" >
             </a>
             <a class="logoutButton" href="{{ url_for('auth.logout') }}"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,7 +48,7 @@
         </div>
     </nav>
     </div>
-    <div style="margin-top: 55px;">
+    <div style="margin-top: 90px;">
         {% block body %} {% endblock %}
     </div>
 </body>
