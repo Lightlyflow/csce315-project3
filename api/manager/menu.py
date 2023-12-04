@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, abort
 from .menu_helper import getMenuItems, getIngredients, addMenuItem, delMenuItem, updateMenuItem, delIngredient, \
-    addIngredient, updateIngredient
+    addIngredient, updateIngredient, getMenuCategories, addMenuCategories, updateMenuCategoriesOrder
 
 menuAPIBlueprint = Blueprint("menu", __name__)
 
@@ -19,6 +19,7 @@ def menuItems():
             inStock = 'false'
             category = ''
             calories = 0
+            imageID = -1
 
             try:
                 name = data['name']
@@ -26,10 +27,11 @@ def menuItems():
                 inStock = data['instock']
                 category = data['category']
                 calories = int(data['calories'])
+                imageID = int(data['imageid'])
             except (ValueError, KeyError) as e:
                 abort(400)
 
-            addMenuItem(name, price, inStock, category, calories)
+            addMenuItem(name, price, inStock, category, calories, imageID)
             return "Added Menu Item", 201
         elif method == 'DEL':
             itemID = -1
@@ -48,6 +50,7 @@ def menuItems():
             category = ''
             calories = 0
             itemID = -1
+            imageID = -1
 
             try:
                 name = data['name']
@@ -56,10 +59,11 @@ def menuItems():
                 category = data['category']
                 calories = int(data['calories'])
                 itemID = int(data['itemid'])
+                imageID = int(data['imageid'])
             except (ValueError, KeyError) as e:
                 abort(400)
 
-            updateMenuItem(price, inStock, name, category, calories, itemID)
+            updateMenuItem(price, inStock, name, category, calories, itemID, imageID)
             return "Updated Menu Item", 201
         abort(400)
 
@@ -114,3 +118,22 @@ def ingredients():
             updateIngredient(quantity, uniqueID)
             return 'Updated ingredient', 201
         abort(400)
+
+
+@menuAPIBlueprint.route("/categories", methods=['GET', 'POST'])
+def categories():
+    if request.method == 'GET':
+        return jsonify(getMenuCategories())
+    elif request.method == 'POST':
+        data = request.get_json()
+        cats = None
+
+        try:
+            cats = data['categories']
+        except (ValueError, KeyError):
+            abort(400)
+
+        addMenuCategories(list(map(lambda x: x[1], cats)))
+        updateMenuCategoriesOrder(cats)
+        return 'Added and updated', 201
+    abort(400)

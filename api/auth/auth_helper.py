@@ -3,31 +3,16 @@ from .user import User
 
 
 def getUserByEmail(email: str) -> User | None:
-    # Request from db
-    result = auth_querier.getUserByEmail(email)
-
-    # If it doesn't exist
-    if len(result) == 0:
+    if not userEmailExists(email):
         return None
 
     # If it does exist
-    result = result[0]
-    # TODO :: Check if manager
-    return User(result[0], result[1], result[2], _employeeID=result[3])
+    return User(email)
 
 
-def getUserById(user_id: str):
-    # Request from db
-    result = auth_querier.getUserById(int(user_id))
-
-    # If it doesn't exist
-    if result is None or len(result) == 0:
-        return None
-
-    # If it does exist
-    result = result[0]
-    # TODO :: Check if manager
-    return User(result[0], result[1], result[2], _employeeID=result[3])
+def userEmailExists(email: str) -> bool:
+    result = auth_querier.emailExists(email)
+    return True if result is not None else False
 
 
 def createUser(email: str) -> User:

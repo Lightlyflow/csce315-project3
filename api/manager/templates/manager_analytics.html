@@ -1,7 +1,145 @@
 {% extends 'manager_base.html' %}
 
 {% block title %}Analytics{% endblock %}
+{% block head %}
+    <script src="{{ url_for('manager.static', filename='js/analytics.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('manager.static', filename='css/analytics.css') }}">
+{% endblock %}
 
 {% block body %}
-    <h1>View Analytics</h1>
+    <div id="tableContainer" class="container-fluid">
+        <div class="row m-5">
+            <div class="col m-5">
+                <h1 class="text-center">Product Usage Report</h1>
+                <table id="productUsageTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Quantity Used</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in productUsage %}
+                        <tr>
+                            <th scope="row">{{ row[0] }}</th>
+                            <td>{{ row[1] }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="btn-toolbar" aria-label="Date Picker">
+                    <div class="input-group m-2">
+                        <span class="input-group-text" id="startDateTextUsage">Start Date:</span>
+                        <input type="date" class="form-control" aria-label="Add Start Date" placeholder="Start Date" id="usageDate1">
+                    </div>
+                    <div class="input-group m-2">
+                        <span class="input-group-text" id="endDateTextUsage">End Date:</span>
+                        <input type="date" class="form-control" aria-label="Add End Date" placeholder="End Date" id="usageDate2">
+                    </div>
+                    <div class="input_group m-2">
+                        <button id="updateUsage" type="button" class="btn btn-secondary">Update</button>
+                    </div>
+                </div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col m-5">
+                <h1 class="text-center">Sales Report</h1>
+                <table id="salesHistoryTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Number of Sales</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in salesHistory %}
+                        <tr>
+                            <td scope="row">{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="btn-toolbar" aria-label="Date Picker">
+                    <div class="input-group m-2">
+                        <span class="input-group-text" id="salesStartDateText">Start Date:</span>
+                        <input type="date" class="form-control" aria-label="Add Start Date" placeholder="Start Date" id="salesDate1">
+                    </div>
+                    <div class="input-group m-2">
+                        <span class="input-group-text" id="salesEndDateText">End Date:</span>
+                        <input type="date" class="form-control" aria-label="Add End Date" placeholder="End Date" id="salesDate2">
+                    </div>
+                    <div class="input_group m-2">
+                        <button id="updateSales" type="button" class="btn btn-secondary">Update</button>
+                    </div>
+                </div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col m-5">
+                <h1 class="text-center">Excess Report</h1>
+                <table id="excessItemsTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Item</th>
+                            <th scope="col">Quantity Sold</th>
+                            <th scope="col">Total Inventory Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in excessItems %}
+                        <tr>
+                            <td scope="row">{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="btn-toolbar" aria-label="Date Picker">
+                    <div class="input-group m-2">
+                        <span class="input-group-text" id="excessStartDateText">Start Date:</span>
+                        <input type="date" class="form-control" aria-label="Add Start Date" placeholder="Start Date" id="excessDate">
+                    </div>
+                    <div class="input_group m-2">
+                        <button id="updateExcess" type="button" class="btn btn-secondary">Update</button>
+                    </div>
+                </div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col m-5">
+                <h1 class="text-center">Pair Frequency Report</h1>
+                <table id="pairFrequencyTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Item 1</th>
+                            <th scope="col">Item 2</th>
+                            <th scope="col">Frequency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for row in pairFrequency %}
+                        <tr>
+                            <td scope="row">{{ row[0] }}</td>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="btn-toolbar" aria-label="Date Picker">
+                    <div class="input-group m-2">
+                        <span class="input-group-text" id="pairStartDateText">Start Date:</span>
+                        <input type="date" class="form-control" aria-label="Add Start Date" placeholder="Start Date" id="pairDate1">
+                    </div>
+                    <div class="input-group m-2">
+                        <span class="input-group-text" id="pairEndDateText">End Date:</span>
+                        <input type="date" class="form-control" aria-label="Add End Date" placeholder="End Date" id="pairDate2">
+                    </div>
+                    <div class="input_group m-2">
+                        <button id="updatePair" type="button" class="btn btn-secondary">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

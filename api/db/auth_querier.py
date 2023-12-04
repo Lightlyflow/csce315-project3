@@ -2,7 +2,7 @@ from .querier import execute
 
 
 def getUserByEmail(email: str):
-    return execute(f"SELECT user_id, username, email, employee_id FROM user_table WHERE email='{email}';")
+    return execute(f"SELECT user_id, username FROM user_table WHERE email='{email}';")
 
 
 def getUserById(userId: int):
@@ -15,8 +15,8 @@ def addUser(email: str):
             getRet=False)
 
 
-def getEmployeeById(employeeId: int):
-    return execute(f"SELECT name, employeeId, isManager FROM employee_table WHERE employeeid={employeeId};")
+def getEmployeeByEmail(email: str):
+    return execute(f"SELECT name, employeeID, isManager FROM employee_table WHERE email='{email}';")
 
 
 def _createUserTable():
@@ -30,8 +30,6 @@ def _createUserTable():
             getRet=False)
 
 
-if __name__ == '__main__':
-    # If you want to run this, delete the period in front of the import statements in this file
-    # but make sure to add them back
-    res = getUserByEmail("test@gmail.com")
-    print(res)
+def emailExists(email: str):
+    """Checks if email exists in either users or employees. Returns [[0]] if not found"""
+    return execute(f"SELECT count(*) FROM user_table WHERE EXISTS ( SELECT 1 FROM employee_table WHERE email='{email}' ) OR EXISTS ( SELECT 1 FROM user_table WHERE email='{email}' );")

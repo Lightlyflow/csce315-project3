@@ -6,6 +6,18 @@ def getInventory():
     return result if result is not None else []
 
 
+def addInventoryItem(name: str, quantity: float, restockThreshold: float):
+    manager_querier.addItemInventory(name, quantity, restockThreshold)
+
+
+def updateInventoryItem(inventoryID: int, name: str, quantity: float, restockThreshold: float):
+    manager_querier.updateItemByID(inventoryID, name, quantity, restockThreshold)
+
+
+def deleteInventoryItem(inventoryID: int):
+    manager_querier.deleteItemByID(inventoryID)
+
+
 def getLowStock():
     result = manager_querier.getLowStock()
     return result if result is not None else []

@@ -6,8 +6,9 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container h-100 d-flex align-items-center justify-content-center">
-        <div class="jumbotron">
+    <div class="picture"></div>
+    <div class="content">
+        <div class="contentBox">
             <h1>Login As</h1>
             {% if current_user.is_authenticated and current_user.isManager %}
             <p>
@@ -18,9 +19,13 @@
             <p>
                 <a class="btn btn-lg btn-block" href="{{ url_for('employee.home') }}">Employee</a>
             </p>
+            
+            <p>
+                <a class="btn btn-lg btn-block" href="{{ url_for('menuboard.home') }}">Menu Board</a>
+            </p>
             {% endif %}
             <p>
-                <a class="btn btn-lg btn-block" href="{{ url_for('customer.home') }}">Customer</a>
+                <a class="btn btn-lg btn-block" href="{{ url_for('customer.order') }}">Customer</a>
             </p>
         </div>
     </div>

@@ -9,8 +9,10 @@ def getIngredients(itemId: int):
     return manager_querier.getIngredients(itemId)
 
 
-def addMenuItem(name: str, price: float, inStock: bool, category: str, calories: int):
-    manager_querier.addMenuItem(name, price, inStock, category, calories)
+def addMenuItem(name: str, price: float, inStock: bool, category: str, calories: int, imageID: int):
+    if imageID < 0:
+        imageID = "NULL"
+    manager_querier.addMenuItem(name, price, inStock, category, calories, imageID)
 
 
 def delMenuItem(itemID: int):
@@ -18,8 +20,10 @@ def delMenuItem(itemID: int):
     manager_querier.deleteMenuItem(itemID)
 
 
-def updateMenuItem(price: int, inStock: bool, name: str, category: str, calories: int, itemID: int):
-    manager_querier.updateMenuItem(price, inStock, name, category, calories, itemID)
+def updateMenuItem(price: int, inStock: bool, name: str, category: str, calories: int, itemID: int, imageID: int):
+    if imageID < 0:
+        imageID = "NULL"
+    manager_querier.updateMenuItem(price, inStock, name, category, calories, itemID, imageID)
 
 
 def addIngredient(menuItemID: int, name: str, quantity: float):
@@ -41,3 +45,26 @@ def delIngredient(uniqueID: int):
 def updateIngredient(quantity: float, ingredientID: int):
     manager_querier.updateIngredient(quantity, ingredientID)
 
+
+def getMenuCategories():
+    result = manager_querier.getMenuItemCategories()
+    for i, row in enumerate(result):
+        row.insert(0, i + 1)
+    return result if not None else []
+
+
+def addMenuCategories(categories: [str]):
+    cats: [str] = []
+    for cat in categories:
+        cats.append(f"('{cat}', -1)")
+
+    manager_querier.addCategories(", ".join(cats))
+
+
+def updateMenuCategoriesOrder(categories: [str]):
+    cats: [str] = []
+    for cat in categories:
+        cats.append(f"('{cat[1]}', {cat[0]})")
+
+    manager_querier.updateCategories(", ".join(cats))
+    manager_querier.removeUnusedCategories()

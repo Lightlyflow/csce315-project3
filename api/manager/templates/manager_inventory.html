@@ -7,11 +7,58 @@
 {% endblock %}
 
 {% block body %}
-    <div id="tableContainer" class="container-fluid">
-        <div class="row m-5">
-            <div class="col m-5">
-                <h1 class="text-center">Low Stock</h1>
-                <table id="lowStockTable" class="table table-bordered table-striped">
+    <ul class="nav nav-tabs navCustom justify-content-center">
+        <li><a data-toggle="tab" href="#lowStock" class="active">Low Stock Items</a></li>
+        <li><a data-toggle="tab" href="#inventory">Full Inventory</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="lowStock">
+            <div class="row justify-content-center">
+                <h1>Low Stock Items</h1>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col m-5">
+                    <table id="lowStockTable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Inventory ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Quantity</th>
+                                <th scope="col">Restock Threshold</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for row in lowStock %}
+                            <tr>
+                                <th scope="row">{{ row['inventoryid'] }}</th>
+                                <td>{{ row['name'] }}</td>
+                                <td>{{ row['quantity'] }}</td>
+                                <td>{{ row['restockthreshold'] }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="btn-toolbar" aria-label="Order Button Group 1">
+                        <div class="btn-group m-2">
+                            <button id="orderSelected1" type="button" class="btn btn-secondary">Order Selected</button>
+                            <button id="orderAll1" type="button" class="btn btn-secondary">Order All</button>
+                            <button id="updateThreshold1" type="button" class="btn btn-secondary">Update Threshold</button>
+
+                        </div>
+                        <div class="input-group m-2">
+                            <input type="text" class="form-control" aria-label="Amount or Threshold Input 1" placeholder="Amount/Threshold" id="textInput1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade show" id="inventory">
+            <div class="row justify-content-center">
+                <h1>Inventory</h1>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col m-5">
+                    <table id="inventoryTable" class="table table-bordered table-striped" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th scope="col">Inventory ID</th>
@@ -21,59 +68,68 @@
                         </tr>
                     </thead>
                     <tbody>
-                    {% for row in lowStock %}
-                        <tr>
-                            <th scope="row">{{ row['inventoryid'] }}</th>
-                            <td>{{ row['name'] }}</td>
-                            <td>{{ row['quantity'] }}</td>
-                            <td>{{ row['restockthreshold'] }}</td>
-                        </tr>
-                    {% endfor %}
+                        {% for row in inventory %}
+                            <tr>
+                                <th scope="row">{{ row['inventoryid'] }}</th>
+                                <td>{{ row['name'] }}</td>
+                                <td>{{ row['quantity'] }}</td>
+                                <td>{{ row['restockthreshold'] }}</td>
+                            </tr>
+                        {% endfor %}
                     </tbody>
-                </table>
-                <div class="btn-toolbar" aria-label="Order Button Group 1">
-                    <div class="btn-group m-2">
-                        <button id="orderSelected1" type="button" class="btn btn-secondary">Order Selected</button>
-                        <button id="orderAll1" type="button" class="btn btn-secondary">Order All</button>
-                        <button id="updateThreshold1" type="button" class="btn btn-secondary">Update Threshold</button>
-                    </div>
-                    <div class="input-group m-2">
-                        <input type="text" class="form-control" aria-label="Amount or Threshold Input 1" placeholder="Amount/Threshold" id="textInput1">
+                    </table>
+                    <div class="btn-toolbar d-flex" aria-label="Order Button Group 2">
+                        <div class="btn-group m-2">
+                            <button id="orderSelected2" type="button" class="btn btn-secondary">Order Selected</button>
+                            <button id="orderAll2" type="button" class="btn btn-secondary">Order All</button>
+                            <button id="updateThreshold2" type="button" class="btn btn-secondary">Update Threshold</button>
+                        </div>
+                        <div class="input-group m-2">
+                            <input id="textInput2" type="text" class="form-control" aria-label="Amount or Threshold Input 2" placeholder="Amount/Threshold">
+                        </div>
+                        <div class="btn-group m-2 ml-auto">
+                            <button id="addInventoryBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#inventoryModal">Add</button>
+                            <button id="updateInventoryBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#inventoryModal">Update</button>
+                            <button id="deleteInventoryBtn" type="button" class="btn btn-primary">Delete Selected</button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="w-100"></div>
-            <div class="col m-5">
-                <h1 class="text-center">Inventory</h1>
-                <table id="inventoryTable" class="table table-bordered table-striped" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th scope="col">Inventory ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Restock Threshold</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for row in inventory %}
-                        <tr>
-                            <th scope="row">{{ row['inventoryid'] }}</th>
-                            <td>{{ row['name'] }}</td>
-                            <td>{{ row['quantity'] }}</td>
-                            <td>{{ row['restockthreshold'] }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-                </table>
-                <div class="btn-toolbar" aria-label="Order Button Group 2">
-                    <div class="btn-group m-2">
-                        <button id="orderSelected2" type="button" class="btn btn-secondary">Order Selected</button>
-                        <button id="orderAll2" type="button" class="btn btn-secondary">Order All</button>
-                        <button id="updateThreshold2" type="button" class="btn btn-secondary">Update Threshold</button>
-                    </div>
-                    <div class="input-group m-2">
-                        <input id="textInput2" type="text" class="form-control" aria-label="Amount or Threshold Input 2" placeholder="Amount/Threshold">
-                    </div>
+        </div>
+    </div>
+    <div class="modal fade" id="inventoryModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="inventoryModalTitle">Add/Edit Inventory Item</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group form-row">
+                            <label for="inventoryNameInput" class="col-sm-2 col-form-label">Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="inventoryNameInput" placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="inventoryQuantityInput" class="col-sm-2 col-form-label">Quantity</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="inventoryQuantityInput" placeholder="Quantity">
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="inventoryRestockInput" class="col-sm-2 col-form-label">Restock Threshold</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="inventoryRestockInput" placeholder="Restock Threshold">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="inventoryModalSubmit" data-dismiss="modal">Submit</button>
                 </div>
             </div>
         </div>

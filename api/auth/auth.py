@@ -6,7 +6,7 @@ from flask import Blueprint, render_template, redirect, url_for, current_app, ab
 from flask_login import LoginManager, current_user, login_user, logout_user
 
 from .user import User
-from .auth_helper import getUserByEmail, createUser, getUserById
+from .auth_helper import getUserByEmail, createUser
 
 """
 CREDIT: https://blog.miguelgrinberg.com/post/oauth-authentication-with-flask-in-2023
@@ -18,30 +18,30 @@ loginManager = LoginManager()
 
 @loginManager.user_loader
 def load_user(user_id) -> User | None:
-    return getUserById(user_id)
+    return getUserByEmail(user_id)
 
 
 @loginManager.unauthorized_handler
 def unauthorized_callback():
-    return redirect(url_for('auth.home'))
+    return redirect(url_for('customer.home'))
 
 
 @authBlueprint.route("/")
 def home():
-    return render_template("login.html")
+    return render_template("customer_landing.html")
 
 
 @authBlueprint.route("/logout")
 def logout():
     logout_user()
     flash("You have been logged out.")
-    return redirect(url_for("auth.home"))
+    return redirect(url_for("customer.home"))
 
 
 @authBlueprint.route("/<provider>")
 def oauth2_authorize(provider: str):
     if not current_user.is_anonymous:
-        return redirect(url_for('customer.home'))
+        return redirect(url_for('auth.loginAs'))
 
     provider_data = current_app.config['OAUTH2_PROVIDERS'].get(provider)
     if provider_data is None:
@@ -131,4 +131,4 @@ def oauth2_callback(provider):
 def loginAs():
     if current_user.is_authenticated:
         return render_template("login_as.html")
-    return redirect(url_for('customer.home'))
+    return redirect(url_for('customer.order'))
