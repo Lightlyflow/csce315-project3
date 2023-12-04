@@ -254,7 +254,7 @@
                                 <div class="row row-cols-3 gy-2">
                                 {% for topping in toppingNames %}
                                     <div class="col topping-col">
-                                        <input type="checkbox" class="btn-check topping-col-child" name="toppingOptions" id="{{topping[0]}}" autocomplete="off" onclick="stopCheckTopping(this);setCustomizationPrice()">
+                                        <input type="checkbox" class="btn-check topping-col-child" price="{{topping[1]}}" name="toppingOptions" id="{{topping[0]}}" autocomplete="off" onclick="stopCheckTopping(this);setCustomizationPrice()">
                                         <label class="btn btn-secondary topping-col-child" id="{{topping[1]}}" for="{{topping[0]}}">{{topping[0]}}</label>
                                     </div>
                                 {% endfor %}

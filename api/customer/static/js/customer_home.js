@@ -367,16 +367,19 @@ function editFromCart(rowNum) {
     for (let i = 0; i < toppings.length; i++) {
         toppings[i].checked = false;
     }
+
+    let newPrice = parseFloat(editedItem._price);
     toppings = document.querySelectorAll('input[name=toppingOptions]')
     for (let i = 0; i < toppings.length; i++) {
         if (toppings[i].getAttribute("id") == editedItem._topping1) {
             toppings[i].checked = true;
+            newPrice -= parseFloat(toppings[i].getAttribute("price"));
         }
     }
 
     document.getElementById("quantityPicker").value = editedItem._quantity;
 
-    localStorage.setItem("currentItemPrice", editedItem._price);
+    localStorage.setItem("currentItemPrice", JSON.stringify(newPrice));
 
     setCustomizationPrice();
 }

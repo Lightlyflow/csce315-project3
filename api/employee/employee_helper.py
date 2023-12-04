@@ -14,6 +14,8 @@ def getMenuCategories():
 
     return categories
 
+def getToppingData():
+    return customer_querier.getToppingNames()
 
 def getToppingNames() -> []:
     results = customer_querier.getToppingNames()
