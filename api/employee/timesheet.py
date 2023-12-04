@@ -35,6 +35,7 @@ def clockOut():
     clockOutHelper(employeeID)
     return "Clocked out", 201
 
+
 @timesheetAPIBlueprint.route("/week1", methods=['POST'])
 def week1():
     data = request.get_json()
@@ -48,6 +49,7 @@ def week1():
         abort(400)
 
     return jsonify(getWeek1(employeeID, lastWeekDate, currDate))
+
 
 @timesheetAPIBlueprint.route("/week2", methods=['POST'])
 def week2():

@@ -10,9 +10,11 @@ def clockOutHelper(employeeID: int):
     """Clock out, rounding to the nearest quarter-hour"""
     employee_querier.clockOut(employeeID)
 
-def getWeek1(employeeID, lastweekDate, currDate):
-    result = employee_querier.getWeek1(employeeID, lastweekDate, currDate)
+
+def getWeek1(employeeID, lastWeekDate, currDate):
+    result = employee_querier.getWeek1(employeeID, lastWeekDate, currDate)
     return result if result is not None else []
+
 
 def getWeek2(employeeID, secondLastWeekDate, lastWeekDate):
     result = employee_querier.getWeek2(employeeID, secondLastWeekDate, lastWeekDate)
