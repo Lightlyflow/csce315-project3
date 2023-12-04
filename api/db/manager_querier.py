@@ -112,7 +112,7 @@ def getExcessItems(startDate):
 
 # ===================== Menu =====================
 def getMenuItems():
-    return execute("SELECT name, price, inStock, menuItemID, category, calories FROM menu_items_table;")
+    return execute("SELECT name, price, inStock, menuItemID, category, calories, imageID FROM menu_items_table;")
 
 
 def getIngredients(menuItemID: int):
@@ -126,18 +126,18 @@ def getIngredients(menuItemID: int):
                         WHERE menu_part_table.menuItemID={menuItemID};")
 
 
-def addMenuItem(name: str, price: float, inStock: bool, category: str, calories: int):
+def addMenuItem(name: str, price: float, inStock: bool, category: str, calories: int, imageID: int):
     execute(
-        f"INSERT INTO menu_items_table (name, price, instock, category, calories) VALUES ('{name}', {price}, {inStock}, '{category}', {calories});")
+        f"INSERT INTO menu_items_table (name, price, instock, category, calories, imageid) VALUES ('{name}', {price}, {inStock}, '{category}', {calories}, {imageID});")
 
 
 def deleteMenuItem(itemID: int):
     execute(f"DELETE FROM menu_items_table WHERE menuItemID={itemID};")
 
 
-def updateMenuItem(price: int, inStock: bool, name: str, category: str, calories: int, itemID: int):
+def updateMenuItem(price: int, inStock: bool, name: str, category: str, calories: int, itemID: int, imageID: int):
     execute(
-        f"UPDATE menu_items_table SET price={price}, inStock={inStock}, name='{name}', category='{category}', calories='{calories}' WHERE menuItemID={itemID};")
+        f"UPDATE menu_items_table SET price={price}, inStock={inStock}, name='{name}', category='{category}', calories='{calories}', imageid={imageID} WHERE menuItemID={itemID};")
 
 
 def addIngredient(menuItemID: int, inventoryID: int, quantity: float):
