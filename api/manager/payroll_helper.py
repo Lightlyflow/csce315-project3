@@ -55,7 +55,7 @@ def getBillingPeriods(sinceYear: int = 2023, sinceMonth: int = 10, sinceDay: int
         billingPeriods.append(startDate.isoformat())
         startDate += datetime.timedelta(days=14)
 
-    return billingPeriods
+    return billingPeriods[::-1]
 
 
 def _nextMonday(date: datetime.date):

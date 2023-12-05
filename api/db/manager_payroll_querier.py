@@ -32,7 +32,7 @@ def getPayRate(employeeID: int):
 
 
 def getEmployees():
-    return execute(f"SELECT employeeID, name FROM employee_table;")
+    return execute(f"SELECT employeeID, name FROM employee_table ORDER BY name;")
 
 
 def getTotalHours(employeeID: int, billingPeriod: str):
