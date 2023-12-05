@@ -8,6 +8,11 @@ def getTimesheet():
     return result if result is not None else []
 
 
+def getTimesheetByID(employeeID: int, billingPeriod: str):
+    result = manager_payroll_querier.getTimesheetByID(employeeID, billingPeriod)
+    return result if result is not None else []
+
+
 def addTimesheetEntry(employeeID: int, activity: str, clockIn: str, clockOut: str):
     manager_payroll_querier.addTimesheetEntry(employeeID, activity, clockIn, clockOut)
 

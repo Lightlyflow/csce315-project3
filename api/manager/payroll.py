@@ -1,13 +1,26 @@
 from flask import Blueprint, abort, jsonify, request
 
-from .payroll_helper import getTimesheet, addTimesheetEntry, updateTimesheetEntry, deleteTimesheetEntry
+from .payroll_helper import getTimesheet, addTimesheetEntry, updateTimesheetEntry, deleteTimesheetEntry, \
+    getTimesheetByID
 
 payrollAPIBlueprint = Blueprint("payroll", __name__)
 
 
-@payrollAPIBlueprint.route("/timesheet", methods=['GET'])
+@payrollAPIBlueprint.route("/timesheet", methods=['GET', 'POST'])
 def timesheet():
-    return jsonify(getTimesheet())
+    if request.method == 'GET':
+        return jsonify(getTimesheet())
+    elif request.method == 'POST':
+        data = request.get_json()
+
+        try:
+            employeeID = int(data['employeeid'])
+            billingPeriod = data['billingperiod']
+        except (ValueError, KeyError):
+            abort(400)
+
+        return jsonify(getTimesheetByID(employeeID, billingPeriod))
+    abort(404)
 
 
 @payrollAPIBlueprint.route("/add", methods=['POST'])

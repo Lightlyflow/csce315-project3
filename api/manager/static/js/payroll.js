@@ -1,7 +1,6 @@
+// Timesheet vars
 let timesheetTable = null;
 let lastSelected = null;
-
-let paymentTable = null;
 
 let entryModalTitle = null;
 
@@ -12,6 +11,12 @@ let entryClockOutInput = null;
 
 let modalMode = null;
 
+// Payment Vars
+let paymentTable = null;
+
+let billingPeriodSelect = null;
+let employeeSelect = null;
+
 $(document).ready(async function() {
     entryModalTitle = $("#entryModalTitle")[0];
 
@@ -19,6 +24,9 @@ $(document).ready(async function() {
     entryActivityInput = $("#entryActivityInput")[0];
     entryClockInInput = $("#entryClockInInput")[0];
     entryClockOutInput = $("#entryClockOutInput")[0];
+
+    billingPeriodSelect = $("#billingPeriodSelect")[0];
+    employeeSelect = $("#employeeSelect")[0];
 
     timesheetTable = $("#timesheetTable").DataTable({
         select: true,
@@ -86,6 +94,22 @@ $(document).ready(async function() {
         }
     });
 
+    billingPeriodSelect.onchange = async function() {
+        await refreshEmployeeTimesheet();
+    };
+    employeeSelect.onchange = async function() {
+        await refreshEmployeeTimesheet();
+    }
+
+    $("#paymentBtn").click(async function() {
+        let data = {
+            'employeeid': employeeSelect.value,
+            'billingperiod': billingPeriodSelect.value
+        };
+
+        console.log(data);
+    });
+
     await refreshTimesheet();
 })
 
@@ -93,6 +117,14 @@ $(document).ready(async function() {
 // =================== Fetch/Post data ===================
 async function getTimesheet() {
     const resp = await fetch(`/manager/payroll/timesheet`, { method: 'GET' });
+    return resp.json();
+}
+async function getEmployeeTimesheet(data) {
+    const resp = await fetch(`/manager/payroll/timesheet`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
     return resp.json();
 }
 async function addEntry(data) {
@@ -123,6 +155,22 @@ async function refreshTimesheet() {
     let data = await getTimesheet();
     timesheetTable.rows.add(data).draw();
     timesheetTable.columns.adjust().draw();
+}
+async function refreshEmployeeTimesheet() {
+    if (employeeSelect.value === "" || billingPeriodSelect.value === "") {
+        console.log("skipping");
+        return;
+    }
+
+    let data = {
+        'employeeid': employeeSelect.value,
+        'billingperiod': billingPeriodSelect.value
+    };
+
+    paymentTable.clear();
+    let result = await getEmployeeTimesheet(data);
+    paymentTable.rows.add(result).draw();
+    paymentTable.columns.adjust().draw();
 }
 function clearTimesheetModal() {
     entryEmployeeInput.value = "";

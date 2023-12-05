@@ -5,10 +5,10 @@ def getTimesheet():
     return execute(f"SELECT id, employeeid, activity, clockin, clockout, EXTRACT(EPOCH FROM clockout -  clockin)/3600 AS hours FROM clockinout;")
 
 
-def getTimesheetByID(employeeID: int, startDate: str, endDate: str):
+def getTimesheetByID(employeeID: int, billingPeriod: str):
     return execute(f"SELECT id, employeeid, activity, clockin, clockout, EXTRACT(EPOCH FROM clockout -  clockin)/3600 AS hours FROM clockinout"
                    f" WHERE employeeid={employeeID}"
-                   f" AND (clockin >= '{startDate}' AND clockin <= '{endDate}');")
+                   f" AND (clockout >= '{billingPeriod}' AND clockout <= (to_timestamp('{billingPeriod}', 'YYYY-MM-DD') + INTERVAL '14 day'));")
 
 
 def addTimesheetEntry(employeeID: int, activity: str, clockIn: str, clockOut: str):

@@ -50,7 +50,7 @@
                             <select class="form-select" id="employeeSelect">
                                 <option disabled selected value> -- select an option -- </option>
                             {% for employee in employees %}
-                                <option data-id="{{ employee[0] }}">{{ employee[1] }}</option>
+                                <option value="{{ employee[0] }}">{{ employee[1] }}</option>
                             {% endfor %}
                             </select>
                         </div>
@@ -63,7 +63,7 @@
                         <select class="form-select" id="billingPeriodSelect">
                             <option disabled selected value> -- select an option -- </option>
                         {% for billingPeriod in billingPeriods %}
-                            <option>{{ billingPeriod }}</option>
+                            <option value="{{ billingPeriod }}">{{ billingPeriod }}</option>
                         {% endfor %}
                         </select>
                     </div>
@@ -74,7 +74,7 @@
                     <div class="row justify-content-center"><h6>For weeks of x and x</h6></div>
                 </div>
                 <div class="col-4 justify-content-end d-flex align-items-end">
-                    <button class="btn btn-primary">Pay Employee</button>
+                    <button class="btn btn-primary" id="paymentBtn">Pay Employee</button>
                 </div>
             </div>
 
