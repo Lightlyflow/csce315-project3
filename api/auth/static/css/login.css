@@ -64,3 +64,17 @@ html, body {
     left:0;
     z-index: -1;
 }
+
+.accessButton {
+    position: fixed;
+    right: 20px;
+    bottom: 40px;
+    z-index: 10 !important;
+    
+    @media (max-width: 600px) {
+        top: 0 !important;
+        bottom: auto !important;
+        right: 0px !important;
+        left: auto !important;
+    }
+}
