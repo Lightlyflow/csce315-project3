@@ -59,18 +59,18 @@
                         </div>
                     </div>
                     <div class="flex-fill">
-                    <div class="row ml-1">
-                        <label class="" for="billingPeriodSelect">Billing Period:</label>
+                        <div class="row ml-1">
+                            <label class="" for="billingPeriodSelect">Billing Period:</label>
+                        </div>
+                        <div class="row ml-1">
+                            <select class="form-select" id="billingPeriodSelect">
+                                <option disabled selected value> -- select an option -- </option>
+                            {% for billingPeriod in billingPeriods %}
+                                <option value="{{ billingPeriod }}">{{ billingPeriod }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
                     </div>
-                    <div class="row ml-1">
-                        <select class="form-select" id="billingPeriodSelect">
-                            <option disabled selected value> -- select an option -- </option>
-                        {% for billingPeriod in billingPeriods %}
-                            <option value="{{ billingPeriod }}">{{ billingPeriod }}</option>
-                        {% endfor %}
-                        </select>
-                    </div>
-                </div>
                 </div>
                 <div class="col-4 justify-content-center">
                     <div class="row justify-content-center"><h1>Employee Timesheet</h1></div>

@@ -1,3 +1,5 @@
+import datetime
+
 from api.db import employee_querier
 
 
@@ -11,11 +13,23 @@ def clockOutHelper(employeeID: int):
     employee_querier.clockOut(employeeID)
 
 
-def getWeek1(employeeID, lastWeekDate, currDate):
-    result = employee_querier.getWeek1(employeeID, lastWeekDate, currDate)
+def getWeek(employeeID, startDate, endDate):
+    result = employee_querier.getWeek(employeeID, startDate, endDate)
     return result if result is not None else []
 
 
-def getWeek2(employeeID, secondLastWeekDate, lastWeekDate):
-    result = employee_querier.getWeek2(employeeID, secondLastWeekDate, lastWeekDate)
-    return result if result is not None else []
+def getBillingPeriods(sinceYear: int = 2023, sinceMonth: int = 10, sinceDay: int = 30):
+    startDate = _nextMonday(datetime.date(sinceYear, sinceMonth, sinceDay))
+    endDate = _nextMonday(datetime.date.today())
+
+    billingPeriods = []
+
+    while startDate < endDate:
+        billingPeriods.append(startDate.isoformat())
+        startDate += datetime.timedelta(days=14)
+
+    return billingPeriods[::-1]
+
+
+def _nextMonday(date: datetime.date):
+    return date + datetime.timedelta((0 - date.weekday()) % 7)

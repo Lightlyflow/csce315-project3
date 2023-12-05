@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 
 from .employee_helper import getMenuCategories, getToppingData, placeOrder, getWeather, getMenuData
 from .timesheet import timesheetAPIBlueprint
+from .timesheet_helper import getBillingPeriods
 
 employeeBlueprint = Blueprint("employee", __name__, template_folder="templates", static_folder="static")
 
@@ -47,7 +48,7 @@ def receive_saved_items():
 
 @employeeBlueprint.route("/timesheet", methods=['GET'])
 def timesheet():
-    return render_template("employee_timesheet.html")
+    return render_template("employee_timesheet.html", billingPeriods=getBillingPeriods())
 
 
 # Other blueprints

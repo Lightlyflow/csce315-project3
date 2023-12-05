@@ -18,7 +18,7 @@ $(document).ready(async function() {
         dom: '<"dt_row"rif>t',
     });
 
-    currentUser = document.getElementById("currentUser").innerHTML;
+    currentUser = document.getElementById("currentUser").dataset.id;
     let user = {};
     user['employeeid'] = currentUser;
 
@@ -39,8 +39,8 @@ $(document).ready(async function() {
         await refreshWeek1Table(data);
     });
 
-    refreshWeek1Table(user);
-    refreshWeek2Table(user);
+    await refreshWeek1Table(user);
+    await refreshWeek2Table(user);
 });
 
 // ===================== Fetch/Post Data =====================

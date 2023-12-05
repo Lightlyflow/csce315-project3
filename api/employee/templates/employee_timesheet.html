@@ -14,8 +14,26 @@
 {% block body %}
     <div class="m-5">
         <div class="row justify-content-center">
-            <button class="btn btn-primary" id="clockInButton">Clock In</button>
-            <button class="btn btn-primary" id="clockOutButton">Clock Out</button>
+            <div class="col-4">
+                <div class="row ml-1">
+                    <label class="" for="billingPeriodSelect">Billing Period:</label>
+                </div>
+                <div class="row ml-1">
+                    <select class="form-select" id="billingPeriodSelect">
+                        <option disabled selected value> -- select an option -- </option>
+                    {% for billingPeriod in billingPeriods %}
+                        <option value="{{ billingPeriod }}">{{ billingPeriod }}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="col-4 justify-content-center d-flex">
+                <button class="btn btn-primary" id="clockInButton">Clock In</button>
+                <button class="btn btn-primary" id="clockOutButton">Clock Out</button>
+            </div>
+            <div class="col-4 justify-content-end d-flex">
+
+            </div>
         </div>
         <div class="row">
             <div class="col m-2 justify-content-center">
