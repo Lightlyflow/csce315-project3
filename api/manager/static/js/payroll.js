@@ -13,6 +13,7 @@ let modalMode = null;
 
 // Payment Vars
 let paymentTable = null;
+let paymentLabel = null;
 
 let billingPeriodSelect = null;
 let employeeSelect = null;
@@ -27,6 +28,7 @@ $(document).ready(async function() {
 
     billingPeriodSelect = $("#billingPeriodSelect")[0];
     employeeSelect = $("#employeeSelect")[0];
+    paymentLabel = $("#paymentLabel")[0];
 
     timesheetTable = $("#timesheetTable").DataTable({
         select: true,
@@ -102,6 +104,7 @@ $(document).ready(async function() {
     }
 
     $("#paymentBtn").click(async function() {
+        // TODO :: ADD PAYMENT OPTION!
         let data = {
             'employeeid': employeeSelect.value,
             'billingperiod': billingPeriodSelect.value
@@ -158,9 +161,16 @@ async function refreshTimesheet() {
 }
 async function refreshEmployeeTimesheet() {
     if (employeeSelect.value === "" || billingPeriodSelect.value === "") {
-        console.log("skipping");
         return;
     }
+
+    let week1 = new Date(billingPeriodSelect.value);
+    let week2 = new Date(billingPeriodSelect.value);
+    week2.setDate(week1.getDate() + 7)
+    week1 = week1.toISOString().split('T')[0];
+    week2 = week2.toISOString().split('T')[0];
+
+    paymentLabel.innerText = `For weeks of ${week1} and ${week2}`;
 
     let data = {
         'employeeid': employeeSelect.value,
