@@ -13,8 +13,8 @@ def clockOutHelper(employeeID: int):
     employee_querier.clockOut(employeeID)
 
 
-def getWeek(employeeID, startDate, endDate):
-    result = employee_querier.getWeek(employeeID, startDate, endDate)
+def getWeek(employeeID, billingPeriod):
+    result = employee_querier.getWeek(employeeID, billingPeriod)
     return result if result is not None else []
 
 

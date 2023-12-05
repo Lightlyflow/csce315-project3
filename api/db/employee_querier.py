@@ -15,7 +15,7 @@ def clockOut(employeeID: int):
             f"              WHERE employeeid={employeeID});")
 
 
-def getWeek(employeeID, startDate, endDate):
+def getWeek(employeeID, billingPeriod):
     return execute(f"""SELECT employeeid, clockin, clockout, activity, EXTRACT(EPOCH FROM clockout -  clockin)/3600 AS hours
         FROM clockinout
-        WHERE employeeid = {employeeID} AND (clockin >= '{startDate}' AND clockin <= '{endDate}');""")
+        WHERE employeeid = {employeeID} AND (clockin >= '{billingPeriod}' AND clockin <= to_timestamp('{billingPeriod}', 'YYYY-MM-DD') + INTERVAL '7' DAY);""")

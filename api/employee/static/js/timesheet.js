@@ -1,6 +1,9 @@
-let currentUser = null;
+let employeeID = null;
+let billingPeriodSelect = null;
 
 $(document).ready(async function() {
+    billingPeriodSelect = $("#billingPeriodSelect")[0];
+
     week1Table = $("#week1Table").DataTable({
         "scrollY": "65vh",
         "scrollCollapse": true,
@@ -18,47 +21,36 @@ $(document).ready(async function() {
         dom: '<"dt_row"rif>t',
     });
 
-    currentUser = document.getElementById("currentUser").dataset.id;
-    let user = {};
-    user['employeeid'] = currentUser;
+    employeeID = document.getElementById("currentUser").dataset.id;
 
     // =================== Button/Table Functions =====================
 
     $('#clockInButton').click(async function() {
-        let data = {}
-        data['employeeid'] = currentUser;
+        let data = {};
+        data['employeeid'] = employeeID;
         data['activity'] = "Front";
         await clockIn(data);
-        await refreshWeek1Table(data);
+        await refreshTables();
     });
 
     $('#clockOutButton').click(async function() {
-        let data = {}
-        data['employeeid'] = currentUser;
+        let data = {};
+        data['employeeid'] = employeeID;
         await clockOut(data);
-        await refreshWeek1Table(data);
+        await refreshTables();
     });
 
-    await refreshWeek1Table(user);
-    await refreshWeek2Table(user);
+    await refreshTables();
 });
 
 // ===================== Fetch/Post Data =====================
 
-async function getWeek1Table(data) {
-    const resp = await fetch(`/employee/timesheet/week1`, { 
+async function getWeekTable(data) {
+    const resp = await fetch(`/employee/timesheet/week`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
     });
-    return resp.json();
-}
-
-async function getWeek2Table(data) {
-    const resp = await fetch(`/employee/timesheet/week2`, { 
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)});
     return resp.json();
 }
 
@@ -78,14 +70,32 @@ async function clockOut(data) {
     });
 }
 
-async function refreshWeek1Table(user) {
+async function refreshWeek1Table() {
+    let data = {
+        'employeeid': employeeID,
+        'billingperiod': billingPeriodSelect.value
+    };
+
     week1Table.clear();
-    let data = await getWeek1Table(user);
-    week1Table.rows.add(data).draw();
+    let result = await getWeekTable(data);
+    week1Table.rows.add(result).draw();
 }
 
-async function refreshWeek2Table(user) {
+async function refreshWeek2Table() {
+    let startDate = new Date(billingPeriodSelect.value);
+    startDate.setDate(startDate.getDate() + 7);
+
+    let data = {
+        'employeeid': employeeID,
+        'billingperiod': startDate.toISOString().split("T")[0]
+    };
+
     week2Table.clear();
-    let data = await getWeek2Table(user);
-    week2Table.rows.add(data).draw();
+    let result = await getWeekTable(data);
+    week2Table.rows.add(result).draw();
+}
+
+async function refreshTables() {
+    await refreshWeek1Table();
+    await refreshWeek2Table();
 }

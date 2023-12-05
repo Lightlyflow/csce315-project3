@@ -37,15 +37,15 @@ def clockOut():
 
 
 @timesheetAPIBlueprint.route("/week", methods=['POST'])
-def week1():
+def week():
     data = request.get_json()
     employeeID = -1
-    currDate = datetime.today() + timedelta(days=1)
-    lastWeekDate = datetime.today() - timedelta(days=7)
+    billingPeriod = ""
 
     try:
         employeeID = int(data['employeeid'])
+        billingPeriod = data['billingperiod']
     except (ValueError, KeyError):
         abort(400)
 
-    return jsonify(getWeek(employeeID, lastWeekDate, currDate))
+    return jsonify(getWeek(employeeID, billingPeriod))

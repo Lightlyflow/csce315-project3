@@ -20,7 +20,6 @@
                 </div>
                 <div class="row ml-1">
                     <select class="form-select" id="billingPeriodSelect">
-                        <option disabled selected value> -- select an option -- </option>
                     {% for billingPeriod in billingPeriods %}
                         <option value="{{ billingPeriod }}">{{ billingPeriod }}</option>
                     {% endfor %}
