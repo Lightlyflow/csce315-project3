@@ -14,7 +14,7 @@
 <body>
     <div id = "navbar">
         {% if current_user.is_authenticated %}
-            <div id="user">Hello, {{ current_user.username }}</div>
+            <div id="user">Hello, {{ current_user.preferredName }}</div>
         {% else %}
             <div id="user">Hello, Guest</div>
         {% endif %}
