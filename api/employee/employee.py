@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, request, jsonify, abort
 from flask_login import login_required, current_user
 
 from .employee_helper import getMenuCategories, getToppingData, placeOrder, getWeather, getMenuData
+from .timesheet import timesheetAPIBlueprint
+from .timesheet_helper import getBillingPeriods
 
 employeeBlueprint = Blueprint("employee", __name__, template_folder="templates", static_folder="static")
 
@@ -38,8 +40,16 @@ def receive_saved_items():
     data = request.get_json()
     if 'savedMenuItems' in data:
         savedItems = data['savedMenuItems']
-        print("Beforeplace")
         placeOrder(savedItems)
         return jsonify({'message': 'Data received successfully'})
 
     return jsonify({'error': 'Invalid format'})
+
+
+@employeeBlueprint.route("/timesheet", methods=['GET'])
+def timesheet():
+    return render_template("employee_timesheet.html", billingPeriods=getBillingPeriods())
+
+
+# Other blueprints
+employeeBlueprint.register_blueprint(timesheetAPIBlueprint, url_prefix="/timesheet")

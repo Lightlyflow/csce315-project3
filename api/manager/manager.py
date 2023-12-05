@@ -1,3 +1,5 @@
+import json
+
 from flask import Blueprint, render_template, abort, redirect, url_for
 from flask_login import login_required, current_user
 
@@ -7,6 +9,8 @@ from .analytics import analyticsAPIBlueprint
 from .menu import menuAPIBlueprint
 from .user_management import userManagementBlueprint
 from .orders import ordersAPIBlueprint
+from .payroll import payrollAPIBlueprint
+from .payroll_helper import getEmployees, getBillingPeriods
 from .image import imageAPIBlueprint
 
 managerBlueprint = Blueprint("manager", __name__, template_folder="templates", static_folder="static")
@@ -53,10 +57,20 @@ def orders():
     return render_template("manager_orders.html")
 
 
+@managerBlueprint.route("/payroll", methods=['GET'])
+def payroll():
+    employeeList = getEmployees()
+    billingPeriods = getBillingPeriods()
+    return render_template("manager_payroll.html",
+                           employees=employeeList,
+                           billingPeriods=billingPeriods)
+
+
 # POST Endpoints
 managerBlueprint.register_blueprint(inventoryAPIBlueprint, url_prefix='/inventory')
 managerBlueprint.register_blueprint(analyticsAPIBlueprint, url_prefix='/analytics')
 managerBlueprint.register_blueprint(menuAPIBlueprint, url_prefix='/menu')
 managerBlueprint.register_blueprint(userManagementBlueprint, url_prefix='/user_management')
 managerBlueprint.register_blueprint(ordersAPIBlueprint, url_prefix='/orders')
+managerBlueprint.register_blueprint(payrollAPIBlueprint, url_prefix='/payroll')
 managerBlueprint.register_blueprint(imageAPIBlueprint, url_prefix="/images")

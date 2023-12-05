@@ -18,6 +18,7 @@ class User(UserMixin):
         self.employeeId: int = -1
         self.isManager: bool = False
         self.employeeName: str = "NO EMPLOYEE NAME"
+        self.preferredName: str = "NO PREFERRED NAME"
 
         self.getEmployeeStatus()
         self.getUserStatus()
@@ -26,17 +27,19 @@ class User(UserMixin):
         """Populates isEmployee, employeeID, isManager"""
         result = auth_querier.getEmployeeByEmail(self.email)
 
-        if len(result) < 1:
+        if result is None or len(result) < 1:
             return
 
         self.isEmployee = True
+        self.employeeName = result[0][0]
         self.employeeId = result[0][1]
         self.isManager = result[0][2]
+        self.preferredName = result[0][3]
 
     def getUserStatus(self) -> None:
         result = auth_querier.getUserByEmail(self.email)
 
-        if len(result) < 1:
+        if result is None or len(result) < 1:
             return
 
         self.userID = result[0][1]
