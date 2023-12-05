@@ -17,7 +17,10 @@
             {% endif %}
             {% if current_user.is_authenticated and current_user.isEmployee %}
             <p>
-                <a class="btn btn-lg btn-block" href="{{ url_for('employee.home') }}">Employee</a>
+                <a class="btn btn-lg btn-block" href="{{ url_for('employee.home') }}">Clock In/Out</a>
+            </p>
+            <p>
+                <a class="btn btn-lg btn-block" href="{{ url_for('employee.cashier') }}">Cashier</a>
             </p>
             
             <p>

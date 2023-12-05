@@ -1,0 +1,18 @@
+.logoutButton {
+    background: url(../logout-svgrepo-com.svg) no-repeat;
+    background-size: contain;
+    width: 25px;
+    border: none;
+    height: 25px;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid #ddd;
+}
+
+.navbar {
+    position: fixed !important;
+    z-index: 1000 !important;
+    width: 100% !important;
+    top:0 !important;
+}

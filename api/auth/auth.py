@@ -129,6 +129,6 @@ def oauth2_callback(provider):
 
 @authBlueprint.route('/loginas')
 def loginAs():
-    if current_user.is_authenticated:
+    if current_user.is_authenticated and current_user.isEmployee:
         return render_template("login_as.html")
     return redirect(url_for('customer.order'))

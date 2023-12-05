@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, jsonify, abort
+from flask import Blueprint, render_template, request, jsonify, abort, redirect, url_for
 from flask_login import login_required, current_user
 
 from .employee_helper import getMenuCategories, getToppingData, placeOrder, getWeather, getMenuData
@@ -13,10 +13,17 @@ employeeBlueprint = Blueprint("employee", __name__, template_folder="templates",
 def requireLogin():
     if not current_user.is_authenticated:
         abort(403)
+    if not current_user.isEmployee:
+        abort(403)
 
 
 @employeeBlueprint.route("/", methods=['GET'])
 def home():
+    return redirect(url_for("employee.timesheet"))
+
+
+@employeeBlueprint.route("/order", methods=['GET'])
+def cashier():
     # Menu items dynamic loading
     menuQuery = getMenuData()
     menuCategories = getMenuCategories()
