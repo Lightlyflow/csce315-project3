@@ -2,7 +2,13 @@ from .querier import execute
 
 
 def getTimesheet():
-    return execute(f"SELECT id, employeeid, activity, clockin, clockout FROM clockinout;")
+    return execute(f"SELECT id, employeeid, activity, clockin, clockout, EXTRACT(EPOCH FROM clockout -  clockin)/3600 AS hours FROM clockinout;")
+
+
+def getTimesheetByID(employeeID: int, startDate: str, endDate: str):
+    return execute(f"SELECT id, employeeid, activity, clockin, clockout, EXTRACT(EPOCH FROM clockout -  clockin)/3600 AS hours FROM clockinout"
+                   f" WHERE employeeid={employeeID}"
+                   f" AND (clockin >= '{startDate}' AND clockin <= '{endDate}');")
 
 
 def addTimesheetEntry(employeeID: int, activity: str, clockIn: str, clockOut: str):
@@ -15,3 +21,11 @@ def updateTimesheetEntryByID(entryID: int, employeeID: int, activity: str, clock
 
 def deleteTimesheetEntry(entryID: int):
     execute(f"DELETE FROM clockinout WHERE id={entryID};")
+
+
+def getEmployees():
+    return execute(f"SELECT employeeID, name FROM employee_table;")
+
+
+def getTotalHours(employeeID: int, startDate: str, endDate: str):
+    return execute(f"")

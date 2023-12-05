@@ -10,7 +10,7 @@
         <li><a data-toggle="tab" href="#timesheet" class="active">View Timesheet</a></li>
         <li><a data-toggle="tab" href="#payment">Payment</a></li>
     </ul>
-    <div class="tab-content">
+    <div class="tab-content m-3">
         <div class="tab-pane fade show active" id="timesheet">
             <div class="row justify-content-center">
                 <div class="col-10 m-3">
@@ -21,6 +21,7 @@
                             <th scope="col">Activity</th>
                             <th scope="col">Clock In</th>
                             <th scope="col">Clock Out</th>
+                            <th scope="col">Hours</th>
                         </tr></thead>
                         <tbody></tbody>
                     </table>
@@ -40,7 +41,56 @@
         </div>
         <div class="tab-pane fade show" id="payment">
             <div class="row justify-content-center">
-                <h6>tab 2</h6>
+                <div class="col-4 align-self-end d-flex">
+                    <div class="flex-fill">
+                        <div class="row ml-2">
+                            <label class="" for="employeeSelect">Employee:</label>
+                        </div>
+                        <div class="row ml-2">
+                            <select class="form-select" id="employeeSelect">
+                                <option disabled selected value> -- select an option -- </option>
+                            {% for employee in employees %}
+                                <option data-id="{{ employee[0] }}">{{ employee[1] }}</option>
+                            {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex-fill">
+                    <div class="row ml-1">
+                        <label class="" for="billingPeriodSelect">Billing Period:</label>
+                    </div>
+                    <div class="row ml-1">
+                        <select class="form-select" id="billingPeriodSelect">
+                            <option disabled selected value> -- select an option -- </option>
+                        {% for billingPeriod in billingPeriods %}
+                            <option>{{ billingPeriod }}</option>
+                        {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                </div>
+                <div class="col-4 justify-content-center">
+                    <div class="row justify-content-center"><h1>Employee Timesheet</h1></div>
+                    <div class="row justify-content-center"><h6>For weeks of x and x</h6></div>
+                </div>
+                <div class="col-4 justify-content-end d-flex align-items-end">
+                    <button class="btn btn-primary">Pay Employee</button>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col m-3">
+                    <table class="table table-bordered table-striped" id="paymentTable" style="width: 100%">
+                        <thead><tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Employee ID</th>
+                            <th scope="col">Activity</th>
+                            <th scope="col">Clock In</th>
+                            <th scope="col">Clock Out</th>
+                            <th scope="col">Hours</th>
+                        </tr></thead>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

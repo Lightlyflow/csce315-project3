@@ -1,6 +1,8 @@
 let timesheetTable = null;
 let lastSelected = null;
 
+let paymentTable = null;
+
 let entryModalTitle = null;
 
 let entryEmployeeInput = null;
@@ -28,6 +30,14 @@ $(document).ready(async function() {
 
     timesheetTable.on('click', 'tbody tr', async function() {
         lastSelected = timesheetTable.row(this).data();
+    });
+
+    paymentTable = $("#paymentTable").DataTable({
+        select: true,
+        paging: false,
+        dom: '<"dt_row"rif>t',
+        "scrollCollapse": true,
+        "scrollY": "65vh",
     });
 
     $("#deleteEntry").click(async function() {
