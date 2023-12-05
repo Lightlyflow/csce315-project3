@@ -88,9 +88,10 @@ a:hover {color:#262f48}
 }
 
 a.btn {
-    background-color: #8ab3d4;
+    background-color: white;
+    border-radius: 1rem;
 }
 
 a.btn:hover {
-    background-color: #40687c;
+    background-color: #e2e2e2;
 }

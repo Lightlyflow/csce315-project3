@@ -8,6 +8,7 @@ let menuPriceInput = null;
 let menuCategoryInput = null;
 let menuCalorieInput = null;
 let menuInStockInput = null;
+let menuItemImageInput = null;
 
 let ingredientNameInput = null;
 let ingredientQuantityInput = null;
@@ -51,6 +52,7 @@ $(document).ready(async function() {
     menuCategoryInput = $('#menuItemCategoryInput')[0];
     menuCalorieInput = $('#menuItemCaloriesInput')[0];
     menuInStockInput = $('#menuItemStockInput')[0];
+    menuItemImageInput = $('#menuItemImageInput')[0];
 
     ingredientNameInput = $('#ingredientNameInput')[0];
     ingredientQuantityInput = $('#ingredientQuantityInput')[0];
@@ -85,6 +87,7 @@ $(document).ready(async function() {
         menuInStockInput.checked = selectedItem[2];
         menuCategoryInput.value = selectedItem[4];
         menuCalorieInput.value = selectedItem[5];
+        menuItemImageInput.value = selectedItem[6];
     })
     $('#addMenuItem').click(function() {
         menuItemMode = "add";
@@ -124,6 +127,7 @@ $(document).ready(async function() {
             data['category'] = menuCategoryInput.value;
             data['calories'] = menuCalorieInput.value;
             data['itemid'] = selectedItem[3];
+            data['imageid'] = menuItemImageInput.value;
 
             await updateMenuItem(data);
             await refreshMenuItems();
@@ -136,6 +140,7 @@ $(document).ready(async function() {
             data['instock'] = menuInStockInput.checked;
             data['category'] = menuCategoryInput.value;
             data['calories'] = menuCalorieInput.value;
+            data['imageid'] = menuItemImageInput.value;
 
             await addMenuItem(data);
             await refreshMenuItems();

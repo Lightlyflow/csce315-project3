@@ -2,11 +2,12 @@
 
 {% block title %}Image Management{% endblock %}
 {% block head %}
+    <link rel="icon" type="image/x-icon" href="{{ url_for('manager.static', filename='shareTeaFavicon.png') }}">
     <script src="{{ url_for('manager.static', filename='js/images.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('manager.static', filename='css/images.css') }}">
 {% endblock %}
 {% block body %}
-    <ul class="nav nav-tabs navCustom">
+    <ul class="nav nav-tabs navCustom justify-content-center">
         <li><a data-toggle="tab" href="#upload" class="active">Upload Image</a></li>
         <li><a data-toggle="tab" href="#images">Uploaded Images</a></li>
     </ul>
@@ -14,7 +15,7 @@
         <div class="tab-pane fade show active" id="upload">
             <div class="container align-middle">
                 <div class="row justify-content-center">
-                    <div class="col-lg-6 text-center">
+                    <div class="col-lg-6 m-3 text-center">
                         <form method="POST" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label for="image">Choose Image</label>

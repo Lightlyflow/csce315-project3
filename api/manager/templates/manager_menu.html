@@ -2,13 +2,14 @@
 
 {% block title %}Edit Menu{% endblock %}
 {% block head %}
+    <link rel="icon" type="image/x-icon" href="{{ url_for('manager.static', filename='shareTeaFavicon.png') }}">
     <script src="{{ url_for('manager.static', filename='js/menu.js') }}"></script>
     <link rel="stylesheet" href="{{ url_for('manager.static', filename='css/menu.css') }}">
 {% endblock %}
 
 {% block body %}
-    <ul class="nav nav-tabs navCustom">
-        <li><a data-toggle="tab" href="#ingredients">Edit Menu Items</a></li>
+    <ul class="nav nav-tabs navCustom justify-content-center">
+        <li><a data-toggle="tab" href="#ingredients" class="active">Edit Menu Items</a></li>
         <li><a data-toggle="tab" href="#order">Edit Menu Order</a></li>
     </ul>
     <div class="tab-content">
@@ -24,6 +25,7 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Category</th>
                                 <th scope="col">Calories</th>
+                                <th scope="col">Image ID</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -117,31 +119,37 @@
                         <div class="form-group form-row">
                             <label for="menuItemNameInput" class="col-sm-2 col-form-label">Name</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="menuItemNameInput" placeholder="Name">
+                                <input type="text" class="form-control" id="menuItemNameInput" placeholder="Name" required>
                             </div>
                         </div>
                         <div class="form-group form-row">
                             <label for="menuItemPriceInput" class="col-sm-2 col-form-label">Price</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="menuItemPriceInput" placeholder="Price">
+                                <input type="text" class="form-control" id="menuItemPriceInput" placeholder="Price" required>
                             </div>
                         </div>
                         <div class="form-group form-row">
                             <label for="menuItemCategoryInput" class="col-sm-2 col-form-label">Category</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="menuItemCategoryInput" placeholder="Category">
+                                <input type="text" class="form-control" id="menuItemCategoryInput" placeholder="Category" required>
                             </div>
                         </div>
                         <div class="form-group form-row">
                             <label for="menuItemCaloriesInput" class="col-sm-2 col-form-label">Calories</label>
                             <div class="col-sm-10">
-                                <input type="number" class="form-control" id="menuItemCaloriesInput" placeholder="Calories">
+                                <input type="number" class="form-control" id="menuItemCaloriesInput" placeholder="Calories" required>
                             </div>
                         </div>
                         <div class="form-group form-row">
                             <label for="menuItemStockInput" class="col-sm-2 col-form-label">In Stock?</label>
                             <div class="col-sm-10">
-                                <input type="checkbox" class="form-control" id="menuItemStockInput">
+                                <input type="checkbox" class="form-control" id="menuItemStockInput" required>
+                            </div>
+                        </div>
+                        <div class="form-group form-row">
+                            <label for="menuItemImageInput" class="col-sm-2 col-form-label">Image ID</label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="menuItemImageInput" placeholder="Image ID" required>
                             </div>
                         </div>
                     </form>

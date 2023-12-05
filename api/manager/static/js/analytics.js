@@ -7,6 +7,11 @@ let salesDate1 = null;
 let salesDate2 = null;
 let excessDate = null;
 
+let productUsageSubtitle = null;
+let salesHistorySubtitle = null;
+let excessItemsSubtitle = null;
+let pairFrequencySubtitle = null;
+
 $(document).ready(function () {
     // ====================== Initializing Elements ========================
     productUsageTable = $('#productUsageTable').DataTable({
@@ -55,6 +60,11 @@ $(document).ready(function () {
     salesDate2 = $('#salesDate2').get()[0];
     excessDate = $('#excessDate').get()[0];
 
+    productUsageSubtitle = $('#productUsageSubtitle').get()[0];
+    salesHistorySubtitle = $('#salesHistorySubtitle').get()[0];
+    excessItemsSubtitle = $('#excessItemsSubtitle').get()[0];
+    pairFrequencySubtitle = $('#pairFrequencySubtitle').get()[0];
+
 
     // =================== Button/Table Functions ====================
 
@@ -63,6 +73,7 @@ $(document).ready(function () {
         data['startDate'] = usageDate1.value;
         data['endDate'] = usageDate2.value;
         await refreshUsage(data);
+        productUsageSubtitle.innerHTML = "From " + usageDate1.value + " until " + usageDate2.value;
     });
 
     $('#updatePair').click(async function() {
@@ -70,6 +81,7 @@ $(document).ready(function () {
         data['startDate'] = pairDate1.value;
         data['endDate'] = pairDate2.value;
         await refreshPair(data);
+        pairFrequencySubtitle.innerHTML = "From " + pairDate1.value + " until " + pairDate2.value;
     });
 
     $('#updateSales').click(async function() {
@@ -77,12 +89,14 @@ $(document).ready(function () {
         data['startDate'] = salesDate1.value;
         data['endDate'] = salesDate2.value;
         await refreshSales(data);
+        salesHistorySubtitle.innerHTML = "From " + salesDate1.value + " until " + salesDate2.value;
     });
 
     $('#updateExcess').click(async function() {
         let data = {};
         data['startDate'] = excessDate.value;
         await refreshExcess(data);
+        excessItemsSubtitle.innerHTML = "Since " + excessDate.value;
     });
 
     refreshDefault();
