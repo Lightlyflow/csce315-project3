@@ -15,7 +15,7 @@
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 <body>
-    <div class="picture"></div>
+    <div class="picture" id="landing-background"></div>
     <div class="content">
         <div class="dropdown accessButton">
             <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -30,12 +30,16 @@
                     <button class="fontResizeButton" onclick="event.stopPropagation();scaleText(-5);">A-</button>
                     <button class="fontResizeButton" onclick="event.stopPropagation();scaleText(5);">A+</button>
                 </div>
+                <div class="dropdown-divider"></div>
+                <li class="hideImageGroup">
+                    <button class="hideImageButton" onclick="toggleImages();">Hide Images</button>
+                </li>
             </ul>
         </div>
 
         <div class="contentBox">
             <div class = "shareTeaLogo">
-                <img src="{{ url_for('customer.static', filename='shareTeaLogo.png') }}" alt="ShareTea logo", height="175px">
+                <img src="{{ url_for('customer.static', filename='shareTeaLogo.png') }}" id="sharetea-logo" alt="ShareTea logo", height="175px">
             </div>
             {% if current_user.is_authenticated %}
                 <h1 class="getStarted name">Logged in as {{ current_user.username }}</h1>
@@ -45,7 +49,7 @@
                 <h1 class="getStarted">Let's Get Started</h1>
                 <a class="googleLoginButton" href="{{ url_for('auth.oauth2_authorize', provider='google') }}">
                     <div class="GoogleIcon">
-                        <img src="{{ url_for('customer.static', filename='Google__G__logo.svg') }} " alt="Google Logo", height="25px">
+                        <img src="{{ url_for('customer.static', filename='Google__G__logo.svg') }} " id="google-logo" alt="Google Logo", height="25px">
                     </div>
                     <i class="fa fa-google-plus-square"></i>  <span class="googleLoginSpan">Login with <strong>Google</strong></span>
                 </a>
