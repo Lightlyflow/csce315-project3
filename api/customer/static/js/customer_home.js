@@ -384,6 +384,14 @@ function editFromCart(rowNum) {
             toppings[i].checked = true;
             newPrice -= parseFloat(toppings[i].getAttribute("price"));
         }
+        if (toppings[i].getAttribute("id") == editedItem._topping2) {
+            toppings[i].checked = true;
+            newPrice -= parseFloat(toppings[i].getAttribute("price"));
+        }
+        if (toppings[i].getAttribute("id") == editedItem._topping3) {
+            toppings[i].checked = true;
+            newPrice -= parseFloat(toppings[i].getAttribute("price"));
+        }
     }
 
     document.getElementById("quantityPicker").value = editedItem._quantity;

@@ -8,7 +8,7 @@ else:
 
 
 def getMenuItems():
-    return execute(f"SELECT m.name, m.category, m.price, m.calories FROM menu_items_table m JOIN category_priority p ON m.category = p.name ORDER BY p.priority;")
+    return execute(f"SELECT m.name, m.category, m.price, m.calories, COALESCE(i.url, '-1') FROM menu_items_table m JOIN category_priority p ON m.category = p.name LEFT JOIN images i ON m.imageid=i.id ORDER BY p.priority;")
 
 def getMenuCategories():
     return execute(f"SELECT name FROM category_priority order by priority;")

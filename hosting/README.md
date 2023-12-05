@@ -9,7 +9,7 @@ Follow [this link](https://aws.amazon.com/tutorials/serve-a-flask-app/).
 
 ## Update existing container
 1. Login to AWS on the command line \
-   ```aws configure sso```
+   ```aws sso login --profile [profileName]``` or ```aws configure sso``` if first time
     1. Note: Start link will be the one in the Google Docs
     2. Note: Scope is `sso:account:access`
     3. Note: We are using server region `us-east-2`
