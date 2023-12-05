@@ -145,7 +145,7 @@ a:hover {color:#262f48}
     left: 0;
     bottom: 0;
     margin-left: 40px;
-    margin-bottom: 160px;
+    margin-bottom: calc(126px + 2rem);
     width: fit-content;
     height: fit-content;
     display: flex;
@@ -157,10 +157,10 @@ a:hover {color:#262f48}
     @media (max-width: 600px) {
         top: auto;
         bottom: 0px;
-        left: 0px;
-        right: auto;
-        margin-left: 20px;
-        margin-bottom: 20px;
+        right: 0px;
+        left: auto;
+        margin-right: 20px;
+        margin-bottom: 110px;
     }
 }
 
@@ -269,18 +269,30 @@ a:hover {color:#262f48}
 .menuCategory {
     width: 100%;
     cursor: pointer;
+    @media (max-width: 600px) {
+        padding-top: 0.4rem;
+    }
 }
 
 .menuCategory h2 {
     padding-top: 1.5rem;
     font-size: 2rem;
     padding-bottom: 1.3rem;
+    @media (max-width: 600px) {
+        padding-top: 1rem;
+        padding-bottom: 2rem;
+        font-size: 1.6rem;
+
+    }
 }
 
 .menuItems {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(12.3rem, 1fr));
     justify-items: center;
+    @media (max-width: 600px) {
+        grid-template-columns: repeat(auto-fit, minmax(6.5rem, 1fr));
+    }
 }
 
 .menuItemBox {
@@ -359,14 +371,14 @@ a:hover {color:#262f48}
     word-wrap: break-word;
     align-items: center;
     width: 100px;
-    height: 130px;
+    height: 10.2rem;
     background-color: #fff;
     border-radius: 13px;
-    /* box-shadow: transparent 0 0 0 3px,rgba(18, 18, 18, 0.176) 0 6px 20px; */
     box-sizing: border-box;
     color: #121212;
+    overflow: hidden;
     cursor: pointer;
-    font-size: .8 rem;
+    font-size: .8rem;
     font-weight: 200;
     line-height: 1;
     padding: .7rem 1rem;
