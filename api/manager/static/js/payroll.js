@@ -14,6 +14,12 @@ let modalMode = null;
 // Payment Vars
 let paymentTable = null;
 let paymentLabel = null;
+let hoursText = null;
+let payRateText = null;
+let modalPayRateText= null;
+let modalHoursText = null;
+let modalTotalText = null;
+let paymentModalTitle = null;
 
 let billingPeriodSelect = null;
 let employeeSelect = null;
@@ -29,6 +35,12 @@ $(document).ready(async function() {
     billingPeriodSelect = $("#billingPeriodSelect")[0];
     employeeSelect = $("#employeeSelect")[0];
     paymentLabel = $("#paymentLabel")[0];
+    hoursText = $("#hoursText")[0];
+    payRateText = $("#payRateText")[0];
+    modalPayRateText = $("#modalPayRateText")[0];
+    modalHoursText = $("#modalHoursText")[0];
+    modalTotalText = $("#modalTotalText")[0];
+    paymentModalTitle = $("#paymentModalTitle")[0];
 
     timesheetTable = $("#timesheetTable").DataTable({
         select: true,
@@ -103,14 +115,18 @@ $(document).ready(async function() {
         await refreshEmployeeTimesheet();
     }
 
-    $("#paymentBtn").click(async function() {
-        // TODO :: ADD PAYMENT OPTION!
+    $("#paymentModalSubmit").click(async function() {
         let data = {
             'employeeid': employeeSelect.value,
-            'billingperiod': billingPeriodSelect.value
+            'total': modalTotalText.innerText
         };
+        let resp = await pay(data);
 
-        console.log(data);
+        if (resp === "Payment succeeded!") {
+            addAlert("success", `Payment successful for ${employeeSelect.options[employeeSelect.selectedIndex]}!`);
+        } else {
+            addAlert("danger", `Payment failed for ${employeeSelect.options[employeeSelect.selectedIndex]}!`);
+        }
     });
 
     await refreshTimesheet();
@@ -152,6 +168,31 @@ async function deleteEntry(data) {
     });
 }
 
+async function getTotalHours(data) {
+    const resp = await fetch(`/manager/payroll/hours`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+    return resp.json();
+}
+async function getPayRate(data) {
+    const resp = await fetch(`/manager/payroll/payrate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+    return resp.json();
+}
+async function pay(data) {
+    const resp = await fetch(`/manager/payroll/pay`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+    return resp.json();
+}
+
 // =================== Call these ===================
 async function refreshTimesheet() {
     timesheetTable.clear();
@@ -181,10 +222,28 @@ async function refreshEmployeeTimesheet() {
     let result = await getEmployeeTimesheet(data);
     paymentTable.rows.add(result).draw();
     paymentTable.columns.adjust().draw();
+
+    let totalHours = await getTotalHours(data);
+    hoursText.innerText = `${totalHours}`;
+    let payRate = await getPayRate(data);
+    payRateText.innerText = `${payRate}`;
+
+    paymentModalTitle.innerText = `Pay Employee: ${employeeSelect.options[employeeSelect.selectedIndex].text}`;
+    modalHoursText.innerText = `${totalHours}`;
+    modalPayRateText.innerText = `${payRate}`;
+    modalTotalText.innerText = `${totalHours[0] * payRate[0]}`;
 }
 function clearTimesheetModal() {
     entryEmployeeInput.value = "";
     entryActivityInput.value = "";
     entryClockInInput.value = "";
     entryClockOutInput.value = "";
+}
+function addAlert(alertType, text) {
+    let alert = document.createElement('div');
+    alert.className = `alert alert-${alertType}`;
+    alert.role = "alert";
+    alert.innerText = text;
+
+    $("#alerts")[0].appendChild(alert);
 }

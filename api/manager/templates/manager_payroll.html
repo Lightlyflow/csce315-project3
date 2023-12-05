@@ -40,6 +40,9 @@
             </div>
         </div>
         <div class="tab-pane fade show" id="payment">
+            <div id="alerts">
+
+            </div>
             <div class="row justify-content-center">
                 <div class="col-4 align-self-end d-flex">
                     <div class="flex-fill">
@@ -74,7 +77,9 @@
                     <div class="row justify-content-center"><h6 id="paymentLabel">For weeks of x and x</h6></div>
                 </div>
                 <div class="col-4 justify-content-end d-flex align-items-end">
-                    <button class="btn btn-primary" id="paymentBtn">Pay Employee</button>
+                    <p class="mb-2 mr-2">Pay Rate: $<b id="payRateText">0</b>/hr</p>
+                    <p class="mb-2 mr-2">Total Hours: <b id="hoursText">0</b></p>
+                    <button class="btn btn-primary" id="paymentBtn" data-toggle="modal" data-target="#paymentModal">Pay Employee</button>
                 </div>
             </div>
 
@@ -138,5 +143,32 @@
             </div>
         </div>
     </div>
+    </div>
+
+    <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="paymentModalTitle">Pay Employee</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <p class="m-1">Pay Rate: $<b id="modalPayRateText">0</b>/hr</p>
+                    </div>
+                    <div class="row">
+                        <p class="m-1">Total Hours: <b id="modalHoursText">0</b></p>
+                    </div>
+                    <div class="row">
+                        <p class="m-1">Total Payment: $<b id="modalTotalText"></b></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="paymentModalSubmit" data-dismiss="modal">Pay</button>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock body %}

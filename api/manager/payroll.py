@@ -1,7 +1,7 @@
 from flask import Blueprint, abort, jsonify, request
 
 from .payroll_helper import getTimesheet, addTimesheetEntry, updateTimesheetEntry, deleteTimesheetEntry, \
-    getTimesheetByID
+    getTimesheetByID, getTotalHours, getPayRate, payEmployeeByID
 
 payrollAPIBlueprint = Blueprint("payroll", __name__)
 
@@ -77,3 +77,42 @@ def timesheetDelete():
 
     deleteTimesheetEntry(entryID)
     return "Deleted", 201
+
+
+@payrollAPIBlueprint.route("/hours", methods=['POST'])
+def employeeHours():
+    data = request.get_json()
+
+    try:
+        employeeID = int(data['employeeid'])
+        billingPeriod = data['billingperiod']
+    except (ValueError, KeyError):
+        abort(400)
+
+    return jsonify(getTotalHours(employeeID, billingPeriod))
+
+
+@payrollAPIBlueprint.route("/payrate", methods=['POST'])
+def employeePayRate():
+    data = request.get_json()
+
+    try:
+        employeeID = int(data['employeeid'])
+    except (ValueError, KeyError):
+        abort(400)
+
+    return jsonify(getPayRate(employeeID))
+
+
+@payrollAPIBlueprint.route("/pay", methods=['POST'])
+def payEmployee():
+    data = request.get_json()
+
+    try:
+        employeeID = int(data['employeeid'])
+        totalPayment = int(data['total'])
+    except (ValueError, KeyError):
+        abort(400)
+    if payEmployeeByID(employeeID, totalPayment):
+        return jsonify("Payment succeeded!")
+    return jsonify("Payment failed!")
