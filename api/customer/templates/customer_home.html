@@ -38,10 +38,10 @@
     </div>
     <div class="homeContent">
         <a href="/" class = "shareTeaLogo">
-            <img src="{{ url_for('customer.static', filename='shareTeaLogo.png') }}" alt="ShareTea logo", height="105px">
+            <img id="sharetea-logo" src="{{ url_for('customer.static', filename='shareTeaLogo.png') }}" alt="ShareTea logo", height="105px">
         </a>
 
-        <a class="logoutButton" href="{{ url_for('auth.logout') }}" aria-label="Logout Button"></a>
+        <a class="logoutButton" id="logout-button" href="{{ url_for('auth.logout') }}" aria-label="Logout Button"></a>
 
         <script type="text/javascript">
 
@@ -53,7 +53,7 @@
     
     <div class="dropdown accessButton">
         <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="{{ url_for('customer.static', filename='accessibility-alt.svg') }}" alt="Accessibility Button", height="70px">
+            <img src="{{ url_for('customer.static', filename='accessibility-alt.svg') }}" id="accessibility-image" alt="Accessibility Button", height="70px">
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <li><a class="dropdown-item disabled" href="">Translate</a></li>
@@ -64,11 +64,15 @@
                 <button class="fontResizeButton" onclick="event.stopPropagation();scaleText(-5);">A-</button>
                 <button class="fontResizeButton" onclick="event.stopPropagation();scaleText(5);">A+</button>
             </div>
+            <div class="dropdown-divider"></div>
+            <li class="hideImageGroup">
+                <button class="hideImageButton" onclick="toggleImages();">Hide Images</button>
+            </li>
         </ul>
     </div>
 
     <div class = "checkout">
-        <button class="btn btn-primary checkoutButton" data-bs-toggle="modal" data-bs-target="#modal" onclick="populateCart()" data-backdrop="false">
+        <button class="btn btn-primary checkoutButton" id="shopping-cart-image-button" data-bs-toggle="modal" data-bs-target="#modal" onclick="populateCart()" data-backdrop="false">
             <img height="65px" src="{{ url_for('customer.static', filename='shopping-cart.png') }}" alt="Shopping Cart">
         </button>
     </div>

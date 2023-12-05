@@ -552,3 +552,10 @@ a:hover {color:#262f48}
     justify-content: center;
     align-items: center;
 }
+
+.hideImageButton {
+    border: none;
+    background: none;
+    position: relative;
+    margin-left: 1rem;
+}
