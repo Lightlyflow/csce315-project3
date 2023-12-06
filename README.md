@@ -33,3 +33,9 @@
 2. Make sure you are in the project root
 3. ```docker build -t project3 .```
 4. ```docker run -p 5000:5000 project3```
+
+---
+## Generate Documentation
+1. Create the docstrings in the python file
+2. Run `./gendocs.sh`
+3. Docs can be accessed at `/9o3yh223w8jaolp1qo2/docs/index.html`
