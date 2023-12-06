@@ -94,7 +94,7 @@
         {% set outer_loop = loop %}
         <div class = "menuDropdown {% if loop.first %}firstDropDown active{% endif %}">
             
-            <div class = "menuCategory {% if loop.first %}active{% endif %}" onclick = "toggleHeight(this)" onkeypress="handleKeyPress(this)" tabindex="0">
+            <div class = "menuCategory {% if loop.first %}active{% endif %}" onclick = "handleKeyPress(this)" onkeypress="handleKeyPress(this)" tabindex="0">
                 {%if loop.first%}
                     <main id="main">
                 {%endif%}
