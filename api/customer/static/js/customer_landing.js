@@ -12,9 +12,6 @@ function toggleImages() {
     shareTeaLogo.style.setProperty("border-radius", "7px", "important");
     shareTeaLogo.parentElement.style.setProperty("width", "fit-content");
 
-    var googleLogo = document.getElementById('google-logo');
-    googleLogo.setAttribute("src", "");
-
     var landingBackground = document.getElementById('landing-background');
     landingBackground.style.setProperty("background", "white");
 
@@ -27,4 +24,7 @@ function toggleImages() {
     accessimage.style.setProperty("background", "white");
     accessimage.style.setProperty("box-shadow", "none");
     accessimage.style.setProperty("border-radius", "7px", "important");
+
+    var googleLogo = document.getElementById('google-logo');
+    googleLogo.setAttribute("src", "");
 }

@@ -328,7 +328,7 @@ function setCustomizationPrice() {
     for (let i = 0; i < toppingBoxes.length; i++) {
         let childElements = toppingBoxes[i].getElementsByClassName('topping-col-child');
         if (childElements[0].checked) {
-            currentItemPrice += parseFloat(childElements[1].id);
+            currentItemPrice += parseFloat(childElements[1].getAttribute("price"));
         }
     }
     let quantity = document.getElementById('quantityPicker').value;
