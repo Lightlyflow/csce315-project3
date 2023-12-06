@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify, request, abort
+from flask_login import current_user
 
 from .user_management_helper import getUsers, getEmployees, updateEmployeeByID, addEmployee, deleteEmployeeByID
 
@@ -17,17 +18,9 @@ def employees():
 
 @userManagementBlueprint.route("/employees/update", methods=['POST'])
 def employeeUpdate():
+    checkAdmin()
+
     data = request.get_json()
-    employeeID = -1
-    name = ""
-    isManager = False
-    email = ""
-    phoneNumber = ""
-    altEmail = ""
-    prefName = ""
-    address = ""
-    eContact = ""
-    payRate = 0
 
     try:
         employeeID = int(data['employeeid'])
@@ -40,25 +33,19 @@ def employeeUpdate():
         address = data['address']
         eContact = data['econtact']
         payRate = float(data['payrate'])
+        isAdmin = int(data['isadmin'])
     except (ValueError, KeyError):
         abort(400)
 
-    updateEmployeeByID(employeeID, name, isManager, email, phoneNumber, altEmail, prefName, address, eContact, payRate)
+    updateEmployeeByID(employeeID, name, isManager, email, phoneNumber, altEmail, prefName, address, eContact, payRate, isAdmin)
     return 'Updated employee', 201
 
 
 @userManagementBlueprint.route("/employees/add", methods=['POST'])
 def employeeAdd():
+    checkAdmin()
+
     data = request.get_json()
-    name = ""
-    isManager = False
-    email = ""
-    phoneNumber = ""
-    altEmail = ""
-    prefName = ""
-    address = ""
-    eContact = ""
-    payRate = 0
 
     try:
         name = data['name']
@@ -70,15 +57,18 @@ def employeeAdd():
         address = data['address']
         eContact = data['econtact']
         payRate = float(data['payrate'])
+        isAdmin = int(data['isadmin'])
     except (ValueError, KeyError):
         abort(400)
 
-    addEmployee(name, isManager, email, phoneNumber, altEmail, prefName, address, eContact, payRate)
+    addEmployee(name, isManager, email, phoneNumber, altEmail, prefName, address, eContact, payRate, isAdmin)
     return 'Added employee', 201
 
 
 @userManagementBlueprint.route("/employees/delete", methods=['POST'])
 def employeeDelete():
+    checkAdmin()
+
     data = request.get_json()
     employeeID: int = -1
 
@@ -89,3 +79,9 @@ def employeeDelete():
 
     deleteEmployeeByID(employeeID)
     return 'Deleted employee', 201
+
+
+def checkAdmin():
+    if current_user.is_authenticated and current_user.isAdmin:
+        return
+    abort(403)
