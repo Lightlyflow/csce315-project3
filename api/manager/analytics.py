@@ -7,6 +7,10 @@ analyticsAPIBlueprint = Blueprint("analytics", __name__)
 
 @analyticsAPIBlueprint.route("/usage", methods = ['GET', 'POST'])
 def productUsage():
+    """Sets up an endpoint for the product usage report. 
+    Returns the jsonification of the product usage query to
+    be displayed. Can specify the dates or use the default 
+    value of the last 7 days."""
     if request.method == 'GET':
         currDate = datetime.today().strftime('%Y-%m-%d')
         lastWeekDate = datetime.today() - timedelta(days=7)
@@ -29,6 +33,10 @@ def productUsage():
 
 @analyticsAPIBlueprint.route("/sales", methods = ['GET', 'POST'])
 def salesHistory():
+    """Sets up an endpoint for the sales history report. 
+    Returns the jsonification of the sales history query to
+    be displayed. Can specify the dates or use the default 
+    value of the last 7 days."""
     if request.method == 'GET':
         currDate = datetime.today().strftime('%Y-%m-%d')
         lastWeekDate = datetime.today() - timedelta(days=7)
@@ -51,6 +59,10 @@ def salesHistory():
 
 @analyticsAPIBlueprint.route("/excess", methods = ['GET', 'POST'])
 def excessItems():
+    """Sets up an endpoint for the excess items report. 
+    Returns the jsonification of the excess items query to
+    be displayed. Can specify the date or use the default 
+    value of 7 days ago."""
     if request.method == 'GET':
         lastWeekDate = datetime.today() - timedelta(days=7)
         return jsonify(getExcessItems(lastWeekDate))
@@ -70,6 +82,10 @@ def excessItems():
 
 @analyticsAPIBlueprint.route("/pair", methods = ['GET', 'POST'])
 def pairFrequency():
+    """Sets up an endpoint for the pair frequency report. 
+    Returns the jsonification of the pair frequency query to
+    be displayed. Can specify the dates or use the default 
+    value of the last 7 days."""
     if request.method == 'GET':
         currDate = datetime.today().strftime('%Y-%m-%d')
         lastWeekDate = datetime.today() - timedelta(days=7)

@@ -7,6 +7,7 @@ imageAPIBlueprint = Blueprint("images", __name__)
 
 @imageAPIBlueprint.route("/upload", methods=['GET', 'POST'])
 def upload():
+    """Sets up an endpoint uploading images."""
     if request.method == 'GET':
         return render_template("manager_images.html")
     elif request.method == 'POST':
@@ -23,6 +24,7 @@ def upload():
 
 @imageAPIBlueprint.route("/delete", methods=['POST'])
 def delete():
+    """Sets up an endpoint for deleting images."""
     data = request.get_json()
     imageID = -1
     publicID = ""
@@ -39,6 +41,7 @@ def delete():
 
 @imageAPIBlueprint.route("/update", methods=['POST'])
 def update():
+    """Sets up an endpoint for updating images."""
     data = request.get_json()
     imageID = -1
     description = ""
@@ -57,4 +60,6 @@ def update():
 
 @imageAPIBlueprint.route("/get", methods=['GET'])
 def get():
+    """Sets up an endpoint to get the images. Returns
+    a jsonification of the resulting query."""
     return jsonify(imageGet())

@@ -19,6 +19,7 @@ def imageUpload(image: FileStorage, description: str | None, category: str | Non
 
 
 def imageUpdate(imageID: int, description: str | None, category: str | None):
+    """Calls the querier to update an image entry in the database"""
     description = "NULL" if description is None else description
     category = "NULL" if category is None else category
 
@@ -32,5 +33,6 @@ def imageDelete(imageID: int, publicID: str):
 
 
 def imageGet():
+    """Calls the querier and returns the image from the database"""
     result = image_querier.getImages()
     return result if result is not None else []

@@ -19,27 +19,32 @@ managerBlueprint = Blueprint("manager", __name__, template_folder="templates", s
 @managerBlueprint.before_request
 @login_required
 def requireLogin():
+    """Checks to ensure the user is authenticated."""
     if not current_user.is_authenticated or not current_user.isManager:
         abort(403)
 
 
 @managerBlueprint.route("/", methods=["GET"])
 def home():
+    """Sets up an endpoint for the default manager page."""
     return redirect(url_for('manager.analytics'))
 
 
 @managerBlueprint.route("/analytics", methods=["GET"])
 def analytics():
+    """Sets up an endpoint for the manager analytics page."""
     return render_template("manager_analytics.html")
 
 
 @managerBlueprint.route("/user_management", methods=["GET"])
 def employees():
+    """Sets up an endpoint for the manager user management page."""
     return render_template("manager_user_management.html")
 
 
 @managerBlueprint.route("/inventory", methods=["GET"])
 def inventory():
+    """Sets up an endpoint for the manager inventory page."""
     allInventory = getInventory()
     lowStock = getLowStock()
     return render_template("manager_inventory.html",
@@ -49,16 +54,19 @@ def inventory():
 
 @managerBlueprint.route("/menu", methods=["GET"])
 def menu():
+    """Sets up an endpoint for the manager menu page."""
     return render_template("manager_menu.html")
 
 
 @managerBlueprint.route("/orders", methods=['GET'])
 def orders():
+    """Sets up an endpoint for the manager orders page."""
     return render_template("manager_orders.html")
 
 
 @managerBlueprint.route("/payroll", methods=['GET'])
 def payroll():
+    """Sets up an endpoint for the manager payroll page."""
     employeeList = getEmployees()
     billingPeriods = getBillingPeriods()
     return render_template("manager_payroll.html",

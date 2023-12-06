@@ -5,22 +5,27 @@ import requests
 import datetime
 
 def getMenuData():
+    """Returns all menu items from the database."""
     return customer_querier.getMenuItems()
 
 def getToppingData():
+    """Returns all topping names from the database."""
     return customer_querier.getToppingNames()
 
 def getMenuCategories():
+    """Returns all menu categories from the database."""
     results = customer_querier.getMenuCategories()
     categories = [item for sublist in results for item in sublist]
     return categories
 
 def getCurrentTime():
+    """Returns the current time."""
     currentTime = datetime.datetime.now()
     formattedDatetime = currentTime.strftime("%Y-%m-%dT%H:%M")
     return formattedDatetime
 
 def getUserOrders():
+    """Retrieves orders for a specific user based on their associated email."""
     if (current_user.is_authenticated == True):
         results = customer_querier.getOrderInfoForUser(current_user.email)
         for result in results:
@@ -40,6 +45,7 @@ def getUserOrders():
 
 #Unused
 def getToppingNames() -> list():
+    """Returns all topping names from the database."""
     results = customer_querier.getToppingNames()
     toppingNames = []
     for topping in results:
@@ -47,6 +53,7 @@ def getToppingNames() -> list():
     return toppingNames
 
 def placeOrder(menuItems, orderDate):
+    """Executes the placing of an order. Updates order table and inventory."""
     totalPrice = 0.0
     orderId = (customer_querier.getMaxOrderId())[0][0] + 1
 
@@ -127,6 +134,7 @@ def placeOrder(menuItems, orderDate):
 
 
 def getWeather():
+    """Retrieves the weather data for College Station."""
     api_key = os.environ["WEATHER_API_KEY"]
     city_name = 'College Station'  
     #state_code = 'TX'
