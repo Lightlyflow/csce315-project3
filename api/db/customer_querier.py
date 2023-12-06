@@ -62,7 +62,7 @@ def insertIntoOrderTable(orderId, price, email, dateString):
     return execute(f"INSERT INTO order_table (orderid, employeeid, dateordered, price, email, status) VALUES ({orderId}, -1, '{dateString}', {price}, '{email}', 'pending');")
 
 def insertIntoOrderTableCurrent(orderId, price, email, employeeId):
-    return execute(f"INSERT INTO order_table (orderid, employeeid, dateordered, price, email, status) VALUES ({orderId}, {employeeId}, (NOW() AT TIME ZONE 'America/Chicago'), {price}, '{email}', 'fulfilled');")
+    return execute(f"INSERT INTO order_table (orderid, employeeid, dateordered, price, email, status) VALUES ({orderId}, {employeeId}, (NOW() AT TIME ZONE 'America/Chicago'), {price}, '{email}', 'pending');")
 
 def getMenuItemPrice(menuItemId):
     return execute(f"SELECT price FROM menu_items_table WHERE menuitemid = {menuItemId};")
