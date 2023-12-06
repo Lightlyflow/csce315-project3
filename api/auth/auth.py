@@ -15,31 +15,31 @@ CREDIT: https://blog.miguelgrinberg.com/post/oauth-authentication-with-flask-in-
 authBlueprint = Blueprint("auth", __name__, template_folder="templates", static_folder="static")
 loginManager = LoginManager()
 
-
 @loginManager.user_loader
 def load_user(user_id) -> User | None:
+    """Creates User object from given user_id. Return User object if successful."""
     return getUserByEmail(user_id)
-
 
 @loginManager.unauthorized_handler
 def unauthorized_callback():
+    """Redirects to customer home page when user attempts an unauthorized action."""
     return redirect(url_for('customer.home'))
-
 
 @authBlueprint.route("/")
 def home():
+    """Renders customer landing page."""
     return render_template("customer_landing.html")
-
 
 @authBlueprint.route("/logout")
 def logout():
+    """Redirects to customer home page when user logs out."""
     logout_user()
     flash("You have been logged out.")
     return redirect(url_for("customer.home"))
 
-
 @authBlueprint.route("/<provider>")
 def oauth2_authorize(provider: str):
+    """Authorizes user."""
     if not current_user.is_anonymous:
         return redirect(url_for('auth.loginAs'))
 
@@ -66,9 +66,9 @@ def oauth2_authorize(provider: str):
     # redirect the user to the OAuth2 provider authorization URL
     return redirect(provider_data['authorize_url'] + '?' + qs)
 
-
 @authBlueprint.route('/callback/<provider>')
 def oauth2_callback(provider):
+    """Logs in user."""
     if not current_user.is_anonymous:
         return redirect(url_for('auth.loginAs'))
 
@@ -129,6 +129,7 @@ def oauth2_callback(provider):
 
 @authBlueprint.route('/loginas')
 def loginAs():
+    """Logs in user as employee or manager."""
     if current_user.is_authenticated and current_user.isEmployee:
         return render_template("login_as.html")
     return redirect(url_for('customer.order'))
