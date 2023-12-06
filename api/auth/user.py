@@ -15,8 +15,9 @@ class User(UserMixin):
 
         # Employee Stats
         self.isEmployee: bool = False
-        self.employeeId: int = -1
         self.isManager: bool = False
+        self.isAdmin: bool = False
+        self.employeeId: int = -1
         self.employeeName: str = "NO EMPLOYEE NAME"
         self.preferredName: str = "NO PREFERRED NAME"
 
@@ -35,6 +36,7 @@ class User(UserMixin):
         self.employeeId = result[0][1]
         self.isManager = result[0][2]
         self.preferredName = result[0][3] if result[0][3] != "" else self.employeeName
+        self.isAdmin = result[0][4]
 
     def getUserStatus(self) -> None:
         result = auth_querier.getUserByEmail(self.email)
