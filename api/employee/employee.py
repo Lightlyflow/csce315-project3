@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, jsonify, abort, redirect,
 from flask_login import login_required, current_user
 
 from .employee_helper import getMenuCategories, getToppingData, placeOrder, getWeather, getMenuData
+from .orders import ordersAPIBlueprint
 from .timesheet import timesheetAPIBlueprint
 from .timesheet_helper import getBillingPeriods
 
@@ -58,5 +59,11 @@ def timesheet():
     return render_template("employee_timesheet.html", billingPeriods=getBillingPeriods())
 
 
+@employeeBlueprint.route("/orders", methods=['GET'])
+def orders():
+    return render_template("employee_orders.html")
+
+
 # Other blueprints
 employeeBlueprint.register_blueprint(timesheetAPIBlueprint, url_prefix="/timesheet")
+employeeBlueprint.register_blueprint(ordersAPIBlueprint, url_prefix="/orders")
