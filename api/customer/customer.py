@@ -33,7 +33,9 @@ def order():
     #Time
     currentTime = getCurrentTime()
     
-    return render_template("customer_home.html", menuCategories=menuCategories, menuItems=menuItems, toppingNames=toppingNames, temperature=temperature, conditions=conditions, userOrders=userOrders, currentTime=currentTime)
+    #counter
+    counter = 0
+    return render_template("customer_home.html", menuCategories=menuCategories, menuItems=menuItems, toppingNames=toppingNames, temperature=temperature, conditions=conditions, userOrders=userOrders, currentTime=currentTime, counter=counter)
 
 @customerBlueprint.route("/post_endpoint", methods=['POST'])
 def receive_saved_items():

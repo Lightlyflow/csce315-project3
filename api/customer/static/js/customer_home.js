@@ -48,7 +48,28 @@ function toggleHeight(element) {
     element.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+function handleKeyPress(element) {
+    toggleHeight(element);
 
+    var isActive = element.parentElement.classList.contains('active');
+    toggleMenuVisibility(element.parentElement, isActive);
+}
+
+function onloadElements(element) {
+    var isActive = element.classList.contains('active');
+    toggleMenuVisibility(element, isActive);
+}
+
+
+
+function toggleMenuVisibility(parentElement, isActive) {
+    var btnMenuMobiles = parentElement.querySelectorAll('.menuItems .btnMenu');
+
+    btnMenuMobiles.forEach(function(btn) {
+        btn.setAttribute('aria-hidden', !isActive);
+        btn.tabIndex = isActive ? 0 : -1;
+    });
+}
 function saveItem() {
     //Quantity
     let quantity = document.getElementById('quantityPicker').value;
