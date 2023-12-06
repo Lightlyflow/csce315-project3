@@ -8,6 +8,8 @@ inventoryAPIBlueprint = Blueprint("inventory", __name__)
 
 @inventoryAPIBlueprint.route("/order", methods=['POST'])
 def inventoryOrder():
+    """Sets up an endpoint for ordering items in the inventory. 
+    Calls orderItems with provided amount and items."""
     data = request.get_json()
     amount: float = 0
     items: [str] = []
@@ -25,6 +27,8 @@ def inventoryOrder():
 
 @inventoryAPIBlueprint.route("/orderall", methods=['POST'])
 def inventoryOrderAll():
+    """Sets up an endpoint for ordering all items in the inventory. 
+    Calls orderAllItems with the provided amount."""
     data = request.get_json()
     amount: float = 0
 
@@ -40,6 +44,8 @@ def inventoryOrderAll():
 
 @inventoryAPIBlueprint.route("/stock")
 def inventoryStock():
+    """Sets up an endpoint for inventory stock. 
+    Calls low stock if inventory is low, else gets the inventory."""
     lowStock: bool = request.args.get("low", type=bool, default=False)
 
     if lowStock:
@@ -49,6 +55,8 @@ def inventoryStock():
 
 @inventoryAPIBlueprint.route("/threshold", methods=['POST'])
 def inventoryThreshold():
+    """Sets up an endpoint for the inventory threshold.
+    Calls updateThresholds with the provided names and thresholds."""
     data = request.get_json()
     names: str = ""
     threshold: float = 0
@@ -66,6 +74,8 @@ def inventoryThreshold():
 
 @inventoryAPIBlueprint.route("/delete", methods=['POST'])
 def inventoryDelete():
+    """Sets up an endpoint to delete items from the database.
+    Calls deleteInventoryItem with the provided id."""
     data = request.get_json()
     inventoryID = -1
 
@@ -80,6 +90,8 @@ def inventoryDelete():
 
 @inventoryAPIBlueprint.route("/update", methods=['POST'])
 def inventoryUpdate():
+    """Sets up an endpoint to update items in the inventory.
+    Calls updateInventoryItem with the provided id, name, quantity, and threshold."""
     data = request.get_json()
     inventoryID = -1
     name = ""
@@ -100,6 +112,8 @@ def inventoryUpdate():
 
 @inventoryAPIBlueprint.route("/add", methods=['POST'])
 def inventoryAdd():
+    """Sets up an endpoint to add inventory items to the database.
+    Calls addinventoryItem with the provided name, quantity, and restock threshold."""
     data = request.get_json()
     name = ""
     quantity = 0

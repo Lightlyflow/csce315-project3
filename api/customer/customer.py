@@ -6,6 +6,7 @@ customerBlueprint = Blueprint("customer", __name__, template_folder="templates",
 
 @customerBlueprint.route("/")
 def home():
+    """Renders the customer landing page."""
     googleID1 = os.environ.get('GOOGLE_CLIENT_ID')
     strings = "ID: " + googleID1
     print(strings)
@@ -14,8 +15,10 @@ def home():
 
 @customerBlueprint.route("/order", methods=['GET'])
 def order():
+    """Stores menu item, category, topping, time and user order data before rendering the customer home page."""
     # Menu items dynamic loading
     menuQuery = getMenuData()
+    
     menuCategories = getMenuCategories()
     menuItems = {category: [(item[0], item[2], item[3], item[4]) for item in menuQuery if item[1] == category] for category in
                  menuCategories}
@@ -39,6 +42,7 @@ def order():
 
 @customerBlueprint.route("/post_endpoint", methods=['POST'])
 def receive_saved_items():
+    """Retrieves items that were previously saved in the cart."""
     data = request.get_json()
     if 'savedMenuItems' in data:
         savedItems = data['savedMenuItems']
