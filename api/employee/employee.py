@@ -11,6 +11,7 @@ employeeBlueprint = Blueprint("employee", __name__, template_folder="templates",
 @employeeBlueprint.before_request
 @login_required
 def requireLogin():
+    """Aborts if an unauthorized user attempts to access employee or manager pages."""
     if not current_user.is_authenticated:
         abort(403)
     if not current_user.isEmployee:
@@ -24,6 +25,7 @@ def home():
 
 @employeeBlueprint.route("/order", methods=['GET'])
 def cashier():
+    """Stores menu item, category, topping and weather information before rendering the employee home page."""
     # Menu items dynamic loading
     menuQuery = getMenuData()
     menuCategories = getMenuCategories()
@@ -44,6 +46,7 @@ def cashier():
 
 @employeeBlueprint.route("/post_endpoint", methods=['POST'])
 def receive_saved_items():
+    """Orders any items that were previously saved."""
     data = request.get_json()
     if 'savedMenuItems' in data:
         savedItems = data['savedMenuItems']
@@ -55,6 +58,7 @@ def receive_saved_items():
 
 @employeeBlueprint.route("/timesheet", methods=['GET'])
 def timesheet():
+    """Renders employee timesheet page."""
     return render_template("employee_timesheet.html", billingPeriods=getBillingPeriods())
 
 
