@@ -559,3 +559,26 @@ a:hover {color:#262f48}
     position: relative;
     margin-left: 1rem;
 }
+
+.skip {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    background: #bcbcbc;
+    transition: transform 0.3s;
+    color: black;
+    border:none;
+    padding:6px;
+}
+
+.skip:focus {
+    position: fixed;
+    width: auto;
+    height: auto;
+    top: 0;
+    left: 50%;
+    
+  }

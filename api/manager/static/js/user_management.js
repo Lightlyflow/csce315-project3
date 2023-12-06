@@ -48,10 +48,6 @@ $(document).ready(async function() {
         "scrollY": "65vh",
     });
 
-    $('.nav-tabs a').click(function() {
-        $(this).tab('show');
-    });
-
     employeeTable.on('click', 'tbody tr', async function() {
         selectedItem = employeeTable.row(this).data();
     });

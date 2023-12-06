@@ -23,6 +23,10 @@ $(document).ready(async function() {
 
     employeeID = document.getElementById("currentUser").dataset.id;
 
+    billingPeriodSelect.onchange = async function() {
+        await refreshTables();
+    }
+
     // =================== Button/Table Functions =====================
 
     $('#clockInButton').click(async function() {
