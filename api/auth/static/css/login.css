@@ -155,3 +155,10 @@ html, body {
 .fontResizeButton:hover {
     background: rgb(169, 169, 169)
 }
+
+.hideImageButton {
+    border: none;
+    background: none;
+    position: relative;
+    margin-left: 1rem;
+}

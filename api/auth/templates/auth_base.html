@@ -32,6 +32,10 @@
                 <button class="fontResizeButton" onclick="event.stopPropagation();scaleText(-5);">A-</button>
                 <button class="fontResizeButton" onclick="event.stopPropagation();scaleText(5);">A+</button>
             </div>
+            <div class="dropdown-divider"></div>
+            <li class="hideImageGroup">
+                <button class="hideImageButton" onclick="toggleImages();">Hide Images</button>
+            </li>
         </ul>
     </div>
     {% block body %} {% endblock %}

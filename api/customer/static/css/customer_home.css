@@ -165,7 +165,7 @@ a:hover {color:#262f48}
 }
 
 .btn-primary {
-    --bs-btn-bg: #d64356 !important;
+    --bs-btn-bg: #b81228 !important;
     --bs-btn-hover-bg: #a31023 !important;
     --bs-btn-border-color: #ffffff00 !important;
     --bs-btn-hover-border-color: #ffffff00 !important;
@@ -552,3 +552,33 @@ a:hover {color:#262f48}
     justify-content: center;
     align-items: center;
 }
+
+.hideImageButton {
+    border: none;
+    background: none;
+    position: relative;
+    margin-left: 1rem;
+}
+
+.skip {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    background: #bcbcbc;
+    transition: transform 0.3s;
+    color: black;
+    border:none;
+    padding:6px;
+}
+
+.skip:focus {
+    position: fixed;
+    width: auto;
+    height: auto;
+    top: 0;
+    left: 50%;
+    
+  }

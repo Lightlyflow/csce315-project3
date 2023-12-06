@@ -7,6 +7,7 @@ let employeeModalTitle = null;
 let employeeNameInput = null;
 let employeeEmailInput = null;
 let employeeManagerInput = null;
+let employeeAdminInput = null;
 let phoneNumberInput = null;
 let altEmailInput = null;
 let prefNameInput = null;
@@ -24,6 +25,7 @@ $(document).ready(async function() {
     employeeNameInput = $("#employeeNameInput")[0];
     employeeEmailInput = $("#employeeEmailInput")[0];
     employeeManagerInput = $("#employeeManagerInput")[0];
+    employeeAdminInput = $("#employeeAdminInput")[0];
     employeeModalSubmit = $("#employeeModalSubmit")[0];
     phoneNumberInput = $('#phoneNumberInput')[0];
     altEmailInput = $('#altEmailInput')[0];
@@ -60,13 +62,14 @@ $(document).ready(async function() {
 
         employeeNameInput.value = selectedItem[1];
         employeeManagerInput.checked = selectedItem[2];
-        employeeEmailInput.value = selectedItem[3];
-        phoneNumberInput.value = selectedItem[4];
-        altEmailInput.value = selectedItem[5];
-        prefNameInput.value = selectedItem[6];
-        addressInput.value = selectedItem[7];
-        eContactInput.value = selectedItem[8];
-        payRateInput.value = selectedItem[9];
+        employeeAdminInput.checked = selectedItem[3];
+        employeeEmailInput.value = selectedItem[4];
+        phoneNumberInput.value = selectedItem[5];
+        altEmailInput.value = selectedItem[6];
+        prefNameInput.value = selectedItem[7];
+        addressInput.value = selectedItem[8];
+        eContactInput.value = selectedItem[9];
+        payRateInput.value = selectedItem[10];
     });
 
     $("#addEmployee").click(function() {
@@ -104,6 +107,7 @@ $(document).ready(async function() {
             data['address'] = addressInput.value;
             data['econtact'] = eContactInput.value;
             data['payrate'] = payRateInput.value;
+            data['isadmin'] = employeeAdminInput.checked;
 
             await updateEmployee(data);
             await refreshEmployees();
@@ -117,6 +121,7 @@ $(document).ready(async function() {
             data['address'] = addressInput.value;
             data['econtact'] = eContactInput.value;
             data['payrate'] = payRateInput.value;
+            data['isadmin'] = employeeAdminInput.checked;
 
             await addEmployee(data);
             await refreshEmployees();

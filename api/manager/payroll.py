@@ -1,9 +1,17 @@
 from flask import Blueprint, abort, jsonify, request
+from flask_login import current_user
 
 from .payroll_helper import getTimesheet, addTimesheetEntry, updateTimesheetEntry, deleteTimesheetEntry, \
     getTimesheetByID, getTotalHours, getPayRate, payEmployeeByID
 
 payrollAPIBlueprint = Blueprint("payroll", __name__)
+
+
+@payrollAPIBlueprint.before_request
+def checkAdmin():
+    if current_user.is_authenticated and current_user.isAdmin:
+        return
+    abort(403)
 
 
 @payrollAPIBlueprint.route("/timesheet", methods=['GET', 'POST'])
@@ -30,10 +38,6 @@ def timesheet():
 def timesheetAdd():
     """Sets up an endpoint to add entries to a timesheet."""
     data = request.get_json()
-    employeeID = -1
-    activity = ""
-    clockIn = ""
-    clockOut = ""
 
     try:
         employeeID = int(data['employeeid'])
@@ -51,11 +55,6 @@ def timesheetAdd():
 def timesheetUpdate():
     """Sets up an endpoint to update timesheet entries."""
     data = request.get_json()
-    entryID = -1
-    employeeID = -1
-    activity = ""
-    clockIn = ""
-    clockOut = ""
 
     try:
         entryID = int(data['entryid'])
@@ -74,7 +73,6 @@ def timesheetUpdate():
 def timesheetDelete():
     """Sets up an endpoint to delete timesheet entries."""
     data = request.get_json()
-    entryID = -1
 
     try:
         entryID = int(data['entryid'])

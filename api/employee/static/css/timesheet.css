@@ -97,3 +97,19 @@
 .fontResizeButton:hover {
     background: rgb(169, 169, 169)
 }
+
+.btn-primary {
+    --bs-btn-bg: #b81228 !important;
+    --bs-btn-hover-bg: #a31023 !important;
+    --bs-btn-border-color: #ffffff00 !important;
+    --bs-btn-hover-border-color: #ffffff00 !important;
+    --bs-btn-active-bg: #a31023 !important;
+    --bs-btn-active-border-color: #ffffff00 !important;
+    background-color: #b81228 !important;
+    border-color: #b81228 !important;
+}
+
+.btn-primary:hover {
+    background-color: #a31023 !important;
+    border-color: #a31023 !important;
+}

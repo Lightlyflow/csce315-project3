@@ -37,5 +37,5 @@
 ---
 ## Generate Documentation
 1. Create the docstrings in the python file
-2. Run `./gendocs.sh`
+2. Run `./gen_docs.sh`
 3. Docs can be accessed at `/9o3yh223w8jaolp1qo2/docs/index.html`

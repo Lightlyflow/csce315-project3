@@ -76,7 +76,7 @@ def insertIntoOrderTable(orderId, price, email, dateString):
 
 def insertIntoOrderTableCurrent(orderId, price, email, employeeId):
     """Inserts an entire customer order into the database with the time of the order stored as the current time."""
-    return execute(f"INSERT INTO order_table (orderid, employeeid, dateordered, price, email, status) VALUES ({orderId}, {employeeId}, (NOW() AT TIME ZONE 'America/Chicago'), {price}, '{email}', 'fulfilled');")
+    return execute(f"INSERT INTO order_table (orderid, employeeid, dateordered, price, email, status) VALUES ({orderId}, {employeeId}, (NOW() AT TIME ZONE 'America/Chicago'), {price}, '{email}', 'pending');")
 
 def getMenuItemPrice(menuItemId):
     """Return menu item's price based on its ID."""

@@ -111,7 +111,7 @@ def placeOrder(menuItems, orderDate):
 
 
     #Order
-    if (current_user.is_authenticated == True):
+    if current_user.is_authenticated:
         currentEmail = current_user.email
     else:
         currentEmail = ''

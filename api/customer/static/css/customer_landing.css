@@ -261,6 +261,13 @@ a:hover {color:#262f48}
     margin: 0;
 }
 
+.hideImageButton {
+    border: none;
+    background: none;
+    position: relative;
+    margin-left: 1rem;
+}
+
 .weatherWidget h2 {
     font-size: 1rem;
     margin: 0;

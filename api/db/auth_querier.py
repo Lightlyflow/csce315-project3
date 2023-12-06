@@ -16,7 +16,7 @@ def addUser(email: str):
 
 def getEmployeeByEmail(email: str):
     """Returns employee from database given their associated email."""
-    return execute(f"SELECT name, employeeID, isManager, pref_name FROM employee_table WHERE email='{email}';")
+    return execute(f"SELECT name, employeeID, isManager, pref_name, isadmin FROM employee_table WHERE email='{email}';")
 
 def _createUserTable():
     """Creates user_table with auto incrementing user_id, and other properties."""
