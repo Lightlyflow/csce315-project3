@@ -553,6 +553,13 @@ a:hover {color:#262f48}
     align-items: center;
 }
 
+.hideImageButton {
+    border: none;
+    background: none;
+    position: relative;
+    margin-left: 1rem;
+}
+
 .skip {
     position: absolute;
     left: -10000px;
