@@ -1,6 +1,6 @@
 from flask import Blueprint, request, abort, jsonify
 
-from .orders_helper import getOrders, getOrderItems, markOrder
+from .orders_helper import getOrders, getOrderItems, markOrder, deleteOrder
 
 ordersAPIBlueprint = Blueprint("orders", __name__)
 
@@ -36,3 +36,17 @@ def orderMark():
 
     parts = markOrder(orderID, status)
     return "marked", 201
+
+
+@ordersAPIBlueprint.route("/delete", methods=['POST'])
+def orderDelete():
+    data = request.get_json()
+
+    try:
+        orderID = int(data['orderid'])
+    except (ValueError, KeyError):
+        abort(400)
+
+    deleteOrder(orderID)
+
+    return "deleted", 201

@@ -1,5 +1,6 @@
 let orderTable = null;
 let orderItemsTable = null;
+let deleteBtn = null;
 
 $(document).ready(async function() {
     orderTable = $("#orderTable").DataTable({
@@ -41,6 +42,17 @@ $(document).ready(async function() {
 
         await markOrder(data);
         await refreshOrders();
+        clearOrderParts();
+    });
+
+    $("#deleteBtn").click(async function() {
+        let data = {
+            'orderid': selectedItem[0],
+        };
+
+        await deleteOrder(data);
+        await refreshOrders();
+        clearOrderParts();
     });
 
     await refreshOrders();
@@ -69,6 +81,13 @@ async function markOrder(data) {
         body: JSON.stringify(data)
     });
 }
+async function deleteOrder(data) {
+    const resp = await fetch("/employee/orders/delete", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+}
 
 
 async function refreshOrders() {
@@ -86,4 +105,7 @@ async function refreshOrderParts() {
     let result = await getOrderParts(data);
     orderItemsTable.rows.add(result).draw();
     orderItemsTable.columns.adjust();
+}
+function clearOrderParts() {
+    orderItemsTable.clear().draw();
 }

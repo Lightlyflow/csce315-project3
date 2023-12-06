@@ -1,0 +1,7 @@
+.dt_row {
+    display: flex;
+    vertical-align: middle;
+    align-content: center;
+    justify-content: space-between;
+    margin: 5px;
+}

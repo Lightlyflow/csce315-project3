@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from api.db import employee_querier
+from api.db import employee_querier, manager_querier
 
 
 def getOrders():
@@ -17,3 +17,8 @@ def getOrderItems(orderID: int):
 
 def markOrder(orderID: int, status: str):
     employee_querier.markOrder(orderID, status)
+
+
+def deleteOrder(orderID: int):
+    manager_querier.deleteOrder(orderID)
+    manager_querier.deleteOrderParts(orderID)
