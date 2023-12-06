@@ -2,7 +2,7 @@ import os
 
 import cloudinary
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, send_from_directory
 
 # This must happen before the other modules are loaded!
 load_dotenv()
@@ -45,6 +45,13 @@ app.register_blueprint(employee.blueprint, url_prefix='/employee')
 
 app.static_url_path = '/static'
 app.static_folder = 'static'
+
+
+# Documentation
+@app.route("/9o3yh223w8jaolp1qo2/docs/<path:path>")
+def docs(path):
+    return send_from_directory("../docs", path)
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)
