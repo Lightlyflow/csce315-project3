@@ -16,3 +16,99 @@
     width: 100% !important;
     top:0 !important;
 }
+
+.accessButton {
+    position: fixed !important;
+    right: 20px;
+    bottom: 40px;
+    z-index: 10 !important;
+    
+    @media (max-width: 600px) {
+        top: 0 !important;
+        bottom: auto !important;
+        right: 0px !important;
+        left: auto !important;
+    }
+}
+
+.accessButton2 {
+    background-color: #fff0 !important;
+    border-color: #fff0 !important;
+}
+
+.secondaryButton {
+    background-color: #ffffff;
+    border-radius: 1rem;
+    margin-top: 1.2rem;
+    padding:10px;
+    color: black;
+    font-size: 1.4rem;
+
+}
+
+.secondaryButton:hover {
+    background-color: #e2e2e2;
+}
+
+#dropdownMenuButton {
+    border-radius: 7rem !important;
+    --bs-btn-color: #fff0 !important;
+    --bs-btn-bg: #fff0 !important;
+    --bs-btn-border-color: #fff0 !important;
+    --bs-btn-hover-color: #fff0 !important;
+    --bs-btn-hover-bg: rgba(255, 255, 255, 0) !important;
+    --bs-btn-hover-border-color: #fff0 !important;
+    --bs-btn-focus-shadow-rgb: 130,138,145;
+    --bs-btn-active-color: #fff0 !important;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125) !important;
+    --bs-btn-disabled-color: #fff0 !important;
+    --bs-btn-disabled-bg: #fff0 !important;
+    --bs-btn-disabled-border-color: #fff0 !important;
+    --bs-btn-active-border-color: #fff0 !important;
+    --bs-btn-active-bg: #fff0 !important;
+    background-color: #fff0 !important;
+    border-color: #fff0 !important;
+}
+
+.goog-te-gadget-icon {
+    display:none;
+}
+
+.goog-te-gadget-simple {
+    background-color: #ffffff !important;
+    border:0 !important;
+    font-size: .9rem !important;
+    font-weight: 500;
+    display: inline-block;
+    padding:10px 10px !important;
+    zoom: 1;
+}
+  
+.goog-te-gadget-simple  span {
+    color:#000000 !important;
+}
+
+.dropdown-menu {
+    background: #ffffff !important;
+    --bs-dropdown-link-disabled-color: black !important;
+}
+
+.textResizeGroup {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    justify-content: center;
+}
+
+.fontResizeButton {
+    border-width: 1px;
+    border-radius: 0.3rem;
+    margin-right: 10px;
+    border: none;
+    background: #e2e2e2;
+}
+
+.fontResizeButton:hover {
+    background: rgb(169, 169, 169)
+}

@@ -7,6 +7,10 @@ menuAPIBlueprint = Blueprint("menu", __name__)
 
 @menuAPIBlueprint.route("/menuitems", methods=['GET', 'POST'])
 def menuItems():
+    """Sets up an endpoint for the menu items.
+    Handles methods for adding, updating, and deleting
+    menu items. Returns statuses, or a jsonification
+    of the getMenuItems query."""
     if request.method == 'GET':
         return jsonify(getMenuItems())
     elif request.method == 'POST':
@@ -70,6 +74,10 @@ def menuItems():
 
 @menuAPIBlueprint.route("/ingredients", methods=['GET', 'POST'])
 def ingredients():
+    """Sets up an endpoint for the menu item ingredients.
+    Handles methods for adding, updating, and deleting
+    menu item ingredients. Returns statuses, or a jsonification
+    of the getIngredients query."""
     if request.method == 'GET':
         menuItemID = 0
         try:
@@ -122,6 +130,10 @@ def ingredients():
 
 @menuAPIBlueprint.route("/categories", methods=['GET', 'POST'])
 def categories():
+    """Sets up an endpoint for the menu item categories.
+    Handles methods for adding and updating menu item
+    categories. Returns statuses, or a jsonification
+    of the getMenuCategories query."""
     if request.method == 'GET':
         return jsonify(getMenuCategories())
     elif request.method == 'POST':

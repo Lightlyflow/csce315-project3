@@ -6,6 +6,7 @@ menuboardBlueprint = Blueprint("menuboard", __name__, template_folder="templates
 
 @menuboardBlueprint.route("/", methods=['GET'])
 def home():
+    """Stores menu item and category information before rendering the menuboard page."""
     # Menu items dynamic loading
     menuQuery = getMenuData()
     menuCategories = getMenuCategories()

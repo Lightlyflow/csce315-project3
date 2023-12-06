@@ -5,19 +5,23 @@ import requests
 
 
 def getMenuData():
+    """Returns all menu items from the database."""
     return customer_querier.getMenuItems()
 
 
 def getMenuCategories():
+    """Returns all menu categories from the database."""
     results = customer_querier.getMenuCategories()
     categories = [item for sublist in results for item in sublist]
 
     return categories
 
 def getToppingData():
+    """Returns all topping names from the database."""
     return customer_querier.getToppingNames()
 
 def getToppingNames() -> []:
+    """Returns all topping names from the database stored in list format."""
     results = customer_querier.getToppingNames()
     toppingNames = []
     for topping in results:
@@ -26,6 +30,7 @@ def getToppingNames() -> []:
 
 
 def placeOrder(menuItems):
+    """Executes the placing of an order. Updates order table and inventory."""
     totalPrice = 0.0
     orderId = (customer_querier.getMaxOrderId())[0][0] + 1
 
@@ -89,6 +94,7 @@ def placeOrder(menuItems):
 
 
 def getWeather():
+    """Retrieves the weather data for College Station."""
     api_key = os.environ["WEATHER_API_KEY"]
     city_name = 'College Station'
     # state_code = 'TX'

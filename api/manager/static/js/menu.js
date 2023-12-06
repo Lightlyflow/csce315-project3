@@ -87,7 +87,11 @@ $(document).ready(async function() {
         menuInStockInput.checked = selectedItem[2];
         menuCategoryInput.value = selectedItem[4];
         menuCalorieInput.value = selectedItem[5];
-        menuItemImageInput.value = selectedItem[6];
+        if (selectedItem[6] === "" || selectedItem[6] == null) {
+            menuItemImageInput.value = -1;
+        } else {
+            menuItemImageInput.value = selectedItem[6];
+        }
     })
     $('#addMenuItem').click(function() {
         menuItemMode = "add";

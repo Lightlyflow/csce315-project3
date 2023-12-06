@@ -2,6 +2,7 @@ from .querier import execute
 
 
 def addImage(description: str, url: str, category: str, publicID: str):
+    """Inserts an image into the database including which category it belongs to."""
     execute(f"INSERT INTO images (description, url, category, publicID) VALUES ('{description}', '{url}', '{category}', '{publicID}');")
 
 
@@ -16,4 +17,5 @@ def deleteImage(imageID: int):
 
 
 def getImages():
+    """Retrieves all images from the database."""
     return execute(f"SELECT id, publicid, description, category, url FROM images;")

@@ -48,7 +48,28 @@ function toggleHeight(element) {
     element.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
+function handleKeyPress(element) {
+    toggleHeight(element);
 
+    var isActive = element.parentElement.classList.contains('active');
+    toggleMenuVisibility(element.parentElement, isActive);
+}
+
+function onloadElements(element) {
+    var isActive = element.classList.contains('active');
+    toggleMenuVisibility(element, isActive);
+}
+
+
+
+function toggleMenuVisibility(parentElement, isActive) {
+    var btnMenuMobiles = parentElement.querySelectorAll('.menuItems .btnMenu');
+
+    btnMenuMobiles.forEach(function(btn) {
+        btn.setAttribute('aria-hidden', !isActive);
+        btn.tabIndex = isActive ? 0 : -1;
+    });
+}
 function saveItem() {
     //Quantity
     let quantity = document.getElementById('quantityPicker').value;
@@ -328,7 +349,7 @@ function setCustomizationPrice() {
     for (let i = 0; i < toppingBoxes.length; i++) {
         let childElements = toppingBoxes[i].getElementsByClassName('topping-col-child');
         if (childElements[0].checked) {
-            currentItemPrice += parseFloat(childElements[1].id);
+            currentItemPrice += parseFloat(childElements[1].getAttribute("price"));
         }
     }
     let quantity = document.getElementById('quantityPicker').value;
@@ -455,4 +476,51 @@ function toggleActive(element) {
     } else {
         datePickerContainer.style.setProperty("display", "flex", "important"); 
     }
+}
+
+function toggleImages() {
+    var itemImages = document.getElementsByClassName('menuContents');
+    for (let i = 0; i < itemImages.length; i++) {
+        itemImages[i].style.setProperty("display", "none");
+    }
+    var shareTeaLogo = document.getElementById('sharetea-logo');
+    shareTeaLogo.setAttribute("src", "");
+    shareTeaLogo.style.setProperty("color", "blue");
+    shareTeaLogo.style.setProperty("background", "white");
+    shareTeaLogo.style.setProperty("box-shadow", "none");
+    shareTeaLogo.style.setProperty("border-radius", "7px", "important");
+    shareTeaLogo.parentElement.style.setProperty("width", "fit-content");
+
+    var shoppingCartImage = document.getElementById('shopping-cart-image-button');
+    while (shoppingCartImage.firstChild) {
+        shoppingCartImage.removeChild(shoppingCartImage.firstChild);
+    }
+    shoppingCartImage.innerHTML = "Shopping Cart";
+    shoppingCartImage.style.setProperty("color", "blue");
+    shoppingCartImage.parentElement.style.setProperty("box-shadow", "none");
+    shoppingCartImage.style.setProperty("border-radius", "7px");
+
+    var logoutButton = document.getElementById("logout-button");
+    logoutButton.style.setProperty("background", "none");
+    logoutButton.innerText = "Logout";
+    logoutButton.style.setProperty("color", "blue");
+    logoutButton.style.setProperty("background", "white");
+    logoutButton.style.setProperty("box-shadow", "none");
+    logoutButton.style.setProperty("border-radius", "7px", "important");
+    logoutButton.style.setProperty("width", "fit-content");
+    logoutButton.style.setProperty("margin-left", "1rem");
+
+
+    var accessimage = document.getElementById("dropdownMenuButton");
+    while (accessimage.firstChild) {
+        accessimage.removeChild(accessimage.firstChild);
+    }
+    accessimage.innerHTML = "Accessibility";
+    accessimage.style.setProperty("color", "blue");
+    accessimage.style.setProperty("background", "white");
+    accessimage.style.setProperty("box-shadow", "none");
+    accessimage.style.setProperty("border-radius", "7px", "important");
+    //let accessText = document.createElement("label");
+    //accessText.innerText = "Accessibility";
+    //accessimage.appendChild(accessText);
 }

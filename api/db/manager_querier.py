@@ -3,44 +3,54 @@ from .querier import execute
 
 # ===================== Inventory =====================
 def getInventory():
+    """Retrieves all inventory items from the database."""
     return execute("SELECT inventoryID, name, quantity, restockThreshold FROM inventory_table;")
 
 
 def getLowStock():
+    """Retrieves all inventory items that are low in stock from the database."""
     return execute(
         "SELECT inventoryID, name, quantity, restockThreshold FROM inventory_table WHERE quantity<restockThreshold;")
 
 
 def createIngredient(name: str):
+    """Inserts a new ingredient into the inventory table."""
     execute(f"INSERT INTO inventory_table (name, quantity) VALUES ('{name}', 0);")
 
 
 def orderItem(amount: float, name: str):
+    """Adds stock to a specific inventory item."""
     execute(f"UPDATE inventory_table SET quantity=quantity+{amount} WHERE name='{name}';")
 
 
 def orderAllItems(amount: float):
+    """Adds stock to all inventory items."""
     execute(f"UPDATE inventory_table SET quantity=quantity+{amount};")
 
 
 def updateThreshold(name: str, amount: float):
+    """Sets the restock threshold for a specific inventory item."""
     execute(f"UPDATE inventory_table SET restockThreshold={amount} WHERE name='{name}';")
 
 
 def deleteItemByID(inventoryID: int):
+    """Deletes an item from the inventory table based on its ID."""
     execute(f"DELETE FROM inventory_table WHERE inventoryid={inventoryID};")
 
 
 def updateItemByID(inventoryID: int, name: str, quantity: float, restockThreshold: float):
+    """Sets the quantity and restock threshold for a specific inventory item based on its ID."""
     execute(f"UPDATE inventory_table SET name='{name}', quantity={quantity}, restockthreshold={restockThreshold} WHERE inventoryid={inventoryID};")
 
 
 def addItemInventory(name: str, quantity: float, restockThreshold: float):
+    """Inserts a new item into the inventory table along with its quantity and restock threshold."""
     execute(f"INSERT INTO inventory_table (name, quantity, restockthreshold) VALUES ('{name}', {quantity}, {restockThreshold});")
 
 
 # ===================== Reports =====================
 def getProductUsage(startDate, endDate):
+    """Retrieves the usage data for all inventory items over a specific time period."""
     return execute(f"""SELECT inventory_table.name AS name,
             SUM(menu_part_table.quantity) AS quantity
         FROM (SELECT order_part_table.menuItemID
@@ -58,6 +68,7 @@ def getProductUsage(startDate, endDate):
 
 
 def getPairFrequency(startDate, endDate):
+    """Returns the pairs of menu items that are purchased together most often."""
     return execute(f"""Select menuItems1.name, menuItems2.name, COUNT (*) 
         AS frequency FROM order_part_table 
         AS t1 JOIN order_part_table AS t2 
@@ -76,6 +87,7 @@ def getPairFrequency(startDate, endDate):
 
 
 def getSalesHistory(startDate, endDate):
+    """Retrieves store sales history over a specific time period."""
     return execute(f"""SELECT mi.name, COUNT(op.menuitemid) AS sales
         FROM menu_items_table mi
         LEFT JOIN order_part_table op ON mi.menuitemid = op.menuitemid
@@ -86,6 +98,7 @@ def getSalesHistory(startDate, endDate):
 
 
 def getExcessItems(startDate):
+    """Returns inventory items that did not sell as much as expected over a specific time period."""
     return execute(f"""WITH ItemSales as (
             SELECT mpt.inventoryid, SUM(mpt.quantity) AS total_quantity_sold 
             FROM (
@@ -112,10 +125,12 @@ def getExcessItems(startDate):
 
 # ===================== Menu =====================
 def getMenuItems():
+    """Retrieves all menu items from the database."""
     return execute("SELECT name, price, inStock, menuItemID, category, calories, imageID FROM menu_items_table;")
 
 
 def getIngredients(menuItemID: int):
+    """Retrieves all ingredients from the database."""
     return execute(f"SELECT  inventory_table.name AS name,\
                         menu_part_table.quantity AS quantity, \
                         inventory_table.inventoryID AS inventoryID, \
@@ -127,34 +142,40 @@ def getIngredients(menuItemID: int):
 
 
 def addMenuItem(name: str, price: float, inStock: bool, category: str, calories: int, imageID: int):
+    """Inserts a new menu item into the menu items table."""
     execute(
         f"INSERT INTO menu_items_table (name, price, instock, category, calories, imageid) VALUES ('{name}', {price}, {inStock}, '{category}', {calories}, {imageID});")
 
 
 def deleteMenuItem(itemID: int):
+    """Deletes an item from the menu items table."""
     execute(f"DELETE FROM menu_items_table WHERE menuItemID={itemID};")
 
 
 def updateMenuItem(price: int, inStock: bool, name: str, category: str, calories: int, itemID: int, imageID: int):
+    """Updates the attributes of an existing menu item."""
     execute(
         f"UPDATE menu_items_table SET price={price}, inStock={inStock}, name='{name}', category='{category}', calories='{calories}', imageid={imageID} WHERE menuItemID={itemID};")
 
 
 def addIngredient(menuItemID: int, inventoryID: int, quantity: float):
-    """DOES NOT CHECK IF INGREDIENT ALREADY EXISTS!!!"""
+    """Adds a new ingredient to the menu part table."""
     execute(
         f"INSERT INTO menu_part_table (menuitemid, inventoryid, quantity) VALUES ({menuItemID}, {inventoryID}, {quantity});")
 
 
 def deleteIngredient(uniqueID: int):
+    """Deletes an ingredient from the menu part table."""
     execute(f"DELETE FROM menu_part_table WHERE uniqueID={uniqueID};")
 
 
 def updateIngredient(quantity: float, ingredientID: int):
+    """Sets the quantity of an ingredient based on its ID."""
     execute(f"UPDATE menu_part_table SET quantity={quantity} WHERE uniqueID={ingredientID}")
 
 
 def getIngredientInventoryID(name: str):
+    """Returns an ingredients ID based on its name."""
     return execute(f"SELECT inventoryID FROM inventory_table WHERE name='{name}';")
 
 
@@ -193,44 +214,52 @@ def removeUnusedCategories():
 
 # ===================== User Management =====================
 def getUsers():
+    """Retrieves all user data from the database."""
     return execute(f"SELECT user_id, username, email, employee_id FROM user_table;")
 
 
 def getEmployees():
-    return execute(f"SELECT employeeID, name, isManager, email, phone, alt_email, pref_name, address, emergency_contact, pay_rate FROM employee_table;")
+    """Returns all employee data from the database."""
+    return execute(f"SELECT employeeID, name, isManager, isAdmin, email, phone, alt_email, pref_name, address, emergency_contact, pay_rate FROM employee_table;")
 
 
-def addEmployee(name: str, isManager: bool, email: str, phoneNumber: str, altEmail: str, prefName: str, address: str, eContact: str, payRate: float):
-    execute(f"INSERT INTO employee_table (name, ismanager, email, phone, alt_email, pref_name, address, emergency_contact, pay_rate) "
-            f"VALUES ('{name}', {isManager}, '{email}', '{phoneNumber}', '{altEmail}', '{prefName}', '{address}', '{eContact}', '{payRate}');")
+def addEmployee(name: str, isManager: bool, email: str, phoneNumber: str, altEmail: str, prefName: str, address: str, eContact: str, payRate: float, isAdmin: bool):
+    """Inserts a new employee into the employee table."""
+    execute(f"INSERT INTO employee_table (name, ismanager, email, phone, alt_email, pref_name, address, emergency_contact, pay_rate, isadmin) "
+            f"VALUES ('{name}', {isManager}, '{email}', '{phoneNumber}', '{altEmail}', '{prefName}', '{address}', '{eContact}', '{payRate}', {isAdmin});")
 
 
-def updateEmployee(employeeID: int, name: str, isManager: bool, email: str, phoneNumber: str, altEmail: str, prefName: str, address: str, eContact: str, payRate: float):
+def updateEmployee(employeeID: int, name: str, isManager: bool, email: str, phoneNumber: str, altEmail: str, prefName: str, address: str, eContact: str, payRate: float, isAdmin: bool):
+    """Updates the attributes of an existing employee."""
     execute(
         f"UPDATE employee_table "
         f"SET name='{name}',"
         f"    ismanager={isManager},"
+        f"    isadmin={isAdmin},"
         f"    email='{email}',"
         f"    phone='{phoneNumber}',"
         f"    alt_email='{altEmail}',"
         f"    pref_name='{prefName}',"
         f"    address='{address}',"
         f"    emergency_contact='{eContact}',"
-        f"    pay_rate={payRate}"
+        f"    pay_rate={payRate} "
         f"WHERE employeeid={employeeID};")
 
 
 def deleteEmployee(employeeID: int):
+    """Deletes an employee from the employee table."""
     execute(f"DELETE FROM employee_table WHERE employeeid={employeeID};")
 
 
 def updateUser(userID: int, username: str, email: str, employeeID: int):
+    """Updates the attributes of an existing user."""
     execute(
         f"UPDATE user_table SET username='{username}', email='{email}', employee_id={employeeID} WHERE user_id={userID};")
 
 
 # ===================== Orders =====================
 def getOrders(startDate: str, endDate: str):
+    """Retrieves all orders taken during a specific timeframe from the database."""
     """Dates should be in the format YYYY-MM-DD. End date is non-inclusive"""
     return execute(
         f"SELECT orderID, employeeID, dateOrdered, price, email, status FROM order_table WHERE dateordered >= '{startDate}' AND dateordered <= '{endDate}';")
