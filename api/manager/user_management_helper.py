@@ -19,16 +19,16 @@ def addUser():
     pass
 
 
-def updateEmployeeByID(employeeID: int, name: str, isManager: bool, email: str, phoneNumber: str, altEmail: str, prefName: str, address: str, eContact: str, payRate: float):
-    manager_querier.updateEmployee(employeeID, name, isManager, email, phoneNumber, altEmail, prefName, address, eContact, payRate)
+def updateEmployeeByID(employeeID: int, name: str, isManager: bool, email: str, phoneNumber: str, altEmail: str, prefName: str, address: str, eContact: str, payRate: float, isAdmin: bool):
+    manager_querier.updateEmployee(employeeID, name, isManager, email, phoneNumber, altEmail, prefName, address, eContact, payRate, isAdmin)
 
 
 def deleteEmployeeByID(employeeID: int):
     manager_querier.deleteEmployee(employeeID)
 
 
-def addEmployee(name: str, isManager: bool, email: str, phoneNumber: str, altEmail: str, prefName: str, address: str, eContact: str, payRate: float):
-    manager_querier.addEmployee(name, isManager, email, phoneNumber, altEmail, prefName, address, eContact, payRate)
+def addEmployee(name: str, isManager: bool, email: str, phoneNumber: str, altEmail: str, prefName: str, address: str, eContact: str, payRate: float, isAdmin: bool):
+    manager_querier.addEmployee(name, isManager, email, phoneNumber, altEmail, prefName, address, eContact, payRate, isAdmin)
 
 
 """

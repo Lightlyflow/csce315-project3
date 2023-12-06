@@ -55,6 +55,7 @@
                         </thead>
                         <tbody></tbody>
                     </table>
+                    {% if current_user.is_authenticated and current_user.isAdmin %}
                     <div class="btn-toolbar d-flex m-2" role="toolbar" aria-label="Employee Table Toolbar">
                         <div class="btn-group flex-fill">
                             <button type="button" class="btn btn-primary" id="deleteEmployee">Delete Employee</button>
@@ -68,6 +69,7 @@
                             <button type="button" class="btn btn-primary" id="addEmployee" data-toggle="modal" data-target="#employeeModal">Add Employee</button>
                         </div>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

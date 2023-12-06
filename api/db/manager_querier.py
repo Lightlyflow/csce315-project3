@@ -200,9 +200,9 @@ def getEmployees():
     return execute(f"SELECT employeeID, name, isManager, isAdmin, email, phone, alt_email, pref_name, address, emergency_contact, pay_rate FROM employee_table;")
 
 
-def addEmployee(name: str, isManager: bool, email: str, phoneNumber: str, altEmail: str, prefName: str, address: str, eContact: str, payRate: float):
-    execute(f"INSERT INTO employee_table (name, ismanager, email, phone, alt_email, pref_name, address, emergency_contact, pay_rate) "
-            f"VALUES ('{name}', {isManager}, '{email}', '{phoneNumber}', '{altEmail}', '{prefName}', '{address}', '{eContact}', '{payRate}');")
+def addEmployee(name: str, isManager: bool, email: str, phoneNumber: str, altEmail: str, prefName: str, address: str, eContact: str, payRate: float, isAdmin: bool):
+    execute(f"INSERT INTO employee_table (name, ismanager, email, phone, alt_email, pref_name, address, emergency_contact, pay_rate, isadmin) "
+            f"VALUES ('{name}', {isManager}, '{email}', '{phoneNumber}', '{altEmail}', '{prefName}', '{address}', '{eContact}', '{payRate}', {isAdmin});")
 
 
 def updateEmployee(employeeID: int, name: str, isManager: bool, email: str, phoneNumber: str, altEmail: str, prefName: str, address: str, eContact: str, payRate: float, isAdmin: bool):
