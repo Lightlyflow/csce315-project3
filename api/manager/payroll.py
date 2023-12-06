@@ -8,6 +8,9 @@ payrollAPIBlueprint = Blueprint("payroll", __name__)
 
 @payrollAPIBlueprint.route("/timesheet", methods=['GET', 'POST'])
 def timesheet():
+    """Sets up an endpoint for the timesheet.
+    Returns josnifications of the default timesheet
+    or a specific employee's timesheet."""
     if request.method == 'GET':
         return jsonify(getTimesheet())
     elif request.method == 'POST':
@@ -25,6 +28,7 @@ def timesheet():
 
 @payrollAPIBlueprint.route("/add", methods=['POST'])
 def timesheetAdd():
+    """Sets up an endpoint to add entries to a timesheet."""
     data = request.get_json()
     employeeID = -1
     activity = ""
@@ -45,6 +49,7 @@ def timesheetAdd():
 
 @payrollAPIBlueprint.route("/update", methods=['POST'])
 def timesheetUpdate():
+    """Sets up an endpoint to update timesheet entries."""
     data = request.get_json()
     entryID = -1
     employeeID = -1
@@ -67,6 +72,7 @@ def timesheetUpdate():
 
 @payrollAPIBlueprint.route("/delete", methods=['POST'])
 def timesheetDelete():
+    """Sets up an endpoint to delete timesheet entries."""
     data = request.get_json()
     entryID = -1
 
@@ -81,6 +87,8 @@ def timesheetDelete():
 
 @payrollAPIBlueprint.route("/hours", methods=['POST'])
 def employeeHours():
+    """Sets up an endpoint to get an employee's hours.
+    Returns a jsonification of the getTotalHours query."""
     data = request.get_json()
 
     try:
@@ -94,6 +102,8 @@ def employeeHours():
 
 @payrollAPIBlueprint.route("/payrate", methods=['POST'])
 def employeePayRate():
+    """Sets up an endpoint to get an employee's pay rate.
+    Returns a jsonification of the getPayRate query."""
     data = request.get_json()
 
     try:
@@ -106,6 +116,7 @@ def employeePayRate():
 
 @payrollAPIBlueprint.route("/pay", methods=['POST'])
 def payEmployee():
+    """Sets up an endpoint to pay employees by id."""
     data = request.get_json()
 
     try:

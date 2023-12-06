@@ -7,6 +7,8 @@ ordersAPIBlueprint = Blueprint("orders", __name__)
 
 @ordersAPIBlueprint.route("/data", methods=['POST'])
 def orderData():
+    """Sets up an endpoint to retrieve order data.
+    Gets data in the range of startDate to endDate."""
     data = request.get_json()
     startDate: str | None = None
     endDate: str | None = None
@@ -23,6 +25,8 @@ def orderData():
 
 @ordersAPIBlueprint.route("/parts", methods=['POST'])
 def orderPart():
+    """Sets up an endpoint to retrieve order part data.
+    Gets data by the order id."""
     data = request.get_json()
     orderID = -1
 
@@ -37,6 +41,7 @@ def orderPart():
 
 @ordersAPIBlueprint.route("/delete", methods=['POST'])
 def orderDelete():
+    """Sets up an endpoint to delete order data."""
     data = request.get_json()
     orderID = -1
 

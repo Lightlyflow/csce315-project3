@@ -7,16 +7,21 @@ userManagementBlueprint = Blueprint("userManagement", __name__)
 
 @userManagementBlueprint.route("/users", methods=['GET'])
 def users():
+    """Sets up an endpoint to get the users.
+    Returns a jsonification of the getUsers query."""
     return jsonify(getUsers())
 
 
 @userManagementBlueprint.route("/employees", methods=['GET'])
 def employees():
+    """Sets up an endpoint to get the employees.
+    Returns a jsonification of the getEmployees query."""
     return jsonify(getEmployees())
 
 
 @userManagementBlueprint.route("/employees/update", methods=['POST'])
 def employeeUpdate():
+    """Sets up an endpoint to update an employee's information."""
     data = request.get_json()
     employeeID = -1
     name = ""
@@ -49,6 +54,7 @@ def employeeUpdate():
 
 @userManagementBlueprint.route("/employees/add", methods=['POST'])
 def employeeAdd():
+    """Sets up an endpoint to add an employee to the database."""
     data = request.get_json()
     name = ""
     isManager = False
@@ -79,6 +85,7 @@ def employeeAdd():
 
 @userManagementBlueprint.route("/employees/delete", methods=['POST'])
 def employeeDelete():
+    """Sets up an endpoint to delete an employee from the database."""
     data = request.get_json()
     employeeID: int = -1
 

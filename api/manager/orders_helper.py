@@ -9,6 +9,7 @@ def getOrders(startDate: str, endDate: str):
 
 
 def getOrderItems(orderID: int):
+    """Calls the querier and gets orders by order id."""
     result = manager_querier.getOrderItemsByOrderID(orderID)
     return result if result is not None else []
 
@@ -21,5 +22,6 @@ def getOrderItems(orderID: int):
 
 
 def deleteOrder(orderID: int):
+    """Calls the querier and deletes orders by order id."""
     manager_querier.deleteOrder(orderID)
     manager_querier.deleteOrderParts(orderID)
