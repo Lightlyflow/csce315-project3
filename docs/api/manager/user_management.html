@@ -83,14 +83,14 @@
 </span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="nd">@userManagementBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/users&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
 </span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="k">def</span> <span class="nf">users</span><span class="p">():</span>
 </span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to get the users.</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="sd">    Returns a jsonification of the getUsers query.&quot;&quot;&quot;</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="sd">    Returns a Response of the getUsers query.&quot;&quot;&quot;</span>
 </span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getUsers</span><span class="p">())</span>
 </span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>
 </span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>
 </span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="nd">@userManagementBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/employees&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
 </span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="k">def</span> <span class="nf">employees</span><span class="p">():</span>
 </span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to get the employees.</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="sd">    Returns a jsonification of the getEmployees query.&quot;&quot;&quot;</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="sd">    Returns a Response of the getEmployees query.&quot;&quot;&quot;</span>
 </span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getEmployees</span><span class="p">())</span>
 </span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>
 </span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>
@@ -163,9 +163,13 @@
 </span><span id="L-89"><a href="#L-89"><span class="linenos">89</span></a>
 </span><span id="L-90"><a href="#L-90"><span class="linenos">90</span></a>
 </span><span id="L-91"><a href="#L-91"><span class="linenos">91</span></a><span class="k">def</span> <span class="nf">checkAdmin</span><span class="p">():</span>
-</span><span id="L-92"><a href="#L-92"><span class="linenos">92</span></a>    <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_authenticated</span> <span class="ow">and</span> <span class="n">current_user</span><span class="o">.</span><span class="n">isAdmin</span><span class="p">:</span>
-</span><span id="L-93"><a href="#L-93"><span class="linenos">93</span></a>        <span class="k">return</span>
-</span><span id="L-94"><a href="#L-94"><span class="linenos">94</span></a>    <span class="n">abort</span><span class="p">(</span><span class="mi">403</span><span class="p">)</span>
+</span><span id="L-92"><a href="#L-92"><span class="linenos">92</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-93"><a href="#L-93"><span class="linenos">93</span></a><span class="sd">    Checks whether a user is an admin or not</span>
+</span><span id="L-94"><a href="#L-94"><span class="linenos">94</span></a><span class="sd">    :return: 403 if the user in not an admin</span>
+</span><span id="L-95"><a href="#L-95"><span class="linenos">95</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-96"><a href="#L-96"><span class="linenos">96</span></a>    <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_authenticated</span> <span class="ow">and</span> <span class="n">current_user</span><span class="o">.</span><span class="n">isAdmin</span><span class="p">:</span>
+</span><span id="L-97"><a href="#L-97"><span class="linenos">97</span></a>        <span class="k">return</span>
+</span><span id="L-98"><a href="#L-98"><span class="linenos">98</span></a>    <span class="n">abort</span><span class="p">(</span><span class="mi">403</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -197,13 +201,13 @@
             <div class="pdoc-code codehilite"><pre><span></span><span id="users-10"><a href="#users-10"><span class="linenos">10</span></a><span class="nd">@userManagementBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/users&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
 </span><span id="users-11"><a href="#users-11"><span class="linenos">11</span></a><span class="k">def</span> <span class="nf">users</span><span class="p">():</span>
 </span><span id="users-12"><a href="#users-12"><span class="linenos">12</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to get the users.</span>
-</span><span id="users-13"><a href="#users-13"><span class="linenos">13</span></a><span class="sd">    Returns a jsonification of the getUsers query.&quot;&quot;&quot;</span>
+</span><span id="users-13"><a href="#users-13"><span class="linenos">13</span></a><span class="sd">    Returns a Response of the getUsers query.&quot;&quot;&quot;</span>
 </span><span id="users-14"><a href="#users-14"><span class="linenos">14</span></a>    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getUsers</span><span class="p">())</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Sets up an endpoint to get the users.
-Returns a jsonification of the getUsers query.</p>
+Returns a Response of the getUsers query.</p>
 </div>
 
 
@@ -223,13 +227,13 @@ Returns a jsonification of the getUsers query.</p>
             <div class="pdoc-code codehilite"><pre><span></span><span id="employees-17"><a href="#employees-17"><span class="linenos">17</span></a><span class="nd">@userManagementBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/employees&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
 </span><span id="employees-18"><a href="#employees-18"><span class="linenos">18</span></a><span class="k">def</span> <span class="nf">employees</span><span class="p">():</span>
 </span><span id="employees-19"><a href="#employees-19"><span class="linenos">19</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to get the employees.</span>
-</span><span id="employees-20"><a href="#employees-20"><span class="linenos">20</span></a><span class="sd">    Returns a jsonification of the getEmployees query.&quot;&quot;&quot;</span>
+</span><span id="employees-20"><a href="#employees-20"><span class="linenos">20</span></a><span class="sd">    Returns a Response of the getEmployees query.&quot;&quot;&quot;</span>
 </span><span id="employees-21"><a href="#employees-21"><span class="linenos">21</span></a>    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getEmployees</span><span class="p">())</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Sets up an endpoint to get the employees.
-Returns a jsonification of the getEmployees query.</p>
+Returns a Response of the getEmployees query.</p>
 </div>
 
 
@@ -368,13 +372,25 @@ Returns a jsonification of the getEmployees query.</p>
     </div>
     <a class="headerlink" href="#checkAdmin"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="checkAdmin-92"><a href="#checkAdmin-92"><span class="linenos">92</span></a><span class="k">def</span> <span class="nf">checkAdmin</span><span class="p">():</span>
-</span><span id="checkAdmin-93"><a href="#checkAdmin-93"><span class="linenos">93</span></a>    <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_authenticated</span> <span class="ow">and</span> <span class="n">current_user</span><span class="o">.</span><span class="n">isAdmin</span><span class="p">:</span>
-</span><span id="checkAdmin-94"><a href="#checkAdmin-94"><span class="linenos">94</span></a>        <span class="k">return</span>
-</span><span id="checkAdmin-95"><a href="#checkAdmin-95"><span class="linenos">95</span></a>    <span class="n">abort</span><span class="p">(</span><span class="mi">403</span><span class="p">)</span>
+</span><span id="checkAdmin-93"><a href="#checkAdmin-93"><span class="linenos">93</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="checkAdmin-94"><a href="#checkAdmin-94"><span class="linenos">94</span></a><span class="sd">    Checks whether a user is an admin or not</span>
+</span><span id="checkAdmin-95"><a href="#checkAdmin-95"><span class="linenos">95</span></a><span class="sd">    :return: 403 if the user in not an admin</span>
+</span><span id="checkAdmin-96"><a href="#checkAdmin-96"><span class="linenos">96</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="checkAdmin-97"><a href="#checkAdmin-97"><span class="linenos">97</span></a>    <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_authenticated</span> <span class="ow">and</span> <span class="n">current_user</span><span class="o">.</span><span class="n">isAdmin</span><span class="p">:</span>
+</span><span id="checkAdmin-98"><a href="#checkAdmin-98"><span class="linenos">98</span></a>        <span class="k">return</span>
+</span><span id="checkAdmin-99"><a href="#checkAdmin-99"><span class="linenos">99</span></a>    <span class="n">abort</span><span class="p">(</span><span class="mi">403</span><span class="p">)</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Checks whether a user is an admin or not</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>403 if the user in not an admin</p>
+</blockquote>
+</div>
+
 
                 </section>
     </main>

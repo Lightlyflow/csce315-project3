@@ -9,6 +9,10 @@ payrollAPIBlueprint = Blueprint("payroll", __name__)
 
 @payrollAPIBlueprint.before_request
 def checkAdmin():
+    """
+    Checks if the current user is an admin.
+    :return: 403 if user is not admin
+    """
     if current_user.is_authenticated and current_user.isAdmin:
         return
     abort(403)
@@ -17,7 +21,7 @@ def checkAdmin():
 @payrollAPIBlueprint.route("/timesheet", methods=['GET', 'POST'])
 def timesheet():
     """Sets up an endpoint for the timesheet.
-    Returns josnifications of the default timesheet
+    Returns Response of the default timesheet
     or a specific employee's timesheet."""
     if request.method == 'GET':
         return jsonify(getTimesheet())
@@ -86,7 +90,7 @@ def timesheetDelete():
 @payrollAPIBlueprint.route("/hours", methods=['POST'])
 def employeeHours():
     """Sets up an endpoint to get an employee's hours.
-    Returns a jsonification of the getTotalHours query."""
+    Returns a Response of the getTotalHours query."""
     data = request.get_json()
 
     try:
@@ -101,7 +105,7 @@ def employeeHours():
 @payrollAPIBlueprint.route("/payrate", methods=['POST'])
 def employeePayRate():
     """Sets up an endpoint to get an employee's pay rate.
-    Returns a jsonification of the getPayRate query."""
+    Returns a Response of the getPayRate query."""
     data = request.get_json()
 
     try:

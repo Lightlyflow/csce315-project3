@@ -45,7 +45,7 @@ def inventoryOrderAll():
 @inventoryAPIBlueprint.route("/stock")
 def inventoryStock():
     """Sets up an endpoint for inventory stock. 
-    Calls low stock if inventory is low, else gets the inventory."""
+    Calls low stock if inventory is option is set, else gets the inventory."""
     lowStock: bool = request.args.get("low", type=bool, default=False)
 
     if lowStock:
@@ -113,7 +113,7 @@ def inventoryUpdate():
 @inventoryAPIBlueprint.route("/add", methods=['POST'])
 def inventoryAdd():
     """Sets up an endpoint to add inventory items to the database.
-    Calls addinventoryItem with the provided name, quantity, and restock threshold."""
+    Calls addInventoryItem with the provided name, quantity, and restock threshold."""
     data = request.get_json()
     name = ""
     quantity = 0

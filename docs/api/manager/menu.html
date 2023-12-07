@@ -74,7 +74,7 @@
 </span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a><span class="k">def</span> <span class="nf">menuItems</span><span class="p">():</span>
 </span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint for the menu items.</span>
 </span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a><span class="sd">    Handles methods for adding, updating, and deleting</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="sd">    menu items. Returns statuses, or a jsonification</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="sd">    menu items. Returns statuses, or a Response</span>
 </span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="sd">    of the getMenuItems query.&quot;&quot;&quot;</span>
 </span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
 </span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a>        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getMenuItems</span><span class="p">())</span>
@@ -141,7 +141,7 @@
 </span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a><span class="k">def</span> <span class="nf">ingredients</span><span class="p">():</span>
 </span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint for the menu item ingredients.</span>
 </span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a><span class="sd">    Handles methods for adding, updating, and deleting</span>
-</span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a><span class="sd">    menu item ingredients. Returns statuses, or a jsonification</span>
+</span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a><span class="sd">    menu item ingredients. Returns statuses, or a Response</span>
 </span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a><span class="sd">    of the getIngredients query.&quot;&quot;&quot;</span>
 </span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
 </span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a>        <span class="n">menuItemID</span> <span class="o">=</span> <span class="mi">0</span>
@@ -197,7 +197,7 @@
 </span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a><span class="k">def</span> <span class="nf">categories</span><span class="p">():</span>
 </span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint for the menu item categories.</span>
 </span><span id="L-134"><a href="#L-134"><span class="linenos">134</span></a><span class="sd">    Handles methods for adding and updating menu item</span>
-</span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a><span class="sd">    categories. Returns statuses, or a jsonification</span>
+</span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a><span class="sd">    categories. Returns statuses, or a Response</span>
 </span><span id="L-136"><a href="#L-136"><span class="linenos">136</span></a><span class="sd">    of the getMenuCategories query.&quot;&quot;&quot;</span>
 </span><span id="L-137"><a href="#L-137"><span class="linenos">137</span></a>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
 </span><span id="L-138"><a href="#L-138"><span class="linenos">138</span></a>        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getMenuCategories</span><span class="p">())</span>
@@ -246,7 +246,7 @@
 </span><span id="menuItems-10"><a href="#menuItems-10"><span class="linenos">10</span></a><span class="k">def</span> <span class="nf">menuItems</span><span class="p">():</span>
 </span><span id="menuItems-11"><a href="#menuItems-11"><span class="linenos">11</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint for the menu items.</span>
 </span><span id="menuItems-12"><a href="#menuItems-12"><span class="linenos">12</span></a><span class="sd">    Handles methods for adding, updating, and deleting</span>
-</span><span id="menuItems-13"><a href="#menuItems-13"><span class="linenos">13</span></a><span class="sd">    menu items. Returns statuses, or a jsonification</span>
+</span><span id="menuItems-13"><a href="#menuItems-13"><span class="linenos">13</span></a><span class="sd">    menu items. Returns statuses, or a Response</span>
 </span><span id="menuItems-14"><a href="#menuItems-14"><span class="linenos">14</span></a><span class="sd">    of the getMenuItems query.&quot;&quot;&quot;</span>
 </span><span id="menuItems-15"><a href="#menuItems-15"><span class="linenos">15</span></a>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
 </span><span id="menuItems-16"><a href="#menuItems-16"><span class="linenos">16</span></a>        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getMenuItems</span><span class="p">())</span>
@@ -312,7 +312,7 @@
 
             <div class="docstring"><p>Sets up an endpoint for the menu items.
 Handles methods for adding, updating, and deleting
-menu items. Returns statuses, or a jsonification
+menu items. Returns statuses, or a Response
 of the getMenuItems query.</p>
 </div>
 
@@ -334,7 +334,7 @@ of the getMenuItems query.</p>
 </span><span id="ingredients-77"><a href="#ingredients-77"><span class="linenos"> 77</span></a><span class="k">def</span> <span class="nf">ingredients</span><span class="p">():</span>
 </span><span id="ingredients-78"><a href="#ingredients-78"><span class="linenos"> 78</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint for the menu item ingredients.</span>
 </span><span id="ingredients-79"><a href="#ingredients-79"><span class="linenos"> 79</span></a><span class="sd">    Handles methods for adding, updating, and deleting</span>
-</span><span id="ingredients-80"><a href="#ingredients-80"><span class="linenos"> 80</span></a><span class="sd">    menu item ingredients. Returns statuses, or a jsonification</span>
+</span><span id="ingredients-80"><a href="#ingredients-80"><span class="linenos"> 80</span></a><span class="sd">    menu item ingredients. Returns statuses, or a Response</span>
 </span><span id="ingredients-81"><a href="#ingredients-81"><span class="linenos"> 81</span></a><span class="sd">    of the getIngredients query.&quot;&quot;&quot;</span>
 </span><span id="ingredients-82"><a href="#ingredients-82"><span class="linenos"> 82</span></a>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
 </span><span id="ingredients-83"><a href="#ingredients-83"><span class="linenos"> 83</span></a>        <span class="n">menuItemID</span> <span class="o">=</span> <span class="mi">0</span>
@@ -389,7 +389,7 @@ of the getMenuItems query.</p>
 
             <div class="docstring"><p>Sets up an endpoint for the menu item ingredients.
 Handles methods for adding, updating, and deleting
-menu item ingredients. Returns statuses, or a jsonification
+menu item ingredients. Returns statuses, or a Response
 of the getIngredients query.</p>
 </div>
 
@@ -411,7 +411,7 @@ of the getIngredients query.</p>
 </span><span id="categories-133"><a href="#categories-133"><span class="linenos">133</span></a><span class="k">def</span> <span class="nf">categories</span><span class="p">():</span>
 </span><span id="categories-134"><a href="#categories-134"><span class="linenos">134</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint for the menu item categories.</span>
 </span><span id="categories-135"><a href="#categories-135"><span class="linenos">135</span></a><span class="sd">    Handles methods for adding and updating menu item</span>
-</span><span id="categories-136"><a href="#categories-136"><span class="linenos">136</span></a><span class="sd">    categories. Returns statuses, or a jsonification</span>
+</span><span id="categories-136"><a href="#categories-136"><span class="linenos">136</span></a><span class="sd">    categories. Returns statuses, or a Response</span>
 </span><span id="categories-137"><a href="#categories-137"><span class="linenos">137</span></a><span class="sd">    of the getMenuCategories query.&quot;&quot;&quot;</span>
 </span><span id="categories-138"><a href="#categories-138"><span class="linenos">138</span></a>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
 </span><span id="categories-139"><a href="#categories-139"><span class="linenos">139</span></a>        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getMenuCategories</span><span class="p">())</span>
@@ -433,7 +433,7 @@ of the getIngredients query.</p>
 
             <div class="docstring"><p>Sets up an endpoint for the menu item categories.
 Handles methods for adding and updating menu item
-categories. Returns statuses, or a jsonification
+categories. Returns statuses, or a Response
 of the getMenuCategories query.</p>
 </div>
 

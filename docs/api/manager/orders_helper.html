@@ -65,28 +65,41 @@
 </span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a>
 </span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>
 </span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="k">def</span> <span class="nf">getOrders</span><span class="p">(</span><span class="n">startDate</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">endDate</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Gets orders from range [startDate, endDate)&quot;&quot;&quot;</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">manager_querier</span><span class="o">.</span><span class="n">getOrders</span><span class="p">(</span><span class="n">startDate</span><span class="p">,</span> <span class="n">endDate</span><span class="p">)</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>    <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="k">def</span> <span class="nf">getOrderItems</span><span class="p">(</span><span class="n">orderID</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Calls the querier and gets orders by order id.&quot;&quot;&quot;</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">manager_querier</span><span class="o">.</span><span class="n">getOrderItemsByOrderID</span><span class="p">(</span><span class="n">orderID</span><span class="p">)</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>    <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="sd">    Gets orders from range [startDate, endDate)</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">    :param startDate: date, inclusive</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    :param endDate: date, non-inclusive</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="sd">    :return: List containing orders</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">manager_querier</span><span class="o">.</span><span class="n">getOrders</span><span class="p">(</span><span class="n">startDate</span><span class="p">,</span> <span class="n">endDate</span><span class="p">)</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>
 </span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="c1"># def convertDate(date: str) -&gt; str:</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="c1">#     &quot;&quot;&quot;Converts from MM/DD/YYYY to YYYY-MM-DD&quot;&quot;&quot;</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="c1">#     convertedDate: struct_time = strptime(date, &quot;%m/%d/%Y&quot;)</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="c1">#     convertedDate: str = strftime(&quot;%Y-%m-%d&quot;, convertedDate)</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="c1">#     return convertedDate</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="k">def</span> <span class="nf">deleteOrder</span><span class="p">(</span><span class="n">orderID</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Calls the querier and deletes orders by order id.&quot;&quot;&quot;</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>    <span class="n">manager_querier</span><span class="o">.</span><span class="n">deleteOrder</span><span class="p">(</span><span class="n">orderID</span><span class="p">)</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>    <span class="n">manager_querier</span><span class="o">.</span><span class="n">deleteOrderParts</span><span class="p">(</span><span class="n">orderID</span><span class="p">)</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="k">def</span> <span class="nf">getOrderItems</span><span class="p">(</span><span class="n">orderID</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="sd">    Calls the querier and gets orders by order id.</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="sd">    :param orderID: order ID</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="sd">    :return: List containing order items</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">manager_querier</span><span class="o">.</span><span class="n">getOrderItemsByOrderID</span><span class="p">(</span><span class="n">orderID</span><span class="p">)</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="c1"># def convertDate(date: str) -&gt; str:</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="c1">#     &quot;&quot;&quot;Converts from MM/DD/YYYY to YYYY-MM-DD&quot;&quot;&quot;</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="c1">#     convertedDate: struct_time = strptime(date, &quot;%m/%d/%Y&quot;)</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="c1">#     convertedDate: str = strftime(&quot;%Y-%m-%d&quot;, convertedDate)</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="c1">#     return convertedDate</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="k">def</span> <span class="nf">deleteOrder</span><span class="p">(</span><span class="n">orderID</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="sd">    Calls the querier and deletes orders by order id.</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a><span class="sd">    :param orderID: order ID</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a><span class="sd">    :return: None</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>    <span class="n">manager_querier</span><span class="o">.</span><span class="n">deleteOrder</span><span class="p">(</span><span class="n">orderID</span><span class="p">)</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>    <span class="n">manager_querier</span><span class="o">.</span><span class="n">deleteOrderParts</span><span class="p">(</span><span class="n">orderID</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -102,14 +115,32 @@
 
     </div>
     <a class="headerlink" href="#getOrders"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="getOrders-6"><a href="#getOrders-6"><span class="linenos">6</span></a><span class="k">def</span> <span class="nf">getOrders</span><span class="p">(</span><span class="n">startDate</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">endDate</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="getOrders-7"><a href="#getOrders-7"><span class="linenos">7</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Gets orders from range [startDate, endDate)&quot;&quot;&quot;</span>
-</span><span id="getOrders-8"><a href="#getOrders-8"><span class="linenos">8</span></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">manager_querier</span><span class="o">.</span><span class="n">getOrders</span><span class="p">(</span><span class="n">startDate</span><span class="p">,</span> <span class="n">endDate</span><span class="p">)</span>
-</span><span id="getOrders-9"><a href="#getOrders-9"><span class="linenos">9</span></a>    <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="getOrders-6"><a href="#getOrders-6"><span class="linenos"> 6</span></a><span class="k">def</span> <span class="nf">getOrders</span><span class="p">(</span><span class="n">startDate</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">endDate</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="getOrders-7"><a href="#getOrders-7"><span class="linenos"> 7</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="getOrders-8"><a href="#getOrders-8"><span class="linenos"> 8</span></a><span class="sd">    Gets orders from range [startDate, endDate)</span>
+</span><span id="getOrders-9"><a href="#getOrders-9"><span class="linenos"> 9</span></a><span class="sd">    :param startDate: date, inclusive</span>
+</span><span id="getOrders-10"><a href="#getOrders-10"><span class="linenos">10</span></a><span class="sd">    :param endDate: date, non-inclusive</span>
+</span><span id="getOrders-11"><a href="#getOrders-11"><span class="linenos">11</span></a><span class="sd">    :return: List containing orders</span>
+</span><span id="getOrders-12"><a href="#getOrders-12"><span class="linenos">12</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="getOrders-13"><a href="#getOrders-13"><span class="linenos">13</span></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">manager_querier</span><span class="o">.</span><span class="n">getOrders</span><span class="p">(</span><span class="n">startDate</span><span class="p">,</span> <span class="n">endDate</span><span class="p">)</span>
+</span><span id="getOrders-14"><a href="#getOrders-14"><span class="linenos">14</span></a>    <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Gets orders from range [startDate, endDate)</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>startDate</strong>:  date, inclusive</li>
+<li><strong>endDate</strong>:  date, non-inclusive</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List containing orders</p>
+</blockquote>
 </div>
 
 
@@ -125,14 +156,30 @@
 
     </div>
     <a class="headerlink" href="#getOrderItems"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="getOrderItems-12"><a href="#getOrderItems-12"><span class="linenos">12</span></a><span class="k">def</span> <span class="nf">getOrderItems</span><span class="p">(</span><span class="n">orderID</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-</span><span id="getOrderItems-13"><a href="#getOrderItems-13"><span class="linenos">13</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Calls the querier and gets orders by order id.&quot;&quot;&quot;</span>
-</span><span id="getOrderItems-14"><a href="#getOrderItems-14"><span class="linenos">14</span></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">manager_querier</span><span class="o">.</span><span class="n">getOrderItemsByOrderID</span><span class="p">(</span><span class="n">orderID</span><span class="p">)</span>
-</span><span id="getOrderItems-15"><a href="#getOrderItems-15"><span class="linenos">15</span></a>    <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="getOrderItems-17"><a href="#getOrderItems-17"><span class="linenos">17</span></a><span class="k">def</span> <span class="nf">getOrderItems</span><span class="p">(</span><span class="n">orderID</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="getOrderItems-18"><a href="#getOrderItems-18"><span class="linenos">18</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="getOrderItems-19"><a href="#getOrderItems-19"><span class="linenos">19</span></a><span class="sd">    Calls the querier and gets orders by order id.</span>
+</span><span id="getOrderItems-20"><a href="#getOrderItems-20"><span class="linenos">20</span></a><span class="sd">    :param orderID: order ID</span>
+</span><span id="getOrderItems-21"><a href="#getOrderItems-21"><span class="linenos">21</span></a><span class="sd">    :return: List containing order items</span>
+</span><span id="getOrderItems-22"><a href="#getOrderItems-22"><span class="linenos">22</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="getOrderItems-23"><a href="#getOrderItems-23"><span class="linenos">23</span></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">manager_querier</span><span class="o">.</span><span class="n">getOrderItemsByOrderID</span><span class="p">(</span><span class="n">orderID</span><span class="p">)</span>
+</span><span id="getOrderItems-24"><a href="#getOrderItems-24"><span class="linenos">24</span></a>    <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Calls the querier and gets orders by order id.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>orderID</strong>:  order ID</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List containing order items</p>
+</blockquote>
 </div>
 
 
@@ -148,14 +195,30 @@
 
     </div>
     <a class="headerlink" href="#deleteOrder"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="deleteOrder-25"><a href="#deleteOrder-25"><span class="linenos">25</span></a><span class="k">def</span> <span class="nf">deleteOrder</span><span class="p">(</span><span class="n">orderID</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-</span><span id="deleteOrder-26"><a href="#deleteOrder-26"><span class="linenos">26</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Calls the querier and deletes orders by order id.&quot;&quot;&quot;</span>
-</span><span id="deleteOrder-27"><a href="#deleteOrder-27"><span class="linenos">27</span></a>    <span class="n">manager_querier</span><span class="o">.</span><span class="n">deleteOrder</span><span class="p">(</span><span class="n">orderID</span><span class="p">)</span>
-</span><span id="deleteOrder-28"><a href="#deleteOrder-28"><span class="linenos">28</span></a>    <span class="n">manager_querier</span><span class="o">.</span><span class="n">deleteOrderParts</span><span class="p">(</span><span class="n">orderID</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="deleteOrder-34"><a href="#deleteOrder-34"><span class="linenos">34</span></a><span class="k">def</span> <span class="nf">deleteOrder</span><span class="p">(</span><span class="n">orderID</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="deleteOrder-35"><a href="#deleteOrder-35"><span class="linenos">35</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="deleteOrder-36"><a href="#deleteOrder-36"><span class="linenos">36</span></a><span class="sd">    Calls the querier and deletes orders by order id.</span>
+</span><span id="deleteOrder-37"><a href="#deleteOrder-37"><span class="linenos">37</span></a><span class="sd">    :param orderID: order ID</span>
+</span><span id="deleteOrder-38"><a href="#deleteOrder-38"><span class="linenos">38</span></a><span class="sd">    :return: None</span>
+</span><span id="deleteOrder-39"><a href="#deleteOrder-39"><span class="linenos">39</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="deleteOrder-40"><a href="#deleteOrder-40"><span class="linenos">40</span></a>    <span class="n">manager_querier</span><span class="o">.</span><span class="n">deleteOrder</span><span class="p">(</span><span class="n">orderID</span><span class="p">)</span>
+</span><span id="deleteOrder-41"><a href="#deleteOrder-41"><span class="linenos">41</span></a>    <span class="n">manager_querier</span><span class="o">.</span><span class="n">deleteOrderParts</span><span class="p">(</span><span class="n">orderID</span><span class="p">)</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Calls the querier and deletes orders by order id.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>orderID</strong>:  order ID</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 

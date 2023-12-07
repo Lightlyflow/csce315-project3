@@ -37,12 +37,6 @@
                     <a class="function" href="#getEmployees">getEmployees</a>
             </li>
             <li>
-                    <a class="function" href="#updateUser">updateUser</a>
-            </li>
-            <li>
-                    <a class="function" href="#addUser">addUser</a>
-            </li>
-            <li>
                     <a class="function" href="#updateEmployeeByID">updateEmployeeByID</a>
             </li>
             <li>
@@ -76,45 +70,74 @@
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
 </span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a>
 </span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="k">def</span> <span class="nf">getUsers</span><span class="p">():</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Calls the querier and returns the users from the database.&quot;&quot;&quot;</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">manager_querier</span><span class="o">.</span><span class="n">getUsers</span><span class="p">()</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>    <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="k">def</span> <span class="nf">getEmployees</span><span class="p">():</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Calls the querier and returns the employees from the database.&quot;&quot;&quot;</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">manager_querier</span><span class="o">.</span><span class="n">getEmployees</span><span class="p">()</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="k">def</span> <span class="nf">updateUser</span><span class="p">():</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="k">pass</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a><span class="k">def</span> <span class="nf">addUser</span><span class="p">():</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="k">pass</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="k">def</span> <span class="nf">updateEmployeeByID</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">isManager</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">phoneNumber</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">altEmail</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prefName</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">eContact</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">payRate</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">isAdmin</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Calls the querier and updates an employee&#39;s information in the database.&quot;&quot;&quot;</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>    <span class="n">manager_querier</span><span class="o">.</span><span class="n">updateEmployee</span><span class="p">(</span><span class="n">employeeID</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">isManager</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">phoneNumber</span><span class="p">,</span> <span class="n">altEmail</span><span class="p">,</span> <span class="n">prefName</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">eContact</span><span class="p">,</span> <span class="n">payRate</span><span class="p">,</span> <span class="n">isAdmin</span><span class="p">)</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="k">def</span> <span class="nf">deleteEmployeeByID</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Calls the querier and deleted an employee by id from the database.&quot;&quot;&quot;</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>    <span class="n">manager_querier</span><span class="o">.</span><span class="n">deleteEmployee</span><span class="p">(</span><span class="n">employeeID</span><span class="p">)</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="k">def</span> <span class="nf">addEmployee</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">isManager</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">phoneNumber</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">altEmail</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prefName</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">eContact</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">payRate</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">isAdmin</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Calls the querier and adds an employee to the database.&quot;&quot;&quot;</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>    <span class="n">manager_querier</span><span class="o">.</span><span class="n">addEmployee</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">isManager</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">phoneNumber</span><span class="p">,</span> <span class="n">altEmail</span><span class="p">,</span> <span class="n">prefName</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">eContact</span><span class="p">,</span> <span class="n">payRate</span><span class="p">,</span> <span class="n">isAdmin</span><span class="p">)</span>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>
-</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a><span class="sd">1. Add emails to employees</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a><span class="sd">2. Change manager status to check email in employees</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a><span class="sd">3. (?) Remove employee_id col in user table</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="sd">    Calls the querier and returns the users from the database.</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="sd">    :return: List of users</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">manager_querier</span><span class="o">.</span><span class="n">getUsers</span><span class="p">()</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>    <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="k">def</span> <span class="nf">getEmployees</span><span class="p">():</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">    Calls the querier and returns the employees from the database.</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">    :return: List of employees</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">manager_querier</span><span class="o">.</span><span class="n">getEmployees</span><span class="p">()</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="k">def</span> <span class="nf">updateEmployeeByID</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">isManager</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">phoneNumber</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">altEmail</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prefName</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">eContact</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">payRate</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">isAdmin</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="sd">    Calls the querier and updates an employee&#39;s information in the database.</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="sd">    :param employeeID: employee ID</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="sd">    :param name: new name</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="sd">    :param isManager: new manager status</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="sd">    :param email: new email</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="sd">    :param phoneNumber: new phone number</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="sd">    :param altEmail: new alternate email</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a><span class="sd">    :param prefName: new preferred name</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a><span class="sd">    :param address: new address</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="sd">    :param eContact: new emergency contact</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="sd">    :param payRate: new pay rate</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="sd">    :param isAdmin: new admin status</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a><span class="sd">    :return: None</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>    <span class="n">manager_querier</span><span class="o">.</span><span class="n">updateEmployee</span><span class="p">(</span><span class="n">employeeID</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">isManager</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">phoneNumber</span><span class="p">,</span> <span class="n">altEmail</span><span class="p">,</span> <span class="n">prefName</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">eContact</span><span class="p">,</span> <span class="n">payRate</span><span class="p">,</span> <span class="n">isAdmin</span><span class="p">)</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>
+</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a><span class="k">def</span> <span class="nf">deleteEmployeeByID</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a><span class="sd">    Calls the querier and deleted an employee by id from the database.</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a><span class="sd">    :param employeeID: employee ID</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a><span class="sd">    :return: None</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>    <span class="n">manager_querier</span><span class="o">.</span><span class="n">deleteEmployee</span><span class="p">(</span><span class="n">employeeID</span><span class="p">)</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>
+</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>
+</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a><span class="k">def</span> <span class="nf">addEmployee</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">isManager</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">phoneNumber</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">altEmail</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prefName</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">eContact</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">payRate</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">isAdmin</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a><span class="sd">    Calls the querier and adds an employee to the database.</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a><span class="sd">    :param name: new name</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a><span class="sd">    :param isManager: new manager status</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a><span class="sd">    :param email: new email</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a><span class="sd">    :param phoneNumber: new phone number</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a><span class="sd">    :param altEmail: new alternate email</span>
+</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a><span class="sd">    :param prefName: new preferred name</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a><span class="sd">    :param address: new address</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a><span class="sd">    :param eContact: new emergency contact</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a><span class="sd">    :param payRate: new pay rate</span>
+</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a><span class="sd">    :param isAdmin: new admin status</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a><span class="sd">    :return: None</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>    <span class="n">manager_querier</span><span class="o">.</span><span class="n">addEmployee</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">isManager</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">phoneNumber</span><span class="p">,</span> <span class="n">altEmail</span><span class="p">,</span> <span class="n">prefName</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">eContact</span><span class="p">,</span> <span class="n">payRate</span><span class="p">,</span> <span class="n">isAdmin</span><span class="p">)</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>
+</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a>
+</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a><span class="sd">1. Add emails to employees</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a><span class="sd">2. Change manager status to check email in employees</span>
+</span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a><span class="sd">3. (?) Remove employee_id col in user table</span>
+</span><span id="L-72"><a href="#L-72"><span class="linenos">72</span></a><span class="sd">&quot;&quot;&quot;</span>
 </span></pre></div>
 
 
@@ -130,14 +153,23 @@
 
     </div>
     <a class="headerlink" href="#getUsers"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="getUsers-5"><a href="#getUsers-5"><span class="linenos">5</span></a><span class="k">def</span> <span class="nf">getUsers</span><span class="p">():</span>
-</span><span id="getUsers-6"><a href="#getUsers-6"><span class="linenos">6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Calls the querier and returns the users from the database.&quot;&quot;&quot;</span>
-</span><span id="getUsers-7"><a href="#getUsers-7"><span class="linenos">7</span></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">manager_querier</span><span class="o">.</span><span class="n">getUsers</span><span class="p">()</span>
-</span><span id="getUsers-8"><a href="#getUsers-8"><span class="linenos">8</span></a>    <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="getUsers-5"><a href="#getUsers-5"><span class="linenos"> 5</span></a><span class="k">def</span> <span class="nf">getUsers</span><span class="p">():</span>
+</span><span id="getUsers-6"><a href="#getUsers-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="getUsers-7"><a href="#getUsers-7"><span class="linenos"> 7</span></a><span class="sd">    Calls the querier and returns the users from the database.</span>
+</span><span id="getUsers-8"><a href="#getUsers-8"><span class="linenos"> 8</span></a><span class="sd">    :return: List of users</span>
+</span><span id="getUsers-9"><a href="#getUsers-9"><span class="linenos"> 9</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="getUsers-10"><a href="#getUsers-10"><span class="linenos">10</span></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">manager_querier</span><span class="o">.</span><span class="n">getUsers</span><span class="p">()</span>
+</span><span id="getUsers-11"><a href="#getUsers-11"><span class="linenos">11</span></a>    <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Calls the querier and returns the users from the database.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List of users</p>
+</blockquote>
 </div>
 
 
@@ -153,54 +185,25 @@
 
     </div>
     <a class="headerlink" href="#getEmployees"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="getEmployees-11"><a href="#getEmployees-11"><span class="linenos">11</span></a><span class="k">def</span> <span class="nf">getEmployees</span><span class="p">():</span>
-</span><span id="getEmployees-12"><a href="#getEmployees-12"><span class="linenos">12</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Calls the querier and returns the employees from the database.&quot;&quot;&quot;</span>
-</span><span id="getEmployees-13"><a href="#getEmployees-13"><span class="linenos">13</span></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">manager_querier</span><span class="o">.</span><span class="n">getEmployees</span><span class="p">()</span>
-</span><span id="getEmployees-14"><a href="#getEmployees-14"><span class="linenos">14</span></a>    <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="getEmployees-14"><a href="#getEmployees-14"><span class="linenos">14</span></a><span class="k">def</span> <span class="nf">getEmployees</span><span class="p">():</span>
+</span><span id="getEmployees-15"><a href="#getEmployees-15"><span class="linenos">15</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="getEmployees-16"><a href="#getEmployees-16"><span class="linenos">16</span></a><span class="sd">    Calls the querier and returns the employees from the database.</span>
+</span><span id="getEmployees-17"><a href="#getEmployees-17"><span class="linenos">17</span></a><span class="sd">    :return: List of employees</span>
+</span><span id="getEmployees-18"><a href="#getEmployees-18"><span class="linenos">18</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="getEmployees-19"><a href="#getEmployees-19"><span class="linenos">19</span></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">manager_querier</span><span class="o">.</span><span class="n">getEmployees</span><span class="p">()</span>
+</span><span id="getEmployees-20"><a href="#getEmployees-20"><span class="linenos">20</span></a>    <span class="k">return</span> <span class="n">result</span> <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Calls the querier and returns the employees from the database.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List of employees</p>
+</blockquote>
 </div>
 
-
-                </section>
-                <section id="updateUser">
-                            <input id="updateUser-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr function">
-            
-        <span class="def">def</span>
-        <span class="name">updateUser</span><span class="signature pdoc-code condensed">(<span class="return-annotation">):</span></span>
-
-                <label class="view-source-button" for="updateUser-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#updateUser"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="updateUser-17"><a href="#updateUser-17"><span class="linenos">17</span></a><span class="k">def</span> <span class="nf">updateUser</span><span class="p">():</span>
-</span><span id="updateUser-18"><a href="#updateUser-18"><span class="linenos">18</span></a>    <span class="k">pass</span>
-</span></pre></div>
-
-
-    
-
-                </section>
-                <section id="addUser">
-                            <input id="addUser-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr function">
-            
-        <span class="def">def</span>
-        <span class="name">addUser</span><span class="signature pdoc-code condensed">(<span class="return-annotation">):</span></span>
-
-                <label class="view-source-button" for="addUser-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#addUser"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="addUser-21"><a href="#addUser-21"><span class="linenos">21</span></a><span class="k">def</span> <span class="nf">addUser</span><span class="p">():</span>
-</span><span id="addUser-22"><a href="#addUser-22"><span class="linenos">22</span></a>    <span class="k">pass</span>
-</span></pre></div>
-
-
-    
 
                 </section>
                 <section id="updateEmployeeByID">
@@ -214,13 +217,49 @@
 
     </div>
     <a class="headerlink" href="#updateEmployeeByID"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="updateEmployeeByID-25"><a href="#updateEmployeeByID-25"><span class="linenos">25</span></a><span class="k">def</span> <span class="nf">updateEmployeeByID</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">isManager</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">phoneNumber</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">altEmail</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prefName</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">eContact</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">payRate</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">isAdmin</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
-</span><span id="updateEmployeeByID-26"><a href="#updateEmployeeByID-26"><span class="linenos">26</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Calls the querier and updates an employee&#39;s information in the database.&quot;&quot;&quot;</span>
-</span><span id="updateEmployeeByID-27"><a href="#updateEmployeeByID-27"><span class="linenos">27</span></a>    <span class="n">manager_querier</span><span class="o">.</span><span class="n">updateEmployee</span><span class="p">(</span><span class="n">employeeID</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">isManager</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">phoneNumber</span><span class="p">,</span> <span class="n">altEmail</span><span class="p">,</span> <span class="n">prefName</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">eContact</span><span class="p">,</span> <span class="n">payRate</span><span class="p">,</span> <span class="n">isAdmin</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="updateEmployeeByID-23"><a href="#updateEmployeeByID-23"><span class="linenos">23</span></a><span class="k">def</span> <span class="nf">updateEmployeeByID</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">isManager</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">phoneNumber</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">altEmail</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prefName</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">eContact</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">payRate</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">isAdmin</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+</span><span id="updateEmployeeByID-24"><a href="#updateEmployeeByID-24"><span class="linenos">24</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="updateEmployeeByID-25"><a href="#updateEmployeeByID-25"><span class="linenos">25</span></a><span class="sd">    Calls the querier and updates an employee&#39;s information in the database.</span>
+</span><span id="updateEmployeeByID-26"><a href="#updateEmployeeByID-26"><span class="linenos">26</span></a><span class="sd">    :param employeeID: employee ID</span>
+</span><span id="updateEmployeeByID-27"><a href="#updateEmployeeByID-27"><span class="linenos">27</span></a><span class="sd">    :param name: new name</span>
+</span><span id="updateEmployeeByID-28"><a href="#updateEmployeeByID-28"><span class="linenos">28</span></a><span class="sd">    :param isManager: new manager status</span>
+</span><span id="updateEmployeeByID-29"><a href="#updateEmployeeByID-29"><span class="linenos">29</span></a><span class="sd">    :param email: new email</span>
+</span><span id="updateEmployeeByID-30"><a href="#updateEmployeeByID-30"><span class="linenos">30</span></a><span class="sd">    :param phoneNumber: new phone number</span>
+</span><span id="updateEmployeeByID-31"><a href="#updateEmployeeByID-31"><span class="linenos">31</span></a><span class="sd">    :param altEmail: new alternate email</span>
+</span><span id="updateEmployeeByID-32"><a href="#updateEmployeeByID-32"><span class="linenos">32</span></a><span class="sd">    :param prefName: new preferred name</span>
+</span><span id="updateEmployeeByID-33"><a href="#updateEmployeeByID-33"><span class="linenos">33</span></a><span class="sd">    :param address: new address</span>
+</span><span id="updateEmployeeByID-34"><a href="#updateEmployeeByID-34"><span class="linenos">34</span></a><span class="sd">    :param eContact: new emergency contact</span>
+</span><span id="updateEmployeeByID-35"><a href="#updateEmployeeByID-35"><span class="linenos">35</span></a><span class="sd">    :param payRate: new pay rate</span>
+</span><span id="updateEmployeeByID-36"><a href="#updateEmployeeByID-36"><span class="linenos">36</span></a><span class="sd">    :param isAdmin: new admin status</span>
+</span><span id="updateEmployeeByID-37"><a href="#updateEmployeeByID-37"><span class="linenos">37</span></a><span class="sd">    :return: None</span>
+</span><span id="updateEmployeeByID-38"><a href="#updateEmployeeByID-38"><span class="linenos">38</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="updateEmployeeByID-39"><a href="#updateEmployeeByID-39"><span class="linenos">39</span></a>    <span class="n">manager_querier</span><span class="o">.</span><span class="n">updateEmployee</span><span class="p">(</span><span class="n">employeeID</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">isManager</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">phoneNumber</span><span class="p">,</span> <span class="n">altEmail</span><span class="p">,</span> <span class="n">prefName</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">eContact</span><span class="p">,</span> <span class="n">payRate</span><span class="p">,</span> <span class="n">isAdmin</span><span class="p">)</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Calls the querier and updates an employee's information in the database.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>employeeID</strong>:  employee ID</li>
+<li><strong>name</strong>:  new name</li>
+<li><strong>isManager</strong>:  new manager status</li>
+<li><strong>email</strong>:  new email</li>
+<li><strong>phoneNumber</strong>:  new phone number</li>
+<li><strong>altEmail</strong>:  new alternate email</li>
+<li><strong>prefName</strong>:  new preferred name</li>
+<li><strong>address</strong>:  new address</li>
+<li><strong>eContact</strong>:  new emergency contact</li>
+<li><strong>payRate</strong>:  new pay rate</li>
+<li><strong>isAdmin</strong>:  new admin status</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -236,13 +275,29 @@
 
     </div>
     <a class="headerlink" href="#deleteEmployeeByID"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="deleteEmployeeByID-30"><a href="#deleteEmployeeByID-30"><span class="linenos">30</span></a><span class="k">def</span> <span class="nf">deleteEmployeeByID</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-</span><span id="deleteEmployeeByID-31"><a href="#deleteEmployeeByID-31"><span class="linenos">31</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Calls the querier and deleted an employee by id from the database.&quot;&quot;&quot;</span>
-</span><span id="deleteEmployeeByID-32"><a href="#deleteEmployeeByID-32"><span class="linenos">32</span></a>    <span class="n">manager_querier</span><span class="o">.</span><span class="n">deleteEmployee</span><span class="p">(</span><span class="n">employeeID</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="deleteEmployeeByID-42"><a href="#deleteEmployeeByID-42"><span class="linenos">42</span></a><span class="k">def</span> <span class="nf">deleteEmployeeByID</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="deleteEmployeeByID-43"><a href="#deleteEmployeeByID-43"><span class="linenos">43</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="deleteEmployeeByID-44"><a href="#deleteEmployeeByID-44"><span class="linenos">44</span></a><span class="sd">    Calls the querier and deleted an employee by id from the database.</span>
+</span><span id="deleteEmployeeByID-45"><a href="#deleteEmployeeByID-45"><span class="linenos">45</span></a><span class="sd">    :param employeeID: employee ID</span>
+</span><span id="deleteEmployeeByID-46"><a href="#deleteEmployeeByID-46"><span class="linenos">46</span></a><span class="sd">    :return: None</span>
+</span><span id="deleteEmployeeByID-47"><a href="#deleteEmployeeByID-47"><span class="linenos">47</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="deleteEmployeeByID-48"><a href="#deleteEmployeeByID-48"><span class="linenos">48</span></a>    <span class="n">manager_querier</span><span class="o">.</span><span class="n">deleteEmployee</span><span class="p">(</span><span class="n">employeeID</span><span class="p">)</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Calls the querier and deleted an employee by id from the database.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>employeeID</strong>:  employee ID</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -258,13 +313,47 @@
 
     </div>
     <a class="headerlink" href="#addEmployee"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="addEmployee-35"><a href="#addEmployee-35"><span class="linenos">35</span></a><span class="k">def</span> <span class="nf">addEmployee</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">isManager</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">phoneNumber</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">altEmail</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prefName</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">eContact</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">payRate</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">isAdmin</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
-</span><span id="addEmployee-36"><a href="#addEmployee-36"><span class="linenos">36</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Calls the querier and adds an employee to the database.&quot;&quot;&quot;</span>
-</span><span id="addEmployee-37"><a href="#addEmployee-37"><span class="linenos">37</span></a>    <span class="n">manager_querier</span><span class="o">.</span><span class="n">addEmployee</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">isManager</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">phoneNumber</span><span class="p">,</span> <span class="n">altEmail</span><span class="p">,</span> <span class="n">prefName</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">eContact</span><span class="p">,</span> <span class="n">payRate</span><span class="p">,</span> <span class="n">isAdmin</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="addEmployee-51"><a href="#addEmployee-51"><span class="linenos">51</span></a><span class="k">def</span> <span class="nf">addEmployee</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">isManager</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span> <span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">phoneNumber</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">altEmail</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">prefName</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">eContact</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">payRate</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">isAdmin</span><span class="p">:</span> <span class="nb">bool</span><span class="p">):</span>
+</span><span id="addEmployee-52"><a href="#addEmployee-52"><span class="linenos">52</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="addEmployee-53"><a href="#addEmployee-53"><span class="linenos">53</span></a><span class="sd">    Calls the querier and adds an employee to the database.</span>
+</span><span id="addEmployee-54"><a href="#addEmployee-54"><span class="linenos">54</span></a><span class="sd">    :param name: new name</span>
+</span><span id="addEmployee-55"><a href="#addEmployee-55"><span class="linenos">55</span></a><span class="sd">    :param isManager: new manager status</span>
+</span><span id="addEmployee-56"><a href="#addEmployee-56"><span class="linenos">56</span></a><span class="sd">    :param email: new email</span>
+</span><span id="addEmployee-57"><a href="#addEmployee-57"><span class="linenos">57</span></a><span class="sd">    :param phoneNumber: new phone number</span>
+</span><span id="addEmployee-58"><a href="#addEmployee-58"><span class="linenos">58</span></a><span class="sd">    :param altEmail: new alternate email</span>
+</span><span id="addEmployee-59"><a href="#addEmployee-59"><span class="linenos">59</span></a><span class="sd">    :param prefName: new preferred name</span>
+</span><span id="addEmployee-60"><a href="#addEmployee-60"><span class="linenos">60</span></a><span class="sd">    :param address: new address</span>
+</span><span id="addEmployee-61"><a href="#addEmployee-61"><span class="linenos">61</span></a><span class="sd">    :param eContact: new emergency contact</span>
+</span><span id="addEmployee-62"><a href="#addEmployee-62"><span class="linenos">62</span></a><span class="sd">    :param payRate: new pay rate</span>
+</span><span id="addEmployee-63"><a href="#addEmployee-63"><span class="linenos">63</span></a><span class="sd">    :param isAdmin: new admin status</span>
+</span><span id="addEmployee-64"><a href="#addEmployee-64"><span class="linenos">64</span></a><span class="sd">    :return: None</span>
+</span><span id="addEmployee-65"><a href="#addEmployee-65"><span class="linenos">65</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="addEmployee-66"><a href="#addEmployee-66"><span class="linenos">66</span></a>    <span class="n">manager_querier</span><span class="o">.</span><span class="n">addEmployee</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">isManager</span><span class="p">,</span> <span class="n">email</span><span class="p">,</span> <span class="n">phoneNumber</span><span class="p">,</span> <span class="n">altEmail</span><span class="p">,</span> <span class="n">prefName</span><span class="p">,</span> <span class="n">address</span><span class="p">,</span> <span class="n">eContact</span><span class="p">,</span> <span class="n">payRate</span><span class="p">,</span> <span class="n">isAdmin</span><span class="p">)</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Calls the querier and adds an employee to the database.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>name</strong>:  new name</li>
+<li><strong>isManager</strong>:  new manager status</li>
+<li><strong>email</strong>:  new email</li>
+<li><strong>phoneNumber</strong>:  new phone number</li>
+<li><strong>altEmail</strong>:  new alternate email</li>
+<li><strong>prefName</strong>:  new preferred name</li>
+<li><strong>address</strong>:  new address</li>
+<li><strong>eContact</strong>:  new emergency contact</li>
+<li><strong>payRate</strong>:  new pay rate</li>
+<li><strong>isAdmin</strong>:  new admin status</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 

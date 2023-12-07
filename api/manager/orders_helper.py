@@ -3,13 +3,22 @@ from api.db import manager_querier
 
 
 def getOrders(startDate: str, endDate: str):
-    """Gets orders from range [startDate, endDate)"""
+    """
+    Gets orders from range [startDate, endDate)
+    :param startDate: date, inclusive
+    :param endDate: date, non-inclusive
+    :return: List containing orders
+    """
     result = manager_querier.getOrders(startDate, endDate)
     return result if result is not None else []
 
 
 def getOrderItems(orderID: int):
-    """Calls the querier and gets orders by order id."""
+    """
+    Calls the querier and gets orders by order id.
+    :param orderID: order ID
+    :return: List containing order items
+    """
     result = manager_querier.getOrderItemsByOrderID(orderID)
     return result if result is not None else []
 
@@ -22,6 +31,10 @@ def getOrderItems(orderID: int):
 
 
 def deleteOrder(orderID: int):
-    """Calls the querier and deletes orders by order id."""
+    """
+    Calls the querier and deletes orders by order id.
+    :param orderID: order ID
+    :return: None
+    """
     manager_querier.deleteOrder(orderID)
     manager_querier.deleteOrderParts(orderID)

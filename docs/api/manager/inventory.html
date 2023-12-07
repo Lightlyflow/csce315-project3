@@ -122,7 +122,7 @@
 </span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a><span class="nd">@inventoryAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/stock&quot;</span><span class="p">)</span>
 </span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a><span class="k">def</span> <span class="nf">inventoryStock</span><span class="p">():</span>
 </span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint for inventory stock. </span>
-</span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a><span class="sd">    Calls low stock if inventory is low, else gets the inventory.&quot;&quot;&quot;</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a><span class="sd">    Calls low stock if inventory is option is set, else gets the inventory.&quot;&quot;&quot;</span>
 </span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a>    <span class="n">lowStock</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;low&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a>
 </span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a>    <span class="k">if</span> <span class="n">lowStock</span><span class="p">:</span>
@@ -190,7 +190,7 @@
 </span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a><span class="nd">@inventoryAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/add&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
 </span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a><span class="k">def</span> <span class="nf">inventoryAdd</span><span class="p">():</span>
 </span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to add inventory items to the database.</span>
-</span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a><span class="sd">    Calls addinventoryItem with the provided name, quantity, and restock threshold.&quot;&quot;&quot;</span>
+</span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a><span class="sd">    Calls addInventoryItem with the provided name, quantity, and restock threshold.&quot;&quot;&quot;</span>
 </span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
 </span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a>    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 </span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a>    <span class="n">quantity</span> <span class="o">=</span> <span class="mi">0</span>
@@ -310,7 +310,7 @@ Calls orderAllItems with the provided amount.</p>
             <div class="pdoc-code codehilite"><pre><span></span><span id="inventoryStock-46"><a href="#inventoryStock-46"><span class="linenos">46</span></a><span class="nd">@inventoryAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/stock&quot;</span><span class="p">)</span>
 </span><span id="inventoryStock-47"><a href="#inventoryStock-47"><span class="linenos">47</span></a><span class="k">def</span> <span class="nf">inventoryStock</span><span class="p">():</span>
 </span><span id="inventoryStock-48"><a href="#inventoryStock-48"><span class="linenos">48</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint for inventory stock. </span>
-</span><span id="inventoryStock-49"><a href="#inventoryStock-49"><span class="linenos">49</span></a><span class="sd">    Calls low stock if inventory is low, else gets the inventory.&quot;&quot;&quot;</span>
+</span><span id="inventoryStock-49"><a href="#inventoryStock-49"><span class="linenos">49</span></a><span class="sd">    Calls low stock if inventory is option is set, else gets the inventory.&quot;&quot;&quot;</span>
 </span><span id="inventoryStock-50"><a href="#inventoryStock-50"><span class="linenos">50</span></a>    <span class="n">lowStock</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;low&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </span><span id="inventoryStock-51"><a href="#inventoryStock-51"><span class="linenos">51</span></a>
 </span><span id="inventoryStock-52"><a href="#inventoryStock-52"><span class="linenos">52</span></a>    <span class="k">if</span> <span class="n">lowStock</span><span class="p">:</span>
@@ -320,7 +320,7 @@ Calls orderAllItems with the provided amount.</p>
 
 
             <div class="docstring"><p>Sets up an endpoint for inventory stock. 
-Calls low stock if inventory is low, else gets the inventory.</p>
+Calls low stock if inventory is option is set, else gets the inventory.</p>
 </div>
 
 
@@ -454,7 +454,7 @@ Calls updateInventoryItem with the provided id, name, quantity, and threshold.</
             <div class="pdoc-code codehilite"><pre><span></span><span id="inventoryAdd-114"><a href="#inventoryAdd-114"><span class="linenos">114</span></a><span class="nd">@inventoryAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/add&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
 </span><span id="inventoryAdd-115"><a href="#inventoryAdd-115"><span class="linenos">115</span></a><span class="k">def</span> <span class="nf">inventoryAdd</span><span class="p">():</span>
 </span><span id="inventoryAdd-116"><a href="#inventoryAdd-116"><span class="linenos">116</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to add inventory items to the database.</span>
-</span><span id="inventoryAdd-117"><a href="#inventoryAdd-117"><span class="linenos">117</span></a><span class="sd">    Calls addinventoryItem with the provided name, quantity, and restock threshold.&quot;&quot;&quot;</span>
+</span><span id="inventoryAdd-117"><a href="#inventoryAdd-117"><span class="linenos">117</span></a><span class="sd">    Calls addInventoryItem with the provided name, quantity, and restock threshold.&quot;&quot;&quot;</span>
 </span><span id="inventoryAdd-118"><a href="#inventoryAdd-118"><span class="linenos">118</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
 </span><span id="inventoryAdd-119"><a href="#inventoryAdd-119"><span class="linenos">119</span></a>    <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
 </span><span id="inventoryAdd-120"><a href="#inventoryAdd-120"><span class="linenos">120</span></a>    <span class="n">quantity</span> <span class="o">=</span> <span class="mi">0</span>
@@ -473,7 +473,7 @@ Calls updateInventoryItem with the provided id, name, quantity, and threshold.</
 
 
             <div class="docstring"><p>Sets up an endpoint to add inventory items to the database.
-Calls addinventoryItem with the provided name, quantity, and restock threshold.</p>
+Calls addInventoryItem with the provided name, quantity, and restock threshold.</p>
 </div>
 
 

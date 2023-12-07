@@ -75,7 +75,7 @@
 </span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>
 </span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="nd">@imageAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/upload&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
 </span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="k">def</span> <span class="nf">upload</span><span class="p">():</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint uploading images.&quot;&quot;&quot;</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint for uploading images.&quot;&quot;&quot;</span>
 </span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
 </span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;manager_images.html&quot;</span><span class="p">)</span>
 </span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
@@ -129,7 +129,7 @@
 </span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a><span class="nd">@imageAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/get&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
 </span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a><span class="k">def</span> <span class="nf">get</span><span class="p">():</span>
 </span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to get the images. Returns</span>
-</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a><span class="sd">    a jsonification of the resulting query.&quot;&quot;&quot;</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a><span class="sd">    a Response of the resulting query.&quot;&quot;&quot;</span>
 </span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">imageGet</span><span class="p">())</span>
 </span></pre></div>
 
@@ -161,7 +161,7 @@
     <a class="headerlink" href="#upload"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="upload-9"><a href="#upload-9"><span class="linenos"> 9</span></a><span class="nd">@imageAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/upload&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
 </span><span id="upload-10"><a href="#upload-10"><span class="linenos">10</span></a><span class="k">def</span> <span class="nf">upload</span><span class="p">():</span>
-</span><span id="upload-11"><a href="#upload-11"><span class="linenos">11</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint uploading images.&quot;&quot;&quot;</span>
+</span><span id="upload-11"><a href="#upload-11"><span class="linenos">11</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint for uploading images.&quot;&quot;&quot;</span>
 </span><span id="upload-12"><a href="#upload-12"><span class="linenos">12</span></a>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
 </span><span id="upload-13"><a href="#upload-13"><span class="linenos">13</span></a>        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;manager_images.html&quot;</span><span class="p">)</span>
 </span><span id="upload-14"><a href="#upload-14"><span class="linenos">14</span></a>    <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
@@ -177,7 +177,7 @@
 </span></pre></div>
 
 
-            <div class="docstring"><p>Sets up an endpoint uploading images.</p>
+            <div class="docstring"><p>Sets up an endpoint for uploading images.</p>
 </div>
 
 
@@ -269,13 +269,13 @@
             <div class="pdoc-code codehilite"><pre><span></span><span id="get-62"><a href="#get-62"><span class="linenos">62</span></a><span class="nd">@imageAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/get&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
 </span><span id="get-63"><a href="#get-63"><span class="linenos">63</span></a><span class="k">def</span> <span class="nf">get</span><span class="p">():</span>
 </span><span id="get-64"><a href="#get-64"><span class="linenos">64</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to get the images. Returns</span>
-</span><span id="get-65"><a href="#get-65"><span class="linenos">65</span></a><span class="sd">    a jsonification of the resulting query.&quot;&quot;&quot;</span>
+</span><span id="get-65"><a href="#get-65"><span class="linenos">65</span></a><span class="sd">    a Response of the resulting query.&quot;&quot;&quot;</span>
 </span><span id="get-66"><a href="#get-66"><span class="linenos">66</span></a>    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">imageGet</span><span class="p">())</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Sets up an endpoint to get the images. Returns
-a jsonification of the resulting query.</p>
+a Response of the resulting query.</p>
 </div>
 
 

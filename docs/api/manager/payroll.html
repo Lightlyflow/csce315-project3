@@ -89,122 +89,126 @@
 </span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a>
 </span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">before_request</span>
 </span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a><span class="k">def</span> <span class="nf">checkAdmin</span><span class="p">():</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a>    <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_authenticated</span> <span class="ow">and</span> <span class="n">current_user</span><span class="o">.</span><span class="n">isAdmin</span><span class="p">:</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a>        <span class="k">return</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a>    <span class="n">abort</span><span class="p">(</span><span class="mi">403</span><span class="p">)</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a>
-</span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a>
-</span><span id="L-17"><a href="#L-17"><span class="linenos"> 17</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/timesheet&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a><span class="k">def</span> <span class="nf">timesheet</span><span class="p">():</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint for the timesheet.</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a><span class="sd">    Returns josnifications of the default timesheet</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a><span class="sd">    or a specific employee&#39;s timesheet.&quot;&quot;&quot;</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a>        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getTimesheet</span><span class="p">())</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a>    <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a>        <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a>
-</span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a>        <span class="k">try</span><span class="p">:</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a>            <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a>            <span class="n">billingPeriod</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;billingperiod&#39;</span><span class="p">]</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a>        <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a>            <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a>
-</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a>        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getTimesheetByID</span><span class="p">(</span><span class="n">employeeID</span><span class="p">,</span> <span class="n">billingPeriod</span><span class="p">))</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a>    <span class="n">abort</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a>
+</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="sd">    Checks if the current user is an admin.</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a><span class="sd">    :return: 403 if user is not admin</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a>    <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_authenticated</span> <span class="ow">and</span> <span class="n">current_user</span><span class="o">.</span><span class="n">isAdmin</span><span class="p">:</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos"> 17</span></a>        <span class="k">return</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a>    <span class="n">abort</span><span class="p">(</span><span class="mi">403</span><span class="p">)</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a>
+</span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a>
+</span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/timesheet&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="k">def</span> <span class="nf">timesheet</span><span class="p">():</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint for the timesheet.</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a><span class="sd">    Returns Response of the default timesheet</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a><span class="sd">    or a specific employee&#39;s timesheet.&quot;&quot;&quot;</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a>        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getTimesheet</span><span class="p">())</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a>    <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a>        <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a>
+</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a>        <span class="k">try</span><span class="p">:</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a>            <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a>            <span class="n">billingPeriod</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;billingperiod&#39;</span><span class="p">]</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a>        <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a>            <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
 </span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a>
-</span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/add&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a><span class="k">def</span> <span class="nf">timesheetAdd</span><span class="p">():</span>
-</span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to add entries to a timesheet.&quot;&quot;&quot;</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a>
-</span><span id="L-42"><a href="#L-42"><span class="linenos"> 42</span></a>    <span class="k">try</span><span class="p">:</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a>        <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a>        <span class="n">activity</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;activity&#39;</span><span class="p">]</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a>        <span class="n">clockIn</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;clockin&#39;</span><span class="p">]</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a>        <span class="n">clockOut</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;clockout&#39;</span><span class="p">]</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
-</span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
-</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a>
-</span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a>    <span class="n">addTimesheetEntry</span><span class="p">(</span><span class="n">employeeID</span><span class="p">,</span> <span class="n">activity</span><span class="p">,</span> <span class="n">clockIn</span><span class="p">,</span> <span class="n">clockOut</span><span class="p">)</span>
-</span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a>    <span class="k">return</span> <span class="s2">&quot;Added&quot;</span><span class="p">,</span> <span class="mi">201</span>
-</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a>
+</span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a>        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getTimesheetByID</span><span class="p">(</span><span class="n">employeeID</span><span class="p">,</span> <span class="n">billingPeriod</span><span class="p">))</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a>    <span class="n">abort</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a>
+</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a>
+</span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/add&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos"> 42</span></a><span class="k">def</span> <span class="nf">timesheetAdd</span><span class="p">():</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to add entries to a timesheet.&quot;&quot;&quot;</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a>
+</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a>        <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a>        <span class="n">activity</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;activity&#39;</span><span class="p">]</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a>        <span class="n">clockIn</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;clockin&#39;</span><span class="p">]</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a>        <span class="n">clockOut</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;clockout&#39;</span><span class="p">]</span>
+</span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
 </span><span id="L-53"><a href="#L-53"><span class="linenos"> 53</span></a>
-</span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/update&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
-</span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a><span class="k">def</span> <span class="nf">timesheetUpdate</span><span class="p">():</span>
-</span><span id="L-56"><a href="#L-56"><span class="linenos"> 56</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to update timesheet entries.&quot;&quot;&quot;</span>
-</span><span id="L-57"><a href="#L-57"><span class="linenos"> 57</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-</span><span id="L-58"><a href="#L-58"><span class="linenos"> 58</span></a>
-</span><span id="L-59"><a href="#L-59"><span class="linenos"> 59</span></a>    <span class="k">try</span><span class="p">:</span>
-</span><span id="L-60"><a href="#L-60"><span class="linenos"> 60</span></a>        <span class="n">entryID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;entryid&#39;</span><span class="p">])</span>
-</span><span id="L-61"><a href="#L-61"><span class="linenos"> 61</span></a>        <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
-</span><span id="L-62"><a href="#L-62"><span class="linenos"> 62</span></a>        <span class="n">activity</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;activity&#39;</span><span class="p">]</span>
-</span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a>        <span class="n">clockIn</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;clockin&#39;</span><span class="p">]</span>
-</span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a>        <span class="n">clockOut</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;clockout&#39;</span><span class="p">]</span>
-</span><span id="L-65"><a href="#L-65"><span class="linenos"> 65</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
-</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
-</span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a>
-</span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a>    <span class="n">updateTimesheetEntry</span><span class="p">(</span><span class="n">entryID</span><span class="p">,</span> <span class="n">employeeID</span><span class="p">,</span> <span class="n">activity</span><span class="p">,</span> <span class="n">clockIn</span><span class="p">,</span> <span class="n">clockOut</span><span class="p">)</span>
-</span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a>    <span class="k">return</span> <span class="s2">&quot;Updated&quot;</span><span class="p">,</span> <span class="mi">201</span>
-</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a>
+</span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a>    <span class="n">addTimesheetEntry</span><span class="p">(</span><span class="n">employeeID</span><span class="p">,</span> <span class="n">activity</span><span class="p">,</span> <span class="n">clockIn</span><span class="p">,</span> <span class="n">clockOut</span><span class="p">)</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a>    <span class="k">return</span> <span class="s2">&quot;Added&quot;</span><span class="p">,</span> <span class="mi">201</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos"> 56</span></a>
+</span><span id="L-57"><a href="#L-57"><span class="linenos"> 57</span></a>
+</span><span id="L-58"><a href="#L-58"><span class="linenos"> 58</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/update&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos"> 59</span></a><span class="k">def</span> <span class="nf">timesheetUpdate</span><span class="p">():</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos"> 60</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to update timesheet entries.&quot;&quot;&quot;</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos"> 61</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+</span><span id="L-62"><a href="#L-62"><span class="linenos"> 62</span></a>
+</span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a>        <span class="n">entryID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;entryid&#39;</span><span class="p">])</span>
+</span><span id="L-65"><a href="#L-65"><span class="linenos"> 65</span></a>        <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a>        <span class="n">activity</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;activity&#39;</span><span class="p">]</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a>        <span class="n">clockIn</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;clockin&#39;</span><span class="p">]</span>
+</span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a>        <span class="n">clockOut</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;clockout&#39;</span><span class="p">]</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
 </span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a>
-</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/delete&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
-</span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a><span class="k">def</span> <span class="nf">timesheetDelete</span><span class="p">():</span>
-</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to delete timesheet entries.&quot;&quot;&quot;</span>
-</span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a>
-</span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a>    <span class="k">try</span><span class="p">:</span>
-</span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a>        <span class="n">entryID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;entryid&#39;</span><span class="p">])</span>
-</span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
-</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
-</span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a>
-</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a>    <span class="n">deleteTimesheetEntry</span><span class="p">(</span><span class="n">entryID</span><span class="p">)</span>
-</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a>    <span class="k">return</span> <span class="s2">&quot;Deleted&quot;</span><span class="p">,</span> <span class="mi">201</span>
-</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a>
+</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a>    <span class="n">updateTimesheetEntry</span><span class="p">(</span><span class="n">entryID</span><span class="p">,</span> <span class="n">employeeID</span><span class="p">,</span> <span class="n">activity</span><span class="p">,</span> <span class="n">clockIn</span><span class="p">,</span> <span class="n">clockOut</span><span class="p">)</span>
+</span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a>    <span class="k">return</span> <span class="s2">&quot;Updated&quot;</span><span class="p">,</span> <span class="mi">201</span>
+</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a>
+</span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a>
+</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/delete&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a><span class="k">def</span> <span class="nf">timesheetDelete</span><span class="p">():</span>
+</span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to delete timesheet entries.&quot;&quot;&quot;</span>
+</span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a>
+</span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a>        <span class="n">entryID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;entryid&#39;</span><span class="p">])</span>
+</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
 </span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a>
-</span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/hours&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
-</span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a><span class="k">def</span> <span class="nf">employeeHours</span><span class="p">():</span>
-</span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to get an employee&#39;s hours.</span>
-</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a><span class="sd">    Returns a jsonification of the getTotalHours query.&quot;&quot;&quot;</span>
-</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a>
-</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a>    <span class="k">try</span><span class="p">:</span>
-</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a>        <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
-</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a>        <span class="n">billingPeriod</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;billingperiod&#39;</span><span class="p">]</span>
-</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
-</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
-</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a>
-</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a>    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getTotalHours</span><span class="p">(</span><span class="n">employeeID</span><span class="p">,</span> <span class="n">billingPeriod</span><span class="p">))</span>
-</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a>
-</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a>
-</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/payrate&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
-</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a><span class="k">def</span> <span class="nf">employeePayRate</span><span class="p">():</span>
-</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to get an employee&#39;s pay rate.</span>
-</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a><span class="sd">    Returns a jsonification of the getPayRate query.&quot;&quot;&quot;</span>
-</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a>
-</span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a>    <span class="k">try</span><span class="p">:</span>
-</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a>        <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
-</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
-</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
-</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a>
-</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a>    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getPayRate</span><span class="p">(</span><span class="n">employeeID</span><span class="p">))</span>
-</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a>
-</span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a>
-</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/pay&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
-</span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a><span class="k">def</span> <span class="nf">payEmployee</span><span class="p">():</span>
-</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to pay employees by id.&quot;&quot;&quot;</span>
-</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a>
-</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a>    <span class="k">try</span><span class="p">:</span>
-</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a>        <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
-</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a>        <span class="n">totalPayment</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">])</span>
-</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
-</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
-</span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a>    <span class="k">if</span> <span class="n">payEmployeeByID</span><span class="p">(</span><span class="n">employeeID</span><span class="p">,</span> <span class="n">totalPayment</span><span class="p">):</span>
-</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a>        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="s2">&quot;Payment succeeded!&quot;</span><span class="p">)</span>
-</span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a>    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="s2">&quot;Payment failed!&quot;</span><span class="p">)</span>
+</span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a>    <span class="n">deleteTimesheetEntry</span><span class="p">(</span><span class="n">entryID</span><span class="p">)</span>
+</span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a>    <span class="k">return</span> <span class="s2">&quot;Deleted&quot;</span><span class="p">,</span> <span class="mi">201</span>
+</span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a>
+</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a>
+</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/hours&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a><span class="k">def</span> <span class="nf">employeeHours</span><span class="p">():</span>
+</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to get an employee&#39;s hours.</span>
+</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a><span class="sd">    Returns a Response of the getTotalHours query.&quot;&quot;&quot;</span>
+</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a>
+</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a>        <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
+</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a>        <span class="n">billingPeriod</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;billingperiod&#39;</span><span class="p">]</span>
+</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a>
+</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a>    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getTotalHours</span><span class="p">(</span><span class="n">employeeID</span><span class="p">,</span> <span class="n">billingPeriod</span><span class="p">))</span>
+</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a>
+</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a>
+</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/payrate&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a><span class="k">def</span> <span class="nf">employeePayRate</span><span class="p">():</span>
+</span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to get an employee&#39;s pay rate.</span>
+</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a><span class="sd">    Returns a Response of the getPayRate query.&quot;&quot;&quot;</span>
+</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a>
+</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a>        <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
+</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+</span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a>
+</span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a>    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getPayRate</span><span class="p">(</span><span class="n">employeeID</span><span class="p">))</span>
+</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a>
+</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a>
+</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/pay&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a><span class="k">def</span> <span class="nf">payEmployee</span><span class="p">():</span>
+</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to pay employees by id.&quot;&quot;&quot;</span>
+</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a>
+</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a>        <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
+</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a>        <span class="n">totalPayment</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">])</span>
+</span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+</span><span id="L-128"><a href="#L-128"><span class="linenos">128</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+</span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a>    <span class="k">if</span> <span class="n">payEmployeeByID</span><span class="p">(</span><span class="n">employeeID</span><span class="p">,</span> <span class="n">totalPayment</span><span class="p">):</span>
+</span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a>        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="s2">&quot;Payment succeeded!&quot;</span><span class="p">)</span>
+</span><span id="L-131"><a href="#L-131"><span class="linenos">131</span></a>    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="s2">&quot;Payment failed!&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -235,13 +239,25 @@
     <a class="headerlink" href="#checkAdmin"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="checkAdmin-11"><a href="#checkAdmin-11"><span class="linenos">11</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">before_request</span>
 </span><span id="checkAdmin-12"><a href="#checkAdmin-12"><span class="linenos">12</span></a><span class="k">def</span> <span class="nf">checkAdmin</span><span class="p">():</span>
-</span><span id="checkAdmin-13"><a href="#checkAdmin-13"><span class="linenos">13</span></a>    <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_authenticated</span> <span class="ow">and</span> <span class="n">current_user</span><span class="o">.</span><span class="n">isAdmin</span><span class="p">:</span>
-</span><span id="checkAdmin-14"><a href="#checkAdmin-14"><span class="linenos">14</span></a>        <span class="k">return</span>
-</span><span id="checkAdmin-15"><a href="#checkAdmin-15"><span class="linenos">15</span></a>    <span class="n">abort</span><span class="p">(</span><span class="mi">403</span><span class="p">)</span>
+</span><span id="checkAdmin-13"><a href="#checkAdmin-13"><span class="linenos">13</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="checkAdmin-14"><a href="#checkAdmin-14"><span class="linenos">14</span></a><span class="sd">    Checks if the current user is an admin.</span>
+</span><span id="checkAdmin-15"><a href="#checkAdmin-15"><span class="linenos">15</span></a><span class="sd">    :return: 403 if user is not admin</span>
+</span><span id="checkAdmin-16"><a href="#checkAdmin-16"><span class="linenos">16</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="checkAdmin-17"><a href="#checkAdmin-17"><span class="linenos">17</span></a>    <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_authenticated</span> <span class="ow">and</span> <span class="n">current_user</span><span class="o">.</span><span class="n">isAdmin</span><span class="p">:</span>
+</span><span id="checkAdmin-18"><a href="#checkAdmin-18"><span class="linenos">18</span></a>        <span class="k">return</span>
+</span><span id="checkAdmin-19"><a href="#checkAdmin-19"><span class="linenos">19</span></a>    <span class="n">abort</span><span class="p">(</span><span class="mi">403</span><span class="p">)</span>
 </span></pre></div>
 
 
-    
+            <div class="docstring"><p>Checks if the current user is an admin.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>403 if user is not admin</p>
+</blockquote>
+</div>
+
 
                 </section>
                 <section id="timesheet">
@@ -256,29 +272,29 @@
 
     </div>
     <a class="headerlink" href="#timesheet"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="timesheet-18"><a href="#timesheet-18"><span class="linenos">18</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/timesheet&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
-</span><span id="timesheet-19"><a href="#timesheet-19"><span class="linenos">19</span></a><span class="k">def</span> <span class="nf">timesheet</span><span class="p">():</span>
-</span><span id="timesheet-20"><a href="#timesheet-20"><span class="linenos">20</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint for the timesheet.</span>
-</span><span id="timesheet-21"><a href="#timesheet-21"><span class="linenos">21</span></a><span class="sd">    Returns josnifications of the default timesheet</span>
-</span><span id="timesheet-22"><a href="#timesheet-22"><span class="linenos">22</span></a><span class="sd">    or a specific employee&#39;s timesheet.&quot;&quot;&quot;</span>
-</span><span id="timesheet-23"><a href="#timesheet-23"><span class="linenos">23</span></a>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
-</span><span id="timesheet-24"><a href="#timesheet-24"><span class="linenos">24</span></a>        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getTimesheet</span><span class="p">())</span>
-</span><span id="timesheet-25"><a href="#timesheet-25"><span class="linenos">25</span></a>    <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
-</span><span id="timesheet-26"><a href="#timesheet-26"><span class="linenos">26</span></a>        <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-</span><span id="timesheet-27"><a href="#timesheet-27"><span class="linenos">27</span></a>
-</span><span id="timesheet-28"><a href="#timesheet-28"><span class="linenos">28</span></a>        <span class="k">try</span><span class="p">:</span>
-</span><span id="timesheet-29"><a href="#timesheet-29"><span class="linenos">29</span></a>            <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
-</span><span id="timesheet-30"><a href="#timesheet-30"><span class="linenos">30</span></a>            <span class="n">billingPeriod</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;billingperiod&#39;</span><span class="p">]</span>
-</span><span id="timesheet-31"><a href="#timesheet-31"><span class="linenos">31</span></a>        <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
-</span><span id="timesheet-32"><a href="#timesheet-32"><span class="linenos">32</span></a>            <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
-</span><span id="timesheet-33"><a href="#timesheet-33"><span class="linenos">33</span></a>
-</span><span id="timesheet-34"><a href="#timesheet-34"><span class="linenos">34</span></a>        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getTimesheetByID</span><span class="p">(</span><span class="n">employeeID</span><span class="p">,</span> <span class="n">billingPeriod</span><span class="p">))</span>
-</span><span id="timesheet-35"><a href="#timesheet-35"><span class="linenos">35</span></a>    <span class="n">abort</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="timesheet-22"><a href="#timesheet-22"><span class="linenos">22</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/timesheet&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span><span id="timesheet-23"><a href="#timesheet-23"><span class="linenos">23</span></a><span class="k">def</span> <span class="nf">timesheet</span><span class="p">():</span>
+</span><span id="timesheet-24"><a href="#timesheet-24"><span class="linenos">24</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint for the timesheet.</span>
+</span><span id="timesheet-25"><a href="#timesheet-25"><span class="linenos">25</span></a><span class="sd">    Returns Response of the default timesheet</span>
+</span><span id="timesheet-26"><a href="#timesheet-26"><span class="linenos">26</span></a><span class="sd">    or a specific employee&#39;s timesheet.&quot;&quot;&quot;</span>
+</span><span id="timesheet-27"><a href="#timesheet-27"><span class="linenos">27</span></a>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
+</span><span id="timesheet-28"><a href="#timesheet-28"><span class="linenos">28</span></a>        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getTimesheet</span><span class="p">())</span>
+</span><span id="timesheet-29"><a href="#timesheet-29"><span class="linenos">29</span></a>    <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+</span><span id="timesheet-30"><a href="#timesheet-30"><span class="linenos">30</span></a>        <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+</span><span id="timesheet-31"><a href="#timesheet-31"><span class="linenos">31</span></a>
+</span><span id="timesheet-32"><a href="#timesheet-32"><span class="linenos">32</span></a>        <span class="k">try</span><span class="p">:</span>
+</span><span id="timesheet-33"><a href="#timesheet-33"><span class="linenos">33</span></a>            <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
+</span><span id="timesheet-34"><a href="#timesheet-34"><span class="linenos">34</span></a>            <span class="n">billingPeriod</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;billingperiod&#39;</span><span class="p">]</span>
+</span><span id="timesheet-35"><a href="#timesheet-35"><span class="linenos">35</span></a>        <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+</span><span id="timesheet-36"><a href="#timesheet-36"><span class="linenos">36</span></a>            <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+</span><span id="timesheet-37"><a href="#timesheet-37"><span class="linenos">37</span></a>
+</span><span id="timesheet-38"><a href="#timesheet-38"><span class="linenos">38</span></a>        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getTimesheetByID</span><span class="p">(</span><span class="n">employeeID</span><span class="p">,</span> <span class="n">billingPeriod</span><span class="p">))</span>
+</span><span id="timesheet-39"><a href="#timesheet-39"><span class="linenos">39</span></a>    <span class="n">abort</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Sets up an endpoint for the timesheet.
-Returns josnifications of the default timesheet
+Returns Response of the default timesheet
 or a specific employee's timesheet.</p>
 </div>
 
@@ -296,21 +312,21 @@ or a specific employee's timesheet.</p>
 
     </div>
     <a class="headerlink" href="#timesheetAdd"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="timesheetAdd-38"><a href="#timesheetAdd-38"><span class="linenos">38</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/add&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
-</span><span id="timesheetAdd-39"><a href="#timesheetAdd-39"><span class="linenos">39</span></a><span class="k">def</span> <span class="nf">timesheetAdd</span><span class="p">():</span>
-</span><span id="timesheetAdd-40"><a href="#timesheetAdd-40"><span class="linenos">40</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to add entries to a timesheet.&quot;&quot;&quot;</span>
-</span><span id="timesheetAdd-41"><a href="#timesheetAdd-41"><span class="linenos">41</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-</span><span id="timesheetAdd-42"><a href="#timesheetAdd-42"><span class="linenos">42</span></a>
-</span><span id="timesheetAdd-43"><a href="#timesheetAdd-43"><span class="linenos">43</span></a>    <span class="k">try</span><span class="p">:</span>
-</span><span id="timesheetAdd-44"><a href="#timesheetAdd-44"><span class="linenos">44</span></a>        <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
-</span><span id="timesheetAdd-45"><a href="#timesheetAdd-45"><span class="linenos">45</span></a>        <span class="n">activity</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;activity&#39;</span><span class="p">]</span>
-</span><span id="timesheetAdd-46"><a href="#timesheetAdd-46"><span class="linenos">46</span></a>        <span class="n">clockIn</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;clockin&#39;</span><span class="p">]</span>
-</span><span id="timesheetAdd-47"><a href="#timesheetAdd-47"><span class="linenos">47</span></a>        <span class="n">clockOut</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;clockout&#39;</span><span class="p">]</span>
-</span><span id="timesheetAdd-48"><a href="#timesheetAdd-48"><span class="linenos">48</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
-</span><span id="timesheetAdd-49"><a href="#timesheetAdd-49"><span class="linenos">49</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
-</span><span id="timesheetAdd-50"><a href="#timesheetAdd-50"><span class="linenos">50</span></a>
-</span><span id="timesheetAdd-51"><a href="#timesheetAdd-51"><span class="linenos">51</span></a>    <span class="n">addTimesheetEntry</span><span class="p">(</span><span class="n">employeeID</span><span class="p">,</span> <span class="n">activity</span><span class="p">,</span> <span class="n">clockIn</span><span class="p">,</span> <span class="n">clockOut</span><span class="p">)</span>
-</span><span id="timesheetAdd-52"><a href="#timesheetAdd-52"><span class="linenos">52</span></a>    <span class="k">return</span> <span class="s2">&quot;Added&quot;</span><span class="p">,</span> <span class="mi">201</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="timesheetAdd-42"><a href="#timesheetAdd-42"><span class="linenos">42</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/add&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span><span id="timesheetAdd-43"><a href="#timesheetAdd-43"><span class="linenos">43</span></a><span class="k">def</span> <span class="nf">timesheetAdd</span><span class="p">():</span>
+</span><span id="timesheetAdd-44"><a href="#timesheetAdd-44"><span class="linenos">44</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to add entries to a timesheet.&quot;&quot;&quot;</span>
+</span><span id="timesheetAdd-45"><a href="#timesheetAdd-45"><span class="linenos">45</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+</span><span id="timesheetAdd-46"><a href="#timesheetAdd-46"><span class="linenos">46</span></a>
+</span><span id="timesheetAdd-47"><a href="#timesheetAdd-47"><span class="linenos">47</span></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="timesheetAdd-48"><a href="#timesheetAdd-48"><span class="linenos">48</span></a>        <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
+</span><span id="timesheetAdd-49"><a href="#timesheetAdd-49"><span class="linenos">49</span></a>        <span class="n">activity</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;activity&#39;</span><span class="p">]</span>
+</span><span id="timesheetAdd-50"><a href="#timesheetAdd-50"><span class="linenos">50</span></a>        <span class="n">clockIn</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;clockin&#39;</span><span class="p">]</span>
+</span><span id="timesheetAdd-51"><a href="#timesheetAdd-51"><span class="linenos">51</span></a>        <span class="n">clockOut</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;clockout&#39;</span><span class="p">]</span>
+</span><span id="timesheetAdd-52"><a href="#timesheetAdd-52"><span class="linenos">52</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+</span><span id="timesheetAdd-53"><a href="#timesheetAdd-53"><span class="linenos">53</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+</span><span id="timesheetAdd-54"><a href="#timesheetAdd-54"><span class="linenos">54</span></a>
+</span><span id="timesheetAdd-55"><a href="#timesheetAdd-55"><span class="linenos">55</span></a>    <span class="n">addTimesheetEntry</span><span class="p">(</span><span class="n">employeeID</span><span class="p">,</span> <span class="n">activity</span><span class="p">,</span> <span class="n">clockIn</span><span class="p">,</span> <span class="n">clockOut</span><span class="p">)</span>
+</span><span id="timesheetAdd-56"><a href="#timesheetAdd-56"><span class="linenos">56</span></a>    <span class="k">return</span> <span class="s2">&quot;Added&quot;</span><span class="p">,</span> <span class="mi">201</span>
 </span></pre></div>
 
 
@@ -331,22 +347,22 @@ or a specific employee's timesheet.</p>
 
     </div>
     <a class="headerlink" href="#timesheetUpdate"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="timesheetUpdate-55"><a href="#timesheetUpdate-55"><span class="linenos">55</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/update&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
-</span><span id="timesheetUpdate-56"><a href="#timesheetUpdate-56"><span class="linenos">56</span></a><span class="k">def</span> <span class="nf">timesheetUpdate</span><span class="p">():</span>
-</span><span id="timesheetUpdate-57"><a href="#timesheetUpdate-57"><span class="linenos">57</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to update timesheet entries.&quot;&quot;&quot;</span>
-</span><span id="timesheetUpdate-58"><a href="#timesheetUpdate-58"><span class="linenos">58</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-</span><span id="timesheetUpdate-59"><a href="#timesheetUpdate-59"><span class="linenos">59</span></a>
-</span><span id="timesheetUpdate-60"><a href="#timesheetUpdate-60"><span class="linenos">60</span></a>    <span class="k">try</span><span class="p">:</span>
-</span><span id="timesheetUpdate-61"><a href="#timesheetUpdate-61"><span class="linenos">61</span></a>        <span class="n">entryID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;entryid&#39;</span><span class="p">])</span>
-</span><span id="timesheetUpdate-62"><a href="#timesheetUpdate-62"><span class="linenos">62</span></a>        <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
-</span><span id="timesheetUpdate-63"><a href="#timesheetUpdate-63"><span class="linenos">63</span></a>        <span class="n">activity</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;activity&#39;</span><span class="p">]</span>
-</span><span id="timesheetUpdate-64"><a href="#timesheetUpdate-64"><span class="linenos">64</span></a>        <span class="n">clockIn</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;clockin&#39;</span><span class="p">]</span>
-</span><span id="timesheetUpdate-65"><a href="#timesheetUpdate-65"><span class="linenos">65</span></a>        <span class="n">clockOut</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;clockout&#39;</span><span class="p">]</span>
-</span><span id="timesheetUpdate-66"><a href="#timesheetUpdate-66"><span class="linenos">66</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
-</span><span id="timesheetUpdate-67"><a href="#timesheetUpdate-67"><span class="linenos">67</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
-</span><span id="timesheetUpdate-68"><a href="#timesheetUpdate-68"><span class="linenos">68</span></a>
-</span><span id="timesheetUpdate-69"><a href="#timesheetUpdate-69"><span class="linenos">69</span></a>    <span class="n">updateTimesheetEntry</span><span class="p">(</span><span class="n">entryID</span><span class="p">,</span> <span class="n">employeeID</span><span class="p">,</span> <span class="n">activity</span><span class="p">,</span> <span class="n">clockIn</span><span class="p">,</span> <span class="n">clockOut</span><span class="p">)</span>
-</span><span id="timesheetUpdate-70"><a href="#timesheetUpdate-70"><span class="linenos">70</span></a>    <span class="k">return</span> <span class="s2">&quot;Updated&quot;</span><span class="p">,</span> <span class="mi">201</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="timesheetUpdate-59"><a href="#timesheetUpdate-59"><span class="linenos">59</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/update&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span><span id="timesheetUpdate-60"><a href="#timesheetUpdate-60"><span class="linenos">60</span></a><span class="k">def</span> <span class="nf">timesheetUpdate</span><span class="p">():</span>
+</span><span id="timesheetUpdate-61"><a href="#timesheetUpdate-61"><span class="linenos">61</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to update timesheet entries.&quot;&quot;&quot;</span>
+</span><span id="timesheetUpdate-62"><a href="#timesheetUpdate-62"><span class="linenos">62</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+</span><span id="timesheetUpdate-63"><a href="#timesheetUpdate-63"><span class="linenos">63</span></a>
+</span><span id="timesheetUpdate-64"><a href="#timesheetUpdate-64"><span class="linenos">64</span></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="timesheetUpdate-65"><a href="#timesheetUpdate-65"><span class="linenos">65</span></a>        <span class="n">entryID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;entryid&#39;</span><span class="p">])</span>
+</span><span id="timesheetUpdate-66"><a href="#timesheetUpdate-66"><span class="linenos">66</span></a>        <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
+</span><span id="timesheetUpdate-67"><a href="#timesheetUpdate-67"><span class="linenos">67</span></a>        <span class="n">activity</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;activity&#39;</span><span class="p">]</span>
+</span><span id="timesheetUpdate-68"><a href="#timesheetUpdate-68"><span class="linenos">68</span></a>        <span class="n">clockIn</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;clockin&#39;</span><span class="p">]</span>
+</span><span id="timesheetUpdate-69"><a href="#timesheetUpdate-69"><span class="linenos">69</span></a>        <span class="n">clockOut</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;clockout&#39;</span><span class="p">]</span>
+</span><span id="timesheetUpdate-70"><a href="#timesheetUpdate-70"><span class="linenos">70</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+</span><span id="timesheetUpdate-71"><a href="#timesheetUpdate-71"><span class="linenos">71</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+</span><span id="timesheetUpdate-72"><a href="#timesheetUpdate-72"><span class="linenos">72</span></a>
+</span><span id="timesheetUpdate-73"><a href="#timesheetUpdate-73"><span class="linenos">73</span></a>    <span class="n">updateTimesheetEntry</span><span class="p">(</span><span class="n">entryID</span><span class="p">,</span> <span class="n">employeeID</span><span class="p">,</span> <span class="n">activity</span><span class="p">,</span> <span class="n">clockIn</span><span class="p">,</span> <span class="n">clockOut</span><span class="p">)</span>
+</span><span id="timesheetUpdate-74"><a href="#timesheetUpdate-74"><span class="linenos">74</span></a>    <span class="k">return</span> <span class="s2">&quot;Updated&quot;</span><span class="p">,</span> <span class="mi">201</span>
 </span></pre></div>
 
 
@@ -367,18 +383,18 @@ or a specific employee's timesheet.</p>
 
     </div>
     <a class="headerlink" href="#timesheetDelete"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="timesheetDelete-73"><a href="#timesheetDelete-73"><span class="linenos">73</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/delete&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
-</span><span id="timesheetDelete-74"><a href="#timesheetDelete-74"><span class="linenos">74</span></a><span class="k">def</span> <span class="nf">timesheetDelete</span><span class="p">():</span>
-</span><span id="timesheetDelete-75"><a href="#timesheetDelete-75"><span class="linenos">75</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to delete timesheet entries.&quot;&quot;&quot;</span>
-</span><span id="timesheetDelete-76"><a href="#timesheetDelete-76"><span class="linenos">76</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-</span><span id="timesheetDelete-77"><a href="#timesheetDelete-77"><span class="linenos">77</span></a>
-</span><span id="timesheetDelete-78"><a href="#timesheetDelete-78"><span class="linenos">78</span></a>    <span class="k">try</span><span class="p">:</span>
-</span><span id="timesheetDelete-79"><a href="#timesheetDelete-79"><span class="linenos">79</span></a>        <span class="n">entryID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;entryid&#39;</span><span class="p">])</span>
-</span><span id="timesheetDelete-80"><a href="#timesheetDelete-80"><span class="linenos">80</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
-</span><span id="timesheetDelete-81"><a href="#timesheetDelete-81"><span class="linenos">81</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
-</span><span id="timesheetDelete-82"><a href="#timesheetDelete-82"><span class="linenos">82</span></a>
-</span><span id="timesheetDelete-83"><a href="#timesheetDelete-83"><span class="linenos">83</span></a>    <span class="n">deleteTimesheetEntry</span><span class="p">(</span><span class="n">entryID</span><span class="p">)</span>
-</span><span id="timesheetDelete-84"><a href="#timesheetDelete-84"><span class="linenos">84</span></a>    <span class="k">return</span> <span class="s2">&quot;Deleted&quot;</span><span class="p">,</span> <span class="mi">201</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="timesheetDelete-77"><a href="#timesheetDelete-77"><span class="linenos">77</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/delete&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span><span id="timesheetDelete-78"><a href="#timesheetDelete-78"><span class="linenos">78</span></a><span class="k">def</span> <span class="nf">timesheetDelete</span><span class="p">():</span>
+</span><span id="timesheetDelete-79"><a href="#timesheetDelete-79"><span class="linenos">79</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to delete timesheet entries.&quot;&quot;&quot;</span>
+</span><span id="timesheetDelete-80"><a href="#timesheetDelete-80"><span class="linenos">80</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+</span><span id="timesheetDelete-81"><a href="#timesheetDelete-81"><span class="linenos">81</span></a>
+</span><span id="timesheetDelete-82"><a href="#timesheetDelete-82"><span class="linenos">82</span></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="timesheetDelete-83"><a href="#timesheetDelete-83"><span class="linenos">83</span></a>        <span class="n">entryID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;entryid&#39;</span><span class="p">])</span>
+</span><span id="timesheetDelete-84"><a href="#timesheetDelete-84"><span class="linenos">84</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+</span><span id="timesheetDelete-85"><a href="#timesheetDelete-85"><span class="linenos">85</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+</span><span id="timesheetDelete-86"><a href="#timesheetDelete-86"><span class="linenos">86</span></a>
+</span><span id="timesheetDelete-87"><a href="#timesheetDelete-87"><span class="linenos">87</span></a>    <span class="n">deleteTimesheetEntry</span><span class="p">(</span><span class="n">entryID</span><span class="p">)</span>
+</span><span id="timesheetDelete-88"><a href="#timesheetDelete-88"><span class="linenos">88</span></a>    <span class="k">return</span> <span class="s2">&quot;Deleted&quot;</span><span class="p">,</span> <span class="mi">201</span>
 </span></pre></div>
 
 
@@ -399,24 +415,24 @@ or a specific employee's timesheet.</p>
 
     </div>
     <a class="headerlink" href="#employeeHours"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="employeeHours-87"><a href="#employeeHours-87"><span class="linenos">87</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/hours&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
-</span><span id="employeeHours-88"><a href="#employeeHours-88"><span class="linenos">88</span></a><span class="k">def</span> <span class="nf">employeeHours</span><span class="p">():</span>
-</span><span id="employeeHours-89"><a href="#employeeHours-89"><span class="linenos">89</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to get an employee&#39;s hours.</span>
-</span><span id="employeeHours-90"><a href="#employeeHours-90"><span class="linenos">90</span></a><span class="sd">    Returns a jsonification of the getTotalHours query.&quot;&quot;&quot;</span>
-</span><span id="employeeHours-91"><a href="#employeeHours-91"><span class="linenos">91</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-</span><span id="employeeHours-92"><a href="#employeeHours-92"><span class="linenos">92</span></a>
-</span><span id="employeeHours-93"><a href="#employeeHours-93"><span class="linenos">93</span></a>    <span class="k">try</span><span class="p">:</span>
-</span><span id="employeeHours-94"><a href="#employeeHours-94"><span class="linenos">94</span></a>        <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
-</span><span id="employeeHours-95"><a href="#employeeHours-95"><span class="linenos">95</span></a>        <span class="n">billingPeriod</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;billingperiod&#39;</span><span class="p">]</span>
-</span><span id="employeeHours-96"><a href="#employeeHours-96"><span class="linenos">96</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
-</span><span id="employeeHours-97"><a href="#employeeHours-97"><span class="linenos">97</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
-</span><span id="employeeHours-98"><a href="#employeeHours-98"><span class="linenos">98</span></a>
-</span><span id="employeeHours-99"><a href="#employeeHours-99"><span class="linenos">99</span></a>    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getTotalHours</span><span class="p">(</span><span class="n">employeeID</span><span class="p">,</span> <span class="n">billingPeriod</span><span class="p">))</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="employeeHours-91"><a href="#employeeHours-91"><span class="linenos"> 91</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/hours&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span><span id="employeeHours-92"><a href="#employeeHours-92"><span class="linenos"> 92</span></a><span class="k">def</span> <span class="nf">employeeHours</span><span class="p">():</span>
+</span><span id="employeeHours-93"><a href="#employeeHours-93"><span class="linenos"> 93</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to get an employee&#39;s hours.</span>
+</span><span id="employeeHours-94"><a href="#employeeHours-94"><span class="linenos"> 94</span></a><span class="sd">    Returns a Response of the getTotalHours query.&quot;&quot;&quot;</span>
+</span><span id="employeeHours-95"><a href="#employeeHours-95"><span class="linenos"> 95</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+</span><span id="employeeHours-96"><a href="#employeeHours-96"><span class="linenos"> 96</span></a>
+</span><span id="employeeHours-97"><a href="#employeeHours-97"><span class="linenos"> 97</span></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="employeeHours-98"><a href="#employeeHours-98"><span class="linenos"> 98</span></a>        <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
+</span><span id="employeeHours-99"><a href="#employeeHours-99"><span class="linenos"> 99</span></a>        <span class="n">billingPeriod</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;billingperiod&#39;</span><span class="p">]</span>
+</span><span id="employeeHours-100"><a href="#employeeHours-100"><span class="linenos">100</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+</span><span id="employeeHours-101"><a href="#employeeHours-101"><span class="linenos">101</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+</span><span id="employeeHours-102"><a href="#employeeHours-102"><span class="linenos">102</span></a>
+</span><span id="employeeHours-103"><a href="#employeeHours-103"><span class="linenos">103</span></a>    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getTotalHours</span><span class="p">(</span><span class="n">employeeID</span><span class="p">,</span> <span class="n">billingPeriod</span><span class="p">))</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Sets up an endpoint to get an employee's hours.
-Returns a jsonification of the getTotalHours query.</p>
+Returns a Response of the getTotalHours query.</p>
 </div>
 
 
@@ -433,23 +449,23 @@ Returns a jsonification of the getTotalHours query.</p>
 
     </div>
     <a class="headerlink" href="#employeePayRate"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="employeePayRate-102"><a href="#employeePayRate-102"><span class="linenos">102</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/payrate&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
-</span><span id="employeePayRate-103"><a href="#employeePayRate-103"><span class="linenos">103</span></a><span class="k">def</span> <span class="nf">employeePayRate</span><span class="p">():</span>
-</span><span id="employeePayRate-104"><a href="#employeePayRate-104"><span class="linenos">104</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to get an employee&#39;s pay rate.</span>
-</span><span id="employeePayRate-105"><a href="#employeePayRate-105"><span class="linenos">105</span></a><span class="sd">    Returns a jsonification of the getPayRate query.&quot;&quot;&quot;</span>
-</span><span id="employeePayRate-106"><a href="#employeePayRate-106"><span class="linenos">106</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-</span><span id="employeePayRate-107"><a href="#employeePayRate-107"><span class="linenos">107</span></a>
-</span><span id="employeePayRate-108"><a href="#employeePayRate-108"><span class="linenos">108</span></a>    <span class="k">try</span><span class="p">:</span>
-</span><span id="employeePayRate-109"><a href="#employeePayRate-109"><span class="linenos">109</span></a>        <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
-</span><span id="employeePayRate-110"><a href="#employeePayRate-110"><span class="linenos">110</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
-</span><span id="employeePayRate-111"><a href="#employeePayRate-111"><span class="linenos">111</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
-</span><span id="employeePayRate-112"><a href="#employeePayRate-112"><span class="linenos">112</span></a>
-</span><span id="employeePayRate-113"><a href="#employeePayRate-113"><span class="linenos">113</span></a>    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getPayRate</span><span class="p">(</span><span class="n">employeeID</span><span class="p">))</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="employeePayRate-106"><a href="#employeePayRate-106"><span class="linenos">106</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/payrate&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span><span id="employeePayRate-107"><a href="#employeePayRate-107"><span class="linenos">107</span></a><span class="k">def</span> <span class="nf">employeePayRate</span><span class="p">():</span>
+</span><span id="employeePayRate-108"><a href="#employeePayRate-108"><span class="linenos">108</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to get an employee&#39;s pay rate.</span>
+</span><span id="employeePayRate-109"><a href="#employeePayRate-109"><span class="linenos">109</span></a><span class="sd">    Returns a Response of the getPayRate query.&quot;&quot;&quot;</span>
+</span><span id="employeePayRate-110"><a href="#employeePayRate-110"><span class="linenos">110</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+</span><span id="employeePayRate-111"><a href="#employeePayRate-111"><span class="linenos">111</span></a>
+</span><span id="employeePayRate-112"><a href="#employeePayRate-112"><span class="linenos">112</span></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="employeePayRate-113"><a href="#employeePayRate-113"><span class="linenos">113</span></a>        <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
+</span><span id="employeePayRate-114"><a href="#employeePayRate-114"><span class="linenos">114</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+</span><span id="employeePayRate-115"><a href="#employeePayRate-115"><span class="linenos">115</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+</span><span id="employeePayRate-116"><a href="#employeePayRate-116"><span class="linenos">116</span></a>
+</span><span id="employeePayRate-117"><a href="#employeePayRate-117"><span class="linenos">117</span></a>    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">getPayRate</span><span class="p">(</span><span class="n">employeeID</span><span class="p">))</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Sets up an endpoint to get an employee's pay rate.
-Returns a jsonification of the getPayRate query.</p>
+Returns a Response of the getPayRate query.</p>
 </div>
 
 
@@ -466,19 +482,19 @@ Returns a jsonification of the getPayRate query.</p>
 
     </div>
     <a class="headerlink" href="#payEmployee"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="payEmployee-116"><a href="#payEmployee-116"><span class="linenos">116</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/pay&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
-</span><span id="payEmployee-117"><a href="#payEmployee-117"><span class="linenos">117</span></a><span class="k">def</span> <span class="nf">payEmployee</span><span class="p">():</span>
-</span><span id="payEmployee-118"><a href="#payEmployee-118"><span class="linenos">118</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to pay employees by id.&quot;&quot;&quot;</span>
-</span><span id="payEmployee-119"><a href="#payEmployee-119"><span class="linenos">119</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-</span><span id="payEmployee-120"><a href="#payEmployee-120"><span class="linenos">120</span></a>
-</span><span id="payEmployee-121"><a href="#payEmployee-121"><span class="linenos">121</span></a>    <span class="k">try</span><span class="p">:</span>
-</span><span id="payEmployee-122"><a href="#payEmployee-122"><span class="linenos">122</span></a>        <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
-</span><span id="payEmployee-123"><a href="#payEmployee-123"><span class="linenos">123</span></a>        <span class="n">totalPayment</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">])</span>
-</span><span id="payEmployee-124"><a href="#payEmployee-124"><span class="linenos">124</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
-</span><span id="payEmployee-125"><a href="#payEmployee-125"><span class="linenos">125</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
-</span><span id="payEmployee-126"><a href="#payEmployee-126"><span class="linenos">126</span></a>    <span class="k">if</span> <span class="n">payEmployeeByID</span><span class="p">(</span><span class="n">employeeID</span><span class="p">,</span> <span class="n">totalPayment</span><span class="p">):</span>
-</span><span id="payEmployee-127"><a href="#payEmployee-127"><span class="linenos">127</span></a>        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="s2">&quot;Payment succeeded!&quot;</span><span class="p">)</span>
-</span><span id="payEmployee-128"><a href="#payEmployee-128"><span class="linenos">128</span></a>    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="s2">&quot;Payment failed!&quot;</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="payEmployee-120"><a href="#payEmployee-120"><span class="linenos">120</span></a><span class="nd">@payrollAPIBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/pay&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+</span><span id="payEmployee-121"><a href="#payEmployee-121"><span class="linenos">121</span></a><span class="k">def</span> <span class="nf">payEmployee</span><span class="p">():</span>
+</span><span id="payEmployee-122"><a href="#payEmployee-122"><span class="linenos">122</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets up an endpoint to pay employees by id.&quot;&quot;&quot;</span>
+</span><span id="payEmployee-123"><a href="#payEmployee-123"><span class="linenos">123</span></a>    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+</span><span id="payEmployee-124"><a href="#payEmployee-124"><span class="linenos">124</span></a>
+</span><span id="payEmployee-125"><a href="#payEmployee-125"><span class="linenos">125</span></a>    <span class="k">try</span><span class="p">:</span>
+</span><span id="payEmployee-126"><a href="#payEmployee-126"><span class="linenos">126</span></a>        <span class="n">employeeID</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;employeeid&#39;</span><span class="p">])</span>
+</span><span id="payEmployee-127"><a href="#payEmployee-127"><span class="linenos">127</span></a>        <span class="n">totalPayment</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;total&#39;</span><span class="p">])</span>
+</span><span id="payEmployee-128"><a href="#payEmployee-128"><span class="linenos">128</span></a>    <span class="k">except</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+</span><span id="payEmployee-129"><a href="#payEmployee-129"><span class="linenos">129</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+</span><span id="payEmployee-130"><a href="#payEmployee-130"><span class="linenos">130</span></a>    <span class="k">if</span> <span class="n">payEmployeeByID</span><span class="p">(</span><span class="n">employeeID</span><span class="p">,</span> <span class="n">totalPayment</span><span class="p">):</span>
+</span><span id="payEmployee-131"><a href="#payEmployee-131"><span class="linenos">131</span></a>        <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="s2">&quot;Payment succeeded!&quot;</span><span class="p">)</span>
+</span><span id="payEmployee-132"><a href="#payEmployee-132"><span class="linenos">132</span></a>    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="s2">&quot;Payment failed!&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 

@@ -9,7 +9,7 @@ menuAPIBlueprint = Blueprint("menu", __name__)
 def menuItems():
     """Sets up an endpoint for the menu items.
     Handles methods for adding, updating, and deleting
-    menu items. Returns statuses, or a jsonification
+    menu items. Returns statuses, or a Response
     of the getMenuItems query."""
     if request.method == 'GET':
         return jsonify(getMenuItems())
@@ -76,7 +76,7 @@ def menuItems():
 def ingredients():
     """Sets up an endpoint for the menu item ingredients.
     Handles methods for adding, updating, and deleting
-    menu item ingredients. Returns statuses, or a jsonification
+    menu item ingredients. Returns statuses, or a Response
     of the getIngredients query."""
     if request.method == 'GET':
         menuItemID = 0
@@ -132,7 +132,7 @@ def ingredients():
 def categories():
     """Sets up an endpoint for the menu item categories.
     Handles methods for adding and updating menu item
-    categories. Returns statuses, or a jsonification
+    categories. Returns statuses, or a Response
     of the getMenuCategories query."""
     if request.method == 'GET':
         return jsonify(getMenuCategories())

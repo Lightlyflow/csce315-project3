@@ -9,14 +9,14 @@ userManagementBlueprint = Blueprint("userManagement", __name__)
 @userManagementBlueprint.route("/users", methods=['GET'])
 def users():
     """Sets up an endpoint to get the users.
-    Returns a jsonification of the getUsers query."""
+    Returns a Response of the getUsers query."""
     return jsonify(getUsers())
 
 
 @userManagementBlueprint.route("/employees", methods=['GET'])
 def employees():
     """Sets up an endpoint to get the employees.
-    Returns a jsonification of the getEmployees query."""
+    Returns a Response of the getEmployees query."""
     return jsonify(getEmployees())
 
 
@@ -89,6 +89,10 @@ def employeeDelete():
 
 
 def checkAdmin():
+    """
+    Checks whether a user is an admin or not
+    :return: 403 if the user in not an admin
+    """
     if current_user.is_authenticated and current_user.isAdmin:
         return
     abort(403)
