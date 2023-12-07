@@ -8,7 +8,10 @@ timesheetAPIBlueprint = Blueprint("timesheet", __name__)
 
 @timesheetAPIBlueprint.route("/clockIn", methods=['POST'])
 def clockIn():
-    """Clocks in an employee based on their ID."""
+    """
+    Endpoint for clocking in an employee based on their ID for a given activity.
+    :return: 400 for invalid arguments or 201 on success
+    """
     data = request.get_json()
     employeeID = -1
     activity = ""
@@ -25,7 +28,10 @@ def clockIn():
 
 @timesheetAPIBlueprint.route("/clockOut", methods=['POST'])
 def clockOut():
-    """Clocks out an employee based on their ID."""
+    """
+    Endpoint for clocking out an employee based on their ID.
+    :return: 400 on invalid arguments or 201 on success
+    """
     data = request.get_json()
     employeeID = -1
 
@@ -40,7 +46,10 @@ def clockOut():
 
 @timesheetAPIBlueprint.route("/week", methods=['POST'])
 def week():
-    """Retrieves a week of activity for a specific employee based on their ID."""
+    """
+    Endpoint for retrieving a week of activity for a specific employee based on their ID.
+    :return: 400 for invalid arguments or Response containing list of clock in/out entries
+    """
     data = request.get_json()
     employeeID = -1
     billingPeriod = ""

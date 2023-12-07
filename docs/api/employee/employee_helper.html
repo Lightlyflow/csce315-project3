@@ -76,104 +76,127 @@
 </span><span id="L-5"><a href="#L-5"><span class="linenos">  5</span></a>
 </span><span id="L-6"><a href="#L-6"><span class="linenos">  6</span></a>
 </span><span id="L-7"><a href="#L-7"><span class="linenos">  7</span></a><span class="k">def</span> <span class="nf">getMenuData</span><span class="p">():</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos">  8</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns all menu items from the database.&quot;&quot;&quot;</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a>    <span class="k">return</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getMenuItems</span><span class="p">()</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a>
-</span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a>
-</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a><span class="k">def</span> <span class="nf">getMenuCategories</span><span class="p">():</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns all menu categories from the database.&quot;&quot;&quot;</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a>    <span class="n">results</span> <span class="o">=</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getMenuCategories</span><span class="p">()</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a>    <span class="n">categories</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a>
-</span><span id="L-17"><a href="#L-17"><span class="linenos"> 17</span></a>    <span class="k">return</span> <span class="n">categories</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a>
-</span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="k">def</span> <span class="nf">getToppingData</span><span class="p">():</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns all topping names from the database.&quot;&quot;&quot;</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a>    <span class="k">return</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getToppingNames</span><span class="p">()</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos">  8</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos">  9</span></a><span class="sd">    Returns all menu items from the database.</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos"> 10</span></a><span class="sd">    :return: List of menu items</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos"> 11</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos"> 12</span></a>    <span class="k">return</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getMenuItems</span><span class="p">()</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos"> 13</span></a>
+</span><span id="L-14"><a href="#L-14"><span class="linenos"> 14</span></a>
+</span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a><span class="k">def</span> <span class="nf">getMenuCategories</span><span class="p">():</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos"> 17</span></a><span class="sd">    Returns all menu categories from the database.</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a><span class="sd">    :return: Flattened list of menu categories</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a>    <span class="n">results</span> <span class="o">=</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getMenuCategories</span><span class="p">()</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a>    <span class="n">categories</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
 </span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a>
-</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="k">def</span> <span class="nf">getToppingNames</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[]:</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns all topping names from the database stored in list format.&quot;&quot;&quot;</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a>    <span class="n">results</span> <span class="o">=</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getToppingNames</span><span class="p">()</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a>    <span class="n">toppingNames</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a>    <span class="k">for</span> <span class="n">topping</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a>        <span class="n">toppingNames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">topping</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a>    <span class="k">return</span> <span class="n">toppingNames</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a>
-</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a>
-</span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a><span class="k">def</span> <span class="nf">placeOrder</span><span class="p">(</span><span class="n">menuItems</span><span class="p">):</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Executes the placing of an order. Updates order table and inventory.&quot;&quot;&quot;</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a>    <span class="n">totalPrice</span> <span class="o">=</span> <span class="mf">0.0</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a>    <span class="n">orderId</span> <span class="o">=</span> <span class="p">(</span><span class="n">customer_querier</span><span class="o">.</span><span class="n">getMaxOrderId</span><span class="p">())[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a>
-</span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a>    <span class="k">for</span> <span class="n">menuItem</span> <span class="ow">in</span> <span class="n">menuItems</span><span class="p">:</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a>        <span class="n">itemName</span> <span class="o">=</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_name&#39;</span><span class="p">]</span>
-</span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a>
-</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a>        <span class="n">toppingList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a>        <span class="k">if</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping1&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;null&#39;</span><span class="p">:</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos"> 42</span></a>            <span class="n">toppingList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping1&#39;</span><span class="p">])</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a>        <span class="k">if</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping2&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;null&#39;</span><span class="p">:</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a>            <span class="n">toppingList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping2&#39;</span><span class="p">])</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a>        <span class="k">if</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping3&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;null&#39;</span><span class="p">:</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a>            <span class="n">toppingList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping3&#39;</span><span class="p">])</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a>
-</span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a>        <span class="n">itemQuantity</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_quantity&#39;</span><span class="p">])</span>
-</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a>
-</span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a>        <span class="n">sweetness</span> <span class="o">=</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_sweetness&#39;</span><span class="p">]</span>
-</span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a>        <span class="n">iceLevel</span> <span class="o">=</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_iceLevel&#39;</span><span class="p">]</span>
-</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a>        <span class="n">price</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_price&#39;</span><span class="p">])</span>
-</span><span id="L-53"><a href="#L-53"><span class="linenos"> 53</span></a>
-</span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a>        <span class="n">menuItemId</span> <span class="o">=</span> <span class="p">(</span><span class="n">customer_querier</span><span class="o">.</span><span class="n">getMenuItemId</span><span class="p">(</span><span class="n">itemName</span><span class="p">))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a>
-</span><span id="L-56"><a href="#L-56"><span class="linenos"> 56</span></a>        <span class="c1">#Ingredients</span>
-</span><span id="L-57"><a href="#L-57"><span class="linenos"> 57</span></a>        <span class="n">menuItemComponents</span> <span class="o">=</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getMenuItemComponents</span><span class="p">(</span><span class="n">menuItemId</span><span class="p">)</span>
-</span><span id="L-58"><a href="#L-58"><span class="linenos"> 58</span></a>        <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">menuItemComponents</span><span class="p">:</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos"> 59</span></a>            <span class="n">customer_querier</span><span class="o">.</span><span class="n">subtractIngredientQuantityInventory</span><span class="p">(</span><span class="n">component</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">component</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">itemQuantity</span><span class="p">)</span>
-</span><span id="L-60"><a href="#L-60"><span class="linenos"> 60</span></a>
-</span><span id="L-61"><a href="#L-61"><span class="linenos"> 61</span></a>        <span class="c1">#Cups and Straws</span>
-</span><span id="L-62"><a href="#L-62"><span class="linenos"> 62</span></a>        <span class="n">customer_querier</span><span class="o">.</span><span class="n">subtractIngredientQuantityInventory</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">itemQuantity</span><span class="p">)</span>
-</span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a>        <span class="n">customer_querier</span><span class="o">.</span><span class="n">subtractIngredientQuantityInventory</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">itemQuantity</span><span class="p">)</span>
-</span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a>
-</span><span id="L-65"><a href="#L-65"><span class="linenos"> 65</span></a>        <span class="c1">#Toppings</span>
-</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a>        <span class="n">toppingIdList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-</span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a>        <span class="k">for</span> <span class="n">topping</span> <span class="ow">in</span> <span class="n">toppingList</span><span class="p">:</span>
-</span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a>            <span class="n">toppingId</span> <span class="o">=</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getToppingId</span><span class="p">(</span><span class="n">topping</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a>            <span class="n">toppingIdList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">toppingId</span><span class="p">)</span>
-</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a>            <span class="n">customer_querier</span><span class="o">.</span><span class="n">subtractIngredientQuantityInventory</span><span class="p">(</span><span class="n">toppingId</span><span class="p">,</span> <span class="n">itemQuantity</span><span class="p">)</span>
-</span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">3</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">toppingList</span><span class="p">)):</span>
-</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a>            <span class="n">toppingIdList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a>    <span class="k">return</span> <span class="n">categories</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a>
+</span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a>
+</span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a><span class="k">def</span> <span class="nf">getToppingData</span><span class="p">():</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a><span class="sd">    Returns all topping names from the database.</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a><span class="sd">    :return: List of topping names</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a>    <span class="k">return</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getToppingNames</span><span class="p">()</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a>
+</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a>
+</span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a><span class="k">def</span> <span class="nf">getToppingNames</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[]:</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a><span class="sd">    Returns all topping names from the database stored in list format.</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a><span class="sd">    :return: Flattened list of topping names</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a>    <span class="n">results</span> <span class="o">=</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getToppingNames</span><span class="p">()</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a>    <span class="n">toppingNames</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a>    <span class="k">for</span> <span class="n">topping</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos"> 42</span></a>        <span class="n">toppingNames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">topping</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a>    <span class="k">return</span> <span class="n">toppingNames</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a>
+</span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a>
+</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a><span class="k">def</span> <span class="nf">placeOrder</span><span class="p">(</span><span class="n">menuItems</span><span class="p">):</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a><span class="sd">    Executes the placing of an order. Updates order table and inventory.</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a><span class="sd">    :param menuItems: List of menu item dict objects</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a><span class="sd">    :return: None</span>
+</span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a>    <span class="n">totalPrice</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos"> 53</span></a>    <span class="n">orderId</span> <span class="o">=</span> <span class="p">(</span><span class="n">customer_querier</span><span class="o">.</span><span class="n">getMaxOrderId</span><span class="p">())[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a>
+</span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a>    <span class="k">for</span> <span class="n">menuItem</span> <span class="ow">in</span> <span class="n">menuItems</span><span class="p">:</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos"> 56</span></a>        <span class="n">itemName</span> <span class="o">=</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_name&#39;</span><span class="p">]</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos"> 57</span></a>
+</span><span id="L-58"><a href="#L-58"><span class="linenos"> 58</span></a>        <span class="n">toppingList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos"> 59</span></a>        <span class="k">if</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping1&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;null&#39;</span><span class="p">:</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos"> 60</span></a>            <span class="n">toppingList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping1&#39;</span><span class="p">])</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos"> 61</span></a>        <span class="k">if</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping2&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;null&#39;</span><span class="p">:</span>
+</span><span id="L-62"><a href="#L-62"><span class="linenos"> 62</span></a>            <span class="n">toppingList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping2&#39;</span><span class="p">])</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a>        <span class="k">if</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping3&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;null&#39;</span><span class="p">:</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a>            <span class="n">toppingList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping3&#39;</span><span class="p">])</span>
+</span><span id="L-65"><a href="#L-65"><span class="linenos"> 65</span></a>
+</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a>        <span class="n">itemQuantity</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_quantity&#39;</span><span class="p">])</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a>
+</span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a>        <span class="n">sweetness</span> <span class="o">=</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_sweetness&#39;</span><span class="p">]</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a>        <span class="n">iceLevel</span> <span class="o">=</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_iceLevel&#39;</span><span class="p">]</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a>        <span class="n">price</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_price&#39;</span><span class="p">])</span>
+</span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a>
+</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a>        <span class="n">menuItemId</span> <span class="o">=</span> <span class="p">(</span><span class="n">customer_querier</span><span class="o">.</span><span class="n">getMenuItemId</span><span class="p">(</span><span class="n">itemName</span><span class="p">))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
 </span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a>
-</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a>        <span class="c1">#Order Part</span>
-</span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a>        <span class="n">totalPrice</span> <span class="o">+=</span> <span class="n">price</span> <span class="o">*</span> <span class="n">itemQuantity</span>
-</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a>        <span class="k">if</span> <span class="n">iceLevel</span> <span class="o">==</span> <span class="s1">&#39;Regular&#39;</span><span class="p">:</span>
-</span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a>            <span class="n">iceLevelNum</span> <span class="o">=</span> <span class="mi">2</span>
-</span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a>        <span class="k">elif</span> <span class="n">iceLevel</span> <span class="o">==</span> <span class="s1">&#39;Less&#39;</span><span class="p">:</span>
-</span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a>            <span class="n">iceLevelNum</span> <span class="o">=</span> <span class="mi">1</span>
-</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a>            <span class="n">iceLevelNum</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a>        <span class="c1"># Ingredients</span>
+</span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a>        <span class="n">menuItemComponents</span> <span class="o">=</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getMenuItemComponents</span><span class="p">(</span><span class="n">menuItemId</span><span class="p">)</span>
+</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a>        <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">menuItemComponents</span><span class="p">:</span>
+</span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a>            <span class="n">customer_querier</span><span class="o">.</span><span class="n">subtractIngredientQuantityInventory</span><span class="p">(</span><span class="n">component</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">component</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">itemQuantity</span><span class="p">)</span>
+</span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a>
+</span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a>        <span class="c1"># Cups and Straws</span>
+</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a>        <span class="n">customer_querier</span><span class="o">.</span><span class="n">subtractIngredientQuantityInventory</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">itemQuantity</span><span class="p">)</span>
+</span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a>        <span class="n">customer_querier</span><span class="o">.</span><span class="n">subtractIngredientQuantityInventory</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">itemQuantity</span><span class="p">)</span>
 </span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a>
-</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">itemQuantity</span><span class="p">):</span>
-</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a>            <span class="n">uniqueId</span> <span class="o">=</span> <span class="p">(</span><span class="n">customer_querier</span><span class="o">.</span><span class="n">getMaxUniqueId</span><span class="p">())[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
-</span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a>            <span class="n">customer_querier</span><span class="o">.</span><span class="n">insertIntoOrderPartTable</span><span class="p">(</span><span class="n">uniqueId</span><span class="p">,</span> <span class="n">orderId</span><span class="p">,</span> <span class="n">menuItemId</span><span class="p">,</span> <span class="n">toppingIdList</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">toppingIdList</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">toppingIdList</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nb">round</span><span class="p">(</span><span class="n">price</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">sweetness</span><span class="p">,</span> <span class="n">iceLevelNum</span><span class="p">)</span>
-</span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a>
-</span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a>    <span class="c1">#Order</span>
-</span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a>    <span class="k">if</span> <span class="p">(</span><span class="n">current_user</span><span class="o">.</span><span class="n">is_authenticated</span> <span class="o">==</span> <span class="kc">True</span><span class="p">):</span>
-</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a>        <span class="n">currentEmail</span> <span class="o">=</span> <span class="n">current_user</span><span class="o">.</span><span class="n">email</span>
-</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a>    <span class="k">else</span><span class="p">:</span>
-</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a>        <span class="n">currentEmail</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a>
-</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a>    <span class="n">customer_querier</span><span class="o">.</span><span class="n">insertIntoOrderTableCurrent</span><span class="p">(</span><span class="n">orderId</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">totalPrice</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">currentEmail</span><span class="p">,</span> <span class="n">current_user</span><span class="o">.</span><span class="n">employeeId</span><span class="p">)</span>
-</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a>
-</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a>
-</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a><span class="k">def</span> <span class="nf">getWeather</span><span class="p">():</span>
-</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieves the weather data for College Station.&quot;&quot;&quot;</span>
-</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a>    <span class="n">api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;WEATHER_API_KEY&quot;</span><span class="p">]</span>
-</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a>    <span class="n">city_name</span> <span class="o">=</span> <span class="s1">&#39;College Station&#39;</span>
-</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a>    <span class="c1"># state_code = &#39;TX&#39;</span>
-</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a>    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;http://api.openweathermap.org/data/2.5/weather?q=</span><span class="si">{</span><span class="n">city_name</span><span class="si">}</span><span class="s1">&amp;appid=</span><span class="si">{</span><span class="n">api_key</span><span class="si">}</span><span class="s1">&amp;units=imperial&#39;</span>
-</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a>
-</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a>    <span class="c1"># Send a GET request to the API</span>
-</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a>    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;main&#39;</span><span class="p">][</span><span class="s1">&#39;temp&#39;</span><span class="p">]),</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;weather&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;description&#39;</span><span class="p">]</span>
+</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a>        <span class="c1"># Toppings</span>
+</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a>        <span class="n">toppingIdList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+</span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a>        <span class="k">for</span> <span class="n">topping</span> <span class="ow">in</span> <span class="n">toppingList</span><span class="p">:</span>
+</span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a>            <span class="n">toppingId</span> <span class="o">=</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getToppingId</span><span class="p">(</span><span class="n">topping</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a>            <span class="n">toppingIdList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">toppingId</span><span class="p">)</span>
+</span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a>            <span class="n">customer_querier</span><span class="o">.</span><span class="n">subtractIngredientQuantityInventory</span><span class="p">(</span><span class="n">toppingId</span><span class="p">,</span> <span class="n">itemQuantity</span><span class="p">)</span>
+</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">toppingList</span><span class="p">)):</span>
+</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a>            <span class="n">toppingIdList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a>
+</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a>        <span class="c1"># Order Part</span>
+</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a>        <span class="n">totalPrice</span> <span class="o">+=</span> <span class="n">price</span> <span class="o">*</span> <span class="n">itemQuantity</span>
+</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a>        <span class="k">if</span> <span class="n">iceLevel</span> <span class="o">==</span> <span class="s1">&#39;Regular&#39;</span><span class="p">:</span>
+</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a>            <span class="n">iceLevelNum</span> <span class="o">=</span> <span class="mi">2</span>
+</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a>        <span class="k">elif</span> <span class="n">iceLevel</span> <span class="o">==</span> <span class="s1">&#39;Less&#39;</span><span class="p">:</span>
+</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a>            <span class="n">iceLevelNum</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a>            <span class="n">iceLevelNum</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a>
+</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">itemQuantity</span><span class="p">):</span>
+</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a>            <span class="n">uniqueId</span> <span class="o">=</span> <span class="p">(</span><span class="n">customer_querier</span><span class="o">.</span><span class="n">getMaxUniqueId</span><span class="p">())[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a>            <span class="n">customer_querier</span><span class="o">.</span><span class="n">insertIntoOrderPartTable</span><span class="p">(</span><span class="n">uniqueId</span><span class="p">,</span> <span class="n">orderId</span><span class="p">,</span> <span class="n">menuItemId</span><span class="p">,</span> <span class="n">toppingIdList</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">toppingIdList</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a>                                                      <span class="n">toppingIdList</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nb">round</span><span class="p">(</span><span class="n">price</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">sweetness</span><span class="p">,</span> <span class="n">iceLevelNum</span><span class="p">)</span>
+</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a>
+</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a>    <span class="c1"># Order</span>
+</span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a>    <span class="k">if</span> <span class="p">(</span><span class="n">current_user</span><span class="o">.</span><span class="n">is_authenticated</span> <span class="o">==</span> <span class="kc">True</span><span class="p">):</span>
+</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a>        <span class="n">currentEmail</span> <span class="o">=</span> <span class="n">current_user</span><span class="o">.</span><span class="n">email</span>
+</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a>        <span class="n">currentEmail</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a>
+</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a>    <span class="n">customer_querier</span><span class="o">.</span><span class="n">insertIntoOrderTableCurrent</span><span class="p">(</span><span class="n">orderId</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">totalPrice</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">currentEmail</span><span class="p">,</span> <span class="n">current_user</span><span class="o">.</span><span class="n">employeeId</span><span class="p">)</span>
+</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a>
+</span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a>
+</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a><span class="k">def</span> <span class="nf">getWeather</span><span class="p">():</span>
+</span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a><span class="sd">    Retrieves the weather data for College Station.</span>
+</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a><span class="sd">    Must have API key loaded in evironment variable</span>
+</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a><span class="sd">    :return: tuple(temp: int, description: str)</span>
+</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a>    <span class="n">api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;WEATHER_API_KEY&quot;</span><span class="p">]</span>
+</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a>    <span class="n">city_name</span> <span class="o">=</span> <span class="s1">&#39;College Station&#39;</span>
+</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a>    <span class="c1"># state_code = &#39;TX&#39;</span>
+</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a>    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;http://api.openweathermap.org/data/2.5/weather?q=</span><span class="si">{</span><span class="n">city_name</span><span class="si">}</span><span class="s1">&amp;appid=</span><span class="si">{</span><span class="n">api_key</span><span class="si">}</span><span class="s1">&amp;units=imperial&#39;</span>
+</span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a>
+</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a>    <span class="c1"># Send a GET request to the API</span>
+</span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</span><span id="L-128"><a href="#L-128"><span class="linenos">128</span></a>    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;main&#39;</span><span class="p">][</span><span class="s1">&#39;temp&#39;</span><span class="p">]),</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;weather&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;description&#39;</span><span class="p">]</span>
 </span></pre></div>
 
 
@@ -190,12 +213,21 @@
     </div>
     <a class="headerlink" href="#getMenuData"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="getMenuData-8"><a href="#getMenuData-8"><span class="linenos"> 8</span></a><span class="k">def</span> <span class="nf">getMenuData</span><span class="p">():</span>
-</span><span id="getMenuData-9"><a href="#getMenuData-9"><span class="linenos"> 9</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns all menu items from the database.&quot;&quot;&quot;</span>
-</span><span id="getMenuData-10"><a href="#getMenuData-10"><span class="linenos">10</span></a>    <span class="k">return</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getMenuItems</span><span class="p">()</span>
+</span><span id="getMenuData-9"><a href="#getMenuData-9"><span class="linenos"> 9</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="getMenuData-10"><a href="#getMenuData-10"><span class="linenos">10</span></a><span class="sd">    Returns all menu items from the database.</span>
+</span><span id="getMenuData-11"><a href="#getMenuData-11"><span class="linenos">11</span></a><span class="sd">    :return: List of menu items</span>
+</span><span id="getMenuData-12"><a href="#getMenuData-12"><span class="linenos">12</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="getMenuData-13"><a href="#getMenuData-13"><span class="linenos">13</span></a>    <span class="k">return</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getMenuItems</span><span class="p">()</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Returns all menu items from the database.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List of menu items</p>
+</blockquote>
 </div>
 
 
@@ -211,16 +243,25 @@
 
     </div>
     <a class="headerlink" href="#getMenuCategories"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="getMenuCategories-13"><a href="#getMenuCategories-13"><span class="linenos">13</span></a><span class="k">def</span> <span class="nf">getMenuCategories</span><span class="p">():</span>
-</span><span id="getMenuCategories-14"><a href="#getMenuCategories-14"><span class="linenos">14</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns all menu categories from the database.&quot;&quot;&quot;</span>
-</span><span id="getMenuCategories-15"><a href="#getMenuCategories-15"><span class="linenos">15</span></a>    <span class="n">results</span> <span class="o">=</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getMenuCategories</span><span class="p">()</span>
-</span><span id="getMenuCategories-16"><a href="#getMenuCategories-16"><span class="linenos">16</span></a>    <span class="n">categories</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
-</span><span id="getMenuCategories-17"><a href="#getMenuCategories-17"><span class="linenos">17</span></a>
-</span><span id="getMenuCategories-18"><a href="#getMenuCategories-18"><span class="linenos">18</span></a>    <span class="k">return</span> <span class="n">categories</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="getMenuCategories-16"><a href="#getMenuCategories-16"><span class="linenos">16</span></a><span class="k">def</span> <span class="nf">getMenuCategories</span><span class="p">():</span>
+</span><span id="getMenuCategories-17"><a href="#getMenuCategories-17"><span class="linenos">17</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="getMenuCategories-18"><a href="#getMenuCategories-18"><span class="linenos">18</span></a><span class="sd">    Returns all menu categories from the database.</span>
+</span><span id="getMenuCategories-19"><a href="#getMenuCategories-19"><span class="linenos">19</span></a><span class="sd">    :return: Flattened list of menu categories</span>
+</span><span id="getMenuCategories-20"><a href="#getMenuCategories-20"><span class="linenos">20</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="getMenuCategories-21"><a href="#getMenuCategories-21"><span class="linenos">21</span></a>    <span class="n">results</span> <span class="o">=</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getMenuCategories</span><span class="p">()</span>
+</span><span id="getMenuCategories-22"><a href="#getMenuCategories-22"><span class="linenos">22</span></a>    <span class="n">categories</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
+</span><span id="getMenuCategories-23"><a href="#getMenuCategories-23"><span class="linenos">23</span></a>
+</span><span id="getMenuCategories-24"><a href="#getMenuCategories-24"><span class="linenos">24</span></a>    <span class="k">return</span> <span class="n">categories</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Returns all menu categories from the database.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Flattened list of menu categories</p>
+</blockquote>
 </div>
 
 
@@ -236,13 +277,22 @@
 
     </div>
     <a class="headerlink" href="#getToppingData"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="getToppingData-20"><a href="#getToppingData-20"><span class="linenos">20</span></a><span class="k">def</span> <span class="nf">getToppingData</span><span class="p">():</span>
-</span><span id="getToppingData-21"><a href="#getToppingData-21"><span class="linenos">21</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns all topping names from the database.&quot;&quot;&quot;</span>
-</span><span id="getToppingData-22"><a href="#getToppingData-22"><span class="linenos">22</span></a>    <span class="k">return</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getToppingNames</span><span class="p">()</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="getToppingData-27"><a href="#getToppingData-27"><span class="linenos">27</span></a><span class="k">def</span> <span class="nf">getToppingData</span><span class="p">():</span>
+</span><span id="getToppingData-28"><a href="#getToppingData-28"><span class="linenos">28</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="getToppingData-29"><a href="#getToppingData-29"><span class="linenos">29</span></a><span class="sd">    Returns all topping names from the database.</span>
+</span><span id="getToppingData-30"><a href="#getToppingData-30"><span class="linenos">30</span></a><span class="sd">    :return: List of topping names</span>
+</span><span id="getToppingData-31"><a href="#getToppingData-31"><span class="linenos">31</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="getToppingData-32"><a href="#getToppingData-32"><span class="linenos">32</span></a>    <span class="k">return</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getToppingNames</span><span class="p">()</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Returns all topping names from the database.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List of topping names</p>
+</blockquote>
 </div>
 
 
@@ -258,17 +308,26 @@
 
     </div>
     <a class="headerlink" href="#getToppingNames"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="getToppingNames-24"><a href="#getToppingNames-24"><span class="linenos">24</span></a><span class="k">def</span> <span class="nf">getToppingNames</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[]:</span>
-</span><span id="getToppingNames-25"><a href="#getToppingNames-25"><span class="linenos">25</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns all topping names from the database stored in list format.&quot;&quot;&quot;</span>
-</span><span id="getToppingNames-26"><a href="#getToppingNames-26"><span class="linenos">26</span></a>    <span class="n">results</span> <span class="o">=</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getToppingNames</span><span class="p">()</span>
-</span><span id="getToppingNames-27"><a href="#getToppingNames-27"><span class="linenos">27</span></a>    <span class="n">toppingNames</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="getToppingNames-28"><a href="#getToppingNames-28"><span class="linenos">28</span></a>    <span class="k">for</span> <span class="n">topping</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
-</span><span id="getToppingNames-29"><a href="#getToppingNames-29"><span class="linenos">29</span></a>        <span class="n">toppingNames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">topping</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</span><span id="getToppingNames-30"><a href="#getToppingNames-30"><span class="linenos">30</span></a>    <span class="k">return</span> <span class="n">toppingNames</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="getToppingNames-35"><a href="#getToppingNames-35"><span class="linenos">35</span></a><span class="k">def</span> <span class="nf">getToppingNames</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[]:</span>
+</span><span id="getToppingNames-36"><a href="#getToppingNames-36"><span class="linenos">36</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="getToppingNames-37"><a href="#getToppingNames-37"><span class="linenos">37</span></a><span class="sd">    Returns all topping names from the database stored in list format.</span>
+</span><span id="getToppingNames-38"><a href="#getToppingNames-38"><span class="linenos">38</span></a><span class="sd">    :return: Flattened list of topping names</span>
+</span><span id="getToppingNames-39"><a href="#getToppingNames-39"><span class="linenos">39</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="getToppingNames-40"><a href="#getToppingNames-40"><span class="linenos">40</span></a>    <span class="n">results</span> <span class="o">=</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getToppingNames</span><span class="p">()</span>
+</span><span id="getToppingNames-41"><a href="#getToppingNames-41"><span class="linenos">41</span></a>    <span class="n">toppingNames</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="getToppingNames-42"><a href="#getToppingNames-42"><span class="linenos">42</span></a>    <span class="k">for</span> <span class="n">topping</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+</span><span id="getToppingNames-43"><a href="#getToppingNames-43"><span class="linenos">43</span></a>        <span class="n">toppingNames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">topping</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span id="getToppingNames-44"><a href="#getToppingNames-44"><span class="linenos">44</span></a>    <span class="k">return</span> <span class="n">toppingNames</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Returns all topping names from the database stored in list format.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Flattened list of topping names</p>
+</blockquote>
 </div>
 
 
@@ -284,72 +343,89 @@
 
     </div>
     <a class="headerlink" href="#placeOrder"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="placeOrder-33"><a href="#placeOrder-33"><span class="linenos">33</span></a><span class="k">def</span> <span class="nf">placeOrder</span><span class="p">(</span><span class="n">menuItems</span><span class="p">):</span>
-</span><span id="placeOrder-34"><a href="#placeOrder-34"><span class="linenos">34</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Executes the placing of an order. Updates order table and inventory.&quot;&quot;&quot;</span>
-</span><span id="placeOrder-35"><a href="#placeOrder-35"><span class="linenos">35</span></a>    <span class="n">totalPrice</span> <span class="o">=</span> <span class="mf">0.0</span>
-</span><span id="placeOrder-36"><a href="#placeOrder-36"><span class="linenos">36</span></a>    <span class="n">orderId</span> <span class="o">=</span> <span class="p">(</span><span class="n">customer_querier</span><span class="o">.</span><span class="n">getMaxOrderId</span><span class="p">())[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
-</span><span id="placeOrder-37"><a href="#placeOrder-37"><span class="linenos">37</span></a>
-</span><span id="placeOrder-38"><a href="#placeOrder-38"><span class="linenos">38</span></a>    <span class="k">for</span> <span class="n">menuItem</span> <span class="ow">in</span> <span class="n">menuItems</span><span class="p">:</span>
-</span><span id="placeOrder-39"><a href="#placeOrder-39"><span class="linenos">39</span></a>        <span class="n">itemName</span> <span class="o">=</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_name&#39;</span><span class="p">]</span>
-</span><span id="placeOrder-40"><a href="#placeOrder-40"><span class="linenos">40</span></a>
-</span><span id="placeOrder-41"><a href="#placeOrder-41"><span class="linenos">41</span></a>        <span class="n">toppingList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-</span><span id="placeOrder-42"><a href="#placeOrder-42"><span class="linenos">42</span></a>        <span class="k">if</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping1&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;null&#39;</span><span class="p">:</span>
-</span><span id="placeOrder-43"><a href="#placeOrder-43"><span class="linenos">43</span></a>            <span class="n">toppingList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping1&#39;</span><span class="p">])</span>
-</span><span id="placeOrder-44"><a href="#placeOrder-44"><span class="linenos">44</span></a>        <span class="k">if</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping2&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;null&#39;</span><span class="p">:</span>
-</span><span id="placeOrder-45"><a href="#placeOrder-45"><span class="linenos">45</span></a>            <span class="n">toppingList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping2&#39;</span><span class="p">])</span>
-</span><span id="placeOrder-46"><a href="#placeOrder-46"><span class="linenos">46</span></a>        <span class="k">if</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping3&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;null&#39;</span><span class="p">:</span>
-</span><span id="placeOrder-47"><a href="#placeOrder-47"><span class="linenos">47</span></a>            <span class="n">toppingList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping3&#39;</span><span class="p">])</span>
-</span><span id="placeOrder-48"><a href="#placeOrder-48"><span class="linenos">48</span></a>
-</span><span id="placeOrder-49"><a href="#placeOrder-49"><span class="linenos">49</span></a>        <span class="n">itemQuantity</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_quantity&#39;</span><span class="p">])</span>
-</span><span id="placeOrder-50"><a href="#placeOrder-50"><span class="linenos">50</span></a>
-</span><span id="placeOrder-51"><a href="#placeOrder-51"><span class="linenos">51</span></a>        <span class="n">sweetness</span> <span class="o">=</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_sweetness&#39;</span><span class="p">]</span>
-</span><span id="placeOrder-52"><a href="#placeOrder-52"><span class="linenos">52</span></a>        <span class="n">iceLevel</span> <span class="o">=</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_iceLevel&#39;</span><span class="p">]</span>
-</span><span id="placeOrder-53"><a href="#placeOrder-53"><span class="linenos">53</span></a>        <span class="n">price</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_price&#39;</span><span class="p">])</span>
-</span><span id="placeOrder-54"><a href="#placeOrder-54"><span class="linenos">54</span></a>
-</span><span id="placeOrder-55"><a href="#placeOrder-55"><span class="linenos">55</span></a>        <span class="n">menuItemId</span> <span class="o">=</span> <span class="p">(</span><span class="n">customer_querier</span><span class="o">.</span><span class="n">getMenuItemId</span><span class="p">(</span><span class="n">itemName</span><span class="p">))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="placeOrder-56"><a href="#placeOrder-56"><span class="linenos">56</span></a>
-</span><span id="placeOrder-57"><a href="#placeOrder-57"><span class="linenos">57</span></a>        <span class="c1">#Ingredients</span>
-</span><span id="placeOrder-58"><a href="#placeOrder-58"><span class="linenos">58</span></a>        <span class="n">menuItemComponents</span> <span class="o">=</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getMenuItemComponents</span><span class="p">(</span><span class="n">menuItemId</span><span class="p">)</span>
-</span><span id="placeOrder-59"><a href="#placeOrder-59"><span class="linenos">59</span></a>        <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">menuItemComponents</span><span class="p">:</span>
-</span><span id="placeOrder-60"><a href="#placeOrder-60"><span class="linenos">60</span></a>            <span class="n">customer_querier</span><span class="o">.</span><span class="n">subtractIngredientQuantityInventory</span><span class="p">(</span><span class="n">component</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">component</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">itemQuantity</span><span class="p">)</span>
-</span><span id="placeOrder-61"><a href="#placeOrder-61"><span class="linenos">61</span></a>
-</span><span id="placeOrder-62"><a href="#placeOrder-62"><span class="linenos">62</span></a>        <span class="c1">#Cups and Straws</span>
-</span><span id="placeOrder-63"><a href="#placeOrder-63"><span class="linenos">63</span></a>        <span class="n">customer_querier</span><span class="o">.</span><span class="n">subtractIngredientQuantityInventory</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">itemQuantity</span><span class="p">)</span>
-</span><span id="placeOrder-64"><a href="#placeOrder-64"><span class="linenos">64</span></a>        <span class="n">customer_querier</span><span class="o">.</span><span class="n">subtractIngredientQuantityInventory</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">itemQuantity</span><span class="p">)</span>
-</span><span id="placeOrder-65"><a href="#placeOrder-65"><span class="linenos">65</span></a>
-</span><span id="placeOrder-66"><a href="#placeOrder-66"><span class="linenos">66</span></a>        <span class="c1">#Toppings</span>
-</span><span id="placeOrder-67"><a href="#placeOrder-67"><span class="linenos">67</span></a>        <span class="n">toppingIdList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
-</span><span id="placeOrder-68"><a href="#placeOrder-68"><span class="linenos">68</span></a>        <span class="k">for</span> <span class="n">topping</span> <span class="ow">in</span> <span class="n">toppingList</span><span class="p">:</span>
-</span><span id="placeOrder-69"><a href="#placeOrder-69"><span class="linenos">69</span></a>            <span class="n">toppingId</span> <span class="o">=</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getToppingId</span><span class="p">(</span><span class="n">topping</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="placeOrder-70"><a href="#placeOrder-70"><span class="linenos">70</span></a>            <span class="n">toppingIdList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">toppingId</span><span class="p">)</span>
-</span><span id="placeOrder-71"><a href="#placeOrder-71"><span class="linenos">71</span></a>            <span class="n">customer_querier</span><span class="o">.</span><span class="n">subtractIngredientQuantityInventory</span><span class="p">(</span><span class="n">toppingId</span><span class="p">,</span> <span class="n">itemQuantity</span><span class="p">)</span>
-</span><span id="placeOrder-72"><a href="#placeOrder-72"><span class="linenos">72</span></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">3</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">toppingList</span><span class="p">)):</span>
-</span><span id="placeOrder-73"><a href="#placeOrder-73"><span class="linenos">73</span></a>            <span class="n">toppingIdList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="placeOrder-74"><a href="#placeOrder-74"><span class="linenos">74</span></a>
-</span><span id="placeOrder-75"><a href="#placeOrder-75"><span class="linenos">75</span></a>        <span class="c1">#Order Part</span>
-</span><span id="placeOrder-76"><a href="#placeOrder-76"><span class="linenos">76</span></a>        <span class="n">totalPrice</span> <span class="o">+=</span> <span class="n">price</span> <span class="o">*</span> <span class="n">itemQuantity</span>
-</span><span id="placeOrder-77"><a href="#placeOrder-77"><span class="linenos">77</span></a>        <span class="k">if</span> <span class="n">iceLevel</span> <span class="o">==</span> <span class="s1">&#39;Regular&#39;</span><span class="p">:</span>
-</span><span id="placeOrder-78"><a href="#placeOrder-78"><span class="linenos">78</span></a>            <span class="n">iceLevelNum</span> <span class="o">=</span> <span class="mi">2</span>
-</span><span id="placeOrder-79"><a href="#placeOrder-79"><span class="linenos">79</span></a>        <span class="k">elif</span> <span class="n">iceLevel</span> <span class="o">==</span> <span class="s1">&#39;Less&#39;</span><span class="p">:</span>
-</span><span id="placeOrder-80"><a href="#placeOrder-80"><span class="linenos">80</span></a>            <span class="n">iceLevelNum</span> <span class="o">=</span> <span class="mi">1</span>
-</span><span id="placeOrder-81"><a href="#placeOrder-81"><span class="linenos">81</span></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="placeOrder-82"><a href="#placeOrder-82"><span class="linenos">82</span></a>            <span class="n">iceLevelNum</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="placeOrder-83"><a href="#placeOrder-83"><span class="linenos">83</span></a>
-</span><span id="placeOrder-84"><a href="#placeOrder-84"><span class="linenos">84</span></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">itemQuantity</span><span class="p">):</span>
-</span><span id="placeOrder-85"><a href="#placeOrder-85"><span class="linenos">85</span></a>            <span class="n">uniqueId</span> <span class="o">=</span> <span class="p">(</span><span class="n">customer_querier</span><span class="o">.</span><span class="n">getMaxUniqueId</span><span class="p">())[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
-</span><span id="placeOrder-86"><a href="#placeOrder-86"><span class="linenos">86</span></a>            <span class="n">customer_querier</span><span class="o">.</span><span class="n">insertIntoOrderPartTable</span><span class="p">(</span><span class="n">uniqueId</span><span class="p">,</span> <span class="n">orderId</span><span class="p">,</span> <span class="n">menuItemId</span><span class="p">,</span> <span class="n">toppingIdList</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">toppingIdList</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">toppingIdList</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nb">round</span><span class="p">(</span><span class="n">price</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">sweetness</span><span class="p">,</span> <span class="n">iceLevelNum</span><span class="p">)</span>
-</span><span id="placeOrder-87"><a href="#placeOrder-87"><span class="linenos">87</span></a>
-</span><span id="placeOrder-88"><a href="#placeOrder-88"><span class="linenos">88</span></a>    <span class="c1">#Order</span>
-</span><span id="placeOrder-89"><a href="#placeOrder-89"><span class="linenos">89</span></a>    <span class="k">if</span> <span class="p">(</span><span class="n">current_user</span><span class="o">.</span><span class="n">is_authenticated</span> <span class="o">==</span> <span class="kc">True</span><span class="p">):</span>
-</span><span id="placeOrder-90"><a href="#placeOrder-90"><span class="linenos">90</span></a>        <span class="n">currentEmail</span> <span class="o">=</span> <span class="n">current_user</span><span class="o">.</span><span class="n">email</span>
-</span><span id="placeOrder-91"><a href="#placeOrder-91"><span class="linenos">91</span></a>    <span class="k">else</span><span class="p">:</span>
-</span><span id="placeOrder-92"><a href="#placeOrder-92"><span class="linenos">92</span></a>        <span class="n">currentEmail</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
-</span><span id="placeOrder-93"><a href="#placeOrder-93"><span class="linenos">93</span></a>
-</span><span id="placeOrder-94"><a href="#placeOrder-94"><span class="linenos">94</span></a>    <span class="n">customer_querier</span><span class="o">.</span><span class="n">insertIntoOrderTableCurrent</span><span class="p">(</span><span class="n">orderId</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">totalPrice</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">currentEmail</span><span class="p">,</span> <span class="n">current_user</span><span class="o">.</span><span class="n">employeeId</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="placeOrder-47"><a href="#placeOrder-47"><span class="linenos"> 47</span></a><span class="k">def</span> <span class="nf">placeOrder</span><span class="p">(</span><span class="n">menuItems</span><span class="p">):</span>
+</span><span id="placeOrder-48"><a href="#placeOrder-48"><span class="linenos"> 48</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="placeOrder-49"><a href="#placeOrder-49"><span class="linenos"> 49</span></a><span class="sd">    Executes the placing of an order. Updates order table and inventory.</span>
+</span><span id="placeOrder-50"><a href="#placeOrder-50"><span class="linenos"> 50</span></a><span class="sd">    :param menuItems: List of menu item dict objects</span>
+</span><span id="placeOrder-51"><a href="#placeOrder-51"><span class="linenos"> 51</span></a><span class="sd">    :return: None</span>
+</span><span id="placeOrder-52"><a href="#placeOrder-52"><span class="linenos"> 52</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="placeOrder-53"><a href="#placeOrder-53"><span class="linenos"> 53</span></a>    <span class="n">totalPrice</span> <span class="o">=</span> <span class="mf">0.0</span>
+</span><span id="placeOrder-54"><a href="#placeOrder-54"><span class="linenos"> 54</span></a>    <span class="n">orderId</span> <span class="o">=</span> <span class="p">(</span><span class="n">customer_querier</span><span class="o">.</span><span class="n">getMaxOrderId</span><span class="p">())[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span id="placeOrder-55"><a href="#placeOrder-55"><span class="linenos"> 55</span></a>
+</span><span id="placeOrder-56"><a href="#placeOrder-56"><span class="linenos"> 56</span></a>    <span class="k">for</span> <span class="n">menuItem</span> <span class="ow">in</span> <span class="n">menuItems</span><span class="p">:</span>
+</span><span id="placeOrder-57"><a href="#placeOrder-57"><span class="linenos"> 57</span></a>        <span class="n">itemName</span> <span class="o">=</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_name&#39;</span><span class="p">]</span>
+</span><span id="placeOrder-58"><a href="#placeOrder-58"><span class="linenos"> 58</span></a>
+</span><span id="placeOrder-59"><a href="#placeOrder-59"><span class="linenos"> 59</span></a>        <span class="n">toppingList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+</span><span id="placeOrder-60"><a href="#placeOrder-60"><span class="linenos"> 60</span></a>        <span class="k">if</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping1&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;null&#39;</span><span class="p">:</span>
+</span><span id="placeOrder-61"><a href="#placeOrder-61"><span class="linenos"> 61</span></a>            <span class="n">toppingList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping1&#39;</span><span class="p">])</span>
+</span><span id="placeOrder-62"><a href="#placeOrder-62"><span class="linenos"> 62</span></a>        <span class="k">if</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping2&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;null&#39;</span><span class="p">:</span>
+</span><span id="placeOrder-63"><a href="#placeOrder-63"><span class="linenos"> 63</span></a>            <span class="n">toppingList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping2&#39;</span><span class="p">])</span>
+</span><span id="placeOrder-64"><a href="#placeOrder-64"><span class="linenos"> 64</span></a>        <span class="k">if</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping3&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;null&#39;</span><span class="p">:</span>
+</span><span id="placeOrder-65"><a href="#placeOrder-65"><span class="linenos"> 65</span></a>            <span class="n">toppingList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_topping3&#39;</span><span class="p">])</span>
+</span><span id="placeOrder-66"><a href="#placeOrder-66"><span class="linenos"> 66</span></a>
+</span><span id="placeOrder-67"><a href="#placeOrder-67"><span class="linenos"> 67</span></a>        <span class="n">itemQuantity</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_quantity&#39;</span><span class="p">])</span>
+</span><span id="placeOrder-68"><a href="#placeOrder-68"><span class="linenos"> 68</span></a>
+</span><span id="placeOrder-69"><a href="#placeOrder-69"><span class="linenos"> 69</span></a>        <span class="n">sweetness</span> <span class="o">=</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_sweetness&#39;</span><span class="p">]</span>
+</span><span id="placeOrder-70"><a href="#placeOrder-70"><span class="linenos"> 70</span></a>        <span class="n">iceLevel</span> <span class="o">=</span> <span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_iceLevel&#39;</span><span class="p">]</span>
+</span><span id="placeOrder-71"><a href="#placeOrder-71"><span class="linenos"> 71</span></a>        <span class="n">price</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">menuItem</span><span class="p">[</span><span class="s1">&#39;_price&#39;</span><span class="p">])</span>
+</span><span id="placeOrder-72"><a href="#placeOrder-72"><span class="linenos"> 72</span></a>
+</span><span id="placeOrder-73"><a href="#placeOrder-73"><span class="linenos"> 73</span></a>        <span class="n">menuItemId</span> <span class="o">=</span> <span class="p">(</span><span class="n">customer_querier</span><span class="o">.</span><span class="n">getMenuItemId</span><span class="p">(</span><span class="n">itemName</span><span class="p">))[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="placeOrder-74"><a href="#placeOrder-74"><span class="linenos"> 74</span></a>
+</span><span id="placeOrder-75"><a href="#placeOrder-75"><span class="linenos"> 75</span></a>        <span class="c1"># Ingredients</span>
+</span><span id="placeOrder-76"><a href="#placeOrder-76"><span class="linenos"> 76</span></a>        <span class="n">menuItemComponents</span> <span class="o">=</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getMenuItemComponents</span><span class="p">(</span><span class="n">menuItemId</span><span class="p">)</span>
+</span><span id="placeOrder-77"><a href="#placeOrder-77"><span class="linenos"> 77</span></a>        <span class="k">for</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">menuItemComponents</span><span class="p">:</span>
+</span><span id="placeOrder-78"><a href="#placeOrder-78"><span class="linenos"> 78</span></a>            <span class="n">customer_querier</span><span class="o">.</span><span class="n">subtractIngredientQuantityInventory</span><span class="p">(</span><span class="n">component</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">component</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">itemQuantity</span><span class="p">)</span>
+</span><span id="placeOrder-79"><a href="#placeOrder-79"><span class="linenos"> 79</span></a>
+</span><span id="placeOrder-80"><a href="#placeOrder-80"><span class="linenos"> 80</span></a>        <span class="c1"># Cups and Straws</span>
+</span><span id="placeOrder-81"><a href="#placeOrder-81"><span class="linenos"> 81</span></a>        <span class="n">customer_querier</span><span class="o">.</span><span class="n">subtractIngredientQuantityInventory</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="n">itemQuantity</span><span class="p">)</span>
+</span><span id="placeOrder-82"><a href="#placeOrder-82"><span class="linenos"> 82</span></a>        <span class="n">customer_querier</span><span class="o">.</span><span class="n">subtractIngredientQuantityInventory</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">itemQuantity</span><span class="p">)</span>
+</span><span id="placeOrder-83"><a href="#placeOrder-83"><span class="linenos"> 83</span></a>
+</span><span id="placeOrder-84"><a href="#placeOrder-84"><span class="linenos"> 84</span></a>        <span class="c1"># Toppings</span>
+</span><span id="placeOrder-85"><a href="#placeOrder-85"><span class="linenos"> 85</span></a>        <span class="n">toppingIdList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+</span><span id="placeOrder-86"><a href="#placeOrder-86"><span class="linenos"> 86</span></a>        <span class="k">for</span> <span class="n">topping</span> <span class="ow">in</span> <span class="n">toppingList</span><span class="p">:</span>
+</span><span id="placeOrder-87"><a href="#placeOrder-87"><span class="linenos"> 87</span></a>            <span class="n">toppingId</span> <span class="o">=</span> <span class="n">customer_querier</span><span class="o">.</span><span class="n">getToppingId</span><span class="p">(</span><span class="n">topping</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="placeOrder-88"><a href="#placeOrder-88"><span class="linenos"> 88</span></a>            <span class="n">toppingIdList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">toppingId</span><span class="p">)</span>
+</span><span id="placeOrder-89"><a href="#placeOrder-89"><span class="linenos"> 89</span></a>            <span class="n">customer_querier</span><span class="o">.</span><span class="n">subtractIngredientQuantityInventory</span><span class="p">(</span><span class="n">toppingId</span><span class="p">,</span> <span class="n">itemQuantity</span><span class="p">)</span>
+</span><span id="placeOrder-90"><a href="#placeOrder-90"><span class="linenos"> 90</span></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">toppingList</span><span class="p">)):</span>
+</span><span id="placeOrder-91"><a href="#placeOrder-91"><span class="linenos"> 91</span></a>            <span class="n">toppingIdList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="placeOrder-92"><a href="#placeOrder-92"><span class="linenos"> 92</span></a>
+</span><span id="placeOrder-93"><a href="#placeOrder-93"><span class="linenos"> 93</span></a>        <span class="c1"># Order Part</span>
+</span><span id="placeOrder-94"><a href="#placeOrder-94"><span class="linenos"> 94</span></a>        <span class="n">totalPrice</span> <span class="o">+=</span> <span class="n">price</span> <span class="o">*</span> <span class="n">itemQuantity</span>
+</span><span id="placeOrder-95"><a href="#placeOrder-95"><span class="linenos"> 95</span></a>        <span class="k">if</span> <span class="n">iceLevel</span> <span class="o">==</span> <span class="s1">&#39;Regular&#39;</span><span class="p">:</span>
+</span><span id="placeOrder-96"><a href="#placeOrder-96"><span class="linenos"> 96</span></a>            <span class="n">iceLevelNum</span> <span class="o">=</span> <span class="mi">2</span>
+</span><span id="placeOrder-97"><a href="#placeOrder-97"><span class="linenos"> 97</span></a>        <span class="k">elif</span> <span class="n">iceLevel</span> <span class="o">==</span> <span class="s1">&#39;Less&#39;</span><span class="p">:</span>
+</span><span id="placeOrder-98"><a href="#placeOrder-98"><span class="linenos"> 98</span></a>            <span class="n">iceLevelNum</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span id="placeOrder-99"><a href="#placeOrder-99"><span class="linenos"> 99</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="placeOrder-100"><a href="#placeOrder-100"><span class="linenos">100</span></a>            <span class="n">iceLevelNum</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="placeOrder-101"><a href="#placeOrder-101"><span class="linenos">101</span></a>
+</span><span id="placeOrder-102"><a href="#placeOrder-102"><span class="linenos">102</span></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">itemQuantity</span><span class="p">):</span>
+</span><span id="placeOrder-103"><a href="#placeOrder-103"><span class="linenos">103</span></a>            <span class="n">uniqueId</span> <span class="o">=</span> <span class="p">(</span><span class="n">customer_querier</span><span class="o">.</span><span class="n">getMaxUniqueId</span><span class="p">())[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+</span><span id="placeOrder-104"><a href="#placeOrder-104"><span class="linenos">104</span></a>            <span class="n">customer_querier</span><span class="o">.</span><span class="n">insertIntoOrderPartTable</span><span class="p">(</span><span class="n">uniqueId</span><span class="p">,</span> <span class="n">orderId</span><span class="p">,</span> <span class="n">menuItemId</span><span class="p">,</span> <span class="n">toppingIdList</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">toppingIdList</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+</span><span id="placeOrder-105"><a href="#placeOrder-105"><span class="linenos">105</span></a>                                                      <span class="n">toppingIdList</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nb">round</span><span class="p">(</span><span class="n">price</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">sweetness</span><span class="p">,</span> <span class="n">iceLevelNum</span><span class="p">)</span>
+</span><span id="placeOrder-106"><a href="#placeOrder-106"><span class="linenos">106</span></a>
+</span><span id="placeOrder-107"><a href="#placeOrder-107"><span class="linenos">107</span></a>    <span class="c1"># Order</span>
+</span><span id="placeOrder-108"><a href="#placeOrder-108"><span class="linenos">108</span></a>    <span class="k">if</span> <span class="p">(</span><span class="n">current_user</span><span class="o">.</span><span class="n">is_authenticated</span> <span class="o">==</span> <span class="kc">True</span><span class="p">):</span>
+</span><span id="placeOrder-109"><a href="#placeOrder-109"><span class="linenos">109</span></a>        <span class="n">currentEmail</span> <span class="o">=</span> <span class="n">current_user</span><span class="o">.</span><span class="n">email</span>
+</span><span id="placeOrder-110"><a href="#placeOrder-110"><span class="linenos">110</span></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="placeOrder-111"><a href="#placeOrder-111"><span class="linenos">111</span></a>        <span class="n">currentEmail</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+</span><span id="placeOrder-112"><a href="#placeOrder-112"><span class="linenos">112</span></a>
+</span><span id="placeOrder-113"><a href="#placeOrder-113"><span class="linenos">113</span></a>    <span class="n">customer_querier</span><span class="o">.</span><span class="n">insertIntoOrderTableCurrent</span><span class="p">(</span><span class="n">orderId</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">totalPrice</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">currentEmail</span><span class="p">,</span> <span class="n">current_user</span><span class="o">.</span><span class="n">employeeId</span><span class="p">)</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Executes the placing of an order. Updates order table and inventory.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>menuItems</strong>:  List of menu item dict objects</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -365,20 +441,31 @@
 
     </div>
     <a class="headerlink" href="#getWeather"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="getWeather-97"><a href="#getWeather-97"><span class="linenos"> 97</span></a><span class="k">def</span> <span class="nf">getWeather</span><span class="p">():</span>
-</span><span id="getWeather-98"><a href="#getWeather-98"><span class="linenos"> 98</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieves the weather data for College Station.&quot;&quot;&quot;</span>
-</span><span id="getWeather-99"><a href="#getWeather-99"><span class="linenos"> 99</span></a>    <span class="n">api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;WEATHER_API_KEY&quot;</span><span class="p">]</span>
-</span><span id="getWeather-100"><a href="#getWeather-100"><span class="linenos">100</span></a>    <span class="n">city_name</span> <span class="o">=</span> <span class="s1">&#39;College Station&#39;</span>
-</span><span id="getWeather-101"><a href="#getWeather-101"><span class="linenos">101</span></a>    <span class="c1"># state_code = &#39;TX&#39;</span>
-</span><span id="getWeather-102"><a href="#getWeather-102"><span class="linenos">102</span></a>    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;http://api.openweathermap.org/data/2.5/weather?q=</span><span class="si">{</span><span class="n">city_name</span><span class="si">}</span><span class="s1">&amp;appid=</span><span class="si">{</span><span class="n">api_key</span><span class="si">}</span><span class="s1">&amp;units=imperial&#39;</span>
-</span><span id="getWeather-103"><a href="#getWeather-103"><span class="linenos">103</span></a>
-</span><span id="getWeather-104"><a href="#getWeather-104"><span class="linenos">104</span></a>    <span class="c1"># Send a GET request to the API</span>
-</span><span id="getWeather-105"><a href="#getWeather-105"><span class="linenos">105</span></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-</span><span id="getWeather-106"><a href="#getWeather-106"><span class="linenos">106</span></a>    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;main&#39;</span><span class="p">][</span><span class="s1">&#39;temp&#39;</span><span class="p">]),</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;weather&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;description&#39;</span><span class="p">]</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="getWeather-116"><a href="#getWeather-116"><span class="linenos">116</span></a><span class="k">def</span> <span class="nf">getWeather</span><span class="p">():</span>
+</span><span id="getWeather-117"><a href="#getWeather-117"><span class="linenos">117</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="getWeather-118"><a href="#getWeather-118"><span class="linenos">118</span></a><span class="sd">    Retrieves the weather data for College Station.</span>
+</span><span id="getWeather-119"><a href="#getWeather-119"><span class="linenos">119</span></a><span class="sd">    Must have API key loaded in evironment variable</span>
+</span><span id="getWeather-120"><a href="#getWeather-120"><span class="linenos">120</span></a><span class="sd">    :return: tuple(temp: int, description: str)</span>
+</span><span id="getWeather-121"><a href="#getWeather-121"><span class="linenos">121</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="getWeather-122"><a href="#getWeather-122"><span class="linenos">122</span></a>    <span class="n">api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">&quot;WEATHER_API_KEY&quot;</span><span class="p">]</span>
+</span><span id="getWeather-123"><a href="#getWeather-123"><span class="linenos">123</span></a>    <span class="n">city_name</span> <span class="o">=</span> <span class="s1">&#39;College Station&#39;</span>
+</span><span id="getWeather-124"><a href="#getWeather-124"><span class="linenos">124</span></a>    <span class="c1"># state_code = &#39;TX&#39;</span>
+</span><span id="getWeather-125"><a href="#getWeather-125"><span class="linenos">125</span></a>    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;http://api.openweathermap.org/data/2.5/weather?q=</span><span class="si">{</span><span class="n">city_name</span><span class="si">}</span><span class="s1">&amp;appid=</span><span class="si">{</span><span class="n">api_key</span><span class="si">}</span><span class="s1">&amp;units=imperial&#39;</span>
+</span><span id="getWeather-126"><a href="#getWeather-126"><span class="linenos">126</span></a>
+</span><span id="getWeather-127"><a href="#getWeather-127"><span class="linenos">127</span></a>    <span class="c1"># Send a GET request to the API</span>
+</span><span id="getWeather-128"><a href="#getWeather-128"><span class="linenos">128</span></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+</span><span id="getWeather-129"><a href="#getWeather-129"><span class="linenos">129</span></a>    <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;main&#39;</span><span class="p">][</span><span class="s1">&#39;temp&#39;</span><span class="p">]),</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;weather&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;description&#39;</span><span class="p">]</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Retrieves the weather data for College Station.</p>
+            <div class="docstring"><p>Retrieves the weather data for College Station.
+Must have API key loaded in evironment variable</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>tuple(temp: int, description: str)</p>
+</blockquote>
 </div>
 
 

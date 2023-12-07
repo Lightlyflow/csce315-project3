@@ -5,23 +5,37 @@ import requests
 
 
 def getMenuData():
-    """Returns all menu items from the database."""
+    """
+    Returns all menu items from the database.
+    :return: List of menu items
+    """
     return customer_querier.getMenuItems()
 
 
 def getMenuCategories():
-    """Returns all menu categories from the database."""
+    """
+    Returns all menu categories from the database.
+    :return: Flattened list of menu categories
+    """
     results = customer_querier.getMenuCategories()
     categories = [item for sublist in results for item in sublist]
 
     return categories
 
+
 def getToppingData():
-    """Returns all topping names from the database."""
+    """
+    Returns all topping names from the database.
+    :return: List of topping names
+    """
     return customer_querier.getToppingNames()
 
+
 def getToppingNames() -> []:
-    """Returns all topping names from the database stored in list format."""
+    """
+    Returns all topping names from the database stored in list format.
+    :return: Flattened list of topping names
+    """
     results = customer_querier.getToppingNames()
     toppingNames = []
     for topping in results:
@@ -30,7 +44,11 @@ def getToppingNames() -> []:
 
 
 def placeOrder(menuItems):
-    """Executes the placing of an order. Updates order table and inventory."""
+    """
+    Executes the placing of an order. Updates order table and inventory.
+    :param menuItems: List of menu item dict objects
+    :return: None
+    """
     totalPrice = 0.0
     orderId = (customer_querier.getMaxOrderId())[0][0] + 1
 
@@ -53,25 +71,25 @@ def placeOrder(menuItems):
 
         menuItemId = (customer_querier.getMenuItemId(itemName))[0][0]
 
-        #Ingredients
+        # Ingredients
         menuItemComponents = customer_querier.getMenuItemComponents(menuItemId)
         for component in menuItemComponents:
             customer_querier.subtractIngredientQuantityInventory(component[0], component[1] * itemQuantity)
 
-        #Cups and Straws
+        # Cups and Straws
         customer_querier.subtractIngredientQuantityInventory(12, itemQuantity)
         customer_querier.subtractIngredientQuantityInventory(13, itemQuantity)
 
-        #Toppings
+        # Toppings
         toppingIdList = list()
         for topping in toppingList:
             toppingId = customer_querier.getToppingId(topping)[0][0]
             toppingIdList.append(toppingId)
             customer_querier.subtractIngredientQuantityInventory(toppingId, itemQuantity)
-        for i in range (3 - len(toppingList)):
+        for i in range(3 - len(toppingList)):
             toppingIdList.append(-1)
 
-        #Order Part
+        # Order Part
         totalPrice += price * itemQuantity
         if iceLevel == 'Regular':
             iceLevelNum = 2
@@ -82,9 +100,10 @@ def placeOrder(menuItems):
 
         for i in range(itemQuantity):
             uniqueId = (customer_querier.getMaxUniqueId())[0][0] + 1
-            customer_querier.insertIntoOrderPartTable(uniqueId, orderId, menuItemId, toppingIdList[0], toppingIdList[1], toppingIdList[2], round(price, 2), sweetness, iceLevelNum)
+            customer_querier.insertIntoOrderPartTable(uniqueId, orderId, menuItemId, toppingIdList[0], toppingIdList[1],
+                                                      toppingIdList[2], round(price, 2), sweetness, iceLevelNum)
 
-    #Order
+    # Order
     if (current_user.is_authenticated == True):
         currentEmail = current_user.email
     else:
@@ -94,7 +113,11 @@ def placeOrder(menuItems):
 
 
 def getWeather():
-    """Retrieves the weather data for College Station."""
+    """
+    Retrieves the weather data for College Station.
+    Must have API key loaded in evironment variable
+    :return: tuple(temp: int, description: str)
+    """
     api_key = os.environ["WEATHER_API_KEY"]
     city_name = 'College Station'
     # state_code = 'TX'

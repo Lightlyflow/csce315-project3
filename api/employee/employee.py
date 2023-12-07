@@ -12,7 +12,10 @@ employeeBlueprint = Blueprint("employee", __name__, template_folder="templates",
 @employeeBlueprint.before_request
 @login_required
 def requireLogin():
-    """Aborts if an unauthorized user attempts to access employee or manager pages."""
+    """
+    Aborts if an unauthorized user attempts to access employee or manager pages.
+    :return: 403 if not employee
+    """
     if not current_user.is_authenticated:
         abort(403)
     if not current_user.isEmployee:
@@ -21,12 +24,19 @@ def requireLogin():
 
 @employeeBlueprint.route("/", methods=['GET'])
 def home():
+    """
+    Redirects to employee timesheet page
+    :return: redirect to employee timesheet
+    """
     return redirect(url_for("employee.timesheet"))
 
 
 @employeeBlueprint.route("/order", methods=['GET'])
 def cashier():
-    """Stores menu item, category, topping and weather information before rendering the employee home page."""
+    """
+    Stores menu item, category, topping and weather information before rendering the employee home page.
+    :return: Render of cashier page
+    """
     # Menu items dynamic loading
     menuQuery = getMenuData()
     menuCategories = getMenuCategories()
@@ -47,7 +57,10 @@ def cashier():
 
 @employeeBlueprint.route("/post_endpoint", methods=['POST'])
 def receive_saved_items():
-    """Orders any items that were previously saved."""
+    """
+    Retrieves any items that were previously saved.
+    :return: Response containing previously saved items
+    """
     data = request.get_json()
     if 'savedMenuItems' in data:
         savedItems = data['savedMenuItems']
@@ -59,12 +72,19 @@ def receive_saved_items():
 
 @employeeBlueprint.route("/timesheet", methods=['GET'])
 def timesheet():
-    """Renders employee timesheet page."""
+    """
+    Renders employee timesheet page.
+    :return: render of employee timesheet
+    """
     return render_template("employee_timesheet.html", billingPeriods=getBillingPeriods())
 
 
 @employeeBlueprint.route("/orders", methods=['GET'])
 def orders():
+    """
+    Renders employee order management page
+    :return: render of employee order management page
+    """
     return render_template("employee_orders.html")
 
 
