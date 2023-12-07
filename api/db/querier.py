@@ -6,7 +6,8 @@ from psycopg2 import connect, DatabaseError, extras, extensions
 
 def getConnection():
     """
-    Gets a connection to our Postgres database
+    Gets a connection to our Postgres database.
+    Credentials must be set as environment variables.
     :return: A connection object to the database
     """
     return connect(user=os.environ["DB_USERNAME"],
@@ -21,7 +22,8 @@ DEBUG: bool = os.environ["DEBUG"].lower() == "true"
 
 def execute(query: str, getRet: bool = True) -> list[tuple[Any, ...]] | None:
     """
-    Queries the database to get some data (or not)
+    Queries the database to get some data (or not).
+    Attempts to reconnect if the connection is dropped.
     :param query: Postgres query to execute
     :param getRet: If your query doesn't return anything, set this to True
     :return: List of tuples

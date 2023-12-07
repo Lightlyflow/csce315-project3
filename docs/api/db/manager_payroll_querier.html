@@ -79,53 +79,92 @@
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
 </span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a>
 </span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="k">def</span> <span class="nf">getTimesheet</span><span class="p">():</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieves a table of all employee activity from the database.&quot;&quot;&quot;</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>        <span class="sa">f</span><span class="s2">&quot;SELECT id, employeeid, activity, clockin, clockout, EXTRACT(EPOCH FROM clockout -  clockin)/3600 AS hours FROM clockinout;&quot;</span><span class="p">)</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="k">def</span> <span class="nf">getTimesheetByID</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">billingPeriod</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieves activity for a specific employee and billing period based on their ID.&quot;&quot;&quot;</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>        <span class="sa">f</span><span class="s2">&quot;SELECT id, employeeid, activity, clockin, clockout, EXTRACT(EPOCH FROM clockout -  clockin)/3600 AS hours FROM clockinout&quot;</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>        <span class="sa">f</span><span class="s2">&quot; WHERE employeeid=</span><span class="si">{</span><span class="n">employeeID</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>        <span class="sa">f</span><span class="s2">&quot; AND (clockout &gt;= &#39;</span><span class="si">{</span><span class="n">billingPeriod</span><span class="si">}</span><span class="s2">&#39; AND clockout &lt;= (to_timestamp(&#39;</span><span class="si">{</span><span class="n">billingPeriod</span><span class="si">}</span><span class="s2">&#39;, &#39;YYYY-MM-DD&#39;) + INTERVAL &#39;14 day&#39;));&quot;</span><span class="p">)</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="k">def</span> <span class="nf">addTimesheetEntry</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">activity</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">clockIn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">clockOut</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Inserts an employee shift into the time sheet.&quot;&quot;&quot;</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="n">execute</span><span class="p">(</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>        <span class="sa">f</span><span class="s2">&quot;INSERT INTO clockinout (employeeid, clockin, clockout, activity) VALUES (</span><span class="si">{</span><span class="n">employeeID</span><span class="si">}</span><span class="s2">, &#39;</span><span class="si">{</span><span class="n">clockIn</span><span class="si">}</span><span class="s2">&#39;, &#39;</span><span class="si">{</span><span class="n">clockOut</span><span class="si">}</span><span class="s2">&#39;, &#39;</span><span class="si">{</span><span class="n">activity</span><span class="si">}</span><span class="s2">&#39;);&quot;</span><span class="p">)</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="k">def</span> <span class="nf">updateTimesheetEntryByID</span><span class="p">(</span><span class="n">entryID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">activity</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">clockIn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">clockOut</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Updates the information of an employee shift based on their ID.&quot;&quot;&quot;</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>    <span class="n">execute</span><span class="p">(</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>        <span class="sa">f</span><span class="s2">&quot;UPDATE clockinout SET employeeID=</span><span class="si">{</span><span class="n">employeeID</span><span class="si">}</span><span class="s2">, activity=&#39;</span><span class="si">{</span><span class="n">activity</span><span class="si">}</span><span class="s2">&#39;, clockIn=round_time_quarter_hour(&#39;</span><span class="si">{</span><span class="n">clockIn</span><span class="si">}</span><span class="s2">&#39;), clockOut=round_time_quarter_hour(&#39;</span><span class="si">{</span><span class="n">clockOut</span><span class="si">}</span><span class="s2">&#39;) WHERE id=</span><span class="si">{</span><span class="n">entryID</span><span class="si">}</span><span class="s2">;&quot;</span><span class="p">)</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="k">def</span> <span class="nf">deleteTimesheetEntry</span><span class="p">(</span><span class="n">entryID</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Deletes an entry from the time sheet by ID.&quot;&quot;&quot;</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DELETE FROM clockinout WHERE id=</span><span class="si">{</span><span class="n">entryID</span><span class="si">}</span><span class="s2">;&quot;</span><span class="p">)</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="k">def</span> <span class="nf">getPayRate</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the pay rate for a specific employee based on their ID.&quot;&quot;&quot;</span>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT pay_rate from employee_table WHERE employeeid=</span><span class="si">{</span><span class="n">employeeID</span><span class="si">}</span><span class="s2">;&quot;</span><span class="p">)</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="sd">    Retrieves a table of all employee activity from the database.</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="sd">    :return: List containing id, employee ID, clock in/out times, and total hours</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>        <span class="sa">f</span><span class="s2">&quot;SELECT id, employeeid, activity, clockin, clockout, EXTRACT(EPOCH FROM clockout -  clockin)/3600 AS hours FROM clockinout;&quot;</span><span class="p">)</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="k">def</span> <span class="nf">getTimesheetByID</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">billingPeriod</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">    Retrieves activity for a specific employee and billing period based on their ID.</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">    :param employeeID: employee ID</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="sd">    :param billingPeriod: start of 2 week period, YYYY-MM-DD format</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="sd">    :return: List containing id, employee ID, activity name, clock/inout times, and total hours</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>        <span class="sa">f</span><span class="s2">&quot;SELECT id, employeeid, activity, clockin, clockout, EXTRACT(EPOCH FROM clockout -  clockin)/3600 AS hours FROM clockinout&quot;</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>        <span class="sa">f</span><span class="s2">&quot; WHERE employeeid=</span><span class="si">{</span><span class="n">employeeID</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>        <span class="sa">f</span><span class="s2">&quot; AND (clockout &gt;= &#39;</span><span class="si">{</span><span class="n">billingPeriod</span><span class="si">}</span><span class="s2">&#39; AND clockout &lt;= (to_timestamp(&#39;</span><span class="si">{</span><span class="n">billingPeriod</span><span class="si">}</span><span class="s2">&#39;, &#39;YYYY-MM-DD&#39;) + INTERVAL &#39;14 day&#39;));&quot;</span><span class="p">)</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="k">def</span> <span class="nf">addTimesheetEntry</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">activity</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">clockIn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">clockOut</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="sd">    Inserts an employee shift into the time sheet.</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="sd">    :param employeeID: employee ID</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="sd">    :param activity: activity name</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a><span class="sd">    :param clockIn: clock in time</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a><span class="sd">    :param clockOut: clock out time</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="sd">    :return: None</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>    <span class="n">execute</span><span class="p">(</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>        <span class="sa">f</span><span class="s2">&quot;INSERT INTO clockinout (employeeid, clockin, clockout, activity) VALUES (</span><span class="si">{</span><span class="n">employeeID</span><span class="si">}</span><span class="s2">, &#39;</span><span class="si">{</span><span class="n">clockIn</span><span class="si">}</span><span class="s2">&#39;, &#39;</span><span class="si">{</span><span class="n">clockOut</span><span class="si">}</span><span class="s2">&#39;, &#39;</span><span class="si">{</span><span class="n">activity</span><span class="si">}</span><span class="s2">&#39;);&quot;</span><span class="p">)</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>
 </span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>
-</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a><span class="k">def</span> <span class="nf">getEmployees</span><span class="p">():</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieves all employee names and their associated IDs from the database.&quot;&quot;&quot;</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT employeeID, name FROM employee_table ORDER BY name;&quot;</span><span class="p">)</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>
-</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>
-</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a><span class="k">def</span> <span class="nf">getTotalHours</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">billingPeriod</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns an employee&#39;s total hours worked over a specific billing period based on their ID.&quot;&quot;&quot;</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT SUM(EXTRACT(EPOCH FROM clockout -  clockin)/3600) AS hours&quot;</span>
-</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>                   <span class="sa">f</span><span class="s2">&quot; FROM clockinout&quot;</span>
-</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>                   <span class="sa">f</span><span class="s2">&quot; WHERE employeeid = </span><span class="si">{</span><span class="n">employeeID</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>                   <span class="sa">f</span><span class="s2">&quot; AND (clockout &gt;= &#39;</span><span class="si">{</span><span class="n">billingPeriod</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
-</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>                   <span class="sa">f</span><span class="s2">&quot; AND clockout &lt;= (to_timestamp(&#39;</span><span class="si">{</span><span class="n">billingPeriod</span><span class="si">}</span><span class="s2">&#39;, &#39;YYYY-MM-DD&#39;) + INTERVAL &#39;14 day&#39;));&quot;</span><span class="p">)</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="k">def</span> <span class="nf">updateTimesheetEntryByID</span><span class="p">(</span><span class="n">entryID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">activity</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">clockIn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">clockOut</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a><span class="sd">    Updates the information of an employee shift based on their ID.</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a><span class="sd">    :param entryID: entry ID</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a><span class="sd">    :param employeeID: new employee ID</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a><span class="sd">    :param activity: new activity name</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a><span class="sd">    :param clockIn: new clock in time</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a><span class="sd">    :param clockOut: new clock out time</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a><span class="sd">    :return: None</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>    <span class="n">execute</span><span class="p">(</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>        <span class="sa">f</span><span class="s2">&quot;UPDATE clockinout SET employeeID=</span><span class="si">{</span><span class="n">employeeID</span><span class="si">}</span><span class="s2">, activity=&#39;</span><span class="si">{</span><span class="n">activity</span><span class="si">}</span><span class="s2">&#39;, clockIn=round_time_quarter_hour(&#39;</span><span class="si">{</span><span class="n">clockIn</span><span class="si">}</span><span class="s2">&#39;), clockOut=round_time_quarter_hour(&#39;</span><span class="si">{</span><span class="n">clockOut</span><span class="si">}</span><span class="s2">&#39;) WHERE id=</span><span class="si">{</span><span class="n">entryID</span><span class="si">}</span><span class="s2">;&quot;</span><span class="p">)</span>
+</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>
+</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>
+</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a><span class="k">def</span> <span class="nf">deleteTimesheetEntry</span><span class="p">(</span><span class="n">entryID</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a><span class="sd">    Deletes an entry from the time sheet by ID.</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a><span class="sd">    :param entryID: entry ID</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a><span class="sd">    :return: None</span>
+</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a>    <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DELETE FROM clockinout WHERE id=</span><span class="si">{</span><span class="n">entryID</span><span class="si">}</span><span class="s2">;&quot;</span><span class="p">)</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>
+</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a>
+</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a><span class="k">def</span> <span class="nf">getPayRate</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a><span class="sd">    Returns the pay rate for a specific employee based on their ID.</span>
+</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a><span class="sd">    :param employeeID: employee ID</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a><span class="sd">    :return: List containing pay rate</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT pay_rate from employee_table WHERE employeeid=</span><span class="si">{</span><span class="n">employeeID</span><span class="si">}</span><span class="s2">;&quot;</span><span class="p">)</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a>
+</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a>
+</span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a><span class="k">def</span> <span class="nf">getEmployees</span><span class="p">():</span>
+</span><span id="L-72"><a href="#L-72"><span class="linenos">72</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-73"><a href="#L-73"><span class="linenos">73</span></a><span class="sd">    Retrieves all employee names and their associated IDs from the database.</span>
+</span><span id="L-74"><a href="#L-74"><span class="linenos">74</span></a><span class="sd">    :return: List containing employee ID and name</span>
+</span><span id="L-75"><a href="#L-75"><span class="linenos">75</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-76"><a href="#L-76"><span class="linenos">76</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT employeeID, name FROM employee_table ORDER BY name;&quot;</span><span class="p">)</span>
+</span><span id="L-77"><a href="#L-77"><span class="linenos">77</span></a>
+</span><span id="L-78"><a href="#L-78"><span class="linenos">78</span></a>
+</span><span id="L-79"><a href="#L-79"><span class="linenos">79</span></a><span class="k">def</span> <span class="nf">getTotalHours</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">billingPeriod</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="L-80"><a href="#L-80"><span class="linenos">80</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-81"><a href="#L-81"><span class="linenos">81</span></a><span class="sd">    Returns an employee&#39;s total hours worked over a specific billing period based on their ID.</span>
+</span><span id="L-82"><a href="#L-82"><span class="linenos">82</span></a><span class="sd">    :param employeeID: employee ID</span>
+</span><span id="L-83"><a href="#L-83"><span class="linenos">83</span></a><span class="sd">    :param billingPeriod: start date of 2 weeks, with format YYYY-MM-DD</span>
+</span><span id="L-84"><a href="#L-84"><span class="linenos">84</span></a><span class="sd">    :return: List containing total hours worked</span>
+</span><span id="L-85"><a href="#L-85"><span class="linenos">85</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-86"><a href="#L-86"><span class="linenos">86</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT SUM(EXTRACT(EPOCH FROM clockout -  clockin)/3600) AS hours&quot;</span>
+</span><span id="L-87"><a href="#L-87"><span class="linenos">87</span></a>                   <span class="sa">f</span><span class="s2">&quot; FROM clockinout&quot;</span>
+</span><span id="L-88"><a href="#L-88"><span class="linenos">88</span></a>                   <span class="sa">f</span><span class="s2">&quot; WHERE employeeid = </span><span class="si">{</span><span class="n">employeeID</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="L-89"><a href="#L-89"><span class="linenos">89</span></a>                   <span class="sa">f</span><span class="s2">&quot; AND (clockout &gt;= &#39;</span><span class="si">{</span><span class="n">billingPeriod</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+</span><span id="L-90"><a href="#L-90"><span class="linenos">90</span></a>                   <span class="sa">f</span><span class="s2">&quot; AND clockout &lt;= (to_timestamp(&#39;</span><span class="si">{</span><span class="n">billingPeriod</span><span class="si">}</span><span class="s2">&#39;, &#39;YYYY-MM-DD&#39;) + INTERVAL &#39;14 day&#39;));&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -141,14 +180,23 @@
 
     </div>
     <a class="headerlink" href="#getTimesheet"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="getTimesheet-5"><a href="#getTimesheet-5"><span class="linenos">5</span></a><span class="k">def</span> <span class="nf">getTimesheet</span><span class="p">():</span>
-</span><span id="getTimesheet-6"><a href="#getTimesheet-6"><span class="linenos">6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieves a table of all employee activity from the database.&quot;&quot;&quot;</span>
-</span><span id="getTimesheet-7"><a href="#getTimesheet-7"><span class="linenos">7</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span>
-</span><span id="getTimesheet-8"><a href="#getTimesheet-8"><span class="linenos">8</span></a>        <span class="sa">f</span><span class="s2">&quot;SELECT id, employeeid, activity, clockin, clockout, EXTRACT(EPOCH FROM clockout -  clockin)/3600 AS hours FROM clockinout;&quot;</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="getTimesheet-5"><a href="#getTimesheet-5"><span class="linenos"> 5</span></a><span class="k">def</span> <span class="nf">getTimesheet</span><span class="p">():</span>
+</span><span id="getTimesheet-6"><a href="#getTimesheet-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="getTimesheet-7"><a href="#getTimesheet-7"><span class="linenos"> 7</span></a><span class="sd">    Retrieves a table of all employee activity from the database.</span>
+</span><span id="getTimesheet-8"><a href="#getTimesheet-8"><span class="linenos"> 8</span></a><span class="sd">    :return: List containing id, employee ID, clock in/out times, and total hours</span>
+</span><span id="getTimesheet-9"><a href="#getTimesheet-9"><span class="linenos"> 9</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="getTimesheet-10"><a href="#getTimesheet-10"><span class="linenos">10</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span>
+</span><span id="getTimesheet-11"><a href="#getTimesheet-11"><span class="linenos">11</span></a>        <span class="sa">f</span><span class="s2">&quot;SELECT id, employeeid, activity, clockin, clockout, EXTRACT(EPOCH FROM clockout -  clockin)/3600 AS hours FROM clockinout;&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Retrieves a table of all employee activity from the database.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List containing id, employee ID, clock in/out times, and total hours</p>
+</blockquote>
 </div>
 
 
@@ -164,16 +212,34 @@
 
     </div>
     <a class="headerlink" href="#getTimesheetByID"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="getTimesheetByID-11"><a href="#getTimesheetByID-11"><span class="linenos">11</span></a><span class="k">def</span> <span class="nf">getTimesheetByID</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">billingPeriod</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="getTimesheetByID-12"><a href="#getTimesheetByID-12"><span class="linenos">12</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieves activity for a specific employee and billing period based on their ID.&quot;&quot;&quot;</span>
-</span><span id="getTimesheetByID-13"><a href="#getTimesheetByID-13"><span class="linenos">13</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span>
-</span><span id="getTimesheetByID-14"><a href="#getTimesheetByID-14"><span class="linenos">14</span></a>        <span class="sa">f</span><span class="s2">&quot;SELECT id, employeeid, activity, clockin, clockout, EXTRACT(EPOCH FROM clockout -  clockin)/3600 AS hours FROM clockinout&quot;</span>
-</span><span id="getTimesheetByID-15"><a href="#getTimesheetByID-15"><span class="linenos">15</span></a>        <span class="sa">f</span><span class="s2">&quot; WHERE employeeid=</span><span class="si">{</span><span class="n">employeeID</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="getTimesheetByID-16"><a href="#getTimesheetByID-16"><span class="linenos">16</span></a>        <span class="sa">f</span><span class="s2">&quot; AND (clockout &gt;= &#39;</span><span class="si">{</span><span class="n">billingPeriod</span><span class="si">}</span><span class="s2">&#39; AND clockout &lt;= (to_timestamp(&#39;</span><span class="si">{</span><span class="n">billingPeriod</span><span class="si">}</span><span class="s2">&#39;, &#39;YYYY-MM-DD&#39;) + INTERVAL &#39;14 day&#39;));&quot;</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="getTimesheetByID-14"><a href="#getTimesheetByID-14"><span class="linenos">14</span></a><span class="k">def</span> <span class="nf">getTimesheetByID</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">billingPeriod</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="getTimesheetByID-15"><a href="#getTimesheetByID-15"><span class="linenos">15</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="getTimesheetByID-16"><a href="#getTimesheetByID-16"><span class="linenos">16</span></a><span class="sd">    Retrieves activity for a specific employee and billing period based on their ID.</span>
+</span><span id="getTimesheetByID-17"><a href="#getTimesheetByID-17"><span class="linenos">17</span></a><span class="sd">    :param employeeID: employee ID</span>
+</span><span id="getTimesheetByID-18"><a href="#getTimesheetByID-18"><span class="linenos">18</span></a><span class="sd">    :param billingPeriod: start of 2 week period, YYYY-MM-DD format</span>
+</span><span id="getTimesheetByID-19"><a href="#getTimesheetByID-19"><span class="linenos">19</span></a><span class="sd">    :return: List containing id, employee ID, activity name, clock/inout times, and total hours</span>
+</span><span id="getTimesheetByID-20"><a href="#getTimesheetByID-20"><span class="linenos">20</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="getTimesheetByID-21"><a href="#getTimesheetByID-21"><span class="linenos">21</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span>
+</span><span id="getTimesheetByID-22"><a href="#getTimesheetByID-22"><span class="linenos">22</span></a>        <span class="sa">f</span><span class="s2">&quot;SELECT id, employeeid, activity, clockin, clockout, EXTRACT(EPOCH FROM clockout -  clockin)/3600 AS hours FROM clockinout&quot;</span>
+</span><span id="getTimesheetByID-23"><a href="#getTimesheetByID-23"><span class="linenos">23</span></a>        <span class="sa">f</span><span class="s2">&quot; WHERE employeeid=</span><span class="si">{</span><span class="n">employeeID</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="getTimesheetByID-24"><a href="#getTimesheetByID-24"><span class="linenos">24</span></a>        <span class="sa">f</span><span class="s2">&quot; AND (clockout &gt;= &#39;</span><span class="si">{</span><span class="n">billingPeriod</span><span class="si">}</span><span class="s2">&#39; AND clockout &lt;= (to_timestamp(&#39;</span><span class="si">{</span><span class="n">billingPeriod</span><span class="si">}</span><span class="s2">&#39;, &#39;YYYY-MM-DD&#39;) + INTERVAL &#39;14 day&#39;));&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Retrieves activity for a specific employee and billing period based on their ID.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>employeeID</strong>:  employee ID</li>
+<li><strong>billingPeriod</strong>:  start of 2 week period, YYYY-MM-DD format</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List containing id, employee ID, activity name, clock/inout times, and total hours</p>
+</blockquote>
 </div>
 
 
@@ -189,14 +255,36 @@
 
     </div>
     <a class="headerlink" href="#addTimesheetEntry"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="addTimesheetEntry-19"><a href="#addTimesheetEntry-19"><span class="linenos">19</span></a><span class="k">def</span> <span class="nf">addTimesheetEntry</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">activity</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">clockIn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">clockOut</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="addTimesheetEntry-20"><a href="#addTimesheetEntry-20"><span class="linenos">20</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Inserts an employee shift into the time sheet.&quot;&quot;&quot;</span>
-</span><span id="addTimesheetEntry-21"><a href="#addTimesheetEntry-21"><span class="linenos">21</span></a>    <span class="n">execute</span><span class="p">(</span>
-</span><span id="addTimesheetEntry-22"><a href="#addTimesheetEntry-22"><span class="linenos">22</span></a>        <span class="sa">f</span><span class="s2">&quot;INSERT INTO clockinout (employeeid, clockin, clockout, activity) VALUES (</span><span class="si">{</span><span class="n">employeeID</span><span class="si">}</span><span class="s2">, &#39;</span><span class="si">{</span><span class="n">clockIn</span><span class="si">}</span><span class="s2">&#39;, &#39;</span><span class="si">{</span><span class="n">clockOut</span><span class="si">}</span><span class="s2">&#39;, &#39;</span><span class="si">{</span><span class="n">activity</span><span class="si">}</span><span class="s2">&#39;);&quot;</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="addTimesheetEntry-27"><a href="#addTimesheetEntry-27"><span class="linenos">27</span></a><span class="k">def</span> <span class="nf">addTimesheetEntry</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">activity</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">clockIn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">clockOut</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="addTimesheetEntry-28"><a href="#addTimesheetEntry-28"><span class="linenos">28</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="addTimesheetEntry-29"><a href="#addTimesheetEntry-29"><span class="linenos">29</span></a><span class="sd">    Inserts an employee shift into the time sheet.</span>
+</span><span id="addTimesheetEntry-30"><a href="#addTimesheetEntry-30"><span class="linenos">30</span></a><span class="sd">    :param employeeID: employee ID</span>
+</span><span id="addTimesheetEntry-31"><a href="#addTimesheetEntry-31"><span class="linenos">31</span></a><span class="sd">    :param activity: activity name</span>
+</span><span id="addTimesheetEntry-32"><a href="#addTimesheetEntry-32"><span class="linenos">32</span></a><span class="sd">    :param clockIn: clock in time</span>
+</span><span id="addTimesheetEntry-33"><a href="#addTimesheetEntry-33"><span class="linenos">33</span></a><span class="sd">    :param clockOut: clock out time</span>
+</span><span id="addTimesheetEntry-34"><a href="#addTimesheetEntry-34"><span class="linenos">34</span></a><span class="sd">    :return: None</span>
+</span><span id="addTimesheetEntry-35"><a href="#addTimesheetEntry-35"><span class="linenos">35</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="addTimesheetEntry-36"><a href="#addTimesheetEntry-36"><span class="linenos">36</span></a>    <span class="n">execute</span><span class="p">(</span>
+</span><span id="addTimesheetEntry-37"><a href="#addTimesheetEntry-37"><span class="linenos">37</span></a>        <span class="sa">f</span><span class="s2">&quot;INSERT INTO clockinout (employeeid, clockin, clockout, activity) VALUES (</span><span class="si">{</span><span class="n">employeeID</span><span class="si">}</span><span class="s2">, &#39;</span><span class="si">{</span><span class="n">clockIn</span><span class="si">}</span><span class="s2">&#39;, &#39;</span><span class="si">{</span><span class="n">clockOut</span><span class="si">}</span><span class="s2">&#39;, &#39;</span><span class="si">{</span><span class="n">activity</span><span class="si">}</span><span class="s2">&#39;);&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Inserts an employee shift into the time sheet.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>employeeID</strong>:  employee ID</li>
+<li><strong>activity</strong>:  activity name</li>
+<li><strong>clockIn</strong>:  clock in time</li>
+<li><strong>clockOut</strong>:  clock out time</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -212,14 +300,38 @@
 
     </div>
     <a class="headerlink" href="#updateTimesheetEntryByID"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="updateTimesheetEntryByID-25"><a href="#updateTimesheetEntryByID-25"><span class="linenos">25</span></a><span class="k">def</span> <span class="nf">updateTimesheetEntryByID</span><span class="p">(</span><span class="n">entryID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">activity</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">clockIn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">clockOut</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="updateTimesheetEntryByID-26"><a href="#updateTimesheetEntryByID-26"><span class="linenos">26</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Updates the information of an employee shift based on their ID.&quot;&quot;&quot;</span>
-</span><span id="updateTimesheetEntryByID-27"><a href="#updateTimesheetEntryByID-27"><span class="linenos">27</span></a>    <span class="n">execute</span><span class="p">(</span>
-</span><span id="updateTimesheetEntryByID-28"><a href="#updateTimesheetEntryByID-28"><span class="linenos">28</span></a>        <span class="sa">f</span><span class="s2">&quot;UPDATE clockinout SET employeeID=</span><span class="si">{</span><span class="n">employeeID</span><span class="si">}</span><span class="s2">, activity=&#39;</span><span class="si">{</span><span class="n">activity</span><span class="si">}</span><span class="s2">&#39;, clockIn=round_time_quarter_hour(&#39;</span><span class="si">{</span><span class="n">clockIn</span><span class="si">}</span><span class="s2">&#39;), clockOut=round_time_quarter_hour(&#39;</span><span class="si">{</span><span class="n">clockOut</span><span class="si">}</span><span class="s2">&#39;) WHERE id=</span><span class="si">{</span><span class="n">entryID</span><span class="si">}</span><span class="s2">;&quot;</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="updateTimesheetEntryByID-40"><a href="#updateTimesheetEntryByID-40"><span class="linenos">40</span></a><span class="k">def</span> <span class="nf">updateTimesheetEntryByID</span><span class="p">(</span><span class="n">entryID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">activity</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">clockIn</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">clockOut</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="updateTimesheetEntryByID-41"><a href="#updateTimesheetEntryByID-41"><span class="linenos">41</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="updateTimesheetEntryByID-42"><a href="#updateTimesheetEntryByID-42"><span class="linenos">42</span></a><span class="sd">    Updates the information of an employee shift based on their ID.</span>
+</span><span id="updateTimesheetEntryByID-43"><a href="#updateTimesheetEntryByID-43"><span class="linenos">43</span></a><span class="sd">    :param entryID: entry ID</span>
+</span><span id="updateTimesheetEntryByID-44"><a href="#updateTimesheetEntryByID-44"><span class="linenos">44</span></a><span class="sd">    :param employeeID: new employee ID</span>
+</span><span id="updateTimesheetEntryByID-45"><a href="#updateTimesheetEntryByID-45"><span class="linenos">45</span></a><span class="sd">    :param activity: new activity name</span>
+</span><span id="updateTimesheetEntryByID-46"><a href="#updateTimesheetEntryByID-46"><span class="linenos">46</span></a><span class="sd">    :param clockIn: new clock in time</span>
+</span><span id="updateTimesheetEntryByID-47"><a href="#updateTimesheetEntryByID-47"><span class="linenos">47</span></a><span class="sd">    :param clockOut: new clock out time</span>
+</span><span id="updateTimesheetEntryByID-48"><a href="#updateTimesheetEntryByID-48"><span class="linenos">48</span></a><span class="sd">    :return: None</span>
+</span><span id="updateTimesheetEntryByID-49"><a href="#updateTimesheetEntryByID-49"><span class="linenos">49</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="updateTimesheetEntryByID-50"><a href="#updateTimesheetEntryByID-50"><span class="linenos">50</span></a>    <span class="n">execute</span><span class="p">(</span>
+</span><span id="updateTimesheetEntryByID-51"><a href="#updateTimesheetEntryByID-51"><span class="linenos">51</span></a>        <span class="sa">f</span><span class="s2">&quot;UPDATE clockinout SET employeeID=</span><span class="si">{</span><span class="n">employeeID</span><span class="si">}</span><span class="s2">, activity=&#39;</span><span class="si">{</span><span class="n">activity</span><span class="si">}</span><span class="s2">&#39;, clockIn=round_time_quarter_hour(&#39;</span><span class="si">{</span><span class="n">clockIn</span><span class="si">}</span><span class="s2">&#39;), clockOut=round_time_quarter_hour(&#39;</span><span class="si">{</span><span class="n">clockOut</span><span class="si">}</span><span class="s2">&#39;) WHERE id=</span><span class="si">{</span><span class="n">entryID</span><span class="si">}</span><span class="s2">;&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Updates the information of an employee shift based on their ID.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>entryID</strong>:  entry ID</li>
+<li><strong>employeeID</strong>:  new employee ID</li>
+<li><strong>activity</strong>:  new activity name</li>
+<li><strong>clockIn</strong>:  new clock in time</li>
+<li><strong>clockOut</strong>:  new clock out time</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -235,13 +347,29 @@
 
     </div>
     <a class="headerlink" href="#deleteTimesheetEntry"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="deleteTimesheetEntry-31"><a href="#deleteTimesheetEntry-31"><span class="linenos">31</span></a><span class="k">def</span> <span class="nf">deleteTimesheetEntry</span><span class="p">(</span><span class="n">entryID</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-</span><span id="deleteTimesheetEntry-32"><a href="#deleteTimesheetEntry-32"><span class="linenos">32</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Deletes an entry from the time sheet by ID.&quot;&quot;&quot;</span>
-</span><span id="deleteTimesheetEntry-33"><a href="#deleteTimesheetEntry-33"><span class="linenos">33</span></a>    <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DELETE FROM clockinout WHERE id=</span><span class="si">{</span><span class="n">entryID</span><span class="si">}</span><span class="s2">;&quot;</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="deleteTimesheetEntry-54"><a href="#deleteTimesheetEntry-54"><span class="linenos">54</span></a><span class="k">def</span> <span class="nf">deleteTimesheetEntry</span><span class="p">(</span><span class="n">entryID</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="deleteTimesheetEntry-55"><a href="#deleteTimesheetEntry-55"><span class="linenos">55</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="deleteTimesheetEntry-56"><a href="#deleteTimesheetEntry-56"><span class="linenos">56</span></a><span class="sd">    Deletes an entry from the time sheet by ID.</span>
+</span><span id="deleteTimesheetEntry-57"><a href="#deleteTimesheetEntry-57"><span class="linenos">57</span></a><span class="sd">    :param entryID: entry ID</span>
+</span><span id="deleteTimesheetEntry-58"><a href="#deleteTimesheetEntry-58"><span class="linenos">58</span></a><span class="sd">    :return: None</span>
+</span><span id="deleteTimesheetEntry-59"><a href="#deleteTimesheetEntry-59"><span class="linenos">59</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="deleteTimesheetEntry-60"><a href="#deleteTimesheetEntry-60"><span class="linenos">60</span></a>    <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DELETE FROM clockinout WHERE id=</span><span class="si">{</span><span class="n">entryID</span><span class="si">}</span><span class="s2">;&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Deletes an entry from the time sheet by ID.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>entryID</strong>:  entry ID</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -257,13 +385,29 @@
 
     </div>
     <a class="headerlink" href="#getPayRate"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="getPayRate-36"><a href="#getPayRate-36"><span class="linenos">36</span></a><span class="k">def</span> <span class="nf">getPayRate</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-</span><span id="getPayRate-37"><a href="#getPayRate-37"><span class="linenos">37</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the pay rate for a specific employee based on their ID.&quot;&quot;&quot;</span>
-</span><span id="getPayRate-38"><a href="#getPayRate-38"><span class="linenos">38</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT pay_rate from employee_table WHERE employeeid=</span><span class="si">{</span><span class="n">employeeID</span><span class="si">}</span><span class="s2">;&quot;</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="getPayRate-63"><a href="#getPayRate-63"><span class="linenos">63</span></a><span class="k">def</span> <span class="nf">getPayRate</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="getPayRate-64"><a href="#getPayRate-64"><span class="linenos">64</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="getPayRate-65"><a href="#getPayRate-65"><span class="linenos">65</span></a><span class="sd">    Returns the pay rate for a specific employee based on their ID.</span>
+</span><span id="getPayRate-66"><a href="#getPayRate-66"><span class="linenos">66</span></a><span class="sd">    :param employeeID: employee ID</span>
+</span><span id="getPayRate-67"><a href="#getPayRate-67"><span class="linenos">67</span></a><span class="sd">    :return: List containing pay rate</span>
+</span><span id="getPayRate-68"><a href="#getPayRate-68"><span class="linenos">68</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="getPayRate-69"><a href="#getPayRate-69"><span class="linenos">69</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT pay_rate from employee_table WHERE employeeid=</span><span class="si">{</span><span class="n">employeeID</span><span class="si">}</span><span class="s2">;&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Returns the pay rate for a specific employee based on their ID.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>employeeID</strong>:  employee ID</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List containing pay rate</p>
+</blockquote>
 </div>
 
 
@@ -279,13 +423,22 @@
 
     </div>
     <a class="headerlink" href="#getEmployees"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="getEmployees-41"><a href="#getEmployees-41"><span class="linenos">41</span></a><span class="k">def</span> <span class="nf">getEmployees</span><span class="p">():</span>
-</span><span id="getEmployees-42"><a href="#getEmployees-42"><span class="linenos">42</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Retrieves all employee names and their associated IDs from the database.&quot;&quot;&quot;</span>
-</span><span id="getEmployees-43"><a href="#getEmployees-43"><span class="linenos">43</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT employeeID, name FROM employee_table ORDER BY name;&quot;</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="getEmployees-72"><a href="#getEmployees-72"><span class="linenos">72</span></a><span class="k">def</span> <span class="nf">getEmployees</span><span class="p">():</span>
+</span><span id="getEmployees-73"><a href="#getEmployees-73"><span class="linenos">73</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="getEmployees-74"><a href="#getEmployees-74"><span class="linenos">74</span></a><span class="sd">    Retrieves all employee names and their associated IDs from the database.</span>
+</span><span id="getEmployees-75"><a href="#getEmployees-75"><span class="linenos">75</span></a><span class="sd">    :return: List containing employee ID and name</span>
+</span><span id="getEmployees-76"><a href="#getEmployees-76"><span class="linenos">76</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="getEmployees-77"><a href="#getEmployees-77"><span class="linenos">77</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT employeeID, name FROM employee_table ORDER BY name;&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Retrieves all employee names and their associated IDs from the database.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List containing employee ID and name</p>
+</blockquote>
 </div>
 
 
@@ -301,17 +454,35 @@
 
     </div>
     <a class="headerlink" href="#getTotalHours"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="getTotalHours-46"><a href="#getTotalHours-46"><span class="linenos">46</span></a><span class="k">def</span> <span class="nf">getTotalHours</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">billingPeriod</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="getTotalHours-47"><a href="#getTotalHours-47"><span class="linenos">47</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns an employee&#39;s total hours worked over a specific billing period based on their ID.&quot;&quot;&quot;</span>
-</span><span id="getTotalHours-48"><a href="#getTotalHours-48"><span class="linenos">48</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT SUM(EXTRACT(EPOCH FROM clockout -  clockin)/3600) AS hours&quot;</span>
-</span><span id="getTotalHours-49"><a href="#getTotalHours-49"><span class="linenos">49</span></a>                   <span class="sa">f</span><span class="s2">&quot; FROM clockinout&quot;</span>
-</span><span id="getTotalHours-50"><a href="#getTotalHours-50"><span class="linenos">50</span></a>                   <span class="sa">f</span><span class="s2">&quot; WHERE employeeid = </span><span class="si">{</span><span class="n">employeeID</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="getTotalHours-51"><a href="#getTotalHours-51"><span class="linenos">51</span></a>                   <span class="sa">f</span><span class="s2">&quot; AND (clockout &gt;= &#39;</span><span class="si">{</span><span class="n">billingPeriod</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
-</span><span id="getTotalHours-52"><a href="#getTotalHours-52"><span class="linenos">52</span></a>                   <span class="sa">f</span><span class="s2">&quot; AND clockout &lt;= (to_timestamp(&#39;</span><span class="si">{</span><span class="n">billingPeriod</span><span class="si">}</span><span class="s2">&#39;, &#39;YYYY-MM-DD&#39;) + INTERVAL &#39;14 day&#39;));&quot;</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="getTotalHours-80"><a href="#getTotalHours-80"><span class="linenos">80</span></a><span class="k">def</span> <span class="nf">getTotalHours</span><span class="p">(</span><span class="n">employeeID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">billingPeriod</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="getTotalHours-81"><a href="#getTotalHours-81"><span class="linenos">81</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="getTotalHours-82"><a href="#getTotalHours-82"><span class="linenos">82</span></a><span class="sd">    Returns an employee&#39;s total hours worked over a specific billing period based on their ID.</span>
+</span><span id="getTotalHours-83"><a href="#getTotalHours-83"><span class="linenos">83</span></a><span class="sd">    :param employeeID: employee ID</span>
+</span><span id="getTotalHours-84"><a href="#getTotalHours-84"><span class="linenos">84</span></a><span class="sd">    :param billingPeriod: start date of 2 weeks, with format YYYY-MM-DD</span>
+</span><span id="getTotalHours-85"><a href="#getTotalHours-85"><span class="linenos">85</span></a><span class="sd">    :return: List containing total hours worked</span>
+</span><span id="getTotalHours-86"><a href="#getTotalHours-86"><span class="linenos">86</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="getTotalHours-87"><a href="#getTotalHours-87"><span class="linenos">87</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT SUM(EXTRACT(EPOCH FROM clockout -  clockin)/3600) AS hours&quot;</span>
+</span><span id="getTotalHours-88"><a href="#getTotalHours-88"><span class="linenos">88</span></a>                   <span class="sa">f</span><span class="s2">&quot; FROM clockinout&quot;</span>
+</span><span id="getTotalHours-89"><a href="#getTotalHours-89"><span class="linenos">89</span></a>                   <span class="sa">f</span><span class="s2">&quot; WHERE employeeid = </span><span class="si">{</span><span class="n">employeeID</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="getTotalHours-90"><a href="#getTotalHours-90"><span class="linenos">90</span></a>                   <span class="sa">f</span><span class="s2">&quot; AND (clockout &gt;= &#39;</span><span class="si">{</span><span class="n">billingPeriod</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+</span><span id="getTotalHours-91"><a href="#getTotalHours-91"><span class="linenos">91</span></a>                   <span class="sa">f</span><span class="s2">&quot; AND clockout &lt;= (to_timestamp(&#39;</span><span class="si">{</span><span class="n">billingPeriod</span><span class="si">}</span><span class="s2">&#39;, &#39;YYYY-MM-DD&#39;) + INTERVAL &#39;14 day&#39;));&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Returns an employee's total hours worked over a specific billing period based on their ID.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>employeeID</strong>:  employee ID</li>
+<li><strong>billingPeriod</strong>:  start date of 2 weeks, with format YYYY-MM-DD</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List containing total hours worked</p>
+</blockquote>
 </div>
 
 

@@ -68,38 +68,67 @@
 
                         <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="kn">from</span> <span class="nn">.querier</span> <span class="kn">import</span> <span class="n">execute</span>
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="k">def</span> <span class="nf">getUserByEmail</span><span class="p">(</span><span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns user from database given their associated email.&quot;&quot;&quot;</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT user_id, username FROM user_table WHERE email=&#39;</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">&#39;;&quot;</span><span class="p">)</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="k">def</span> <span class="nf">getUserById</span><span class="p">(</span><span class="n">userId</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns user from database given their associated ID.&quot;&quot;&quot;</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT user_id, username, email, employee_id FROM user_table WHERE user_id=</span><span class="si">{</span><span class="n">userId</span><span class="si">}</span><span class="s2">;&quot;</span><span class="p">)</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="k">def</span> <span class="nf">addUser</span><span class="p">(</span><span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Adds user to database based on given email.&quot;&quot;&quot;</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="n">username</span> <span class="o">=</span> <span class="n">email</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>    <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;INSERT INTO user_table(username, email) VALUES (&#39;</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">&#39;, &#39;</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">&#39;);&quot;</span><span class="p">,</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>            <span class="n">getRet</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="k">def</span> <span class="nf">getEmployeeByEmail</span><span class="p">(</span><span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns employee from database given their associated email.&quot;&quot;&quot;</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT name, employeeID, isManager, pref_name, isadmin FROM employee_table WHERE email=&#39;</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">&#39;;&quot;</span><span class="p">)</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a>
+</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="k">def</span> <span class="nf">getUserByEmail</span><span class="p">(</span><span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="sd">    Returns user from database given their associated email.</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="sd">    :param email: user email</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">    :return: List containing user ID and username</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT user_id, username FROM user_table WHERE email=&#39;</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">&#39;;&quot;</span><span class="p">)</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="k">def</span> <span class="nf">getUserById</span><span class="p">(</span><span class="n">userId</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">    Returns user from database given their associated ID.</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">    :param userId: user ID</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="sd">    :return: List containing user ID, username, email, and employee ID</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT user_id, username, email, employee_id FROM user_table WHERE user_id=</span><span class="si">{</span><span class="n">userId</span><span class="si">}</span><span class="s2">;&quot;</span><span class="p">)</span>
 </span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a><span class="k">def</span> <span class="nf">_createUserTable</span><span class="p">():</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates user_table with auto incrementing user_id, and other properties.&quot;&quot;&quot;</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CREATE TABLE IF NOT EXISTS user_table (&quot;</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>            <span class="sa">f</span><span class="s2">&quot;  user_id SERIAL PRIMARY KEY,&quot;</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>            <span class="sa">f</span><span class="s2">&quot;  username text,&quot;</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>            <span class="sa">f</span><span class="s2">&quot;  email text,&quot;</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>            <span class="sa">f</span><span class="s2">&quot;  employee_id int&quot;</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>            <span class="sa">f</span><span class="s2">&quot;);&quot;</span><span class="p">,</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>            <span class="n">getRet</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="k">def</span> <span class="nf">addUser</span><span class="p">(</span><span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="sd">    Creates user in database with given email. Username is by default what&#39;s in front of @ symbol.</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="sd">    :param email: user email</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="sd">    :return: None</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>    <span class="n">username</span> <span class="o">=</span> <span class="n">email</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>    <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;INSERT INTO user_table(username, email) VALUES (&#39;</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">&#39;, &#39;</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">&#39;);&quot;</span><span class="p">,</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>            <span class="n">getRet</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a><span class="k">def</span> <span class="nf">emailExists</span><span class="p">(</span><span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Checks if email exists in either users or employees. Returns [[0]] if not found&quot;&quot;&quot;</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT count(*) FROM user_table WHERE EXISTS ( SELECT 1 FROM employee_table WHERE email=&#39;</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">&#39; ) OR EXISTS ( SELECT 1 FROM user_table WHERE email=&#39;</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">&#39; );&quot;</span><span class="p">)</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="k">def</span> <span class="nf">getEmployeeByEmail</span><span class="p">(</span><span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a><span class="sd">    Returns employee from database given their associated email.</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a><span class="sd">    :param email: employee email (not the same as user email!)</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a><span class="sd">    :return: List containing name, employee ID, manager status, preferred name, and admin status</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT name, employeeID, isManager, pref_name, isadmin FROM employee_table WHERE email=&#39;</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">&#39;;&quot;</span><span class="p">)</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a><span class="k">def</span> <span class="nf">_createUserTable</span><span class="p">():</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a><span class="sd">    Creates user_table with auto incrementing user_id, and other properties.</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a><span class="sd">    :return: None</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>    <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;CREATE TABLE IF NOT EXISTS user_table (&quot;</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>            <span class="sa">f</span><span class="s2">&quot;  user_id SERIAL PRIMARY KEY,&quot;</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>            <span class="sa">f</span><span class="s2">&quot;  username text,&quot;</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>            <span class="sa">f</span><span class="s2">&quot;  email text,&quot;</span>
+</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>            <span class="sa">f</span><span class="s2">&quot;  employee_id int&quot;</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>            <span class="sa">f</span><span class="s2">&quot;);&quot;</span><span class="p">,</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>            <span class="n">getRet</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>
+</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a>
+</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a><span class="k">def</span> <span class="nf">emailExists</span><span class="p">(</span><span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a><span class="sd">    Checks if user email exists in either users or employees.</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a><span class="sd">    :param email: user email</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a><span class="sd">    :return: [[0]] if not found, otherwise [[nonzero value]]</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>        <span class="sa">f</span><span class="s2">&quot;SELECT count(*) FROM user_table WHERE EXISTS ( SELECT 1 FROM employee_table WHERE email=&#39;</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">&#39; ) OR EXISTS ( SELECT 1 FROM user_table WHERE email=&#39;</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">&#39; );&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -115,13 +144,29 @@
 
     </div>
     <a class="headerlink" href="#getUserByEmail"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="getUserByEmail-4"><a href="#getUserByEmail-4"><span class="linenos">4</span></a><span class="k">def</span> <span class="nf">getUserByEmail</span><span class="p">(</span><span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="getUserByEmail-5"><a href="#getUserByEmail-5"><span class="linenos">5</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns user from database given their associated email.&quot;&quot;&quot;</span>
-</span><span id="getUserByEmail-6"><a href="#getUserByEmail-6"><span class="linenos">6</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT user_id, username FROM user_table WHERE email=&#39;</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">&#39;;&quot;</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="getUserByEmail-5"><a href="#getUserByEmail-5"><span class="linenos"> 5</span></a><span class="k">def</span> <span class="nf">getUserByEmail</span><span class="p">(</span><span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="getUserByEmail-6"><a href="#getUserByEmail-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="getUserByEmail-7"><a href="#getUserByEmail-7"><span class="linenos"> 7</span></a><span class="sd">    Returns user from database given their associated email.</span>
+</span><span id="getUserByEmail-8"><a href="#getUserByEmail-8"><span class="linenos"> 8</span></a><span class="sd">    :param email: user email</span>
+</span><span id="getUserByEmail-9"><a href="#getUserByEmail-9"><span class="linenos"> 9</span></a><span class="sd">    :return: List containing user ID and username</span>
+</span><span id="getUserByEmail-10"><a href="#getUserByEmail-10"><span class="linenos">10</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="getUserByEmail-11"><a href="#getUserByEmail-11"><span class="linenos">11</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT user_id, username FROM user_table WHERE email=&#39;</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">&#39;;&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Returns user from database given their associated email.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>email</strong>:  user email</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List containing user ID and username</p>
+</blockquote>
 </div>
 
 
@@ -137,13 +182,29 @@
 
     </div>
     <a class="headerlink" href="#getUserById"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="getUserById-8"><a href="#getUserById-8"><span class="linenos"> 8</span></a><span class="k">def</span> <span class="nf">getUserById</span><span class="p">(</span><span class="n">userId</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-</span><span id="getUserById-9"><a href="#getUserById-9"><span class="linenos"> 9</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns user from database given their associated ID.&quot;&quot;&quot;</span>
-</span><span id="getUserById-10"><a href="#getUserById-10"><span class="linenos">10</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT user_id, username, email, employee_id FROM user_table WHERE user_id=</span><span class="si">{</span><span class="n">userId</span><span class="si">}</span><span class="s2">;&quot;</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="getUserById-14"><a href="#getUserById-14"><span class="linenos">14</span></a><span class="k">def</span> <span class="nf">getUserById</span><span class="p">(</span><span class="n">userId</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="getUserById-15"><a href="#getUserById-15"><span class="linenos">15</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="getUserById-16"><a href="#getUserById-16"><span class="linenos">16</span></a><span class="sd">    Returns user from database given their associated ID.</span>
+</span><span id="getUserById-17"><a href="#getUserById-17"><span class="linenos">17</span></a><span class="sd">    :param userId: user ID</span>
+</span><span id="getUserById-18"><a href="#getUserById-18"><span class="linenos">18</span></a><span class="sd">    :return: List containing user ID, username, email, and employee ID</span>
+</span><span id="getUserById-19"><a href="#getUserById-19"><span class="linenos">19</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="getUserById-20"><a href="#getUserById-20"><span class="linenos">20</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT user_id, username, email, employee_id FROM user_table WHERE user_id=</span><span class="si">{</span><span class="n">userId</span><span class="si">}</span><span class="s2">;&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Returns user from database given their associated ID.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>userId</strong>:  user ID</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List containing user ID, username, email, and employee ID</p>
+</blockquote>
 </div>
 
 
@@ -159,15 +220,31 @@
 
     </div>
     <a class="headerlink" href="#addUser"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="addUser-12"><a href="#addUser-12"><span class="linenos">12</span></a><span class="k">def</span> <span class="nf">addUser</span><span class="p">(</span><span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="addUser-13"><a href="#addUser-13"><span class="linenos">13</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Adds user to database based on given email.&quot;&quot;&quot;</span>
-</span><span id="addUser-14"><a href="#addUser-14"><span class="linenos">14</span></a>    <span class="n">username</span> <span class="o">=</span> <span class="n">email</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-</span><span id="addUser-15"><a href="#addUser-15"><span class="linenos">15</span></a>    <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;INSERT INTO user_table(username, email) VALUES (&#39;</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">&#39;, &#39;</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">&#39;);&quot;</span><span class="p">,</span>
-</span><span id="addUser-16"><a href="#addUser-16"><span class="linenos">16</span></a>            <span class="n">getRet</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="addUser-23"><a href="#addUser-23"><span class="linenos">23</span></a><span class="k">def</span> <span class="nf">addUser</span><span class="p">(</span><span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="addUser-24"><a href="#addUser-24"><span class="linenos">24</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="addUser-25"><a href="#addUser-25"><span class="linenos">25</span></a><span class="sd">    Creates user in database with given email. Username is by default what&#39;s in front of @ symbol.</span>
+</span><span id="addUser-26"><a href="#addUser-26"><span class="linenos">26</span></a><span class="sd">    :param email: user email</span>
+</span><span id="addUser-27"><a href="#addUser-27"><span class="linenos">27</span></a><span class="sd">    :return: None</span>
+</span><span id="addUser-28"><a href="#addUser-28"><span class="linenos">28</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="addUser-29"><a href="#addUser-29"><span class="linenos">29</span></a>    <span class="n">username</span> <span class="o">=</span> <span class="n">email</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+</span><span id="addUser-30"><a href="#addUser-30"><span class="linenos">30</span></a>    <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;INSERT INTO user_table(username, email) VALUES (&#39;</span><span class="si">{</span><span class="n">username</span><span class="si">}</span><span class="s2">&#39;, &#39;</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">&#39;);&quot;</span><span class="p">,</span>
+</span><span id="addUser-31"><a href="#addUser-31"><span class="linenos">31</span></a>            <span class="n">getRet</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Adds user to database based on given email.</p>
+            <div class="docstring"><p>Creates user in database with given email. Username is by default what's in front of @ symbol.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>email</strong>:  user email</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>None</p>
+</blockquote>
 </div>
 
 
@@ -183,13 +260,29 @@
 
     </div>
     <a class="headerlink" href="#getEmployeeByEmail"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="getEmployeeByEmail-18"><a href="#getEmployeeByEmail-18"><span class="linenos">18</span></a><span class="k">def</span> <span class="nf">getEmployeeByEmail</span><span class="p">(</span><span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="getEmployeeByEmail-19"><a href="#getEmployeeByEmail-19"><span class="linenos">19</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns employee from database given their associated email.&quot;&quot;&quot;</span>
-</span><span id="getEmployeeByEmail-20"><a href="#getEmployeeByEmail-20"><span class="linenos">20</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT name, employeeID, isManager, pref_name, isadmin FROM employee_table WHERE email=&#39;</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">&#39;;&quot;</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="getEmployeeByEmail-34"><a href="#getEmployeeByEmail-34"><span class="linenos">34</span></a><span class="k">def</span> <span class="nf">getEmployeeByEmail</span><span class="p">(</span><span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="getEmployeeByEmail-35"><a href="#getEmployeeByEmail-35"><span class="linenos">35</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="getEmployeeByEmail-36"><a href="#getEmployeeByEmail-36"><span class="linenos">36</span></a><span class="sd">    Returns employee from database given their associated email.</span>
+</span><span id="getEmployeeByEmail-37"><a href="#getEmployeeByEmail-37"><span class="linenos">37</span></a><span class="sd">    :param email: employee email (not the same as user email!)</span>
+</span><span id="getEmployeeByEmail-38"><a href="#getEmployeeByEmail-38"><span class="linenos">38</span></a><span class="sd">    :return: List containing name, employee ID, manager status, preferred name, and admin status</span>
+</span><span id="getEmployeeByEmail-39"><a href="#getEmployeeByEmail-39"><span class="linenos">39</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="getEmployeeByEmail-40"><a href="#getEmployeeByEmail-40"><span class="linenos">40</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT name, employeeID, isManager, pref_name, isadmin FROM employee_table WHERE email=&#39;</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">&#39;;&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Returns employee from database given their associated email.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>email</strong>:  employee email (not the same as user email!)</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List containing name, employee ID, manager status, preferred name, and admin status</p>
+</blockquote>
 </div>
 
 
@@ -205,13 +298,30 @@
 
     </div>
     <a class="headerlink" href="#emailExists"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="emailExists-33"><a href="#emailExists-33"><span class="linenos">33</span></a><span class="k">def</span> <span class="nf">emailExists</span><span class="p">(</span><span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="emailExists-34"><a href="#emailExists-34"><span class="linenos">34</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Checks if email exists in either users or employees. Returns [[0]] if not found&quot;&quot;&quot;</span>
-</span><span id="emailExists-35"><a href="#emailExists-35"><span class="linenos">35</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;SELECT count(*) FROM user_table WHERE EXISTS ( SELECT 1 FROM employee_table WHERE email=&#39;</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">&#39; ) OR EXISTS ( SELECT 1 FROM user_table WHERE email=&#39;</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">&#39; );&quot;</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="emailExists-57"><a href="#emailExists-57"><span class="linenos">57</span></a><span class="k">def</span> <span class="nf">emailExists</span><span class="p">(</span><span class="n">email</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="emailExists-58"><a href="#emailExists-58"><span class="linenos">58</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="emailExists-59"><a href="#emailExists-59"><span class="linenos">59</span></a><span class="sd">    Checks if user email exists in either users or employees.</span>
+</span><span id="emailExists-60"><a href="#emailExists-60"><span class="linenos">60</span></a><span class="sd">    :param email: user email</span>
+</span><span id="emailExists-61"><a href="#emailExists-61"><span class="linenos">61</span></a><span class="sd">    :return: [[0]] if not found, otherwise [[nonzero value]]</span>
+</span><span id="emailExists-62"><a href="#emailExists-62"><span class="linenos">62</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="emailExists-63"><a href="#emailExists-63"><span class="linenos">63</span></a>    <span class="k">return</span> <span class="n">execute</span><span class="p">(</span>
+</span><span id="emailExists-64"><a href="#emailExists-64"><span class="linenos">64</span></a>        <span class="sa">f</span><span class="s2">&quot;SELECT count(*) FROM user_table WHERE EXISTS ( SELECT 1 FROM employee_table WHERE email=&#39;</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">&#39; ) OR EXISTS ( SELECT 1 FROM user_table WHERE email=&#39;</span><span class="si">{</span><span class="n">email</span><span class="si">}</span><span class="s2">&#39; );&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Checks if email exists in either users or employees. Returns [[0]] if not found</p>
+            <div class="docstring"><p>Checks if user email exists in either users or employees.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>email</strong>:  user email</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>[[0]] if not found, otherwise [[nonzero value]]</p>
+</blockquote>
 </div>
 
 
