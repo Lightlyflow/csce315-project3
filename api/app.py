@@ -50,6 +50,7 @@ app.static_folder = 'static'
 # Documentation
 @app.route("/9o3yh223w8jaolp1qo2/docs/<path:path>")
 def docs(path):
+    """Path hosting our auto generated docs"""
     return send_from_directory("../docs", path)
 
 

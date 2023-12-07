@@ -95,124 +95,151 @@
 </span><span id="L-15"><a href="#L-15"><span class="linenos"> 15</span></a><span class="n">authBlueprint</span> <span class="o">=</span> <span class="n">Blueprint</span><span class="p">(</span><span class="s2">&quot;auth&quot;</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">,</span> <span class="n">template_folder</span><span class="o">=</span><span class="s2">&quot;templates&quot;</span><span class="p">,</span> <span class="n">static_folder</span><span class="o">=</span><span class="s2">&quot;static&quot;</span><span class="p">)</span>
 </span><span id="L-16"><a href="#L-16"><span class="linenos"> 16</span></a><span class="n">loginManager</span> <span class="o">=</span> <span class="n">LoginManager</span><span class="p">()</span>
 </span><span id="L-17"><a href="#L-17"><span class="linenos"> 17</span></a>
-</span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a><span class="nd">@loginManager</span><span class="o">.</span><span class="n">user_loader</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="k">def</span> <span class="nf">load_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">User</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates User object from given user_id. Return User object if successful.&quot;&quot;&quot;</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a>    <span class="k">return</span> <span class="n">getUserByEmail</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a>
-</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="nd">@loginManager</span><span class="o">.</span><span class="n">unauthorized_handler</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a><span class="k">def</span> <span class="nf">unauthorized_callback</span><span class="p">():</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Redirects to customer home page when user attempts an unauthorized action.&quot;&quot;&quot;</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a>    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;customer.home&#39;</span><span class="p">))</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos"> 18</span></a>
+</span><span id="L-19"><a href="#L-19"><span class="linenos"> 19</span></a><span class="nd">@loginManager</span><span class="o">.</span><span class="n">user_loader</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos"> 20</span></a><span class="k">def</span> <span class="nf">load_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">User</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos"> 21</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos"> 22</span></a><span class="sd">    Creates User object from given user_id if it exists.</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos"> 23</span></a><span class="sd">    :param user_id: User ID (most likely an email)</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos"> 24</span></a><span class="sd">    :return: User object if exists, else None</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos"> 25</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos"> 26</span></a>    <span class="k">return</span> <span class="n">getUserByEmail</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
 </span><span id="L-27"><a href="#L-27"><span class="linenos"> 27</span></a>
-</span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a><span class="nd">@authBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a><span class="k">def</span> <span class="nf">home</span><span class="p">():</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Renders customer landing page.&quot;&quot;&quot;</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a>    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;customer_landing.html&quot;</span><span class="p">)</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a>
-</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a><span class="nd">@authBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/logout&quot;</span><span class="p">)</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a><span class="k">def</span> <span class="nf">logout</span><span class="p">():</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Redirects to customer home page when user logs out.&quot;&quot;&quot;</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a>    <span class="n">logout_user</span><span class="p">()</span>
-</span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a>    <span class="n">flash</span><span class="p">(</span><span class="s2">&quot;You have been logged out.&quot;</span><span class="p">)</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a>    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;customer.home&quot;</span><span class="p">))</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos"> 28</span></a>
+</span><span id="L-29"><a href="#L-29"><span class="linenos"> 29</span></a><span class="nd">@loginManager</span><span class="o">.</span><span class="n">unauthorized_handler</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos"> 30</span></a><span class="k">def</span> <span class="nf">unauthorized_callback</span><span class="p">():</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos"> 31</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Redirects to customer home page when user attempts an unauthorized (403) action.&quot;&quot;&quot;</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos"> 32</span></a>    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;customer.home&#39;</span><span class="p">))</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos"> 33</span></a>
+</span><span id="L-34"><a href="#L-34"><span class="linenos"> 34</span></a>
+</span><span id="L-35"><a href="#L-35"><span class="linenos"> 35</span></a><span class="nd">@authBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos"> 36</span></a><span class="k">def</span> <span class="nf">home</span><span class="p">():</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos"> 37</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Renders customer landing page.&quot;&quot;&quot;</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos"> 38</span></a>    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;customer_landing.html&quot;</span><span class="p">)</span>
 </span><span id="L-39"><a href="#L-39"><span class="linenos"> 39</span></a>
-</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a><span class="nd">@authBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&lt;provider&gt;&quot;</span><span class="p">)</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a><span class="k">def</span> <span class="nf">oauth2_authorize</span><span class="p">(</span><span class="n">provider</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos"> 42</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Authorizes user.&quot;&quot;&quot;</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_anonymous</span><span class="p">:</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a>        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;auth.loginAs&#39;</span><span class="p">))</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a>
-</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a>    <span class="n">provider_data</span> <span class="o">=</span> <span class="n">current_app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;OAUTH2_PROVIDERS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a>    <span class="k">if</span> <span class="n">provider_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span>
-</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a>
-</span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a>    <span class="c1"># generate a random string for the state parameter</span>
-</span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a>    <span class="n">session</span><span class="p">[</span><span class="s1">&#39;oauth2_state&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">secrets</span><span class="o">.</span><span class="n">token_urlsafe</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
-</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a>
-</span><span id="L-53"><a href="#L-53"><span class="linenos"> 53</span></a>    <span class="c1"># generate a random string for the state parameter</span>
-</span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a>    <span class="n">session</span><span class="p">[</span><span class="s1">&#39;oauth2_state&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">secrets</span><span class="o">.</span><span class="n">token_urlsafe</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
-</span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a>
-</span><span id="L-56"><a href="#L-56"><span class="linenos"> 56</span></a>    <span class="c1"># create a query string with all the OAuth2 parameters</span>
-</span><span id="L-57"><a href="#L-57"><span class="linenos"> 57</span></a>    <span class="n">qs</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">({</span>
-</span><span id="L-58"><a href="#L-58"><span class="linenos"> 58</span></a>        <span class="s1">&#39;client_id&#39;</span><span class="p">:</span> <span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;client_id&#39;</span><span class="p">],</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos"> 59</span></a>        <span class="s1">&#39;redirect_uri&#39;</span><span class="p">:</span> <span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;auth.oauth2_callback&#39;</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="n">provider</span><span class="p">,</span>
-</span><span id="L-60"><a href="#L-60"><span class="linenos"> 60</span></a>                                <span class="n">_external</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-</span><span id="L-61"><a href="#L-61"><span class="linenos"> 61</span></a>        <span class="s1">&#39;response_type&#39;</span><span class="p">:</span> <span class="s1">&#39;code&#39;</span><span class="p">,</span>
-</span><span id="L-62"><a href="#L-62"><span class="linenos"> 62</span></a>        <span class="s1">&#39;scope&#39;</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;scopes&#39;</span><span class="p">]),</span>
-</span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a>        <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="n">session</span><span class="p">[</span><span class="s1">&#39;oauth2_state&#39;</span><span class="p">],</span>
-</span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a>    <span class="p">})</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos"> 40</span></a>
+</span><span id="L-41"><a href="#L-41"><span class="linenos"> 41</span></a><span class="nd">@authBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/logout&quot;</span><span class="p">)</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos"> 42</span></a><span class="k">def</span> <span class="nf">logout</span><span class="p">():</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos"> 43</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos"> 44</span></a><span class="sd">    Logs out user, then redirects to customer home page when user logs out.</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos"> 45</span></a><span class="sd">    :return: Redirect to customer landing page</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos"> 46</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos"> 47</span></a>    <span class="n">logout_user</span><span class="p">()</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos"> 48</span></a>    <span class="n">flash</span><span class="p">(</span><span class="s2">&quot;You have been logged out.&quot;</span><span class="p">)</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos"> 49</span></a>    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;customer.home&quot;</span><span class="p">))</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos"> 50</span></a>
+</span><span id="L-51"><a href="#L-51"><span class="linenos"> 51</span></a>
+</span><span id="L-52"><a href="#L-52"><span class="linenos"> 52</span></a><span class="nd">@authBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&lt;provider&gt;&quot;</span><span class="p">)</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos"> 53</span></a><span class="k">def</span> <span class="nf">oauth2_authorize</span><span class="p">(</span><span class="n">provider</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos"> 54</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos"> 55</span></a><span class="sd">    Redirects user to the given provider.</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos"> 56</span></a><span class="sd">    :param provider: str of provider (currently only accepts google)</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos"> 57</span></a><span class="sd">    :return: Redirects to provider login</span>
+</span><span id="L-58"><a href="#L-58"><span class="linenos"> 58</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos"> 59</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_anonymous</span><span class="p">:</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos"> 60</span></a>        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;auth.loginAs&#39;</span><span class="p">))</span>
+</span><span id="L-61"><a href="#L-61"><span class="linenos"> 61</span></a>
+</span><span id="L-62"><a href="#L-62"><span class="linenos"> 62</span></a>    <span class="n">provider_data</span> <span class="o">=</span> <span class="n">current_app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;OAUTH2_PROVIDERS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos"> 63</span></a>    <span class="k">if</span> <span class="n">provider_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos"> 64</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span>
 </span><span id="L-65"><a href="#L-65"><span class="linenos"> 65</span></a>
-</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a>    <span class="c1"># redirect the user to the OAuth2 provider authorization URL</span>
-</span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a>    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;authorize_url&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;?&#39;</span> <span class="o">+</span> <span class="n">qs</span><span class="p">)</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos"> 66</span></a>    <span class="c1"># generate a random string for the state parameter</span>
+</span><span id="L-67"><a href="#L-67"><span class="linenos"> 67</span></a>    <span class="n">session</span><span class="p">[</span><span class="s1">&#39;oauth2_state&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">secrets</span><span class="o">.</span><span class="n">token_urlsafe</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
 </span><span id="L-68"><a href="#L-68"><span class="linenos"> 68</span></a>
-</span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a><span class="nd">@authBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/callback/&lt;provider&gt;&#39;</span><span class="p">)</span>
-</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a><span class="k">def</span> <span class="nf">oauth2_callback</span><span class="p">(</span><span class="n">provider</span><span class="p">):</span>
-</span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Logs in user.&quot;&quot;&quot;</span>
-</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_anonymous</span><span class="p">:</span>
-</span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a>        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;auth.loginAs&#39;</span><span class="p">))</span>
-</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a>
-</span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a>    <span class="n">provider_data</span> <span class="o">=</span> <span class="n">current_app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;OAUTH2_PROVIDERS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span>
-</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a>    <span class="k">if</span> <span class="n">provider_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span>
-</span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a>
-</span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a>    <span class="c1"># if there was an authentication error, flash the error messages and exit</span>
-</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a>    <span class="k">if</span> <span class="s1">&#39;error&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
-</span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a>        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a>            <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">):</span>
-</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a>                <span class="n">flash</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a>        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;customer.home&#39;</span><span class="p">))</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos"> 69</span></a>    <span class="c1"># generate a random string for the state parameter</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos"> 70</span></a>    <span class="n">session</span><span class="p">[</span><span class="s1">&#39;oauth2_state&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">secrets</span><span class="o">.</span><span class="n">token_urlsafe</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+</span><span id="L-71"><a href="#L-71"><span class="linenos"> 71</span></a>
+</span><span id="L-72"><a href="#L-72"><span class="linenos"> 72</span></a>    <span class="c1"># create a query string with all the OAuth2 parameters</span>
+</span><span id="L-73"><a href="#L-73"><span class="linenos"> 73</span></a>    <span class="n">qs</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">({</span>
+</span><span id="L-74"><a href="#L-74"><span class="linenos"> 74</span></a>        <span class="s1">&#39;client_id&#39;</span><span class="p">:</span> <span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;client_id&#39;</span><span class="p">],</span>
+</span><span id="L-75"><a href="#L-75"><span class="linenos"> 75</span></a>        <span class="s1">&#39;redirect_uri&#39;</span><span class="p">:</span> <span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;auth.oauth2_callback&#39;</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="n">provider</span><span class="p">,</span>
+</span><span id="L-76"><a href="#L-76"><span class="linenos"> 76</span></a>                                <span class="n">_external</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+</span><span id="L-77"><a href="#L-77"><span class="linenos"> 77</span></a>        <span class="s1">&#39;response_type&#39;</span><span class="p">:</span> <span class="s1">&#39;code&#39;</span><span class="p">,</span>
+</span><span id="L-78"><a href="#L-78"><span class="linenos"> 78</span></a>        <span class="s1">&#39;scope&#39;</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;scopes&#39;</span><span class="p">]),</span>
+</span><span id="L-79"><a href="#L-79"><span class="linenos"> 79</span></a>        <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="n">session</span><span class="p">[</span><span class="s1">&#39;oauth2_state&#39;</span><span class="p">],</span>
+</span><span id="L-80"><a href="#L-80"><span class="linenos"> 80</span></a>    <span class="p">})</span>
+</span><span id="L-81"><a href="#L-81"><span class="linenos"> 81</span></a>
+</span><span id="L-82"><a href="#L-82"><span class="linenos"> 82</span></a>    <span class="c1"># redirect the user to the OAuth2 provider authorization URL</span>
+</span><span id="L-83"><a href="#L-83"><span class="linenos"> 83</span></a>    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;authorize_url&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;?&#39;</span> <span class="o">+</span> <span class="n">qs</span><span class="p">)</span>
+</span><span id="L-84"><a href="#L-84"><span class="linenos"> 84</span></a>
 </span><span id="L-85"><a href="#L-85"><span class="linenos"> 85</span></a>
-</span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a>    <span class="c1"># make sure that the state parameter matches the one we created in the</span>
-</span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a>    <span class="c1"># authorization request</span>
-</span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;oauth2_state&#39;</span><span class="p">):</span>
-</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
-</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a>
-</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a>    <span class="c1"># make sure that the authorization code is present</span>
-</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a>    <span class="k">if</span> <span class="s1">&#39;code&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
-</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
-</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a>
-</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a>    <span class="c1"># exchange the authorization code for an access token</span>
-</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;token_url&#39;</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span>
-</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a>        <span class="s1">&#39;client_id&#39;</span><span class="p">:</span> <span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;client_id&#39;</span><span class="p">],</span>
-</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a>        <span class="s1">&#39;client_secret&#39;</span><span class="p">:</span> <span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;client_secret&#39;</span><span class="p">],</span>
-</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a>        <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">],</span>
-</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a>        <span class="s1">&#39;grant_type&#39;</span><span class="p">:</span> <span class="s1">&#39;authorization_code&#39;</span><span class="p">,</span>
-</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a>        <span class="s1">&#39;redirect_uri&#39;</span><span class="p">:</span> <span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;auth.oauth2_callback&#39;</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="n">provider</span><span class="p">,</span>
-</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a>                                <span class="n">_external</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a>    <span class="p">},</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Accept&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">})</span>
-</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a>    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
-</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
-</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a>    <span class="n">oauth2_token</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;access_token&#39;</span><span class="p">)</span>
-</span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">oauth2_token</span><span class="p">:</span>
-</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
-</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a>
-</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a>    <span class="c1"># use the access token to get the user&#39;s email address</span>
-</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;userinfo&#39;</span><span class="p">][</span><span class="s1">&#39;url&#39;</span><span class="p">],</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span>
-</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a>        <span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="s1">&#39;Bearer &#39;</span> <span class="o">+</span> <span class="n">oauth2_token</span><span class="p">,</span>
-</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a>        <span class="s1">&#39;Accept&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
-</span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a>    <span class="p">})</span>
-</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a>    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+</span><span id="L-86"><a href="#L-86"><span class="linenos"> 86</span></a><span class="nd">@authBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/callback/&lt;provider&gt;&#39;</span><span class="p">)</span>
+</span><span id="L-87"><a href="#L-87"><span class="linenos"> 87</span></a><span class="k">def</span> <span class="nf">oauth2_callback</span><span class="p">(</span><span class="n">provider</span><span class="p">):</span>
+</span><span id="L-88"><a href="#L-88"><span class="linenos"> 88</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-89"><a href="#L-89"><span class="linenos"> 89</span></a><span class="sd">    Logs in user with the returned authorization code.</span>
+</span><span id="L-90"><a href="#L-90"><span class="linenos"> 90</span></a><span class="sd">    If the user does not exist within the database, then a new entry is created with their email.</span>
+</span><span id="L-91"><a href="#L-91"><span class="linenos"> 91</span></a>
+</span><span id="L-92"><a href="#L-92"><span class="linenos"> 92</span></a><span class="sd">    :param provider: str of provider (currently only accepts google)</span>
+</span><span id="L-93"><a href="#L-93"><span class="linenos"> 93</span></a><span class="sd">    :return: Redirect to either loginAs or customer landing page</span>
+</span><span id="L-94"><a href="#L-94"><span class="linenos"> 94</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-95"><a href="#L-95"><span class="linenos"> 95</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_anonymous</span><span class="p">:</span>
+</span><span id="L-96"><a href="#L-96"><span class="linenos"> 96</span></a>        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;auth.loginAs&#39;</span><span class="p">))</span>
+</span><span id="L-97"><a href="#L-97"><span class="linenos"> 97</span></a>
+</span><span id="L-98"><a href="#L-98"><span class="linenos"> 98</span></a>    <span class="n">provider_data</span> <span class="o">=</span> <span class="n">current_app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;OAUTH2_PROVIDERS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span>
+</span><span id="L-99"><a href="#L-99"><span class="linenos"> 99</span></a>    <span class="k">if</span> <span class="n">provider_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-100"><a href="#L-100"><span class="linenos">100</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span>
+</span><span id="L-101"><a href="#L-101"><span class="linenos">101</span></a>
+</span><span id="L-102"><a href="#L-102"><span class="linenos">102</span></a>    <span class="c1"># if there was an authentication error, flash the error messages and exit</span>
+</span><span id="L-103"><a href="#L-103"><span class="linenos">103</span></a>    <span class="k">if</span> <span class="s1">&#39;error&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+</span><span id="L-104"><a href="#L-104"><span class="linenos">104</span></a>        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span id="L-105"><a href="#L-105"><span class="linenos">105</span></a>            <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">):</span>
+</span><span id="L-106"><a href="#L-106"><span class="linenos">106</span></a>                <span class="n">flash</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span><span id="L-107"><a href="#L-107"><span class="linenos">107</span></a>        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;customer.home&#39;</span><span class="p">))</span>
+</span><span id="L-108"><a href="#L-108"><span class="linenos">108</span></a>
+</span><span id="L-109"><a href="#L-109"><span class="linenos">109</span></a>    <span class="c1"># make sure that the state parameter matches the one we created in the</span>
+</span><span id="L-110"><a href="#L-110"><span class="linenos">110</span></a>    <span class="c1"># authorization request</span>
+</span><span id="L-111"><a href="#L-111"><span class="linenos">111</span></a>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;oauth2_state&#39;</span><span class="p">):</span>
+</span><span id="L-112"><a href="#L-112"><span class="linenos">112</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
+</span><span id="L-113"><a href="#L-113"><span class="linenos">113</span></a>
+</span><span id="L-114"><a href="#L-114"><span class="linenos">114</span></a>    <span class="c1"># make sure that the authorization code is present</span>
+</span><span id="L-115"><a href="#L-115"><span class="linenos">115</span></a>    <span class="k">if</span> <span class="s1">&#39;code&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
 </span><span id="L-116"><a href="#L-116"><span class="linenos">116</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
-</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a>    <span class="n">email</span> <span class="o">=</span> <span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;userinfo&#39;</span><span class="p">][</span><span class="s1">&#39;email&#39;</span><span class="p">](</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
-</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a>
-</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a>    <span class="c1"># find or create the user in the database</span>
-</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a>    <span class="n">user</span> <span class="o">=</span> <span class="n">getUserByEmail</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
-</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a>    <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a>        <span class="n">user</span> <span class="o">=</span> <span class="n">createUser</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
-</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a>
-</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a>    <span class="c1"># log the user in</span>
-</span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a>    <span class="n">login_user</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
-</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a>
-</span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a>    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;auth.loginAs&#39;</span><span class="p">))</span>
-</span><span id="L-128"><a href="#L-128"><span class="linenos">128</span></a>
-</span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a>
-</span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a><span class="nd">@authBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/loginas&#39;</span><span class="p">)</span>
-</span><span id="L-131"><a href="#L-131"><span class="linenos">131</span></a><span class="k">def</span> <span class="nf">loginAs</span><span class="p">():</span>
-</span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Logs in user as employee or manager.&quot;&quot;&quot;</span>
-</span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a>    <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_authenticated</span> <span class="ow">and</span> <span class="n">current_user</span><span class="o">.</span><span class="n">isEmployee</span><span class="p">:</span>
-</span><span id="L-134"><a href="#L-134"><span class="linenos">134</span></a>        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;login_as.html&quot;</span><span class="p">)</span>
-</span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a>    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;customer.order&#39;</span><span class="p">))</span>
+</span><span id="L-117"><a href="#L-117"><span class="linenos">117</span></a>
+</span><span id="L-118"><a href="#L-118"><span class="linenos">118</span></a>    <span class="c1"># exchange the authorization code for an access token</span>
+</span><span id="L-119"><a href="#L-119"><span class="linenos">119</span></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;token_url&#39;</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+</span><span id="L-120"><a href="#L-120"><span class="linenos">120</span></a>        <span class="s1">&#39;client_id&#39;</span><span class="p">:</span> <span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;client_id&#39;</span><span class="p">],</span>
+</span><span id="L-121"><a href="#L-121"><span class="linenos">121</span></a>        <span class="s1">&#39;client_secret&#39;</span><span class="p">:</span> <span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;client_secret&#39;</span><span class="p">],</span>
+</span><span id="L-122"><a href="#L-122"><span class="linenos">122</span></a>        <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">],</span>
+</span><span id="L-123"><a href="#L-123"><span class="linenos">123</span></a>        <span class="s1">&#39;grant_type&#39;</span><span class="p">:</span> <span class="s1">&#39;authorization_code&#39;</span><span class="p">,</span>
+</span><span id="L-124"><a href="#L-124"><span class="linenos">124</span></a>        <span class="s1">&#39;redirect_uri&#39;</span><span class="p">:</span> <span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;auth.oauth2_callback&#39;</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="n">provider</span><span class="p">,</span>
+</span><span id="L-125"><a href="#L-125"><span class="linenos">125</span></a>                                <span class="n">_external</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+</span><span id="L-126"><a href="#L-126"><span class="linenos">126</span></a>    <span class="p">},</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Accept&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">})</span>
+</span><span id="L-127"><a href="#L-127"><span class="linenos">127</span></a>    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+</span><span id="L-128"><a href="#L-128"><span class="linenos">128</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
+</span><span id="L-129"><a href="#L-129"><span class="linenos">129</span></a>    <span class="n">oauth2_token</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;access_token&#39;</span><span class="p">)</span>
+</span><span id="L-130"><a href="#L-130"><span class="linenos">130</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">oauth2_token</span><span class="p">:</span>
+</span><span id="L-131"><a href="#L-131"><span class="linenos">131</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
+</span><span id="L-132"><a href="#L-132"><span class="linenos">132</span></a>
+</span><span id="L-133"><a href="#L-133"><span class="linenos">133</span></a>    <span class="c1"># use the access token to get the user&#39;s email address</span>
+</span><span id="L-134"><a href="#L-134"><span class="linenos">134</span></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;userinfo&#39;</span><span class="p">][</span><span class="s1">&#39;url&#39;</span><span class="p">],</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span>
+</span><span id="L-135"><a href="#L-135"><span class="linenos">135</span></a>        <span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="s1">&#39;Bearer &#39;</span> <span class="o">+</span> <span class="n">oauth2_token</span><span class="p">,</span>
+</span><span id="L-136"><a href="#L-136"><span class="linenos">136</span></a>        <span class="s1">&#39;Accept&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+</span><span id="L-137"><a href="#L-137"><span class="linenos">137</span></a>    <span class="p">})</span>
+</span><span id="L-138"><a href="#L-138"><span class="linenos">138</span></a>    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+</span><span id="L-139"><a href="#L-139"><span class="linenos">139</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
+</span><span id="L-140"><a href="#L-140"><span class="linenos">140</span></a>    <span class="n">email</span> <span class="o">=</span> <span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;userinfo&#39;</span><span class="p">][</span><span class="s1">&#39;email&#39;</span><span class="p">](</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</span><span id="L-141"><a href="#L-141"><span class="linenos">141</span></a>
+</span><span id="L-142"><a href="#L-142"><span class="linenos">142</span></a>    <span class="c1"># find or create the user in the database</span>
+</span><span id="L-143"><a href="#L-143"><span class="linenos">143</span></a>    <span class="n">user</span> <span class="o">=</span> <span class="n">getUserByEmail</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+</span><span id="L-144"><a href="#L-144"><span class="linenos">144</span></a>    <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="L-145"><a href="#L-145"><span class="linenos">145</span></a>        <span class="n">user</span> <span class="o">=</span> <span class="n">createUser</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+</span><span id="L-146"><a href="#L-146"><span class="linenos">146</span></a>
+</span><span id="L-147"><a href="#L-147"><span class="linenos">147</span></a>    <span class="c1"># log the user in</span>
+</span><span id="L-148"><a href="#L-148"><span class="linenos">148</span></a>    <span class="n">login_user</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+</span><span id="L-149"><a href="#L-149"><span class="linenos">149</span></a>
+</span><span id="L-150"><a href="#L-150"><span class="linenos">150</span></a>    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;auth.loginAs&#39;</span><span class="p">))</span>
+</span><span id="L-151"><a href="#L-151"><span class="linenos">151</span></a>
+</span><span id="L-152"><a href="#L-152"><span class="linenos">152</span></a>
+</span><span id="L-153"><a href="#L-153"><span class="linenos">153</span></a><span class="nd">@authBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/loginas&#39;</span><span class="p">)</span>
+</span><span id="L-154"><a href="#L-154"><span class="linenos">154</span></a><span class="k">def</span> <span class="nf">loginAs</span><span class="p">():</span>
+</span><span id="L-155"><a href="#L-155"><span class="linenos">155</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-156"><a href="#L-156"><span class="linenos">156</span></a><span class="sd">    Renders the loginAs page (which holds list of links to different interfaces) unless you are a customer/guest only,</span>
+</span><span id="L-157"><a href="#L-157"><span class="linenos">157</span></a><span class="sd">    in which case you are automatically redirected to customer ordering page.</span>
+</span><span id="L-158"><a href="#L-158"><span class="linenos">158</span></a><span class="sd">    :return: Redirect to customer order page or render of loginAs page</span>
+</span><span id="L-159"><a href="#L-159"><span class="linenos">159</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-160"><a href="#L-160"><span class="linenos">160</span></a>    <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_authenticated</span> <span class="ow">and</span> <span class="n">current_user</span><span class="o">.</span><span class="n">isEmployee</span><span class="p">:</span>
+</span><span id="L-161"><a href="#L-161"><span class="linenos">161</span></a>        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;login_as.html&quot;</span><span class="p">)</span>
+</span><span id="L-162"><a href="#L-162"><span class="linenos">162</span></a>    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;customer.order&#39;</span><span class="p">))</span>
 </span></pre></div>
 
 
@@ -253,14 +280,30 @@
 
     </div>
     <a class="headerlink" href="#load_user"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="load_user-19"><a href="#load_user-19"><span class="linenos">19</span></a><span class="nd">@loginManager</span><span class="o">.</span><span class="n">user_loader</span>
-</span><span id="load_user-20"><a href="#load_user-20"><span class="linenos">20</span></a><span class="k">def</span> <span class="nf">load_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">User</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="load_user-21"><a href="#load_user-21"><span class="linenos">21</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates User object from given user_id. Return User object if successful.&quot;&quot;&quot;</span>
-</span><span id="load_user-22"><a href="#load_user-22"><span class="linenos">22</span></a>    <span class="k">return</span> <span class="n">getUserByEmail</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="load_user-20"><a href="#load_user-20"><span class="linenos">20</span></a><span class="nd">@loginManager</span><span class="o">.</span><span class="n">user_loader</span>
+</span><span id="load_user-21"><a href="#load_user-21"><span class="linenos">21</span></a><span class="k">def</span> <span class="nf">load_user</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">User</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="load_user-22"><a href="#load_user-22"><span class="linenos">22</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="load_user-23"><a href="#load_user-23"><span class="linenos">23</span></a><span class="sd">    Creates User object from given user_id if it exists.</span>
+</span><span id="load_user-24"><a href="#load_user-24"><span class="linenos">24</span></a><span class="sd">    :param user_id: User ID (most likely an email)</span>
+</span><span id="load_user-25"><a href="#load_user-25"><span class="linenos">25</span></a><span class="sd">    :return: User object if exists, else None</span>
+</span><span id="load_user-26"><a href="#load_user-26"><span class="linenos">26</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="load_user-27"><a href="#load_user-27"><span class="linenos">27</span></a>    <span class="k">return</span> <span class="n">getUserByEmail</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Creates User object from given user_id. Return User object if successful.</p>
+            <div class="docstring"><p>Creates User object from given user_id if it exists.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>user_id</strong>:  User ID (most likely an email)</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>User object if exists, else None</p>
+</blockquote>
 </div>
 
 
@@ -277,14 +320,14 @@
 
     </div>
     <a class="headerlink" href="#unauthorized_callback"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="unauthorized_callback-24"><a href="#unauthorized_callback-24"><span class="linenos">24</span></a><span class="nd">@loginManager</span><span class="o">.</span><span class="n">unauthorized_handler</span>
-</span><span id="unauthorized_callback-25"><a href="#unauthorized_callback-25"><span class="linenos">25</span></a><span class="k">def</span> <span class="nf">unauthorized_callback</span><span class="p">():</span>
-</span><span id="unauthorized_callback-26"><a href="#unauthorized_callback-26"><span class="linenos">26</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Redirects to customer home page when user attempts an unauthorized action.&quot;&quot;&quot;</span>
-</span><span id="unauthorized_callback-27"><a href="#unauthorized_callback-27"><span class="linenos">27</span></a>    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;customer.home&#39;</span><span class="p">))</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="unauthorized_callback-30"><a href="#unauthorized_callback-30"><span class="linenos">30</span></a><span class="nd">@loginManager</span><span class="o">.</span><span class="n">unauthorized_handler</span>
+</span><span id="unauthorized_callback-31"><a href="#unauthorized_callback-31"><span class="linenos">31</span></a><span class="k">def</span> <span class="nf">unauthorized_callback</span><span class="p">():</span>
+</span><span id="unauthorized_callback-32"><a href="#unauthorized_callback-32"><span class="linenos">32</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Redirects to customer home page when user attempts an unauthorized (403) action.&quot;&quot;&quot;</span>
+</span><span id="unauthorized_callback-33"><a href="#unauthorized_callback-33"><span class="linenos">33</span></a>    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;customer.home&#39;</span><span class="p">))</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Redirects to customer home page when user attempts an unauthorized action.</p>
+            <div class="docstring"><p>Redirects to customer home page when user attempts an unauthorized (403) action.</p>
 </div>
 
 
@@ -301,10 +344,10 @@
 
     </div>
     <a class="headerlink" href="#home"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="home-29"><a href="#home-29"><span class="linenos">29</span></a><span class="nd">@authBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
-</span><span id="home-30"><a href="#home-30"><span class="linenos">30</span></a><span class="k">def</span> <span class="nf">home</span><span class="p">():</span>
-</span><span id="home-31"><a href="#home-31"><span class="linenos">31</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Renders customer landing page.&quot;&quot;&quot;</span>
-</span><span id="home-32"><a href="#home-32"><span class="linenos">32</span></a>    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;customer_landing.html&quot;</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="home-36"><a href="#home-36"><span class="linenos">36</span></a><span class="nd">@authBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+</span><span id="home-37"><a href="#home-37"><span class="linenos">37</span></a><span class="k">def</span> <span class="nf">home</span><span class="p">():</span>
+</span><span id="home-38"><a href="#home-38"><span class="linenos">38</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Renders customer landing page.&quot;&quot;&quot;</span>
+</span><span id="home-39"><a href="#home-39"><span class="linenos">39</span></a>    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;customer_landing.html&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -325,16 +368,25 @@
 
     </div>
     <a class="headerlink" href="#logout"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="logout-34"><a href="#logout-34"><span class="linenos">34</span></a><span class="nd">@authBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/logout&quot;</span><span class="p">)</span>
-</span><span id="logout-35"><a href="#logout-35"><span class="linenos">35</span></a><span class="k">def</span> <span class="nf">logout</span><span class="p">():</span>
-</span><span id="logout-36"><a href="#logout-36"><span class="linenos">36</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Redirects to customer home page when user logs out.&quot;&quot;&quot;</span>
-</span><span id="logout-37"><a href="#logout-37"><span class="linenos">37</span></a>    <span class="n">logout_user</span><span class="p">()</span>
-</span><span id="logout-38"><a href="#logout-38"><span class="linenos">38</span></a>    <span class="n">flash</span><span class="p">(</span><span class="s2">&quot;You have been logged out.&quot;</span><span class="p">)</span>
-</span><span id="logout-39"><a href="#logout-39"><span class="linenos">39</span></a>    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;customer.home&quot;</span><span class="p">))</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="logout-42"><a href="#logout-42"><span class="linenos">42</span></a><span class="nd">@authBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/logout&quot;</span><span class="p">)</span>
+</span><span id="logout-43"><a href="#logout-43"><span class="linenos">43</span></a><span class="k">def</span> <span class="nf">logout</span><span class="p">():</span>
+</span><span id="logout-44"><a href="#logout-44"><span class="linenos">44</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="logout-45"><a href="#logout-45"><span class="linenos">45</span></a><span class="sd">    Logs out user, then redirects to customer home page when user logs out.</span>
+</span><span id="logout-46"><a href="#logout-46"><span class="linenos">46</span></a><span class="sd">    :return: Redirect to customer landing page</span>
+</span><span id="logout-47"><a href="#logout-47"><span class="linenos">47</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="logout-48"><a href="#logout-48"><span class="linenos">48</span></a>    <span class="n">logout_user</span><span class="p">()</span>
+</span><span id="logout-49"><a href="#logout-49"><span class="linenos">49</span></a>    <span class="n">flash</span><span class="p">(</span><span class="s2">&quot;You have been logged out.&quot;</span><span class="p">)</span>
+</span><span id="logout-50"><a href="#logout-50"><span class="linenos">50</span></a>    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;customer.home&quot;</span><span class="p">))</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Redirects to customer home page when user logs out.</p>
+            <div class="docstring"><p>Logs out user, then redirects to customer home page when user logs out.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Redirect to customer landing page</p>
+</blockquote>
 </div>
 
 
@@ -351,38 +403,54 @@
 
     </div>
     <a class="headerlink" href="#oauth2_authorize"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="oauth2_authorize-41"><a href="#oauth2_authorize-41"><span class="linenos">41</span></a><span class="nd">@authBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&lt;provider&gt;&quot;</span><span class="p">)</span>
-</span><span id="oauth2_authorize-42"><a href="#oauth2_authorize-42"><span class="linenos">42</span></a><span class="k">def</span> <span class="nf">oauth2_authorize</span><span class="p">(</span><span class="n">provider</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="oauth2_authorize-43"><a href="#oauth2_authorize-43"><span class="linenos">43</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Authorizes user.&quot;&quot;&quot;</span>
-</span><span id="oauth2_authorize-44"><a href="#oauth2_authorize-44"><span class="linenos">44</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_anonymous</span><span class="p">:</span>
-</span><span id="oauth2_authorize-45"><a href="#oauth2_authorize-45"><span class="linenos">45</span></a>        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;auth.loginAs&#39;</span><span class="p">))</span>
-</span><span id="oauth2_authorize-46"><a href="#oauth2_authorize-46"><span class="linenos">46</span></a>
-</span><span id="oauth2_authorize-47"><a href="#oauth2_authorize-47"><span class="linenos">47</span></a>    <span class="n">provider_data</span> <span class="o">=</span> <span class="n">current_app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;OAUTH2_PROVIDERS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span>
-</span><span id="oauth2_authorize-48"><a href="#oauth2_authorize-48"><span class="linenos">48</span></a>    <span class="k">if</span> <span class="n">provider_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="oauth2_authorize-49"><a href="#oauth2_authorize-49"><span class="linenos">49</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span>
-</span><span id="oauth2_authorize-50"><a href="#oauth2_authorize-50"><span class="linenos">50</span></a>
-</span><span id="oauth2_authorize-51"><a href="#oauth2_authorize-51"><span class="linenos">51</span></a>    <span class="c1"># generate a random string for the state parameter</span>
-</span><span id="oauth2_authorize-52"><a href="#oauth2_authorize-52"><span class="linenos">52</span></a>    <span class="n">session</span><span class="p">[</span><span class="s1">&#39;oauth2_state&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">secrets</span><span class="o">.</span><span class="n">token_urlsafe</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
-</span><span id="oauth2_authorize-53"><a href="#oauth2_authorize-53"><span class="linenos">53</span></a>
-</span><span id="oauth2_authorize-54"><a href="#oauth2_authorize-54"><span class="linenos">54</span></a>    <span class="c1"># generate a random string for the state parameter</span>
-</span><span id="oauth2_authorize-55"><a href="#oauth2_authorize-55"><span class="linenos">55</span></a>    <span class="n">session</span><span class="p">[</span><span class="s1">&#39;oauth2_state&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">secrets</span><span class="o">.</span><span class="n">token_urlsafe</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
-</span><span id="oauth2_authorize-56"><a href="#oauth2_authorize-56"><span class="linenos">56</span></a>
-</span><span id="oauth2_authorize-57"><a href="#oauth2_authorize-57"><span class="linenos">57</span></a>    <span class="c1"># create a query string with all the OAuth2 parameters</span>
-</span><span id="oauth2_authorize-58"><a href="#oauth2_authorize-58"><span class="linenos">58</span></a>    <span class="n">qs</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">({</span>
-</span><span id="oauth2_authorize-59"><a href="#oauth2_authorize-59"><span class="linenos">59</span></a>        <span class="s1">&#39;client_id&#39;</span><span class="p">:</span> <span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;client_id&#39;</span><span class="p">],</span>
-</span><span id="oauth2_authorize-60"><a href="#oauth2_authorize-60"><span class="linenos">60</span></a>        <span class="s1">&#39;redirect_uri&#39;</span><span class="p">:</span> <span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;auth.oauth2_callback&#39;</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="n">provider</span><span class="p">,</span>
-</span><span id="oauth2_authorize-61"><a href="#oauth2_authorize-61"><span class="linenos">61</span></a>                                <span class="n">_external</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-</span><span id="oauth2_authorize-62"><a href="#oauth2_authorize-62"><span class="linenos">62</span></a>        <span class="s1">&#39;response_type&#39;</span><span class="p">:</span> <span class="s1">&#39;code&#39;</span><span class="p">,</span>
-</span><span id="oauth2_authorize-63"><a href="#oauth2_authorize-63"><span class="linenos">63</span></a>        <span class="s1">&#39;scope&#39;</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;scopes&#39;</span><span class="p">]),</span>
-</span><span id="oauth2_authorize-64"><a href="#oauth2_authorize-64"><span class="linenos">64</span></a>        <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="n">session</span><span class="p">[</span><span class="s1">&#39;oauth2_state&#39;</span><span class="p">],</span>
-</span><span id="oauth2_authorize-65"><a href="#oauth2_authorize-65"><span class="linenos">65</span></a>    <span class="p">})</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="oauth2_authorize-53"><a href="#oauth2_authorize-53"><span class="linenos">53</span></a><span class="nd">@authBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/&lt;provider&gt;&quot;</span><span class="p">)</span>
+</span><span id="oauth2_authorize-54"><a href="#oauth2_authorize-54"><span class="linenos">54</span></a><span class="k">def</span> <span class="nf">oauth2_authorize</span><span class="p">(</span><span class="n">provider</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="oauth2_authorize-55"><a href="#oauth2_authorize-55"><span class="linenos">55</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="oauth2_authorize-56"><a href="#oauth2_authorize-56"><span class="linenos">56</span></a><span class="sd">    Redirects user to the given provider.</span>
+</span><span id="oauth2_authorize-57"><a href="#oauth2_authorize-57"><span class="linenos">57</span></a><span class="sd">    :param provider: str of provider (currently only accepts google)</span>
+</span><span id="oauth2_authorize-58"><a href="#oauth2_authorize-58"><span class="linenos">58</span></a><span class="sd">    :return: Redirects to provider login</span>
+</span><span id="oauth2_authorize-59"><a href="#oauth2_authorize-59"><span class="linenos">59</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="oauth2_authorize-60"><a href="#oauth2_authorize-60"><span class="linenos">60</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_anonymous</span><span class="p">:</span>
+</span><span id="oauth2_authorize-61"><a href="#oauth2_authorize-61"><span class="linenos">61</span></a>        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;auth.loginAs&#39;</span><span class="p">))</span>
+</span><span id="oauth2_authorize-62"><a href="#oauth2_authorize-62"><span class="linenos">62</span></a>
+</span><span id="oauth2_authorize-63"><a href="#oauth2_authorize-63"><span class="linenos">63</span></a>    <span class="n">provider_data</span> <span class="o">=</span> <span class="n">current_app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;OAUTH2_PROVIDERS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span>
+</span><span id="oauth2_authorize-64"><a href="#oauth2_authorize-64"><span class="linenos">64</span></a>    <span class="k">if</span> <span class="n">provider_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="oauth2_authorize-65"><a href="#oauth2_authorize-65"><span class="linenos">65</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span>
 </span><span id="oauth2_authorize-66"><a href="#oauth2_authorize-66"><span class="linenos">66</span></a>
-</span><span id="oauth2_authorize-67"><a href="#oauth2_authorize-67"><span class="linenos">67</span></a>    <span class="c1"># redirect the user to the OAuth2 provider authorization URL</span>
-</span><span id="oauth2_authorize-68"><a href="#oauth2_authorize-68"><span class="linenos">68</span></a>    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;authorize_url&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;?&#39;</span> <span class="o">+</span> <span class="n">qs</span><span class="p">)</span>
+</span><span id="oauth2_authorize-67"><a href="#oauth2_authorize-67"><span class="linenos">67</span></a>    <span class="c1"># generate a random string for the state parameter</span>
+</span><span id="oauth2_authorize-68"><a href="#oauth2_authorize-68"><span class="linenos">68</span></a>    <span class="n">session</span><span class="p">[</span><span class="s1">&#39;oauth2_state&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">secrets</span><span class="o">.</span><span class="n">token_urlsafe</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+</span><span id="oauth2_authorize-69"><a href="#oauth2_authorize-69"><span class="linenos">69</span></a>
+</span><span id="oauth2_authorize-70"><a href="#oauth2_authorize-70"><span class="linenos">70</span></a>    <span class="c1"># generate a random string for the state parameter</span>
+</span><span id="oauth2_authorize-71"><a href="#oauth2_authorize-71"><span class="linenos">71</span></a>    <span class="n">session</span><span class="p">[</span><span class="s1">&#39;oauth2_state&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">secrets</span><span class="o">.</span><span class="n">token_urlsafe</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+</span><span id="oauth2_authorize-72"><a href="#oauth2_authorize-72"><span class="linenos">72</span></a>
+</span><span id="oauth2_authorize-73"><a href="#oauth2_authorize-73"><span class="linenos">73</span></a>    <span class="c1"># create a query string with all the OAuth2 parameters</span>
+</span><span id="oauth2_authorize-74"><a href="#oauth2_authorize-74"><span class="linenos">74</span></a>    <span class="n">qs</span> <span class="o">=</span> <span class="n">urlencode</span><span class="p">({</span>
+</span><span id="oauth2_authorize-75"><a href="#oauth2_authorize-75"><span class="linenos">75</span></a>        <span class="s1">&#39;client_id&#39;</span><span class="p">:</span> <span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;client_id&#39;</span><span class="p">],</span>
+</span><span id="oauth2_authorize-76"><a href="#oauth2_authorize-76"><span class="linenos">76</span></a>        <span class="s1">&#39;redirect_uri&#39;</span><span class="p">:</span> <span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;auth.oauth2_callback&#39;</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="n">provider</span><span class="p">,</span>
+</span><span id="oauth2_authorize-77"><a href="#oauth2_authorize-77"><span class="linenos">77</span></a>                                <span class="n">_external</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+</span><span id="oauth2_authorize-78"><a href="#oauth2_authorize-78"><span class="linenos">78</span></a>        <span class="s1">&#39;response_type&#39;</span><span class="p">:</span> <span class="s1">&#39;code&#39;</span><span class="p">,</span>
+</span><span id="oauth2_authorize-79"><a href="#oauth2_authorize-79"><span class="linenos">79</span></a>        <span class="s1">&#39;scope&#39;</span><span class="p">:</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;scopes&#39;</span><span class="p">]),</span>
+</span><span id="oauth2_authorize-80"><a href="#oauth2_authorize-80"><span class="linenos">80</span></a>        <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="n">session</span><span class="p">[</span><span class="s1">&#39;oauth2_state&#39;</span><span class="p">],</span>
+</span><span id="oauth2_authorize-81"><a href="#oauth2_authorize-81"><span class="linenos">81</span></a>    <span class="p">})</span>
+</span><span id="oauth2_authorize-82"><a href="#oauth2_authorize-82"><span class="linenos">82</span></a>
+</span><span id="oauth2_authorize-83"><a href="#oauth2_authorize-83"><span class="linenos">83</span></a>    <span class="c1"># redirect the user to the OAuth2 provider authorization URL</span>
+</span><span id="oauth2_authorize-84"><a href="#oauth2_authorize-84"><span class="linenos">84</span></a>    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;authorize_url&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;?&#39;</span> <span class="o">+</span> <span class="n">qs</span><span class="p">)</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Authorizes user.</p>
+            <div class="docstring"><p>Redirects user to the given provider.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>provider</strong>:  str of provider (currently only accepts google)</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Redirects to provider login</p>
+</blockquote>
 </div>
 
 
@@ -399,69 +467,88 @@
 
     </div>
     <a class="headerlink" href="#oauth2_callback"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="oauth2_callback-70"><a href="#oauth2_callback-70"><span class="linenos"> 70</span></a><span class="nd">@authBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/callback/&lt;provider&gt;&#39;</span><span class="p">)</span>
-</span><span id="oauth2_callback-71"><a href="#oauth2_callback-71"><span class="linenos"> 71</span></a><span class="k">def</span> <span class="nf">oauth2_callback</span><span class="p">(</span><span class="n">provider</span><span class="p">):</span>
-</span><span id="oauth2_callback-72"><a href="#oauth2_callback-72"><span class="linenos"> 72</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Logs in user.&quot;&quot;&quot;</span>
-</span><span id="oauth2_callback-73"><a href="#oauth2_callback-73"><span class="linenos"> 73</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_anonymous</span><span class="p">:</span>
-</span><span id="oauth2_callback-74"><a href="#oauth2_callback-74"><span class="linenos"> 74</span></a>        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;auth.loginAs&#39;</span><span class="p">))</span>
-</span><span id="oauth2_callback-75"><a href="#oauth2_callback-75"><span class="linenos"> 75</span></a>
-</span><span id="oauth2_callback-76"><a href="#oauth2_callback-76"><span class="linenos"> 76</span></a>    <span class="n">provider_data</span> <span class="o">=</span> <span class="n">current_app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;OAUTH2_PROVIDERS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span>
-</span><span id="oauth2_callback-77"><a href="#oauth2_callback-77"><span class="linenos"> 77</span></a>    <span class="k">if</span> <span class="n">provider_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="oauth2_callback-78"><a href="#oauth2_callback-78"><span class="linenos"> 78</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span>
-</span><span id="oauth2_callback-79"><a href="#oauth2_callback-79"><span class="linenos"> 79</span></a>
-</span><span id="oauth2_callback-80"><a href="#oauth2_callback-80"><span class="linenos"> 80</span></a>    <span class="c1"># if there was an authentication error, flash the error messages and exit</span>
-</span><span id="oauth2_callback-81"><a href="#oauth2_callback-81"><span class="linenos"> 81</span></a>    <span class="k">if</span> <span class="s1">&#39;error&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
-</span><span id="oauth2_callback-82"><a href="#oauth2_callback-82"><span class="linenos"> 82</span></a>        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-</span><span id="oauth2_callback-83"><a href="#oauth2_callback-83"><span class="linenos"> 83</span></a>            <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">):</span>
-</span><span id="oauth2_callback-84"><a href="#oauth2_callback-84"><span class="linenos"> 84</span></a>                <span class="n">flash</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
-</span><span id="oauth2_callback-85"><a href="#oauth2_callback-85"><span class="linenos"> 85</span></a>        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;customer.home&#39;</span><span class="p">))</span>
-</span><span id="oauth2_callback-86"><a href="#oauth2_callback-86"><span class="linenos"> 86</span></a>
-</span><span id="oauth2_callback-87"><a href="#oauth2_callback-87"><span class="linenos"> 87</span></a>    <span class="c1"># make sure that the state parameter matches the one we created in the</span>
-</span><span id="oauth2_callback-88"><a href="#oauth2_callback-88"><span class="linenos"> 88</span></a>    <span class="c1"># authorization request</span>
-</span><span id="oauth2_callback-89"><a href="#oauth2_callback-89"><span class="linenos"> 89</span></a>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;oauth2_state&#39;</span><span class="p">):</span>
-</span><span id="oauth2_callback-90"><a href="#oauth2_callback-90"><span class="linenos"> 90</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
-</span><span id="oauth2_callback-91"><a href="#oauth2_callback-91"><span class="linenos"> 91</span></a>
-</span><span id="oauth2_callback-92"><a href="#oauth2_callback-92"><span class="linenos"> 92</span></a>    <span class="c1"># make sure that the authorization code is present</span>
-</span><span id="oauth2_callback-93"><a href="#oauth2_callback-93"><span class="linenos"> 93</span></a>    <span class="k">if</span> <span class="s1">&#39;code&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
-</span><span id="oauth2_callback-94"><a href="#oauth2_callback-94"><span class="linenos"> 94</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
-</span><span id="oauth2_callback-95"><a href="#oauth2_callback-95"><span class="linenos"> 95</span></a>
-</span><span id="oauth2_callback-96"><a href="#oauth2_callback-96"><span class="linenos"> 96</span></a>    <span class="c1"># exchange the authorization code for an access token</span>
-</span><span id="oauth2_callback-97"><a href="#oauth2_callback-97"><span class="linenos"> 97</span></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;token_url&#39;</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span>
-</span><span id="oauth2_callback-98"><a href="#oauth2_callback-98"><span class="linenos"> 98</span></a>        <span class="s1">&#39;client_id&#39;</span><span class="p">:</span> <span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;client_id&#39;</span><span class="p">],</span>
-</span><span id="oauth2_callback-99"><a href="#oauth2_callback-99"><span class="linenos"> 99</span></a>        <span class="s1">&#39;client_secret&#39;</span><span class="p">:</span> <span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;client_secret&#39;</span><span class="p">],</span>
-</span><span id="oauth2_callback-100"><a href="#oauth2_callback-100"><span class="linenos">100</span></a>        <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">],</span>
-</span><span id="oauth2_callback-101"><a href="#oauth2_callback-101"><span class="linenos">101</span></a>        <span class="s1">&#39;grant_type&#39;</span><span class="p">:</span> <span class="s1">&#39;authorization_code&#39;</span><span class="p">,</span>
-</span><span id="oauth2_callback-102"><a href="#oauth2_callback-102"><span class="linenos">102</span></a>        <span class="s1">&#39;redirect_uri&#39;</span><span class="p">:</span> <span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;auth.oauth2_callback&#39;</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="n">provider</span><span class="p">,</span>
-</span><span id="oauth2_callback-103"><a href="#oauth2_callback-103"><span class="linenos">103</span></a>                                <span class="n">_external</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-</span><span id="oauth2_callback-104"><a href="#oauth2_callback-104"><span class="linenos">104</span></a>    <span class="p">},</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Accept&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">})</span>
-</span><span id="oauth2_callback-105"><a href="#oauth2_callback-105"><span class="linenos">105</span></a>    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
-</span><span id="oauth2_callback-106"><a href="#oauth2_callback-106"><span class="linenos">106</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
-</span><span id="oauth2_callback-107"><a href="#oauth2_callback-107"><span class="linenos">107</span></a>    <span class="n">oauth2_token</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;access_token&#39;</span><span class="p">)</span>
-</span><span id="oauth2_callback-108"><a href="#oauth2_callback-108"><span class="linenos">108</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">oauth2_token</span><span class="p">:</span>
-</span><span id="oauth2_callback-109"><a href="#oauth2_callback-109"><span class="linenos">109</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
-</span><span id="oauth2_callback-110"><a href="#oauth2_callback-110"><span class="linenos">110</span></a>
-</span><span id="oauth2_callback-111"><a href="#oauth2_callback-111"><span class="linenos">111</span></a>    <span class="c1"># use the access token to get the user&#39;s email address</span>
-</span><span id="oauth2_callback-112"><a href="#oauth2_callback-112"><span class="linenos">112</span></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;userinfo&#39;</span><span class="p">][</span><span class="s1">&#39;url&#39;</span><span class="p">],</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span>
-</span><span id="oauth2_callback-113"><a href="#oauth2_callback-113"><span class="linenos">113</span></a>        <span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="s1">&#39;Bearer &#39;</span> <span class="o">+</span> <span class="n">oauth2_token</span><span class="p">,</span>
-</span><span id="oauth2_callback-114"><a href="#oauth2_callback-114"><span class="linenos">114</span></a>        <span class="s1">&#39;Accept&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
-</span><span id="oauth2_callback-115"><a href="#oauth2_callback-115"><span class="linenos">115</span></a>    <span class="p">})</span>
-</span><span id="oauth2_callback-116"><a href="#oauth2_callback-116"><span class="linenos">116</span></a>    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="oauth2_callback-87"><a href="#oauth2_callback-87"><span class="linenos"> 87</span></a><span class="nd">@authBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/callback/&lt;provider&gt;&#39;</span><span class="p">)</span>
+</span><span id="oauth2_callback-88"><a href="#oauth2_callback-88"><span class="linenos"> 88</span></a><span class="k">def</span> <span class="nf">oauth2_callback</span><span class="p">(</span><span class="n">provider</span><span class="p">):</span>
+</span><span id="oauth2_callback-89"><a href="#oauth2_callback-89"><span class="linenos"> 89</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="oauth2_callback-90"><a href="#oauth2_callback-90"><span class="linenos"> 90</span></a><span class="sd">    Logs in user with the returned authorization code.</span>
+</span><span id="oauth2_callback-91"><a href="#oauth2_callback-91"><span class="linenos"> 91</span></a><span class="sd">    If the user does not exist within the database, then a new entry is created with their email.</span>
+</span><span id="oauth2_callback-92"><a href="#oauth2_callback-92"><span class="linenos"> 92</span></a>
+</span><span id="oauth2_callback-93"><a href="#oauth2_callback-93"><span class="linenos"> 93</span></a><span class="sd">    :param provider: str of provider (currently only accepts google)</span>
+</span><span id="oauth2_callback-94"><a href="#oauth2_callback-94"><span class="linenos"> 94</span></a><span class="sd">    :return: Redirect to either loginAs or customer landing page</span>
+</span><span id="oauth2_callback-95"><a href="#oauth2_callback-95"><span class="linenos"> 95</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="oauth2_callback-96"><a href="#oauth2_callback-96"><span class="linenos"> 96</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_anonymous</span><span class="p">:</span>
+</span><span id="oauth2_callback-97"><a href="#oauth2_callback-97"><span class="linenos"> 97</span></a>        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;auth.loginAs&#39;</span><span class="p">))</span>
+</span><span id="oauth2_callback-98"><a href="#oauth2_callback-98"><span class="linenos"> 98</span></a>
+</span><span id="oauth2_callback-99"><a href="#oauth2_callback-99"><span class="linenos"> 99</span></a>    <span class="n">provider_data</span> <span class="o">=</span> <span class="n">current_app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;OAUTH2_PROVIDERS&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span>
+</span><span id="oauth2_callback-100"><a href="#oauth2_callback-100"><span class="linenos">100</span></a>    <span class="k">if</span> <span class="n">provider_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="oauth2_callback-101"><a href="#oauth2_callback-101"><span class="linenos">101</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span>
+</span><span id="oauth2_callback-102"><a href="#oauth2_callback-102"><span class="linenos">102</span></a>
+</span><span id="oauth2_callback-103"><a href="#oauth2_callback-103"><span class="linenos">103</span></a>    <span class="c1"># if there was an authentication error, flash the error messages and exit</span>
+</span><span id="oauth2_callback-104"><a href="#oauth2_callback-104"><span class="linenos">104</span></a>    <span class="k">if</span> <span class="s1">&#39;error&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
+</span><span id="oauth2_callback-105"><a href="#oauth2_callback-105"><span class="linenos">105</span></a>        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span id="oauth2_callback-106"><a href="#oauth2_callback-106"><span class="linenos">106</span></a>            <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">):</span>
+</span><span id="oauth2_callback-107"><a href="#oauth2_callback-107"><span class="linenos">107</span></a>                <span class="n">flash</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span><span id="oauth2_callback-108"><a href="#oauth2_callback-108"><span class="linenos">108</span></a>        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;customer.home&#39;</span><span class="p">))</span>
+</span><span id="oauth2_callback-109"><a href="#oauth2_callback-109"><span class="linenos">109</span></a>
+</span><span id="oauth2_callback-110"><a href="#oauth2_callback-110"><span class="linenos">110</span></a>    <span class="c1"># make sure that the state parameter matches the one we created in the</span>
+</span><span id="oauth2_callback-111"><a href="#oauth2_callback-111"><span class="linenos">111</span></a>    <span class="c1"># authorization request</span>
+</span><span id="oauth2_callback-112"><a href="#oauth2_callback-112"><span class="linenos">112</span></a>    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;oauth2_state&#39;</span><span class="p">):</span>
+</span><span id="oauth2_callback-113"><a href="#oauth2_callback-113"><span class="linenos">113</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
+</span><span id="oauth2_callback-114"><a href="#oauth2_callback-114"><span class="linenos">114</span></a>
+</span><span id="oauth2_callback-115"><a href="#oauth2_callback-115"><span class="linenos">115</span></a>    <span class="c1"># make sure that the authorization code is present</span>
+</span><span id="oauth2_callback-116"><a href="#oauth2_callback-116"><span class="linenos">116</span></a>    <span class="k">if</span> <span class="s1">&#39;code&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">:</span>
 </span><span id="oauth2_callback-117"><a href="#oauth2_callback-117"><span class="linenos">117</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
-</span><span id="oauth2_callback-118"><a href="#oauth2_callback-118"><span class="linenos">118</span></a>    <span class="n">email</span> <span class="o">=</span> <span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;userinfo&#39;</span><span class="p">][</span><span class="s1">&#39;email&#39;</span><span class="p">](</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
-</span><span id="oauth2_callback-119"><a href="#oauth2_callback-119"><span class="linenos">119</span></a>
-</span><span id="oauth2_callback-120"><a href="#oauth2_callback-120"><span class="linenos">120</span></a>    <span class="c1"># find or create the user in the database</span>
-</span><span id="oauth2_callback-121"><a href="#oauth2_callback-121"><span class="linenos">121</span></a>    <span class="n">user</span> <span class="o">=</span> <span class="n">getUserByEmail</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
-</span><span id="oauth2_callback-122"><a href="#oauth2_callback-122"><span class="linenos">122</span></a>    <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="oauth2_callback-123"><a href="#oauth2_callback-123"><span class="linenos">123</span></a>        <span class="n">user</span> <span class="o">=</span> <span class="n">createUser</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
-</span><span id="oauth2_callback-124"><a href="#oauth2_callback-124"><span class="linenos">124</span></a>
-</span><span id="oauth2_callback-125"><a href="#oauth2_callback-125"><span class="linenos">125</span></a>    <span class="c1"># log the user in</span>
-</span><span id="oauth2_callback-126"><a href="#oauth2_callback-126"><span class="linenos">126</span></a>    <span class="n">login_user</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
-</span><span id="oauth2_callback-127"><a href="#oauth2_callback-127"><span class="linenos">127</span></a>
-</span><span id="oauth2_callback-128"><a href="#oauth2_callback-128"><span class="linenos">128</span></a>    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;auth.loginAs&#39;</span><span class="p">))</span>
+</span><span id="oauth2_callback-118"><a href="#oauth2_callback-118"><span class="linenos">118</span></a>
+</span><span id="oauth2_callback-119"><a href="#oauth2_callback-119"><span class="linenos">119</span></a>    <span class="c1"># exchange the authorization code for an access token</span>
+</span><span id="oauth2_callback-120"><a href="#oauth2_callback-120"><span class="linenos">120</span></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;token_url&#39;</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="p">{</span>
+</span><span id="oauth2_callback-121"><a href="#oauth2_callback-121"><span class="linenos">121</span></a>        <span class="s1">&#39;client_id&#39;</span><span class="p">:</span> <span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;client_id&#39;</span><span class="p">],</span>
+</span><span id="oauth2_callback-122"><a href="#oauth2_callback-122"><span class="linenos">122</span></a>        <span class="s1">&#39;client_secret&#39;</span><span class="p">:</span> <span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;client_secret&#39;</span><span class="p">],</span>
+</span><span id="oauth2_callback-123"><a href="#oauth2_callback-123"><span class="linenos">123</span></a>        <span class="s1">&#39;code&#39;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="s1">&#39;code&#39;</span><span class="p">],</span>
+</span><span id="oauth2_callback-124"><a href="#oauth2_callback-124"><span class="linenos">124</span></a>        <span class="s1">&#39;grant_type&#39;</span><span class="p">:</span> <span class="s1">&#39;authorization_code&#39;</span><span class="p">,</span>
+</span><span id="oauth2_callback-125"><a href="#oauth2_callback-125"><span class="linenos">125</span></a>        <span class="s1">&#39;redirect_uri&#39;</span><span class="p">:</span> <span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;auth.oauth2_callback&#39;</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="n">provider</span><span class="p">,</span>
+</span><span id="oauth2_callback-126"><a href="#oauth2_callback-126"><span class="linenos">126</span></a>                                <span class="n">_external</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+</span><span id="oauth2_callback-127"><a href="#oauth2_callback-127"><span class="linenos">127</span></a>    <span class="p">},</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Accept&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">})</span>
+</span><span id="oauth2_callback-128"><a href="#oauth2_callback-128"><span class="linenos">128</span></a>    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+</span><span id="oauth2_callback-129"><a href="#oauth2_callback-129"><span class="linenos">129</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
+</span><span id="oauth2_callback-130"><a href="#oauth2_callback-130"><span class="linenos">130</span></a>    <span class="n">oauth2_token</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;access_token&#39;</span><span class="p">)</span>
+</span><span id="oauth2_callback-131"><a href="#oauth2_callback-131"><span class="linenos">131</span></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">oauth2_token</span><span class="p">:</span>
+</span><span id="oauth2_callback-132"><a href="#oauth2_callback-132"><span class="linenos">132</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
+</span><span id="oauth2_callback-133"><a href="#oauth2_callback-133"><span class="linenos">133</span></a>
+</span><span id="oauth2_callback-134"><a href="#oauth2_callback-134"><span class="linenos">134</span></a>    <span class="c1"># use the access token to get the user&#39;s email address</span>
+</span><span id="oauth2_callback-135"><a href="#oauth2_callback-135"><span class="linenos">135</span></a>    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;userinfo&#39;</span><span class="p">][</span><span class="s1">&#39;url&#39;</span><span class="p">],</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span>
+</span><span id="oauth2_callback-136"><a href="#oauth2_callback-136"><span class="linenos">136</span></a>        <span class="s1">&#39;Authorization&#39;</span><span class="p">:</span> <span class="s1">&#39;Bearer &#39;</span> <span class="o">+</span> <span class="n">oauth2_token</span><span class="p">,</span>
+</span><span id="oauth2_callback-137"><a href="#oauth2_callback-137"><span class="linenos">137</span></a>        <span class="s1">&#39;Accept&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">,</span>
+</span><span id="oauth2_callback-138"><a href="#oauth2_callback-138"><span class="linenos">138</span></a>    <span class="p">})</span>
+</span><span id="oauth2_callback-139"><a href="#oauth2_callback-139"><span class="linenos">139</span></a>    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+</span><span id="oauth2_callback-140"><a href="#oauth2_callback-140"><span class="linenos">140</span></a>        <span class="n">abort</span><span class="p">(</span><span class="mi">401</span><span class="p">)</span>
+</span><span id="oauth2_callback-141"><a href="#oauth2_callback-141"><span class="linenos">141</span></a>    <span class="n">email</span> <span class="o">=</span> <span class="n">provider_data</span><span class="p">[</span><span class="s1">&#39;userinfo&#39;</span><span class="p">][</span><span class="s1">&#39;email&#39;</span><span class="p">](</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+</span><span id="oauth2_callback-142"><a href="#oauth2_callback-142"><span class="linenos">142</span></a>
+</span><span id="oauth2_callback-143"><a href="#oauth2_callback-143"><span class="linenos">143</span></a>    <span class="c1"># find or create the user in the database</span>
+</span><span id="oauth2_callback-144"><a href="#oauth2_callback-144"><span class="linenos">144</span></a>    <span class="n">user</span> <span class="o">=</span> <span class="n">getUserByEmail</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+</span><span id="oauth2_callback-145"><a href="#oauth2_callback-145"><span class="linenos">145</span></a>    <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="oauth2_callback-146"><a href="#oauth2_callback-146"><span class="linenos">146</span></a>        <span class="n">user</span> <span class="o">=</span> <span class="n">createUser</span><span class="p">(</span><span class="n">email</span><span class="p">)</span>
+</span><span id="oauth2_callback-147"><a href="#oauth2_callback-147"><span class="linenos">147</span></a>
+</span><span id="oauth2_callback-148"><a href="#oauth2_callback-148"><span class="linenos">148</span></a>    <span class="c1"># log the user in</span>
+</span><span id="oauth2_callback-149"><a href="#oauth2_callback-149"><span class="linenos">149</span></a>    <span class="n">login_user</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+</span><span id="oauth2_callback-150"><a href="#oauth2_callback-150"><span class="linenos">150</span></a>
+</span><span id="oauth2_callback-151"><a href="#oauth2_callback-151"><span class="linenos">151</span></a>    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;auth.loginAs&#39;</span><span class="p">))</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Logs in user.</p>
+            <div class="docstring"><p>Logs in user with the returned authorization code.
+If the user does not exist within the database, then a new entry is created with their email.</p>
+
+<h6 id="parameters">Parameters</h6>
+
+<ul>
+<li><strong>provider</strong>:  str of provider (currently only accepts google)</li>
+</ul>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Redirect to either loginAs or customer landing page</p>
+</blockquote>
 </div>
 
 
@@ -478,16 +565,27 @@
 
     </div>
     <a class="headerlink" href="#loginAs"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="loginAs-131"><a href="#loginAs-131"><span class="linenos">131</span></a><span class="nd">@authBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/loginas&#39;</span><span class="p">)</span>
-</span><span id="loginAs-132"><a href="#loginAs-132"><span class="linenos">132</span></a><span class="k">def</span> <span class="nf">loginAs</span><span class="p">():</span>
-</span><span id="loginAs-133"><a href="#loginAs-133"><span class="linenos">133</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Logs in user as employee or manager.&quot;&quot;&quot;</span>
-</span><span id="loginAs-134"><a href="#loginAs-134"><span class="linenos">134</span></a>    <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_authenticated</span> <span class="ow">and</span> <span class="n">current_user</span><span class="o">.</span><span class="n">isEmployee</span><span class="p">:</span>
-</span><span id="loginAs-135"><a href="#loginAs-135"><span class="linenos">135</span></a>        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;login_as.html&quot;</span><span class="p">)</span>
-</span><span id="loginAs-136"><a href="#loginAs-136"><span class="linenos">136</span></a>    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;customer.order&#39;</span><span class="p">))</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="loginAs-154"><a href="#loginAs-154"><span class="linenos">154</span></a><span class="nd">@authBlueprint</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/loginas&#39;</span><span class="p">)</span>
+</span><span id="loginAs-155"><a href="#loginAs-155"><span class="linenos">155</span></a><span class="k">def</span> <span class="nf">loginAs</span><span class="p">():</span>
+</span><span id="loginAs-156"><a href="#loginAs-156"><span class="linenos">156</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="loginAs-157"><a href="#loginAs-157"><span class="linenos">157</span></a><span class="sd">    Renders the loginAs page (which holds list of links to different interfaces) unless you are a customer/guest only,</span>
+</span><span id="loginAs-158"><a href="#loginAs-158"><span class="linenos">158</span></a><span class="sd">    in which case you are automatically redirected to customer ordering page.</span>
+</span><span id="loginAs-159"><a href="#loginAs-159"><span class="linenos">159</span></a><span class="sd">    :return: Redirect to customer order page or render of loginAs page</span>
+</span><span id="loginAs-160"><a href="#loginAs-160"><span class="linenos">160</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="loginAs-161"><a href="#loginAs-161"><span class="linenos">161</span></a>    <span class="k">if</span> <span class="n">current_user</span><span class="o">.</span><span class="n">is_authenticated</span> <span class="ow">and</span> <span class="n">current_user</span><span class="o">.</span><span class="n">isEmployee</span><span class="p">:</span>
+</span><span id="loginAs-162"><a href="#loginAs-162"><span class="linenos">162</span></a>        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;login_as.html&quot;</span><span class="p">)</span>
+</span><span id="loginAs-163"><a href="#loginAs-163"><span class="linenos">163</span></a>    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;customer.order&#39;</span><span class="p">))</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Logs in user as employee or manager.</p>
+            <div class="docstring"><p>Renders the loginAs page (which holds list of links to different interfaces) unless you are a customer/guest only,
+in which case you are automatically redirected to customer ordering page.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Redirect to customer order page or render of loginAs page</p>
+</blockquote>
 </div>
 
 

@@ -15,31 +15,47 @@ CREDIT: https://blog.miguelgrinberg.com/post/oauth-authentication-with-flask-in-
 authBlueprint = Blueprint("auth", __name__, template_folder="templates", static_folder="static")
 loginManager = LoginManager()
 
+
 @loginManager.user_loader
 def load_user(user_id) -> User | None:
-    """Creates User object from given user_id. Return User object if successful."""
+    """
+    Creates User object from given user_id if it exists.
+    :param user_id: User ID (most likely an email)
+    :return: User object if exists, else None
+    """
     return getUserByEmail(user_id)
+
 
 @loginManager.unauthorized_handler
 def unauthorized_callback():
-    """Redirects to customer home page when user attempts an unauthorized action."""
+    """Redirects to customer home page when user attempts an unauthorized (403) action."""
     return redirect(url_for('customer.home'))
+
 
 @authBlueprint.route("/")
 def home():
     """Renders customer landing page."""
     return render_template("customer_landing.html")
 
+
 @authBlueprint.route("/logout")
 def logout():
-    """Redirects to customer home page when user logs out."""
+    """
+    Logs out user, then redirects to customer home page when user logs out.
+    :return: Redirect to customer landing page
+    """
     logout_user()
     flash("You have been logged out.")
     return redirect(url_for("customer.home"))
 
+
 @authBlueprint.route("/<provider>")
 def oauth2_authorize(provider: str):
-    """Authorizes user."""
+    """
+    Redirects user to the given provider.
+    :param provider: str of provider (currently only accepts google)
+    :return: Redirects to provider login
+    """
     if not current_user.is_anonymous:
         return redirect(url_for('auth.loginAs'))
 
@@ -66,9 +82,16 @@ def oauth2_authorize(provider: str):
     # redirect the user to the OAuth2 provider authorization URL
     return redirect(provider_data['authorize_url'] + '?' + qs)
 
+
 @authBlueprint.route('/callback/<provider>')
 def oauth2_callback(provider):
-    """Logs in user."""
+    """
+    Logs in user with the returned authorization code.
+    If the user does not exist within the database, then a new entry is created with their email.
+
+    :param provider: str of provider (currently only accepts google)
+    :return: Redirect to either loginAs or customer landing page
+    """
     if not current_user.is_anonymous:
         return redirect(url_for('auth.loginAs'))
 
@@ -129,7 +152,11 @@ def oauth2_callback(provider):
 
 @authBlueprint.route('/loginas')
 def loginAs():
-    """Logs in user as employee or manager."""
+    """
+    Renders the loginAs page (which holds list of links to different interfaces) unless you are a customer/guest only,
+    in which case you are automatically redirected to customer ordering page.
+    :return: Redirect to customer order page or render of loginAs page
+    """
     if current_user.is_authenticated and current_user.isEmployee:
         return render_template("login_as.html")
     return redirect(url_for('customer.order'))

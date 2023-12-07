@@ -5,6 +5,10 @@ from api.db import auth_querier
 class User(UserMixin):
     """A user that exists as an employee or a user. Email is the main identifier. ASSUMES EMAIL EXISTS!!!"""
     def __init__(self, _email: str):
+        """
+        Creates a User object given an email.
+        :param _email: Email of the logged-in user.
+        """
         super(User, self).__init__()
         self.id: str = str(_email)
 
@@ -25,7 +29,11 @@ class User(UserMixin):
         self.getUserStatus()
 
     def getEmployeeStatus(self) -> None:
-        """Populates isEmployee, employeeID, isManager."""
+        """
+        Populates isEmployee, employeeName, employeeID, isManager, isAdmin.
+        If preferredName is empty, uses employeeName instead.
+        :return: None
+        """
         result = auth_querier.getEmployeeByEmail(self.email)
 
         if result is None or len(result) < 1:
@@ -39,7 +47,10 @@ class User(UserMixin):
         self.isAdmin = result[0][4]
 
     def getUserStatus(self) -> None:
-        """Populates userID, username."""
+        """
+        Populates the user variables
+        :return: None
+        """
         result = auth_querier.getUserByEmail(self.email)
 
         if result is None or len(result) < 1:
