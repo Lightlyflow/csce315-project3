@@ -62,25 +62,37 @@
 
                         <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="kn">from</span> <span class="nn">api.db</span> <span class="kn">import</span> <span class="n">menuboard_querier</span>
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="k">def</span> <span class="nf">getMenuData</span><span class="p">():</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns all menu items from the database.&quot;&quot;&quot;</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>    <span class="k">return</span> <span class="n">menuboard_querier</span><span class="o">.</span><span class="n">getMenuItems</span><span class="p">()</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="k">def</span> <span class="nf">getMenuCategories</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">():</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns all menu category names from the database in order of priority.&quot;&quot;&quot;</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>    <span class="n">results</span> <span class="o">=</span> <span class="n">menuboard_querier</span><span class="o">.</span><span class="n">getCategoryNames</span><span class="p">()</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>    <span class="n">categoryNames</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>    <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>        <span class="n">categoryNames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cat</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="k">return</span> <span class="n">categoryNames</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="k">def</span> <span class="nf">getToppingNames</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">():</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns all topping names from the database.&quot;&quot;&quot;</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="n">results</span> <span class="o">=</span> <span class="n">menuboard_querier</span><span class="o">.</span><span class="n">getToppingNames</span><span class="p">()</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="n">toppingNames</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="k">for</span> <span class="n">topping</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>        <span class="n">toppingNames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">topping</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="k">return</span> <span class="n">toppingNames</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a>
+</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="k">def</span> <span class="nf">getMenuData</span><span class="p">():</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="sd">    Returns all in stock menu items from the database.</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="sd">    :return: List of menu items</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>    <span class="k">return</span> <span class="n">menuboard_querier</span><span class="o">.</span><span class="n">getMenuItems</span><span class="p">()</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="k">def</span> <span class="nf">getMenuCategories</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[]:</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a><span class="sd">    Returns all menu category names from the database in order of priority.</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a><span class="sd">    :return: Flattened list of category names</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="n">results</span> <span class="o">=</span> <span class="n">menuboard_querier</span><span class="o">.</span><span class="n">getCategoryNames</span><span class="p">()</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="n">categoryNames</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>        <span class="n">categoryNames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cat</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="k">return</span> <span class="n">categoryNames</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="k">def</span> <span class="nf">getToppingNames</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[]:</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="sd">    Returns all topping names from the database.</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="sd">    :return: Flattened list of topping names</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>    <span class="n">results</span> <span class="o">=</span> <span class="n">menuboard_querier</span><span class="o">.</span><span class="n">getToppingNames</span><span class="p">()</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>    <span class="n">toppingNames</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>    <span class="k">for</span> <span class="n">topping</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>        <span class="n">toppingNames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">topping</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>    <span class="k">return</span> <span class="n">toppingNames</span>
 </span></pre></div>
 
 
@@ -96,13 +108,22 @@
 
     </div>
     <a class="headerlink" href="#getMenuData"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="getMenuData-4"><a href="#getMenuData-4"><span class="linenos">4</span></a><span class="k">def</span> <span class="nf">getMenuData</span><span class="p">():</span>
-</span><span id="getMenuData-5"><a href="#getMenuData-5"><span class="linenos">5</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns all menu items from the database.&quot;&quot;&quot;</span>
-</span><span id="getMenuData-6"><a href="#getMenuData-6"><span class="linenos">6</span></a>    <span class="k">return</span> <span class="n">menuboard_querier</span><span class="o">.</span><span class="n">getMenuItems</span><span class="p">()</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="getMenuData-5"><a href="#getMenuData-5"><span class="linenos"> 5</span></a><span class="k">def</span> <span class="nf">getMenuData</span><span class="p">():</span>
+</span><span id="getMenuData-6"><a href="#getMenuData-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="getMenuData-7"><a href="#getMenuData-7"><span class="linenos"> 7</span></a><span class="sd">    Returns all in stock menu items from the database.</span>
+</span><span id="getMenuData-8"><a href="#getMenuData-8"><span class="linenos"> 8</span></a><span class="sd">    :return: List of menu items</span>
+</span><span id="getMenuData-9"><a href="#getMenuData-9"><span class="linenos"> 9</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="getMenuData-10"><a href="#getMenuData-10"><span class="linenos">10</span></a>    <span class="k">return</span> <span class="n">menuboard_querier</span><span class="o">.</span><span class="n">getMenuItems</span><span class="p">()</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Returns all menu items from the database.</p>
+            <div class="docstring"><p>Returns all in stock menu items from the database.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>List of menu items</p>
+</blockquote>
 </div>
 
 
@@ -118,17 +139,26 @@
 
     </div>
     <a class="headerlink" href="#getMenuCategories"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="getMenuCategories-8"><a href="#getMenuCategories-8"><span class="linenos"> 8</span></a><span class="k">def</span> <span class="nf">getMenuCategories</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">():</span>
-</span><span id="getMenuCategories-9"><a href="#getMenuCategories-9"><span class="linenos"> 9</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns all menu category names from the database in order of priority.&quot;&quot;&quot;</span>
-</span><span id="getMenuCategories-10"><a href="#getMenuCategories-10"><span class="linenos">10</span></a>    <span class="n">results</span> <span class="o">=</span> <span class="n">menuboard_querier</span><span class="o">.</span><span class="n">getCategoryNames</span><span class="p">()</span>
-</span><span id="getMenuCategories-11"><a href="#getMenuCategories-11"><span class="linenos">11</span></a>    <span class="n">categoryNames</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="getMenuCategories-12"><a href="#getMenuCategories-12"><span class="linenos">12</span></a>    <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
-</span><span id="getMenuCategories-13"><a href="#getMenuCategories-13"><span class="linenos">13</span></a>        <span class="n">categoryNames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cat</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</span><span id="getMenuCategories-14"><a href="#getMenuCategories-14"><span class="linenos">14</span></a>    <span class="k">return</span> <span class="n">categoryNames</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="getMenuCategories-13"><a href="#getMenuCategories-13"><span class="linenos">13</span></a><span class="k">def</span> <span class="nf">getMenuCategories</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[]:</span>
+</span><span id="getMenuCategories-14"><a href="#getMenuCategories-14"><span class="linenos">14</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="getMenuCategories-15"><a href="#getMenuCategories-15"><span class="linenos">15</span></a><span class="sd">    Returns all menu category names from the database in order of priority.</span>
+</span><span id="getMenuCategories-16"><a href="#getMenuCategories-16"><span class="linenos">16</span></a><span class="sd">    :return: Flattened list of category names</span>
+</span><span id="getMenuCategories-17"><a href="#getMenuCategories-17"><span class="linenos">17</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="getMenuCategories-18"><a href="#getMenuCategories-18"><span class="linenos">18</span></a>    <span class="n">results</span> <span class="o">=</span> <span class="n">menuboard_querier</span><span class="o">.</span><span class="n">getCategoryNames</span><span class="p">()</span>
+</span><span id="getMenuCategories-19"><a href="#getMenuCategories-19"><span class="linenos">19</span></a>    <span class="n">categoryNames</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="getMenuCategories-20"><a href="#getMenuCategories-20"><span class="linenos">20</span></a>    <span class="k">for</span> <span class="n">cat</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+</span><span id="getMenuCategories-21"><a href="#getMenuCategories-21"><span class="linenos">21</span></a>        <span class="n">categoryNames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cat</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span id="getMenuCategories-22"><a href="#getMenuCategories-22"><span class="linenos">22</span></a>    <span class="k">return</span> <span class="n">categoryNames</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Returns all menu category names from the database in order of priority.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Flattened list of category names</p>
+</blockquote>
 </div>
 
 
@@ -144,17 +174,26 @@
 
     </div>
     <a class="headerlink" href="#getToppingNames"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="getToppingNames-16"><a href="#getToppingNames-16"><span class="linenos">16</span></a><span class="k">def</span> <span class="nf">getToppingNames</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">():</span>
-</span><span id="getToppingNames-17"><a href="#getToppingNames-17"><span class="linenos">17</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns all topping names from the database.&quot;&quot;&quot;</span>
-</span><span id="getToppingNames-18"><a href="#getToppingNames-18"><span class="linenos">18</span></a>    <span class="n">results</span> <span class="o">=</span> <span class="n">menuboard_querier</span><span class="o">.</span><span class="n">getToppingNames</span><span class="p">()</span>
-</span><span id="getToppingNames-19"><a href="#getToppingNames-19"><span class="linenos">19</span></a>    <span class="n">toppingNames</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="getToppingNames-20"><a href="#getToppingNames-20"><span class="linenos">20</span></a>    <span class="k">for</span> <span class="n">topping</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
-</span><span id="getToppingNames-21"><a href="#getToppingNames-21"><span class="linenos">21</span></a>        <span class="n">toppingNames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">topping</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</span><span id="getToppingNames-22"><a href="#getToppingNames-22"><span class="linenos">22</span></a>    <span class="k">return</span> <span class="n">toppingNames</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="getToppingNames-25"><a href="#getToppingNames-25"><span class="linenos">25</span></a><span class="k">def</span> <span class="nf">getToppingNames</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="p">[]:</span>
+</span><span id="getToppingNames-26"><a href="#getToppingNames-26"><span class="linenos">26</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="getToppingNames-27"><a href="#getToppingNames-27"><span class="linenos">27</span></a><span class="sd">    Returns all topping names from the database.</span>
+</span><span id="getToppingNames-28"><a href="#getToppingNames-28"><span class="linenos">28</span></a><span class="sd">    :return: Flattened list of topping names</span>
+</span><span id="getToppingNames-29"><a href="#getToppingNames-29"><span class="linenos">29</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="getToppingNames-30"><a href="#getToppingNames-30"><span class="linenos">30</span></a>    <span class="n">results</span> <span class="o">=</span> <span class="n">menuboard_querier</span><span class="o">.</span><span class="n">getToppingNames</span><span class="p">()</span>
+</span><span id="getToppingNames-31"><a href="#getToppingNames-31"><span class="linenos">31</span></a>    <span class="n">toppingNames</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="getToppingNames-32"><a href="#getToppingNames-32"><span class="linenos">32</span></a>    <span class="k">for</span> <span class="n">topping</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+</span><span id="getToppingNames-33"><a href="#getToppingNames-33"><span class="linenos">33</span></a>        <span class="n">toppingNames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">topping</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span><span id="getToppingNames-34"><a href="#getToppingNames-34"><span class="linenos">34</span></a>    <span class="k">return</span> <span class="n">toppingNames</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Returns all topping names from the database.</p>
+
+<h6 id="returns">Returns</h6>
+
+<blockquote>
+  <p>Flattened list of topping names</p>
+</blockquote>
 </div>
 
 
