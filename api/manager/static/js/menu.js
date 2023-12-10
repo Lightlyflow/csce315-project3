@@ -40,7 +40,7 @@ $(document).ready(async function() {
             selector: "tr",
             dataSrc: 0
         },
-        order: [[0, 'desc']],
+        order: [[0, 'asc']],
         columnDefs: [
             { orderable: true, className: 'reorder', targets: 0 },
             { orderable: false, targets: '_all' }
