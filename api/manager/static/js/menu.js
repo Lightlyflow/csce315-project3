@@ -180,6 +180,7 @@ $(document).ready(async function() {
 
         await updateCategories(data);
         await refreshCategories();
+        addAlert("success", "Updated menu order!");
     })
 
     await refreshMenuItems();
@@ -292,4 +293,13 @@ async function refreshCategories() {
     let data = await getCategories();
     menuItemOrderTable.rows.add(data).draw();
     menuItemOrderTable.columns.adjust().draw();
+}
+
+function addAlert(alertType, text) {
+    let alert = document.createElement('div');
+    alert.className = `alert alert-${alertType}`;
+    alert.role = "alert";
+    alert.innerText = text;
+
+    $("#alerts")[0].appendChild(alert);
 }
