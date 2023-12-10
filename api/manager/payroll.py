@@ -123,7 +123,7 @@ def payEmployee():
 
     try:
         employeeID = int(data['employeeid'])
-        totalPayment = int(data['total'])
+        totalPayment = float(data['total'])
     except (ValueError, KeyError):
         abort(400)
     if payEmployeeByID(employeeID, totalPayment):

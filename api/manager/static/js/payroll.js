@@ -123,9 +123,9 @@ $(document).ready(async function() {
         let resp = await pay(data);
 
         if (resp === "Payment succeeded!") {
-            addAlert("success", `Payment successful for ${employeeSelect.options[employeeSelect.selectedIndex]}!`);
+            addAlert("success", `Payment successful for ${employeeSelect.options[employeeSelect.selectedIndex].innerText}!`);
         } else {
-            addAlert("danger", `Payment failed for ${employeeSelect.options[employeeSelect.selectedIndex]}!`);
+            addAlert("danger", `Payment failed for ${employeeSelect.options[employeeSelect.selectedIndex].innerText}!`);
         }
     });
 

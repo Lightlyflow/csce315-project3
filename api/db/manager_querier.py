@@ -294,7 +294,7 @@ def getMenuItemCategories():
     :return: List containing categories, ordered by priority (highest to lowest)
     """
     return execute(
-        f"SELECT m.category FROM menu_items_table AS m LEFT JOIN category_priority AS p ON p.name=m.category GROUP BY m.category, p.priority ORDER BY p.priority DESC;")
+        f"SELECT m.category FROM menu_items_table AS m LEFT JOIN category_priority AS p ON p.name=m.category GROUP BY m.category, p.priority ORDER BY p.priority;")
 
 
 def addCategories(categories: str):
